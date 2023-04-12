@@ -1,0 +1,252 @@
+ContextMap QuizApplicationMap {
+    contains UserManagement
+    contains QuestionManagement
+    contains EvaluationProcess
+    contains UserInteraction
+    contains StatisticsAndVisualization
+    contains NotificationsAndCommunication
+	contains SkillManagement
+
+	UserManagement [D,ACL]<-[PL,D] UserInteraction {
+		implementationTechnology = "RESTfulHTTP"
+		downstreamRights = INFLUENCER
+		exposedAggregates = Printing
+	}
+	
+	PrintingContext [D]->[] PolicyManagementContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Printing
+	}
+	
+	RiskManagementContext [P]<->[P] PolicyManagementContext {
+		implementationTechnology = "RESTfulHTTP"
+	}	
+
+	PolicyManagementContext [D,CF]<-[U,OHS,PL] CustomerManagementContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Customers
+	}
+
+	DebtCollection [D,ACL]<-[U,OHS,PL] PrintingContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Printing
+	}
+
+}
+
+BoundedContext SkillManagement {
+    Module Question {
+        Aggregate User {
+            Entity User {
+                aggregateRoot
+                
+                - UserId userId
+                - String username
+                - String password
+                - String email
+                
+                Repository UserRepository {
+                    @User find(UserId userId);
+                    @User findByUsername(String username);
+                    save(@User user);
+                    delete(@User user);
+                }
+            }
+            
+            ValueObject UserId {
+                String id
+            }
+        }
+    }
+
+	Module TagAndCategory {
+        Aggregate Tag {
+            Entity Tag {
+                aggregateRoot
+                
+                - TagId tagId
+                - String username
+                - String password
+                - String email
+                
+                Repository UserRepository {
+                    @User find(UserId userId);
+                    @User findByUsername(String username);
+                    save(@User user);
+                    delete(@User user);
+                }
+            }
+            
+            ValueObject UserId {
+                String id
+            }
+        }
+
+		Aggregate Category {
+            Entity User {
+                aggregateRoot
+                
+                - UserId userId
+                - String username
+                - String password
+                - String email
+                
+                Repository UserRepository {
+                    @User find(UserId userId);
+                    @User findByUsername(String username);
+                    save(@User user);
+                    delete(@User user);
+                }
+            }
+            
+            ValueObject UserId {
+                String id
+            }
+        }
+    }
+}
+
+BoundedContext UserManagement {
+    Module user {
+        Aggregate User {
+            Entity User {
+                aggregateRoot
+                
+                - UserId userId
+                - String username
+                - String password
+                - String email
+                
+                Repository UserRepository {
+                    @User find(UserId userId);
+                    @User findByUsername(String username);
+                    save(@User user);
+                    delete(@User user);
+                }
+            }
+            
+            ValueObject UserId {
+                String id
+            }
+        }
+    }
+}
+
+BoundedContext QuestionManagement {
+    Module question {
+        Aggregate Question {
+            Entity Question {
+                aggregateRoot
+                
+                - QuestionId questionId
+                - String title
+                - String content
+                - String category
+                - List<String> tags
+                
+                Repository QuestionRepository {
+                    @Question find(QuestionId questionId);
+                    save(@Question question);
+                    delete(@Question question);
+                }
+            }
+            
+            ValueObject QuestionId {
+                String id
+            }
+        }
+    }
+}
+
+BoundedContext EvaluationProcess {
+    Module evaluation {
+        Aggregate Evaluation {
+            Entity Evaluation {
+                aggregateRoot
+                
+                - EvaluationId evaluationId
+                - UserId userId
+                - QuestionId questionId
+                - String userAnswer
+                - boolean isCorrect
+                - int points
+                
+                Repository EvaluationRepository {
+                    @Evaluation find(EvaluationId evaluationId);
+                    save(@Evaluation evaluation);
+                }
+            }
+            
+            ValueObject EvaluationId {
+                String id
+            }
+        }
+    }
+}
+
+BoundedContext UserInteraction {
+    Module interaction {
+        Aggregate Interaction {
+            Entity Interaction {
+                aggregateRoot
+                
+                - InteractionId interactionId
+                - UserId userId
+                - QuestionId questionId
+                
+                Repository InteractionRepository {
+                    @Interaction find(InteractionId interactionId);
+                    save(@Interaction interaction);
+                }
+            }
+            
+            ValueObject InteractionId {
+                String id
+            }
+        }
+    }
+}
+
+BoundedContext StatisticsAndVisualization {
+    Module statistics {
+        Aggregate Statistics {
+            Entity Statistics {
+                aggregateRoot
+                
+                - UserId userId
+                - int totalScore
+                - int numberOfQuestionsAnswered
+                
+                Repository StatisticsRepository {
+                    @Statistics find(UserId userId);
+                    save(@Statistics statistics);
+                }
+            }
+        }
+    }
+}
+
+BoundedContext NotificationsAndCommunication {
+    Module notifications {
+        Aggregate Notification {
+            Entity Notification {
+                aggregateRoot
+                
+                - NotificationId notificationId
+                - UserId userId
+                - String title
+                - String content
+                - Date timestamp
+                
+                Repository NotificationRepository {
+                    @Notification find(NotificationId notificationId);
+                    save(@Notification notification);
+                }
+            }
+            
+            ValueObject NotificationId {
+                String id
+            }
+        }
+    }
+}
