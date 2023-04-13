@@ -1,3 +1,22 @@
+Domain Poller {
+	Subdomain EvaluationDomain {
+		domainVisionStatement = "Evaluation domain vision ..."
+	}
+
+	Subdomain SkillDomain {
+		domainVisionStatement = "Skill domain vision ..."
+	}
+
+	Subdomain QuestionDomain {
+		domainVisionStatement = "Question domain vision ..."
+	}
+
+	Subdomain StatDomain {
+		domainVisionStatement = "Stat domain vision ..."
+	}
+
+}
+
 ContextMap Poller {
 	contains SkillContext
 	contains UserAnswerContext
@@ -10,8 +29,6 @@ ContextMap Poller {
 
 	UserManagementContext [SK]<->[SK] SendQuestionContext
 
-	UserAnswerContext [S]->[C] SendQuestionContext
-
 	UserAnswerContext [SK]<->[SK] UserManagementContext
 
 	SkillContext [S]->[C] UserAnswerContext
@@ -21,20 +38,34 @@ ContextMap Poller {
 	EvaluationContext [S]->[C] StatContext
 }
 
-BoundedContext SkillContext {
+BoundedContext SkillContext implements SkillDomain {
 	Module questionAdmin {
 		basePackage = com.esgilyon.questionddd.domain.model
 		Aggregate Question {
-			Entity QuestionData {
+			Entity QuestionResource {
 				aggregateRoot
+				- QuestionDataId questionDataId
 				String questionContent
-				- Set<Answer> answers
-				- List<Tag> tags
+				- @States questionState
+				- @Types resourceType
 			}
-			Entity Answer {
-				String answerContent
-				boolean isCorrect
-				- QuestionData question
+			Entity QuestionData {
+				- QuestionDataId questionDataId
+				String questionContent
+				- Tag tags
+			}
+			enum Types {
+				ASSOCIATED, REFUSED, WAITING
+			}
+			enum States {
+				aggregateLifecycle
+				ASSOCIATED, REFUSED, WAITING
+			}
+			ValueObject QuestionDataId {
+				int querstionDataId key
+			}
+			Service QuestionService {
+				@Tag associateQuestion(QuestionId questionId, TagId tagId) : write [ -> ASSOCIATED];
 			}
 		}
 	}
@@ -43,66 +74,78 @@ BoundedContext SkillContext {
 		Aggregate Tag {
 			Entity Tag {
 				aggregateRoot
-				TagId id
+				- TagId id
 				String name
-				- Category category
+				- List<Category> category
+			}
+			ValueObject TagId {
+				int tagId key
+			}
+			enum TagStates {
+				aggregateLifecycle
+				CREATED, DELETED
+			}
+			Service TagService {
+				@Tag createTag(@TagId tagId) : write [ -> CREATED];
+				@Tag deleteTag(@TagId tagId) : write [ -> DELETED];
 			}
 		}
 		Aggregate Category {
 			Entity Category {
 				aggregateRoot
+				- CategoryId identifier
 				String name
 				String description
-				- Category parentCategory
+			}
+			enum CategoryEvents {
+				aggregateLifecycle
+				CREATED, DELETED
+			}
+			Service CategoryService {
+				@Category createCategory(@Category category) : write [ -> CREATED];
+				@Category getCategory(@CategoryId categoryId) : read-only;
+			}
+			ValueObject CategoryId {
+				int categoryId key
 			}
 		}
 	}
 }
 
-BoundedContext SendQuestionContext {
+BoundedContext SendQuestionContext implements QuestionDomain {
 	Module location {
 		basePackage = com.esgilyon.questionddd.domain.model
 		Aggregate UserWithPreferences {
 			Entity UserWithPreferences {
 				aggregateRoot
-				- @User user
-				- List<UserPreferedTag> preferences
-			}
-			ValueObject UserPreferedTag {
-				- @Tag id
+				- UserId user
+				- List<Tag> preferences
 			}
 		}
-
-		Aggregate TaskSendQuestion {
-			Entity Task {
-				- TaggedQuestion taggedQuestion
-				- @User userId
-			}
-			ValueObject TaggedQuestion {
+		Aggregate QuestionNotification {
+			Entity Notification {
 				- @QuestionData questionId
 				- @Tag tagId
 			}
-			ValueObject ToUser {
-				- @User userId
-			}
 		}
+	// event to notify user interested in a tag
 	}
 }
 
-BoundedContext UserAnswerContext {
+BoundedContext UserAnswerContext implements QuestionDomain {
 	Module question {
 		basePackage = com.esgilyon.questionddd.domain.model
 		Aggregate UserAnswer {
 			Entity UserAnswer {
 				aggregateRoot
-				- @Answer choosenAnswer
+				- @Tag choosenAnswer
 				- @User user
 			}
 		}
 	}
 }
 
-BoundedContext EvaluationContext {
+BoundedContext EvaluationContext implements EvaluationDomain {
 	Module evaluation {
 		basePackage = com.esgilyon.questionddd.domain.model
 		Aggregate ScoreRule {
@@ -112,7 +155,6 @@ BoundedContext EvaluationContext {
 				int bonusWhenGood
 			}
 		}
-
 		Aggregate Exercice {
 			Entity Evaluation {
 				aggregateRoot
@@ -120,7 +162,6 @@ BoundedContext EvaluationContext {
 				- @Status status
 				- @UserAnswer userAnswer
 			}
-
 			enum Status {
 				OPEN,
 				DONE
@@ -129,7 +170,7 @@ BoundedContext EvaluationContext {
 	}
 }
 
-BoundedContext StatContext {
+BoundedContext StatContext implements StatDomain {
 	Module stat {
 		basePackage = com.esgilyon.questionddd.domain.model
 		Aggregate Stat {
@@ -153,6 +194,10 @@ BoundedContext UserManagementContext {
 				String firstname
 				String lastname
 			}
+			ValueObject UserId {
+				Integer id
+			}
 		}
 	}
 }
+

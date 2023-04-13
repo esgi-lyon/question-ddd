@@ -7,15 +7,15 @@ ContextMap QuizApplicationMap {
     contains NotificationsAndCommunication
 	contains SkillManagement
 
-	UserManagement [D,ACL]<-[PL,D] UserInteraction {
+	UserManagement [D,ACL]<-[PL] UserInteraction {
 		implementationTechnology = "RESTfulHTTP"
 		downstreamRights = INFLUENCER
-		exposedAggregates = Printing
+		exposedAggregates = User
 	}
 	
 	PrintingContext [D]->[] PolicyManagementContext {
 		implementationTechnology = "RESTfulHTTP"
-		exposedAggregates = Printing
+		exposedAggregates = User
 	}
 	
 	RiskManagementContext [P]<->[P] PolicyManagementContext {
