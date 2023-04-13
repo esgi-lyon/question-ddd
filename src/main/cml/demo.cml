@@ -1,49 +1,45 @@
-/* The DDD Cargo sample application modeled in CML. Note that we split the application into multiple bounded contexts. */
 ContextMap Poller {
 	contains SkillContext
 	contains UserAnswerContext
 	contains SendQuestionContext
 	contains UserManagementContext
 	contains EvaluationContext
+	contains StatContext
 
-	SkillContext [SK]<->[SK] UserAnswerContext
-
-	SkillContext [SK]<->[SK] SendQuestionContext
+	SkillContext [S]->[C] SendQuestionContext
 
 	UserManagementContext [SK]<->[SK] SendQuestionContext
 
-	UserAnswerContext [D]<-[U,OHS,PL] SendQuestionContext
+	UserAnswerContext [S]->[C] SendQuestionContext
 
-	UserAnswerContext [D]<-[U,OHS,PL] UserManagementContext
+	UserAnswerContext [SK]<->[SK] UserManagementContext
 
-	UserAnswerContext [D]<-[U,OHS,PL] EvaluationContext
+	SkillContext [S]->[C] UserAnswerContext
 
+	UserAnswerContext [S]->[C] EvaluationContext
+
+	EvaluationContext [S]->[C] StatContext
 }
 
-/* The original booking application context */
 BoundedContext SkillContext {
 	Module questionAdmin {
 		basePackage = com.esgilyon.questionddd.domain.model
-
 		Aggregate Question {
 			Entity QuestionData {
 				aggregateRoot
-				AnswerId id
 				String questionContent
 				- Set<Answer> answers
 				- List<Tag> tags
 			}
 			Entity Answer {
-				AnswerId id
 				String answerContent
 				boolean isCorrect
+				- QuestionData question
 			}
 		}
 	}
-
 	Module questionMeta {
 		basePackage = com.esgilyon.questionddd.domain.model
-
 		Aggregate Tag {
 			Entity Tag {
 				aggregateRoot
@@ -52,22 +48,20 @@ BoundedContext SkillContext {
 				- Category category
 			}
 		}
-
 		Aggregate Category {
 			Entity Category {
 				aggregateRoot
 				String name
+				String description
 				- Category parentCategory
 			}
 		}
 	}
 }
 
-/* Separate bounded context for managing the locations. */
 BoundedContext SendQuestionContext {
 	Module location {
 		basePackage = com.esgilyon.questionddd.domain.model
-
 		Aggregate UserWithPreferences {
 			Entity UserWithPreferences {
 				aggregateRoot
@@ -81,11 +75,11 @@ BoundedContext SendQuestionContext {
 
 		Aggregate TaskSendQuestion {
 			Entity Task {
-				- @QuestionData taggedQuestion
+				- TaggedQuestion taggedQuestion
 				- @User userId
 			}
 			ValueObject TaggedQuestion {
-				QuestionId questionId
+				- @QuestionData questionId
 				- @Tag tagId
 			}
 			ValueObject ToUser {
@@ -98,22 +92,10 @@ BoundedContext SendQuestionContext {
 BoundedContext UserAnswerContext {
 	Module question {
 		basePackage = com.esgilyon.questionddd.domain.model
-
 		Aggregate UserAnswer {
 			Entity UserAnswer {
 				aggregateRoot
-				- AnsweredQuestion answeredQuestion
-				- ChoosenAnswer choosenAnswer
-				- AnsweringUser answeringUser
-			}
-			ValueObject AnsweredQuestion {
-				- @QuestionData questionId
-			}
-			ValueObject ChoosenAnswer {
-				- @Answer answer
-				boolean isCorrect
-			}
-			ValueObject AnsweringUser {
+				- @Answer choosenAnswer
 				- @User user
 			}
 		}
@@ -123,11 +105,41 @@ BoundedContext UserAnswerContext {
 BoundedContext EvaluationContext {
 	Module evaluation {
 		basePackage = com.esgilyon.questionddd.domain.model
-
 		Aggregate ScoreRule {
 			Entity ScoreRule {
 				aggregateRoot
-				int pointsIncrementor
+				int malusWhenWrong
+				int bonusWhenGood
+			}
+		}
+
+		Aggregate Exercice {
+			Entity Evaluation {
+				aggregateRoot
+				int score
+				- @Status status
+				- @UserAnswer userAnswer
+			}
+
+			enum Status {
+				OPEN,
+				DONE
+			}
+		}
+	}
+}
+
+BoundedContext StatContext {
+	Module stat {
+		basePackage = com.esgilyon.questionddd.domain.model
+		Aggregate Stat {
+			Entity LeaderBoard {
+				aggregateRoot
+				- List<ExerciceUserAndScore> userScores
+			}
+			ValueObject ExerciceUserAndScore {
+				String userName
+				int score
 			}
 		}
 	}
@@ -136,9 +148,8 @@ BoundedContext EvaluationContext {
 BoundedContext UserManagementContext {
 	Module user {
 		Aggregate Users {
-			Entity User { 
+			Entity User {
 				aggregateRoot
-				
 				String firstname
 				String lastname
 			}
