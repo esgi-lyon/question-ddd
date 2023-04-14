@@ -1,3 +1,4 @@
+
 Domain Poller {
 	Subdomain EvaluationDomain {
 		domainVisionStatement = "Evaluation domain vision ..."
@@ -18,6 +19,7 @@ Domain Poller {
 }
 
 ContextMap Poller {
+	contains QuestionContext
 	contains SkillContext
 	contains UserAnswerContext
 	contains SendQuestionContext
@@ -25,58 +27,103 @@ ContextMap Poller {
 	contains EvaluationContext
 	contains StatContext
 
-	SkillContext [S]->[C] SendQuestionContext
+	// Links doc : https://contextmapper.org/docs/language-model/#links
+	QuestionContext [S]->[C] SendQuestionContext
 
-	UserManagementContext [SK]<->[SK] SendQuestionContext
+	QuestionContext [P]<->[P] SkillContext
 
-	UserAnswerContext [SK]<->[SK] UserManagementContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] QuestionContext
 
-	SkillContext [S]->[C] UserAnswerContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] UserAnswerContext
+
+	UserManagementContext [U, OHS, PL]->[D, ACL] SkillContext
+
+	SendQuestionContext [S]->[C] UserAnswerContext
+
+	QuestionContext [U, OHS, PL]->[D, ACL] UserAnswerContext
 
 	UserAnswerContext [S]->[C] EvaluationContext
 
-	EvaluationContext [S]->[C] StatContext
+	SkillContext [U, OHS, PL]->[D, ACL] EvaluationContext
+
+	EvaluationContext [U, OHS, PL]->[D, ACL] StatContext
 }
 
-BoundedContext SkillContext implements SkillDomain {
+BoundedContext QuestionContext implements SkillDomain {
+	Application {
+		Command AssociateQuestion
+		Command AcceptQuestion
+		Command RejectQuestion
+		Command CreateQuestionData
+		/* For event trigger in flow :
+		 *   X: alternative command invokation (exclusive; only one); 
+		 *   +: concurrent command invokation (all commands called); 
+		 *   O: alternative command invokation (inclusive; one or multiple)
+		 */
+		Flow AssociateQuestionFlow {
+			command AssociateQuestion delegates to Question [WAITING -> WAITING] emits event QuestionWaitingForAssociation
+			event QuestionWaitingForAssociation triggers command AcceptQuestion X RejectQuestion
+			command AcceptQuestion delegates to Question [WAITING -> ASSOCIATED] emits event QuestionAcceptedAssociation
+			command RejectQuestion delegates to Question [WAITING -> REFUSED] emits event QuestionRefusedAssociation
+			event QuestionAcceptedAssociation triggers command CreateQuestionData
+		}
+	}
+
 	Module questionAdmin {
 		basePackage = com.esgilyon.questionddd.domain.model
 		Aggregate Question {
 			Entity QuestionResource {
 				aggregateRoot
-				- QuestionDataId questionDataId
 				String questionContent
 				- @States questionState
 				- @Types resourceType
-			}
-			Entity QuestionData {
-				- QuestionDataId questionDataId
-				String questionContent
-				- Tag tags
+				- Tag tag
 			}
 			enum Types {
-				ASSOCIATED, REFUSED, WAITING
+				IMG_URL, URL, TEXT
 			}
 			enum States {
 				aggregateLifecycle
-				ASSOCIATED, REFUSED, WAITING
+				WAITING, ASSOCIATED, REFUSED
 			}
-			ValueObject QuestionDataId {
-				int querstionDataId key
+			DomainEvent QuestionWaitingForAssociation {
+				- QuestionResource questionId
+				- TagId tagId
 			}
-			Service QuestionService {
-				@Tag associateQuestion(QuestionId questionId, TagId tagId) : write [ -> ASSOCIATED];
+			DomainEvent QuestionAcceptedAssociation {
+				- QuestionResource questionId
+				- TagId tagId
+			}
+			DomainEvent QuestionRefusedAssociation {
+				- QuestionResource questionId
+				- TagId tagId
+			}
+			ValueObject QuestionId {
+				int questionId key
 			}
 		}
 	}
-	Module questionMeta {
+}
+
+BoundedContext SkillContext {
+	Application {
+		Command CreateTag
+		Command CreateCategory
+		Flow CreateSkillFlow {
+			command CreateTag delegates to Skill [CREATED -> CREATED] emits event TagCreated
+			command CreateCategory emits event CategoryCreated
+		}
+	}
+
+	Module skill {
 		basePackage = com.esgilyon.questionddd.domain.model
-		Aggregate Tag {
+		Aggregate Skill {
 			Entity Tag {
 				aggregateRoot
 				- TagId id
 				String name
-				- List<Category> category
+				- @Category category
+				- @User createdBy
 			}
 			ValueObject TagId {
 				int tagId key
@@ -85,28 +132,24 @@ BoundedContext SkillContext implements SkillDomain {
 				aggregateLifecycle
 				CREATED, DELETED
 			}
-			Service TagService {
-				@Tag createTag(@TagId tagId) : write [ -> CREATED];
-				@Tag deleteTag(@TagId tagId) : write [ -> DELETED];
-			}
-		}
-		Aggregate Category {
 			Entity Category {
-				aggregateRoot
 				- CategoryId identifier
 				String name
 				String description
+				- List<@Tag> tags
+				- @User createdBy
 			}
 			enum CategoryEvents {
-				aggregateLifecycle
 				CREATED, DELETED
-			}
-			Service CategoryService {
-				@Category createCategory(@Category category) : write [ -> CREATED];
-				@Category getCategory(@CategoryId categoryId) : read-only;
 			}
 			ValueObject CategoryId {
 				int categoryId key
+			}
+			DomainEvent TagCreated {
+				- TagId tagId
+			}
+			DomainEvent CategoryCreated {
+				- CategoryId categoryId
 			}
 		}
 	}
@@ -119,13 +162,13 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			Entity UserWithPreferences {
 				aggregateRoot
 				- UserId user
-				- List<Tag> preferences
+				- List<TagId> preferences
 			}
 		}
 		Aggregate QuestionNotification {
 			Entity Notification {
-				- @QuestionData questionId
-				- @Tag tagId
+				- @QuestionId questionId
+				- @TagId tagId
 			}
 		}
 	// event to notify user interested in a tag
@@ -138,7 +181,7 @@ BoundedContext UserAnswerContext implements QuestionDomain {
 		Aggregate UserAnswer {
 			Entity UserAnswer {
 				aggregateRoot
-				- @Tag choosenAnswer
+				- @TagId choosenAnswer
 				- @User user
 			}
 		}
@@ -193,6 +236,15 @@ BoundedContext UserManagementContext {
 				aggregateRoot
 				String firstname
 				String lastname
+				- @Roles role
+				- @UserStatus status
+			}
+			enum Roles {
+				EVALUATOR, STUDENT
+			}
+			enum UserStatus {
+				aggregateLifecycle
+				VALIDATED, WAITING_VALIDATION
 			}
 			ValueObject UserId {
 				Integer id
