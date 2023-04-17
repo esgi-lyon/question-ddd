@@ -1,5 +1,5 @@
 
-Domain Poller {
+Domain Gamedev {
 	Subdomain EvaluationDomain {
 		domainVisionStatement = "Evaluation domain vision ..."
 	}
@@ -21,7 +21,7 @@ Domain Poller {
 ContextMap Poller {
 	contains QuestionContext
 	contains SkillContext
-	contains UserAnswerContext
+	contains AnswerContext
 	contains SendQuestionContext
 	contains UserManagementContext
 	contains EvaluationContext
@@ -32,21 +32,47 @@ ContextMap Poller {
 
 	QuestionContext [P]<->[P] SkillContext
 
+	SkillContext [S]->[C] SendQuestionContext
+
+	UserManagementContext [U, OHS, PL]->[D, ACL] SendQuestionContext
+
 	UserManagementContext [U, OHS, PL]->[D, ACL] QuestionContext
 
-	UserManagementContext [U, OHS, PL]->[D, ACL] UserAnswerContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] AnswerContext
 
 	UserManagementContext [U, OHS, PL]->[D, ACL] SkillContext
 
-	SendQuestionContext [S]->[C] UserAnswerContext
+	SendQuestionContext [S]->[C] AnswerContext
 
-	QuestionContext [U, OHS, PL]->[D, ACL] UserAnswerContext
-
-	UserAnswerContext [S]->[C] EvaluationContext
+	AnswerContext [S]->[C] EvaluationContext
 
 	SkillContext [U, OHS, PL]->[D, ACL] EvaluationContext
 
-	EvaluationContext [U, OHS, PL]->[D, ACL] StatContext
+	EvaluationContext [S]->[C] StatContext
+}
+
+BoundedContext UserManagementContext {
+	Module user {
+		Aggregate User {
+			Entity User {
+				aggregateRoot
+				String firstname
+				String lastname
+				- @Roles role
+				- @UserStatus status
+			}
+			enum Roles {
+				EVALUATOR, STUDENT
+			}
+			enum UserStatus {
+				aggregateLifecycle
+				VALIDATED, WAITING_VALIDATION
+			}
+			ValueObject UserId {
+				Integer id
+			}
+		}
+	}
 }
 
 BoundedContext QuestionContext implements SkillDomain {
@@ -98,8 +124,9 @@ BoundedContext QuestionContext implements SkillDomain {
 				- QuestionResource questionId
 				- TagId tagId
 			}
-			ValueObject QuestionId {
-				int questionId key
+			ValueObject QuestionResourceTag {
+				- QuestionResource questionId
+				- TagId tagId
 			}
 		}
 	}
@@ -156,100 +183,183 @@ BoundedContext SkillContext {
 }
 
 BoundedContext SendQuestionContext implements QuestionDomain {
-	Module location {
+	// Ubiquitous Language for question notion is here a "notification"s
+	Application {
+		Command CreateQuestion
+		Command SendQuestionByTagsPreferences
+		Flow CreateChoiceFlow {
+			// Randomized choice creation
+			command CreateQuestion delegates to Question emits event CreatedQuestion
+			event CreatedQuestion triggers command SendQuestionByTagsPreferences
+			command SendQuestionByTagsPreferences delegates to Question emits event NotifiedQuestion
+		}
+	}
+
+	Module sendQuestion {
 		basePackage = com.esgilyon.questionddd.domain.model
-		Aggregate UserWithPreferences {
-			Entity UserWithPreferences {
+		Aggregate UserPreferences {
+			Entity UserPreferences {
 				aggregateRoot
 				- UserId user
 				- List<TagId> preferences
 			}
 		}
 		Aggregate QuestionNotification {
-			Entity Notification {
-				- @QuestionId questionId
-				- @TagId tagId
+			Entity QuestionSent {
+				aggregateRoot
+				// implicit valid choice in question
+				- Question question
+				- QuestionNotificationStatus status
+			}
+			enum QuestionNotificationStatus {
+				aggregateLifecycle
+				SENT, VIEWED, ANSWERED
+			}
+
+			DomainEvent CreatedQuestion {
+				- QuestionSent questionAndTag
+			}
+			DomainEvent NotifiedQuestion {
+				- QuestionSent questionResource
+			}
+			ValueObject Question {
+				- List<QuestionResourceTag> resourcesWithRandomized
+				- QuestionResourceTag validQuestionResources
 			}
 		}
-	// event to notify user interested in a tag
 	}
 }
 
-BoundedContext UserAnswerContext implements QuestionDomain {
+BoundedContext AnswerContext implements QuestionDomain {
+	Application {
+		Command TagChoicesList
+		Command AnswerSubmit
+		Flow ChoiceSubmitFlow {
+			command TagChoicesList delegates to Question emits event TagChoicesListed
+			command AnswerSubmit delegates to Question emits event AnswerSubmitted
+		}
+	}
+
 	Module question {
 		basePackage = com.esgilyon.questionddd.domain.model
-		Aggregate UserAnswer {
-			Entity UserAnswer {
+		Aggregate Answer {
+			Entity Answer {
 				aggregateRoot
-				- @TagId choosenAnswer
+				- Question question
 				- @User user
+				- AnsweredTag answeredTag
+			}
+			DomainEvent TagChoicesListed
+			DomainEvent AnswerSubmitted {
+				- @Answer answer
+			}
+			ValueObject AnsweredTag {
+				int id
+				String name
 			}
 		}
 	}
 }
 
 BoundedContext EvaluationContext implements EvaluationDomain {
+	Application {
+		Command CheckAnswer
+		Command CreateEvaluation
+		Command AwardPointForEvaluation
+		Flow EvaluationFlow {
+			event AnswerSubmitted triggers command CheckAnswer
+			command CheckAnswer delegates to Question emits event AnswerValidated X AnswerRefused
+			event AnswerValidated triggers command CreateEvaluation
+			event AnswerRefused triggers command CreateEvaluation
+			command CreateEvaluation delegates to Question emits event EvaluationCreated
+			command AwardPointForEvaluation delegates to Question emits event AwardedPoint
+		}
+	}
+
 	Module evaluation {
 		basePackage = com.esgilyon.questionddd.domain.model
-		Aggregate ScoreRule {
-			Entity ScoreRule {
-				aggregateRoot
-				int malusWhenWrong
-				int bonusWhenGood
-			}
-		}
 		Aggregate Exercice {
 			Entity Evaluation {
 				aggregateRoot
 				int score
 				- @Status status
-				- @UserAnswer userAnswer
+				- @Answer answer
+				- @DifficultyLevel answeredQuestionDifficultyLevel
+				- AnsweringUser user
+			}
+			DomainEvent AnswerValidated {
+				- @Answer answer
+			}
+			DomainEvent AnswerRefused {
+				- @Answer answer
+			}
+			DomainEvent EvaluationCreated {
+				- @Evaluation evaluation
 			}
 			enum Status {
-				OPEN,
-				DONE
+				aggregateLifecycle
+				OPEN, DONE
+			}
+			enum DifficultyLevel {
+				EASY, MEDIUM, HARD
+			}
+			ValueObject AnsweringUser {
+				int id
+				String name
+			}
+			// Valid tag of question resource
+			ValueObject EvaluationTag {
+				int id
+				String name
+			}
+			ValueObject EvaluationQuestion {
+				int id
+			}
+		}
+		Aggregate PointAwardRule {
+			Entity PointAwardRule {
+				aggregateRoot
+				- @DifficultyLevel difficultyLevel
+				- @UserLevel userLevel
+			}
+			DomainEvent AwardedPoint {
+				- @Answer answer
+			}
+			enum UserLevel {
+				aggregateLifecycle
+				NEW, REGULAR, EXPERT
 			}
 		}
 	}
 }
 
 BoundedContext StatContext implements StatDomain {
-	Module stat {
+	Application {	
+		Command ViewStats
+		Flow ViewStatsFlow {
+			command ViewStats delegates to Question emits event UserStatsViewed X QuestionStatsViewed X TagStatsViewed
+		}
+	}
+
+	Module statistic {
 		basePackage = com.esgilyon.questionddd.domain.model
-		Aggregate Stat {
+		Aggregate Statistic {
 			Entity LeaderBoard {
 				aggregateRoot
-				- List<ExerciceUserAndScore> userScores
+				- List<Evaluation> evaluation
+				- List<AnsweringUser> answeringUsers
+				- DifficultyLevel difficultyLevel
+				- EvaluationTag tagId
 			}
-			ValueObject ExerciceUserAndScore {
-				String userName
-				int score
+			DomainEvent UserStatsViewed {
+				- AnsweringUser user
 			}
-		}
-	}
-}
-
-BoundedContext UserManagementContext {
-	Module user {
-		Aggregate Users {
-			Entity User {
-				aggregateRoot
-				String firstname
-				String lastname
-				- @Roles role
-				- @UserStatus status
+			DomainEvent QuestionStatsViewed {
+				- EvaluationQuestion question
 			}
-			enum Roles {
-				EVALUATOR, STUDENT
-			}
-			enum UserStatus {
-				aggregateLifecycle
-				VALIDATED, WAITING_VALIDATION
-			}
-			ValueObject UserId {
-				Integer id
+			DomainEvent TagStatsViewed {
+				- EvaluationTag tag
 			}
 		}
 	}
 }
-
