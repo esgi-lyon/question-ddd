@@ -17,11 +17,11 @@ print:
 	@echo $(sketch_only)
 
 markdown:
-	echo '# Diagrams' > doc/diagrams.md
+	@echo '# Diagrams' > doc/diagrams.md
 	for i in $(diagrams);do i=$${i//sketch_miner/sketch_miner.png} && echo -e "![$$i](../dist_puml/$${i//puml/png})\n" | tee -a doc/diagrams.md; done
-	puml-for-markdown -m doc/ -d -t
+	@puml-for-markdown -m doc/ -d -t
 	./bnpm-sketch-gen.js dist_puml/src-gen/ $(strip $(sketch_only))
-	cp -f src-gen/gamedev_ContextMap.png doc/
+	@cp -f src-gen/gamedev_ContextMap.png doc/
 
 jhipster-gen:
 	@echo 'TODO'

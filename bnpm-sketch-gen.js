@@ -15,6 +15,8 @@ const destFiles = process.argv.slice(3).map((file) => file.trim())
   });
 
   async function download(destFile) {
+    console.log("Processing", destFile)
+  
     const data = fs.readFileSync(destFile, { encoding: "utf8", flag: "r" });
     const content = LZString.compressToEncodedURIComponent("bpln:v1\n--\n" + data);
     const url = `https://www.bpmn-sketch-miner.ai/index.html#${content}`;
@@ -48,6 +50,7 @@ const destFiles = process.argv.slice(3).map((file) => file.trim())
           path.resolve(downloadPath, event.guid),
           path.resolve(downloadPath, guids[event.guid])
         );
+        console.log("Downloaded", guids[event.guid]);
       }
     });
 
