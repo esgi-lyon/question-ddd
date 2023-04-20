@@ -3,6 +3,9 @@
 /bin
 /src-gen
 /out
+/target
+/**/target
+/**/.sculptor-status
 
 # Log file
 *.log

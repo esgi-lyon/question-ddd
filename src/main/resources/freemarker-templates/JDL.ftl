@@ -51,7 +51,7 @@ microservice ${entityNames?join(", ")} with ${bc.name}<#lt>
 application {
 	config {
 		baseName ${bc.name},
-		packageName org.contextmapper.generated.${bc.name?lower_case},
+		packageName org.contextmapper.generated.${bc.name?lower_case}
 		applicationType microservice
 		serverPort ${portCounter?int?c}
 		enableSwaggerCodegen true
@@ -88,7 +88,7 @@ application {
 application {
 	config {
 		baseName gateway,
-		packageName org.contextmapper.generated.gateway,
+		packageName org.contextmapper.generated.gateway
 		applicationType gateway
 		serverPort 8080
 	}
