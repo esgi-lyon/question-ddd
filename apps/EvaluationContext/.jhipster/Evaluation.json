@@ -1,0 +1,41 @@
+{
+  "name": "Evaluation",
+  "fields": [
+    {
+      "fieldName": "score",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "evaluationTag",
+      "relationshipName": "tag",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "evaluationQuestion",
+      "relationshipName": "question",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "answeringUser",
+      "relationshipName": "user",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "evaluation",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "EvaluationContext"
+  ],
+  "microserviceName": "EvaluationContext"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "PointAwardRule",
+  "fields": [
+    {
+      "fieldName": "scoreEvolution",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "point_award_rule",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "EvaluationContext"
+  ],
+  "microserviceName": "EvaluationContext"
+}

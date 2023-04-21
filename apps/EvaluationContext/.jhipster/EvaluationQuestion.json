@@ -1,0 +1,22 @@
+{
+  "name": "EvaluationQuestion",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "entityTableName": "evaluation_question",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "EvaluationContext"
+  ],
+  "microserviceName": "EvaluationContext"
+}
