@@ -13,13 +13,10 @@ targets:=$(microservices)
 .DEFAULT_GOAL := help
 
 install:
-	npm install -g puml-for-markdown
-	npm install lz-string
-	npm install puppeteer
-	npm install typescript
+	npm install
 	npm install -g generator-jhipster
 	npm install -g rimraf
-	wget https://github.com/jhipster/jhipster-registry/releases/download/$(JHIPSTER_VERSION)/jhipster-registry-$(JHIPSTER_VERSION).jar
+	wget https://github.com/jhipster/jhipster-registry/releases/download/v$(JHIPSTER_VERSION)/jhipster-registry-$(JHIPSTER_VERSION).jar
 
 help:
 	@echo $(diagrams)
@@ -31,7 +28,7 @@ help:
 diagrams:
 	@echo '# Diagrams' > doc/diagrams.md
 	for i in $(diagrams);do i=$${i//sketch_miner/sketch_miner.png} && echo -e "![$$i](../dist_puml/$${i//puml/png})\n" | tee -a doc/diagrams.md; done
-	@puml-for-markdown -m doc/ -d -t
+	@npx puml-for-markdown -m doc/ -d -t
 	./bnpm-sketch-gen.js dist_puml/src-gen/ $(strip $(sketch_only))
 	@cp -f src-gen/gamedev_ContextMap.png doc/
 
