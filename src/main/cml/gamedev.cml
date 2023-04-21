@@ -26,25 +26,54 @@ ContextMap Poller {
 	contains EvaluationContext, StatContext
 
 	// Links doc : https://contextmapper.org/docs/language-model/#links
-	QuestionContext [S]->[C] SendQuestionContext
+	QuestionContext [S]->[C] SendQuestionContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Question
+	}
 
-	QuestionContext [P]<->[P] SkillContext
+	QuestionContext [P]<->[P] SkillContext {
+		implementationTechnology = "RESTfulHTTP"
+	}
 
-	SkillContext [S]->[C] SendQuestionContext
+	SkillContext [S]->[C] SendQuestionContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Skill
+	}
 
-	UserManagementContext [U, OHS, PL]->[D, ACL] SendQuestionContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] SendQuestionContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = User
+	}
 
-	UserManagementContext [U, OHS, PL]->[D, ACL] QuestionContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] QuestionContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = User
+	}
 
-	UserManagementContext [U, OHS, PL]->[D, ACL] AnswerContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] AnswerContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = User
+	}
 
-	UserManagementContext [U, OHS, PL]->[D, ACL] SkillContext
+	UserManagementContext [U, OHS, PL]->[D, ACL] SkillContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = User
+	}
 
-	SendQuestionContext [S]->[C] AnswerContext
+	SendQuestionContext [S]->[C] AnswerContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = UserPreferences, QuestionNotification
+	}
 
-	AnswerContext [S]->[C] EvaluationContext
+	AnswerContext [S]->[C] EvaluationContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Answer
+	}
 
-	EvaluationContext [S]->[C] StatContext
+	EvaluationContext [S]->[C] StatContext {
+		implementationTechnology = "RESTfulHTTP"
+		exposedAggregates = Exercice
+	}
 }
 
 BoundedContext UserManagementContext {
@@ -147,9 +176,7 @@ BoundedContext SkillContext implements SkillDomain {
 	Aggregate Skill {
 		Entity Tag {
 			aggregateRoot
-			- TagId id
 			String name
-			- @Category category
 			- @UserInfos createdBy
 			def Tag setCategory(@Category category);
 		}
@@ -164,7 +191,7 @@ BoundedContext SkillContext implements SkillDomain {
 			- CategoryId identifier
 			String name
 			String description
-			- List<@Tag> tags
+			- List<Tag> tags
 			- @UserInfos createdBy
 			def Category addTag(@Tag tag);
 		}
@@ -363,16 +390,3 @@ BoundedContext StatContext implements StatDomain {
 		}
 	}
 }
-
-//// To migrate this code to btdesign sculptor DSL
-////
-//// Replace : BoundedContext with ApplicationPart
-//// Replace : implements .+\{ by {
-//// Replace : Aggregate .+ \{ with ""
-//// Delete Aggregates blockc ode : \t\t with ""
-//// aggregateLifecycle to ""
-//// And add following code :
-//// 
-// Application DDDSample {
-// basePackage=com.esgilyon.questionddd
-// }

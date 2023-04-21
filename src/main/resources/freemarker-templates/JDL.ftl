@@ -8,14 +8,18 @@
 <#assign allEntityNames = [] />
 <#assign oneToManyRefs = [] />
 <#assign oneToOneRefs = [] />
+<#assign contextNames = [] />
+<#assign gateway = false />
 <#-- 
  counter to give microservices different ports: (8081, 8082, 8083, ...) 
 -->
 <#assign portCounter = 8080 />
+<#assign contexts = filterStructuralBoundedContexts(boundedContexts) />
 <#-- 
  loop to collect entity data per Bounded Context (BC) and create application plus microservice for each BC
 -->
-<#list filterStructuralBoundedContexts(boundedContexts) as bc>
+
+<#list contexts as bc>
 <#assign entities = [] />
 <#assign entityNames = [] />
 <#list bc.aggregates as agg>
@@ -23,25 +27,27 @@
 </#list>
 <#assign entityNames = entities?map(e -> e.name)>
 <#assign allEntityNames = allEntityNames + entityNames>
+<#assign contextNames=contextNames + [bc.name]/>
+
 <#if entities?has_content>
 
 /* Bounded Context ${bc.name} */<#lt>
 <#list entities as entity>
 
 entity ${entity.name} {
-<#list entity.attributes as attribute>
+	<#list entity.attributes as attribute>
 	${attribute.name} ${mapAttributeType(attribute.type)}
-</#list>
+	</#list>
 }
-<#list entity.references as reference>
-	<#if reference.domainObjectType?has_content && (instanceOf(reference.domainObjectType, Entity) || instanceOf(reference.domainObjectType, ValueObject)) && entityNames?seq_contains(reference.domainObjectType.name)>
-		<#if reference.collectionType?has_content && reference.collectionType.name() != "NONE">
-			<#assign oneToManyRefs = oneToManyRefs + [ entity.name + "{" + reference.name + "} to " + reference.domainObjectType.name ]>
-		<#else>
-			<#assign oneToOneRefs = oneToOneRefs + [ entity.name + "{"+ reference.name + "} to " + reference.domainObjectType.name ]>
+	<#list entity.references as reference>
+		<#if reference.domainObjectType?has_content && (instanceOf(reference.domainObjectType, Entity) || instanceOf(reference.domainObjectType, ValueObject)) && entityNames?seq_contains(reference.domainObjectType.name)>
+			<#if reference.collectionType?has_content && reference.collectionType.name() != "NONE">
+				<#assign oneToManyRefs = oneToManyRefs + [ entity.name + "{" + reference.name + "} to " + reference.domainObjectType.name ]>
+			<#else>
+				<#assign oneToOneRefs = oneToOneRefs + [ entity.name + "{"+ reference.name + "} to " + reference.domainObjectType.name ]>
+			</#if>
 		</#if>
-	</#if>
-</#list>
+	</#list>
 
 </#list>
 microservice ${entityNames?join(", ")} with ${bc.name}<#lt>
@@ -81,6 +87,7 @@ application {
 	}<#lt>
 </#if>
 
+<#if gateway>
 <#--
  create a microservice gateway (user interface)
 -->
@@ -95,6 +102,16 @@ application {
 	<#if allEntityNames?has_content>
 	entities ${allEntityNames?join(", ")}
 	</#if>
+}
+</#if>
+
+<#--
+Configure deployment
+-->
+deployment {
+	deploymentType docker-compose
+	appsFolders [${contextNames?join(", ")}]
+	dockerRepositoryName "loicroux"
 }
 
 <#--
