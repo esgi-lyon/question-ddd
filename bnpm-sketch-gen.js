@@ -7,18 +7,20 @@ const fs = require("fs");
 
 const downloadPath = path.resolve(process.argv[2]);
 
-const destFiles = process.argv.slice(3).map((file) => file.trim())
+const destFiles = process.argv.slice(3).map((file) => file.trim());
 
-; (async () => {
+(async () => {
   const browser = await puppeteer.launch({
     headless: true,
   });
 
   async function download(destFile) {
-    console.log("Processing", destFile)
-  
+    console.log("Processing", destFile);
+
     const data = fs.readFileSync(destFile, { encoding: "utf8", flag: "r" });
-    const content = LZString.compressToEncodedURIComponent("bpln:v1\n--\n" + data);
+    const content = LZString.compressToEncodedURIComponent(
+      "bpln:v1\n--\n" + data
+    );
     const url = `https://www.bpmn-sketch-miner.ai/index.html#${content}`;
 
     const page = await browser.newPage();
@@ -26,7 +28,7 @@ const destFiles = process.argv.slice(3).map((file) => file.trim())
 
     await Promise.all([
       page.waitForNavigation(),
-      await page.goto(url, { waitUntil: "networkidle2" })
+      await page.goto(url, { waitUntil: "networkidle2" }),
     ]);
 
     // Download logic goes here
@@ -44,20 +46,28 @@ const destFiles = process.argv.slice(3).map((file) => file.trim())
       guids[event.guid] = destFile.split("/").pop() + ".png";
     });
 
-    page._client().on("Browser.downloadProgress", async (event) => {
-      if (event.state === "completed") {
-        fs.renameSync(
-          path.resolve(downloadPath, event.guid),
-          path.resolve(downloadPath, guids[event.guid])
-        );
-        console.log("Downloaded", guids[event.guid]);
-      }
-    });
+    async function waitUntilDownload(page) {
+      return new Promise((resolve, reject) => {
+        page._client().on("Browser.downloadProgress", async (event) => {
+          if (event.state === "completed") {
+            fs.renameSync(
+              path.resolve(downloadPath, event.guid),
+              path.resolve(downloadPath, guids[event.guid])
+            );
+            console.log("Downloaded", guids[event.guid]);
+            resolve(guids[event.guid])
+          } else if (event.state === 'canceled') {
+            reject();
+          }
+        });
+      });
+    }
 
     await page.click("#button-export-png");
+    await waitUntilDownload(page);
   }
 
-  await Promise.all(destFiles.map(download))
+  await Promise.all(destFiles.map(download));
 
-  await browser.close()
+  await browser.close();
 })();
