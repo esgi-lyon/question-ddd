@@ -181,7 +181,7 @@ BoundedContext SkillContext implements SkillDomain {
 			def Tag setCategory(@Category category);
 		}
 		ValueObject TagId {
-			int tagId key
+			Integer tagId key
 		}
 		enum TagStates {
 			aggregateLifecycle
@@ -199,7 +199,7 @@ BoundedContext SkillContext implements SkillDomain {
 			CREATED, DELETED
 		}
 		ValueObject CategoryId {
-			int categoryId key
+			Integer categoryId key
 		}
 		DomainEvent TagCreated {
 			- TagId tagId
@@ -284,7 +284,7 @@ BoundedContext AnswerContext implements QuestionDomain {
 			- @Answer answer
 		}
 		ValueObject AnsweredTag {
-			int id
+			Integer id
 			String name
 		}
 	}
@@ -309,7 +309,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	Aggregate Exercice {
 		Entity Evaluation {
 			aggregateRoot
-			int score
+			Integer score
 			- @Status status
 			- EvaluationTag tag
 			- EvaluationQuestion question
@@ -333,27 +333,27 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			EASY, MEDIUM, HARD
 		}
 		ValueObject AnsweringUser {
-			int id
+			Integer id
 			String name
 		}
 		// Valid tag of question resource
 		ValueObject EvaluationTag {
-			int id
+			Integer id
 			String name
 		}
 		ValueObject EvaluationQuestion {
-			int id
+			Integer id
 		}
 	}
 	Aggregate PointAwardRule {
 		Entity PointAwardRule {
 			aggregateRoot
-			int scoreEvolution
+			Integer scoreEvolution
 			- @DifficultyLevel difficultyLevel
 			- @UserLevel userLevel
-			def int pointsForRefusedOrValidated();
+			def Integer pointsForRefusedOrValidated();
 		}
-		DomainEvent AwardedPoint {
+		DomainEvent AwardedPoInteger {
 			- @Answer answer
 		}
 		enum UserLevel {

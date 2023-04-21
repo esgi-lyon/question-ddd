@@ -39,7 +39,7 @@ build:
 	cd -
 
 $(targets):
-	@cd jhipster/$@ && ./mvnw && cd -
+	@cd jhipster/$@ && ./mvnw && cd -;
 
 jhipster-registry:
 	java -jar jhipster-registry-$(JHIPSTER_VERSION).jar --spring.profiles.active=dev --spring.security.user.password=admin \
