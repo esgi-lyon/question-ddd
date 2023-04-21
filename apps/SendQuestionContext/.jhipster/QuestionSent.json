@@ -1,0 +1,38 @@
+{
+  "applications": ["SendQuestionContext"],
+  "changelogDate": "20230421204810",
+  "clientRootFolder": "SendQuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "question_sent",
+  "fields": [
+    {
+      "fieldName": "sentDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "viewedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "answeredDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SendQuestionContext",
+  "name": "QuestionSent",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "question",
+      "ownerSide": true,
+      "relationshipName": "question",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
