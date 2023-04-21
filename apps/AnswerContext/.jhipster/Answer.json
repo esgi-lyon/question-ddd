@@ -1,0 +1,24 @@
+{
+  "name": "Answer",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "answeredTag",
+      "relationshipName": "answeredTag",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "answer",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": [
+    "AnswerContext"
+  ],
+  "microserviceName": "AnswerContext"
+}
