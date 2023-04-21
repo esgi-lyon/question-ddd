@@ -32,19 +32,21 @@ diagrams:
 	./bnpm-sketch-gen.js dist_puml/src-gen/ $(strip $(sketch_only))
 	@cp -f src-gen/gamedev_ContextMap.png doc/
 
-build:
+build:	
 	cd apps && \
 	javac --version && \
-	jhipster import-jdl ./../src-gen/output.jdl &&\ 
+	jhipster --force  import-jdl ./../src-gen/output.jdl &&\ 
 	cd -
 
+docker-consul:
+	docker-compose -f apps/UserManagementContext/src/main/docker/consul.yml up -d
+
 $(targets):
-	@cd jhipster/$@ && ./mvnw && cd -;
+	@cd apps/$@ && ./mvnw -P dev,api-docs,tls
 
-jhipster-registry:
-	java -jar jhipster-registry-$(JHIPSTER_VERSION).jar --spring.profiles.active=dev --spring.security.user.password=admin \
-		--jhipster.security.authentication.jwt.secret=not-very-secrets-secret \
-		--spring.cloud.config.server.composite.0.type=git \
-		--spring.cloud.config.server.composite.0.uri='https://github.com/jhipster/jhipster-registry-sample-config'
+# Use make -j8
+all: $(targets)
 
-all: jhipster-registry $(targets)
+start:
+	make docker-consul
+	$(MAKE) all -j8

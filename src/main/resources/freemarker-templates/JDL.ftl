@@ -10,6 +10,7 @@
 <#assign oneToOneRefs = [] />
 <#assign contextNames = [] />
 <#assign gateway = false />
+<#assign deployment = false />
 <#-- 
  counter to give microservices different ports: (8081, 8082, 8083, ...) 
 -->
@@ -61,6 +62,7 @@ application {
 		applicationType microservice
 		serverPort ${portCounter?int?c}
 		enableSwaggerCodegen true
+		serviceDiscoveryType consul
 	}
 	<#if entityNames?has_content>
 	entities ${entityNames?join(", ")}
@@ -105,6 +107,7 @@ application {
 }
 </#if>
 
+<#if deployment>
 <#--
 Configure deployment
 -->
@@ -112,7 +115,9 @@ deployment {
 	deploymentType docker-compose
 	appsFolders [${contextNames?join(", ")}]
 	dockerRepositoryName "loicroux"
+	serviceDiscoveryType consul
 }
+</#if>
 
 <#--
  additional configurations for the JHipster generator:
