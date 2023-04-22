@@ -23,8 +23,12 @@
 <#list contexts as bc>
 <#assign entities = [] />
 <#assign entityNames = [] />
+<#assign enums = [] />
+<#assign events = [] />
 <#list bc.aggregates as agg>
 	<#assign entities = entities + agg.domainObjects?filter(dob -> instanceOf(dob, Entity) || instanceOf(dob, ValueObject))>
+	<#assign enums = enums + agg.domainObjects?filter(dob -> instanceOf(dob, Enum))>
+	<#assign events = events + agg.domainObjects?filter(dob -> instanceOf(dob, DomainEvent))>
 </#list>
 <#assign entityNames = entities?map(e -> e.name)>
 <#assign allEntityNames = allEntityNames + entityNames>
@@ -33,8 +37,20 @@
 <#if entities?has_content>
 
 /* Bounded Context ${bc.name} */<#lt>
+<#list enums as anEnum>
+enum ${anEnum.name} {
+	<#list anEnum.values as val>
+	${val.name}
+	</#list>
+}
+</#list>
+
 <#list entities as entity>
 
+<#if instanceOf(entity, ValueObject)>
+@readOnly
+@dto(mapstruct)
+</#if>
 entity ${entity.name} {
 	<#list entity.attributes as attribute>
 	${attribute.name} ${mapAttributeType(attribute.type)}
@@ -51,7 +67,20 @@ entity ${entity.name} {
 	</#list>
 
 </#list>
-microservice ${entityNames?join(", ")} with ${bc.name}<#lt>
+
+<#list events as event>
+
+@readOnly
+@dto(mapstruct)
+entity ${event.name} {
+	<#list event.attributes as attribute>
+	${attribute.name} ${mapAttributeType(attribute.type)}
+	</#list>
+}
+
+</#list>
+
+microservice ${entityNames?join(", ")} ${enums?join(", ")} ${events?join(", ")} with ${bc.name}<#lt>
 </#if>
 
 <#assign portCounter++ />

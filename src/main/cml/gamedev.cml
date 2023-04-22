@@ -28,7 +28,7 @@ ContextMap Poller {
 	// Links doc : https://contextmapper.org/docs/language-model/#links
 	QuestionContext [S]->[C] SendQuestionContext {
 		implementationTechnology = "RESTfulHTTP"
-		exposedAggregates = Question
+		exposedAggregates = QuestionResource
 	}
 
 	QuestionContext [P]<->[P] SkillContext {
@@ -107,24 +107,18 @@ BoundedContext QuestionContext implements SkillDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-		Command AssociateQuestion
-		Command AcceptQuestion
-		Command RejectQuestion
-		Command CreateQuestionData
 		/* For event trigger in flow :
 		 *   X: alternative command invokation (exclusive; only one); 
 		 *   +: concurrent command invokation (all commands called); 
 		 *   O: alternative command invokation (inclusive; one or multiple)
 		 */
 		Flow AssociateQuestionFlow {
-			command AssociateQuestion delegates to Question [WAITING -> WAITING] emits event QuestionWaitingForAssociation
-			event QuestionWaitingForAssociation triggers command AcceptQuestion X RejectQuestion
-			command AcceptQuestion delegates to Question [WAITING -> ASSOCIATED] emits event QuestionAcceptedAssociation
-			command RejectQuestion delegates to Question [WAITING -> REFUSED] emits event QuestionRefusedAssociation
-			event QuestionAcceptedAssociation triggers command CreateQuestionData
+			command CreateResource delegates to QuestionResource [WAITING -> WAITING] emits event ResourceWaitingForAssociation
+			event ResourceWaitingForAssociation triggers command ValidateResourceTagLinkage X RejectResourceTag
+			command ValidateResourceTagLinkage delegates to QuestionResource [WAITING -> ASSOCIATED X REFUSED] emits event ResourceAcceptedAssociation
 		}
 	}
-	Aggregate Question {
+	Aggregate QuestionResource {
 		Entity QuestionResource {
 			aggregateRoot
 			String questionContent
@@ -132,8 +126,8 @@ BoundedContext QuestionContext implements SkillDomain {
 			- @Types resourceType
 			- Tag tag
 			def boolean isWaitingForAssociation();
-			def boolean isAssociated();
-			def boolean isRefused();
+			def boolean accept();
+			def boolean refuse();
 			def QuestionResource associate(@Tag tag);
 		}
 		enum Types {
@@ -143,21 +137,26 @@ BoundedContext QuestionContext implements SkillDomain {
 			aggregateLifecycle
 				WAITING, ASSOCIATED, REFUSED
 		}
-		DomainEvent QuestionWaitingForAssociation {
+		DomainEvent ResourceWaitingForAssociation {
 			- QuestionResource questionId
 			- TagId tagId
 		}
-		DomainEvent QuestionAcceptedAssociation {
+		DomainEvent ResourceAcceptedAssociation {
 			- QuestionResource questionId
 			- TagId tagId
 		}
-		DomainEvent QuestionRefusedAssociation {
+		DomainEvent ResourceRefusedAssociation {
 			- QuestionResource questionId
 			- TagId tagId
 		}
-		ValueObject QuestionResourceTag {
+		Command CreateResource {
 			- QuestionResource questionId
-			- TagId tagId
+		}
+		Command ValidateResourceTagLinkage {
+			- QuestionResource questionId
+		}
+		Command RejectResourceTag {
+			- QuestionResource questionId
 		}
 	}
 }
@@ -166,8 +165,6 @@ BoundedContext SkillContext implements SkillDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-		Command CreateTag
-		Command CreateCategory
 		Flow CreateSkillFlow {
 			command CreateTag delegates to Skill [CREATED -> CREATED] emits event TagCreated
 			command CreateCategory emits event CategoryCreated
@@ -207,6 +204,12 @@ BoundedContext SkillContext implements SkillDomain {
 		DomainEvent CategoryCreated {
 			- CategoryId categoryId
 		}
+		Command CreateTag {
+			- Tag tag
+		}
+		Command CreateCategory {
+			- Category category
+		}
 	}
 }
 
@@ -215,13 +218,11 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-		Command CreateQuestion
-		Command SendQuestionByTagsPreferences
 		Flow CreateChoiceFlow {
 			// Randomized choice creation
-			command CreateQuestion delegates to Question emits event CreatedQuestion
+			command CreateQuestion delegates to QuestionNotification emits event CreatedQuestion
 			event CreatedQuestion triggers command SendQuestionByTagsPreferences
-			command SendQuestionByTagsPreferences delegates to Question emits event NotifiedQuestion
+			command SendQuestionByTagsPreferences delegates to QuestionNotification emits event NotifiedQuestion
 		}
 	}
 	Aggregate UserPreferences {
@@ -255,8 +256,14 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			- QuestionSent questionResource
 		}
 		ValueObject Question {
-			- List<QuestionResourceTag> resourcesWithRandomized
-			- QuestionResourceTag validQuestionResources
+			- List<@Tag> tags
+			- @QuestionResource resource
+		}
+		Command CreateQuestion {
+			- @QuestionResource resource
+		}
+		Command SendQuestionByTagsPreferences {
+			- @QuestionSent questionSent
 		}
 	}
 }
@@ -265,11 +272,9 @@ BoundedContext AnswerContext implements QuestionDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-		Command TagChoicesList
-		Command AnswerSubmit
 		Flow ChoiceSubmitFlow {
-			command TagChoicesList delegates to Question emits event TagChoicesListed
-			command AnswerSubmit delegates to Question emits event AnswerSubmitted
+			command TagChoicesList delegates to QuestionResource emits event TagChoicesListed
+			command AnswerSubmit delegates to QuestionResource emits event AnswerSubmitted
 		}
 	}
 	Aggregate Answer {
@@ -279,13 +284,17 @@ BoundedContext AnswerContext implements QuestionDomain {
 			- @UserInfos user
 			- AnsweredTag answeredTag
 		}
+		ValueObject AnsweredTag {
+			Integer id
+			String name
+		}
 		DomainEvent TagChoicesListed
 		DomainEvent AnswerSubmitted {
 			- @Answer answer
 		}
-		ValueObject AnsweredTag {
-			Integer id
-			String name
+		Command TagChoicesList
+		Command AnswerSubmit {
+			- @Answer answer
 		}
 	}
 }
@@ -294,16 +303,13 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-		Command CheckAnswer
-		Command CreateEvaluation
-		Command AwardPointForEvaluation
+
 		Flow EvaluationFlow {
 			event AnswerSubmitted triggers command CheckAnswer
-			command CheckAnswer delegates to Question emits event AnswerValidated X AnswerRefused
-			event AnswerValidated triggers command CreateEvaluation
-			event AnswerRefused triggers command CreateEvaluation
-			command CreateEvaluation delegates to Question emits event EvaluationCreated
-			command AwardPointForEvaluation delegates to Question emits event AwardedPoint
+			command CheckAnswer delegates to Exercice [OPENED -> VALID X INVALID] emits event AnswerChecked
+			event AnswerChecked triggers command CreateEvaluation
+			command CreateEvaluation delegates to Exercice emits event EvaluationCreated
+			command AwardPointForEvaluation delegates to PointAwardRule emits event AwardedPoint
 		}
 	}
 	Aggregate Exercice {
@@ -316,18 +322,9 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- AnsweringUser user
 			- @DifficultyLevel answeredQuestionDifficultyLevel
 		}
-		DomainEvent AnswerValidated {
-			- @Answer answer
-		}
-		DomainEvent AnswerRefused {
-			- @Answer answer
-		}
-		DomainEvent EvaluationCreated {
-			- @Evaluation evaluation
-		}
 		enum Status {
 			aggregateLifecycle
-				OPEN, DONE
+			VALID, INVALID, OPENED
 		}
 		enum DifficultyLevel {
 			EASY, MEDIUM, HARD
@@ -344,6 +341,19 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		ValueObject EvaluationQuestion {
 			Integer id
 		}
+		DomainEvent AnswerChecked {
+			- @Answer answer
+		}
+		DomainEvent EvaluationCreated {
+			- @Evaluation evaluation
+		}
+		Command CheckAnswer {
+			- @Answer answer
+		}
+		Command CreateEvaluation {
+			- @Answer answer
+		}
+
 	}
 	Aggregate PointAwardRule {
 		Entity PointAwardRule {
@@ -353,12 +363,15 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- @UserLevel userLevel
 			def Integer pointsForRefusedOrValidated();
 		}
-		DomainEvent AwardedPoInteger {
-			- @Answer answer
-		}
 		enum UserLevel {
 			aggregateLifecycle
 				NEW, REGULAR, EXPERT
+		}
+		DomainEvent AwardedPoint {
+			- @Answer answer
+		}
+		Command AwardPointForEvaluation {
+			- @Evaluation evaluation
 		}
 	}
 }
@@ -367,9 +380,8 @@ BoundedContext StatContext implements StatDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-		Command ViewStats
 		Flow ViewStatsFlow {
-			command ViewStats delegates to Question emits event UserStatsViewed X QuestionStatsViewed X TagStatsViewed
+			command ViewStats delegates to QuestionResource emits event UserStatsViewed X QuestionStatsViewed X TagStatsViewed
 		}
 	}
 	Aggregate Statistic {
@@ -387,6 +399,11 @@ BoundedContext StatContext implements StatDomain {
 		}
 		DomainEvent TagStatsViewed {
 			- EvaluationTag tag
+		}
+		Command ViewStats {
+			- @AnsweringUser user nullable
+			- @EvaluationQuestion question nullable
+			- @EvaluationTag tag nullable
 		}
 	}
 }
