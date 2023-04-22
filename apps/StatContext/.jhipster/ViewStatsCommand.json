@@ -1,0 +1,18 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230422153402",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "view_stats_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "ViewStatsCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

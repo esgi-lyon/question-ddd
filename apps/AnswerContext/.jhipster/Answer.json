@@ -1,24 +1,18 @@
 {
-  "name": "Answer",
-  "fields": [],
-  "relationships": [
-    {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "answeredTag",
-      "relationshipName": "answeredTag",
-      "ownerSide": true
-    }
-  ],
-  "entityTableName": "answer",
+  "applications": ["AnswerContext"],
+  "changelogDate": "20230422153802",
+  "clientRootFolder": "AnswerContext",
+  "databaseType": "sql",
   "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
   "embedded": false,
-  "applications": [
-    "AnswerContext"
-  ],
-  "microserviceName": "AnswerContext"
+  "entityTableName": "answer",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "AnswerContext",
+  "name": "Answer",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
 }

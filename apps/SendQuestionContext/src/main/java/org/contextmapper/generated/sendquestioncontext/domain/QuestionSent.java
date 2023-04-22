@@ -32,10 +32,6 @@ public class QuestionSent implements Serializable {
     @Column(name = "answered_date")
     private LocalDate answeredDate;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Question question;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -88,19 +84,6 @@ public class QuestionSent implements Serializable {
 
     public void setAnsweredDate(LocalDate answeredDate) {
         this.answeredDate = answeredDate;
-    }
-
-    public Question getQuestion() {
-        return this.question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
-    public QuestionSent question(Question question) {
-        this.setQuestion(question);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

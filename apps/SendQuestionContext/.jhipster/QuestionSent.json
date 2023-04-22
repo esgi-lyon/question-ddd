@@ -1,6 +1,6 @@
 {
   "applications": ["SendQuestionContext"],
-  "changelogDate": "20230421204810",
+  "changelogDate": "20230422153402",
   "clientRootFolder": "SendQuestionContext",
   "databaseType": "sql",
   "dto": "mapstruct",
@@ -26,13 +26,6 @@
   "name": "QuestionSent",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "question",
-      "ownerSide": true,
-      "relationshipName": "question",
-      "relationshipType": "one-to-one"
-    }
-  ],
-  "service": "serviceImpl"
+  "relationships": [],
+  "service": "serviceClass"
 }

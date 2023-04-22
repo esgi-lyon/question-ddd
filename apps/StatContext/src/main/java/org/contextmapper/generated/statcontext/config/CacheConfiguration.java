@@ -46,6 +46,11 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
+            createCache(cm, org.contextmapper.generated.statcontext.domain.ViewStatsCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.QuestionStatsViewedEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.UserStatsViewedEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.LeaderBoard.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.TagStatsViewedEvent.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

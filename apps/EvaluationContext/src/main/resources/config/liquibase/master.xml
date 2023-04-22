@@ -17,6 +17,14 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153402_added_entity_AnswerCheckedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153502_added_entity_EvaluationCreatedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153602_added_entity_AwardedPointEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153702_added_entity_CheckAnswerCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153802_added_entity_AwardPointForEvaluationCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153902_added_entity_PointAwardRule.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422154002_added_entity_CreateEvaluationCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422154102_added_entity_Evaluation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

@@ -18,8 +18,6 @@ public class QuestionSentDTO implements Serializable {
 
     private LocalDate answeredDate;
 
-    private QuestionDTO question;
-
     public Long getId() {
         return id;
     }
@@ -52,14 +50,6 @@ public class QuestionSentDTO implements Serializable {
         this.answeredDate = answeredDate;
     }
 
-    public QuestionDTO getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(QuestionDTO question) {
-        this.question = question;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -89,7 +79,6 @@ public class QuestionSentDTO implements Serializable {
             ", sentDate='" + getSentDate() + "'" +
             ", viewedDate='" + getViewedDate() + "'" +
             ", answeredDate='" + getAnsweredDate() + "'" +
-            ", question=" + getQuestion() +
             "}";
     }
 }

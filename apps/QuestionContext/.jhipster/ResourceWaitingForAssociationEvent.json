@@ -1,0 +1,18 @@
+{
+  "applications": ["QuestionContext"],
+  "changelogDate": "20230422153502",
+  "clientRootFolder": "QuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "resource_waiting_for_association_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionContext",
+  "name": "ResourceWaitingForAssociationEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -98,7 +98,7 @@ BoundedContext UserManagementContext {
 				VALIDATED, WAITING_VALIDATION
 		}
 		ValueObject UserId {
-			Integer id
+			int userId
 		}
 	}
 }
@@ -139,15 +139,15 @@ BoundedContext QuestionContext implements SkillDomain {
 		}
 		DomainEvent ResourceWaitingForAssociation {
 			- QuestionResource questionId
-			- TagId tagId
+			- TagInfos tagId
 		}
 		DomainEvent ResourceAcceptedAssociation {
 			- QuestionResource questionId
-			- TagId tagId
+			- TagInfos tagId
 		}
 		DomainEvent ResourceRefusedAssociation {
 			- QuestionResource questionId
-			- TagId tagId
+			- TagInfos tagId
 		}
 		Command CreateResource {
 			- QuestionResource questionId
@@ -177,15 +177,15 @@ BoundedContext SkillContext implements SkillDomain {
 			- @UserInfos createdBy
 			def Tag setCategory(@Category category);
 		}
-		ValueObject TagId {
-			Integer tagId key
+		ValueObject TagInfos {
+			int tagId
+			String name
 		}
 		enum TagStates {
 			aggregateLifecycle
 				CREATED, DELETED
 		}
 		Entity Category {
-			- CategoryId identifier
 			String name
 			String description
 			- List<Tag> tags
@@ -196,10 +196,10 @@ BoundedContext SkillContext implements SkillDomain {
 			CREATED, DELETED
 		}
 		ValueObject CategoryId {
-			Integer categoryId key
+			int categoryId
 		}
 		DomainEvent TagCreated {
-			- TagId tagId
+			- TagInfos tagId
 		}
 		DomainEvent CategoryCreated {
 			- CategoryId categoryId
@@ -229,15 +229,16 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		Entity UserPreferences {
 			aggregateRoot
 			- UserId user
-			- List<TagId> preferences
-			def UserPreferences addPreference(@TagId tagId);
+			- List<TagInfos> preferences
+			def UserPreferences addPreference(@TagInfos tagId);
 		}
 	}
 	Aggregate QuestionNotification {
 		Entity QuestionSent {
 			aggregateRoot
-			- Question question
 			- QuestionNotificationStatus status
+			- List<Tag> tags
+			- QuestionResource resource
 			Date sentDate
 			Date viewedDate
 			Date answeredDate
@@ -256,8 +257,8 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			- QuestionSent questionResource
 		}
 		ValueObject Question {
-			- List<@Tag> tags
-			- @QuestionResource resource
+			- List<TagInfos> tags
+			- TagInfos resourceCorrectTag
 		}
 		Command CreateQuestion {
 			- @QuestionResource resource
@@ -285,7 +286,7 @@ BoundedContext AnswerContext implements QuestionDomain {
 			- AnsweredTag answeredTag
 		}
 		ValueObject AnsweredTag {
-			Integer id
+			int tagId
 			String name
 		}
 		DomainEvent TagChoicesListed
@@ -303,7 +304,6 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
 	Application {
-
 		Flow EvaluationFlow {
 			event AnswerSubmitted triggers command CheckAnswer
 			command CheckAnswer delegates to Exercice [OPENED -> VALID X INVALID] emits event AnswerChecked
@@ -315,7 +315,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	Aggregate Exercice {
 		Entity Evaluation {
 			aggregateRoot
-			Integer score
+			int score
 			- @Status status
 			- EvaluationTag tag
 			- EvaluationQuestion question
@@ -330,16 +330,16 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			EASY, MEDIUM, HARD
 		}
 		ValueObject AnsweringUser {
-			Integer id
+			int userId
 			String name
 		}
 		// Valid tag of question resource
 		ValueObject EvaluationTag {
-			Integer id
+			int tagId
 			String name
 		}
 		ValueObject EvaluationQuestion {
-			Integer id
+			int questionId
 		}
 		DomainEvent AnswerChecked {
 			- @Answer answer
@@ -353,15 +353,14 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		Command CreateEvaluation {
 			- @Answer answer
 		}
-
 	}
 	Aggregate PointAwardRule {
 		Entity PointAwardRule {
 			aggregateRoot
-			Integer scoreEvolution
+			int scoreEvolution
 			- @DifficultyLevel difficultyLevel
 			- @UserLevel userLevel
-			def Integer pointsForRefusedOrValidated();
+			def int pointsForRefusedOrValidated();
 		}
 		enum UserLevel {
 			aggregateLifecycle

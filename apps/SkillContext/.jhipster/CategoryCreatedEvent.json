@@ -1,0 +1,18 @@
+{
+  "applications": ["SkillContext"],
+  "changelogDate": "20230422153402",
+  "clientRootFolder": "SkillContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "category_created_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SkillContext",
+  "name": "CategoryCreatedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

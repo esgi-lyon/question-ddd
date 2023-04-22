@@ -27,7 +27,7 @@ public class Tag implements Serializable {
     private String name;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "identifier", "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
     private Category category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

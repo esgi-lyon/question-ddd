@@ -1,5 +1,11 @@
 {
-  "name": "UserInfos",
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230422153402",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_infos",
   "fields": [
     {
       "fieldName": "firstname",
@@ -10,17 +16,12 @@
       "fieldType": "String"
     }
   ],
-  "relationships": [],
-  "entityTableName": "user_infos",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "UserInfos",
+  "pagination": "no",
   "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "UserManagementContext"
-  ],
-  "microserviceName": "UserManagementContext"
+  "relationships": [],
+  "service": "serviceClass"
 }

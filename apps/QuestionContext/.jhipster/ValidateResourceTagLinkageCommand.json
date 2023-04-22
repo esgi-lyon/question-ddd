@@ -1,0 +1,18 @@
+{
+  "applications": ["QuestionContext"],
+  "changelogDate": "20230422153402",
+  "clientRootFolder": "QuestionContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "validate_resource_tag_linkage_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionContext",
+  "name": "ValidateResourceTagLinkageCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

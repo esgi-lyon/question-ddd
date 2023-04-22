@@ -46,6 +46,14 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnswerCheckedEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationCreatedEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardedPointEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluationCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.PointAwardRule.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.Evaluation.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

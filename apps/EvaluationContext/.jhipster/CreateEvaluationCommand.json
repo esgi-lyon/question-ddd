@@ -1,0 +1,18 @@
+{
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230422154002",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "create_evaluation_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "CreateEvaluationCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

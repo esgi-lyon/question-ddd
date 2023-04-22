@@ -31,10 +31,6 @@ public class Category implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private CategoryId identifier;
-
     @OneToMany(mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "category" }, allowSetters = true)
@@ -79,19 +75,6 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public CategoryId getIdentifier() {
-        return this.identifier;
-    }
-
-    public void setIdentifier(CategoryId categoryId) {
-        this.identifier = categoryId;
-    }
-
-    public Category identifier(CategoryId categoryId) {
-        this.setIdentifier(categoryId);
-        return this;
     }
 
     public Set<Tag> getTags() {

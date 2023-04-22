@@ -1,22 +1,23 @@
 {
-  "name": "PointAwardRule",
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230422153902",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "point_award_rule",
   "fields": [
     {
       "fieldName": "scoreEvolution",
       "fieldType": "Integer"
     }
   ],
-  "relationships": [],
-  "entityTableName": "point_award_rule",
-  "dto": "mapstruct",
-  "pagination": "no",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
   "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "PointAwardRule",
+  "pagination": "no",
   "readOnly": false,
-  "embedded": false,
-  "applications": [
-    "EvaluationContext"
-  ],
-  "microserviceName": "EvaluationContext"
+  "relationships": [],
+  "service": "serviceClass"
 }

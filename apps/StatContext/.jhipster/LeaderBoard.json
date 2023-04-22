@@ -1,6 +1,6 @@
 {
   "applications": ["StatContext"],
-  "changelogDate": "20230421204810",
+  "changelogDate": "20230422153702",
   "clientRootFolder": "StatContext",
   "databaseType": "sql",
   "dto": "mapstruct",
@@ -14,5 +14,5 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [],
-  "service": "serviceImpl"
+  "service": "serviceClass"
 }

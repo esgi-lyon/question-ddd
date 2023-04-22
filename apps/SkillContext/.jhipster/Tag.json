@@ -1,6 +1,6 @@
 {
   "applications": ["SkillContext"],
-  "changelogDate": "20230421205110",
+  "changelogDate": "20230422153902",
   "clientRootFolder": "SkillContext",
   "databaseType": "sql",
   "dto": "mapstruct",
@@ -26,5 +26,5 @@
       "relationshipType": "many-to-one"
     }
   ],
-  "service": "serviceImpl"
+  "service": "serviceClass"
 }

@@ -15,8 +15,6 @@ public class CategoryDTO implements Serializable {
 
     private String description;
 
-    private CategoryIdDTO identifier;
-
     public Long getId() {
         return id;
     }
@@ -39,14 +37,6 @@ public class CategoryDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public CategoryIdDTO getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(CategoryIdDTO identifier) {
-        this.identifier = identifier;
     }
 
     @Override
@@ -77,7 +67,6 @@ public class CategoryDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", identifier=" + getIdentifier() +
             "}";
     }
 }

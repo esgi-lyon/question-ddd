@@ -1,0 +1,18 @@
+{
+  "applications": ["QuestionContext"],
+  "changelogDate": "20230422153602",
+  "clientRootFolder": "QuestionContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "create_resource_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionContext",
+  "name": "CreateResourceCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
