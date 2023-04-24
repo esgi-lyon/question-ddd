@@ -35,7 +35,7 @@ diagrams:
 build:	
 	cd apps && \
 	javac --version && \
-	jhipster --force  import-jdl ./../src-gen/output.jdl &&\ 
+	jhipster --force import-jdl ./../src-gen/output.jdl &&\ 
 	cd -
 
 docker-consul:

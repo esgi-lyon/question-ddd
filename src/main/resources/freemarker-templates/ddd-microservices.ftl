@@ -11,6 +11,8 @@
 <#assign contextNames = [] />
 <#assign gateway = false />
 <#assign deployment = false />
+<#assign threeTier = false />
+
 <#-- 
  counter to give microservices different ports: (8081, 8082, 8083, ...) 
 -->
@@ -31,8 +33,10 @@
 	<#assign entities = entities + agg.domainObjects?filter(dob -> instanceOf(dob, Entity))>
 	<#assign valueObjects = valueObjects + agg.domainObjects?filter(dob -> instanceOf(dob, ValueObject))>
 	<#assign enums = enums + agg.domainObjects?filter(dob -> instanceOf(dob, Enum))>
-	<#assign events = events + agg.domainObjects?filter(dob -> instanceOf(dob, DomainEvent))>
-	<#assign commands = commands + agg.domainObjects?filter(dob -> instanceOf(dob, CommandEvent))>
+	<#if !threeTier>
+		<#assign events = events + agg.domainObjects?filter(dob -> instanceOf(dob, DomainEvent))>
+		<#assign commands = commands + agg.domainObjects?filter(dob -> instanceOf(dob, CommandEvent))>
+	</#if>
 </#list>
 <#assign entityNames = entities?map(e -> e.name)>
 <#assign eventNames = events?map(e -> e.name)>
@@ -56,6 +60,9 @@ enum ${anEnum.name} {
 
 <#if instanceOf(entity, ValueObject)>
 @readOnly
+</#if>
+<#if instanceOf(entity, Entity) && threeTier>
+@service(serviceClass)
 </#if>
 @dto(mapstruct)
 entity ${entity.name} {
