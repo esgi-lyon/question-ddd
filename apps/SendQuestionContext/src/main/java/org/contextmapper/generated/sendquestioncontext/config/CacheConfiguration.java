@@ -60,6 +60,11 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSentTagInfos.class.getName());
             createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.Question.class.getName());
             createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.Question.class.getName() + ".tags");
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSentQuestionResourceTagId.class.getName());
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.CreatedQuestion.class.getName());
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.NotifiedQuestion.class.getName());
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.CreateQuestion.class.getName());
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.SendQuestionByTagsPreferences.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -257,7 +257,9 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		ValueObject QuestionSentTagId {
 			int tagId
 		}
-		
+		ValueObject QuestionSentQuestionResourceTagId {
+			int tagId
+		}
 		enum QuestionNotificationStatus {
 			aggregateLifecycle
 				SENT, VIEWED, ANSWERED
@@ -277,7 +279,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			- QuestionSentTagInfos resourceCorrectTag
 		}
 		Command CreateQuestion {
-			- @QuestionResource resource
+			- @QuestionSentQuestionResourceTagId resource
 		}
 		Command SendQuestionByTagsPreferences {
 			- @QuestionSent questionSent
@@ -360,17 +362,20 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		ValueObject EvaluationQuestion {
 			int questionId
 		}
+		ValueObject EvaluatedAnswer {
+			int answerId
+		}
 		DomainEvent AnswerChecked {
-			- @Answer answer
+			- @EvaluatedAnswer answer
 		}
 		DomainEvent EvaluationCreated {
 			- @Evaluation evaluation
 		}
 		Command CheckAnswer {
-			- @Answer answer
+			- @EvaluatedAnswer answer
 		}
 		Command CreateEvaluation {
-			- @Answer answer
+			- @EvaluatedAnswer	 answer
 		}
 	}
 	Aggregate PointAwardRule {
@@ -386,7 +391,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 				NEW, REGULAR, EXPERT
 		}
 		DomainEvent AwardedPoint {
-			- @Answer answer
+			- @EvaluatedAnswer answer
 		}
 		Command AwardPointForEvaluation {
 			- @Evaluation evaluation
@@ -407,27 +412,33 @@ BoundedContext StatContext implements StatDomain {
 			aggregateRoot
 			- List<EvaluationId> evaluation
 			- DifficultyLevel difficultyLevel
-			- StatEvaluationTag tagId
+			- StatisticSubjectTag tagId
 		}
 		ValueObject EvaluationId {
 			int evaluationId
 		}
-		ValueObject StatEvaluationTag {
+		ValueObject StatisticSubjectTag {
 			int tagId
 		}
+		ValueObject StatisticSubjectUser {
+			int userId
+		}
+		ValueObject StatisticSubjectQuestion {
+			int questionId
+		}
 		DomainEvent UserStatsViewed {
-			- AnsweringUser user
+			- StatisticSubjectUser user
 		}
 		DomainEvent QuestionStatsViewed {
-			- EvaluationQuestion question
+			- StatisticSubjectQuestion question
 		}
 		DomainEvent TagStatsViewed {
-			- EvaluationTag tag
+			- StatisticSubjectTag tag
 		}
 		Command ViewStats {
-			- @AnsweringUser user nullable
-			- @EvaluationQuestion question nullable
-			- @EvaluationTag tag nullable
+			- @StatisticSubjectUser user nullable
+			- @StatisticSubjectQuestion question nullable
+			- @StatisticSubjectTag tag nullable
 		}
 	}
 }

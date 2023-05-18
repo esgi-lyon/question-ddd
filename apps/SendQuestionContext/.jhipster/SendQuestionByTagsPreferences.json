@@ -1,0 +1,25 @@
+{
+  "applications": ["SendQuestionContext"],
+  "changelogDate": "20230518165857",
+  "clientRootFolder": "SendQuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "send_question_by_tags_preferences",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SendQuestionContext",
+  "name": "SendQuestionByTagsPreferences",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "questionSent",
+      "ownerSide": true,
+      "relationshipName": "questionSent",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

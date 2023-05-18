@@ -25,7 +25,11 @@
       "Category",
       "Tag",
       "TagInfos",
-      "CategoryId"
+      "CategoryId",
+      "TagCreated",
+      "CategoryCreated",
+      "CreateTag",
+      "CreateCategory"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": "",
@@ -33,7 +37,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "YjA1ODY2NzI0NGMxYWFlYTAzNmNiMmVmOTYyOGQwOGJkMzRlYjA4ZjZlZjBhMDNlZGY3MmI0NTk2MTQ0MzI1NDQ2Y2MwODMxMzY3YjQ4MTE4NDcxMDBiNzg0ZjRhNjA2ZWM2MGFjZWZhNTBiOTE2MGU2NjA5ODBjOGJmYmU5MTE=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1684427431000,
+    "lastLiquibaseTimestamp": 1684429131000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

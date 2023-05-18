@@ -54,6 +54,13 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.statcontext.domain.TagStatsViewedEvent.class.getName());
             createCache(cm, org.contextmapper.generated.statcontext.domain.EvaluationId.class.getName());
             createCache(cm, org.contextmapper.generated.statcontext.domain.StatEvaluationTag.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.StatisticSubjectTag.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.StatisticSubjectUser.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.StatisticSubjectQuestion.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.UserStatsViewed.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.QuestionStatsViewed.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.TagStatsViewed.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.ViewStats.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

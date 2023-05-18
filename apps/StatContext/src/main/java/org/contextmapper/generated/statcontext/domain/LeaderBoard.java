@@ -32,7 +32,7 @@ public class LeaderBoard implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private StatEvaluationTag tagId;
+    private StatisticSubjectTag tagId;
 
     @OneToMany(mappedBy = "leaderBoard")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -67,16 +67,16 @@ public class LeaderBoard implements Serializable {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public StatEvaluationTag getTagId() {
+    public StatisticSubjectTag getTagId() {
         return this.tagId;
     }
 
-    public void setTagId(StatEvaluationTag statEvaluationTag) {
-        this.tagId = statEvaluationTag;
+    public void setTagId(StatisticSubjectTag statisticSubjectTag) {
+        this.tagId = statisticSubjectTag;
     }
 
-    public LeaderBoard tagId(StatEvaluationTag statEvaluationTag) {
-        this.setTagId(statEvaluationTag);
+    public LeaderBoard tagId(StatisticSubjectTag statisticSubjectTag) {
+        this.setTagId(statisticSubjectTag);
         return this;
     }
 

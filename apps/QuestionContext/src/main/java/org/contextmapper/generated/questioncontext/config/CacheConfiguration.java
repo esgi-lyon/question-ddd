@@ -54,6 +54,12 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.questioncontext.domain.RejectResourceTagCommand.class.getName());
             createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceRefusedAssociationEvent.class.getName());
             createCache(cm, org.contextmapper.generated.questioncontext.domain.QuestionResourceTagInfos.class.getName());
+            createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceWaitingForAssociation.class.getName());
+            createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceAcceptedAssociation.class.getName());
+            createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceRefusedAssociation.class.getName());
+            createCache(cm, org.contextmapper.generated.questioncontext.domain.CreateResource.class.getName());
+            createCache(cm, org.contextmapper.generated.questioncontext.domain.ValidateResourceTagLinkage.class.getName());
+            createCache(cm, org.contextmapper.generated.questioncontext.domain.RejectResourceTag.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

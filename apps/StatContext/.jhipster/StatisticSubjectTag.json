@@ -1,0 +1,23 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230518165908",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "statistic_subject_tag",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "StatisticSubjectTag",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

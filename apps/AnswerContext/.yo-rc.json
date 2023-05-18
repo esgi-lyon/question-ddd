@@ -24,7 +24,11 @@
       "AnswerSubmittedEvent",
       "Answer",
       "QuestionId",
-      "AnsweredTag"
+      "AnsweredTag",
+      "TagChoicesListed",
+      "AnswerSubmitted",
+      "TagChoicesList",
+      "AnswerSubmit"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": "",
@@ -32,7 +36,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "N2ExYTkyMWQ2MjIxOWY2Mjk0NjUyYmE1YjViZjM1YmQ0NWNmNjFjZmM2M2FmNDZiMDkzYWMxNjJhM2JkMTYxY2RiZTA0MmE1YjdhMjczMDBkODhiYzM0M2Y0OGI2ODIxN2MzMjM0N2M3NDJhODEzZDJhOGIxY2MyYjdiZmE2OWY=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1684427439000,
+    "lastLiquibaseTimestamp": 1684429141000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

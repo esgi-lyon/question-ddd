@@ -1,0 +1,23 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230518165910",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "statistic_subject_question",
+  "fields": [
+    {
+      "fieldName": "questionId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "StatisticSubjectQuestion",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

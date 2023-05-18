@@ -14,7 +14,7 @@ public class LeaderBoardDTO implements Serializable {
 
     private DifficultyLevel difficultyLevel;
 
-    private StatEvaluationTagDTO tagId;
+    private StatisticSubjectTagDTO tagId;
 
     public Long getId() {
         return id;
@@ -32,11 +32,11 @@ public class LeaderBoardDTO implements Serializable {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public StatEvaluationTagDTO getTagId() {
+    public StatisticSubjectTagDTO getTagId() {
         return tagId;
     }
 
-    public void setTagId(StatEvaluationTagDTO tagId) {
+    public void setTagId(StatisticSubjectTagDTO tagId) {
         this.tagId = tagId;
     }
 

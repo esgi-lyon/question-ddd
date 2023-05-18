@@ -1,0 +1,31 @@
+{
+  "applications": ["QuestionContext"],
+  "changelogDate": "20230518165843",
+  "clientRootFolder": "QuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "resource_waiting_for_association",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionContext",
+  "name": "ResourceWaitingForAssociation",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "questionResource",
+      "ownerSide": true,
+      "relationshipName": "questionId",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "questionResourceTagInfos",
+      "ownerSide": true,
+      "relationshipName": "tagId",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

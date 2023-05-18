@@ -25,8 +25,16 @@
     <include file="config/liquibase/changelog/20230422153902_added_entity_Tag.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518163030_added_entity_TagInfos.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518163031_added_entity_CategoryId.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165848_added_entity_TagCreated.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165849_added_entity_CategoryCreated.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165850_added_entity_CreateTag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165851_added_entity_CreateCategory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20230422153902_added_entity_constraints_Tag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165848_added_entity_constraints_TagCreated.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165849_added_entity_constraints_CategoryCreated.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165850_added_entity_constraints_CreateTag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165851_added_entity_constraints_CreateCategory.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

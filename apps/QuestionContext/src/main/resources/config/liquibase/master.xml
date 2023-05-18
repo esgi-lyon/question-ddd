@@ -25,7 +25,19 @@
     <include file="config/liquibase/changelog/20230422153902_added_entity_RejectResourceTagCommand.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230422154002_added_entity_ResourceRefusedAssociationEvent.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518163025_added_entity_QuestionResourceTagInfos.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165843_added_entity_ResourceWaitingForAssociation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165844_added_entity_ResourceAcceptedAssociation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165845_added_entity_ResourceRefusedAssociation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165846_added_entity_CreateResource.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165847_added_entity_ValidateResourceTagLinkage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165848_added_entity_RejectResourceTag.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230518165843_added_entity_constraints_ResourceWaitingForAssociation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165844_added_entity_constraints_ResourceAcceptedAssociation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165845_added_entity_constraints_ResourceRefusedAssociation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165846_added_entity_constraints_CreateResource.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165847_added_entity_constraints_ValidateResourceTagLinkage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165848_added_entity_constraints_RejectResourceTag.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

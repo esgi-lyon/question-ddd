@@ -1,0 +1,25 @@
+{
+  "applications": ["QuestionContext"],
+  "changelogDate": "20230518165847",
+  "clientRootFolder": "QuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "validate_resource_tag_linkage",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionContext",
+  "name": "ValidateResourceTagLinkage",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "questionResource",
+      "ownerSide": true,
+      "relationshipName": "questionId",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

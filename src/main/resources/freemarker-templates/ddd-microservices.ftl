@@ -55,7 +55,7 @@ enum ${anEnum.name} {
 }
 </#list>
 
-<#assign entitiesAndValueObjects = entities + valueObjects>
+<#assign entitiesAndValueObjects = entities + valueObjects + events + commands>
 <#list entitiesAndValueObjects as entity>
 
 <#list entity.references as reference>

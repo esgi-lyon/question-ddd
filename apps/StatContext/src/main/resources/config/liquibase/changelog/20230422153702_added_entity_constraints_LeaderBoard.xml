@@ -12,6 +12,6 @@
                                  baseTableName="leader_board"
                                  constraintName="fk_leader_board__tag_id_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="stat_evaluation_tag"/>
+                                 referencedTableName="statistic_subject_tag"/>
     </changeSet>
 </databaseChangeLog>
