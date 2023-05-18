@@ -11,12 +11,22 @@ public class CreatedQuestionEventDTO implements Serializable {
 
     private Long id;
 
+    private QuestionSentDTO questionAndTag;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionSentDTO getQuestionAndTag() {
+        return questionAndTag;
+    }
+
+    public void setQuestionAndTag(QuestionSentDTO questionAndTag) {
+        this.questionAndTag = questionAndTag;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class CreatedQuestionEventDTO implements Serializable {
     public String toString() {
         return "CreatedQuestionEventDTO{" +
             "id=" + getId() +
+            ", questionAndTag=" + getQuestionAndTag() +
             "}";
     }
 }

@@ -36,6 +36,12 @@
     <include file="config/liquibase/changelog/20230518165907_added_entity_CreateEvaluation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518165908_added_entity_AwardPointForEvaluation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230422153402_added_entity_constraints_AnswerCheckedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153502_added_entity_constraints_EvaluationCreatedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153602_added_entity_constraints_AwardedPointEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153702_added_entity_constraints_CheckAnswerCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153802_added_entity_constraints_AwardPointForEvaluationCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422154002_added_entity_constraints_CreateEvaluationCommand.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230422154102_added_entity_constraints_Evaluation.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518165903_added_entity_constraints_AnswerChecked.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518165904_added_entity_constraints_EvaluationCreated.xml" relativeToChangelogFile="false"/>

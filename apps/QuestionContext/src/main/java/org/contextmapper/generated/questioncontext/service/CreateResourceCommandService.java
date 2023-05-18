@@ -3,7 +3,11 @@ package org.contextmapper.generated.questioncontext.service;
 import java.util.List;
 import java.util.Optional;
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
+import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
+import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
+import org.contextmapper.generated.questioncontext.service.dto.ResourceWaitingForAssociationEventDTO;
+import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,8 +24,38 @@ public class CreateResourceCommandService {
 
     private final CreateResourceCommandRepository createResourceCommandRepository;
 
-    public CreateResourceCommandService(CreateResourceCommandRepository createResourceCommandRepository) {
+    private final QuestionResourceService questionResourceService;
+
+    private final ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService;
+
+    private final QuestionResourceMapper questionResourceMapper;
+
+    public CreateResourceCommandService(
+        CreateResourceCommandRepository createResourceCommandRepository,
+        QuestionResourceService questionResourceService,
+        ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService,
+        QuestionResourceMapper questionResourceMapper
+
+    ) {
         this.createResourceCommandRepository = createResourceCommandRepository;
+        this.questionResourceService = questionResourceService;
+        this.resourceWaitingForAssociationEventService = resourceWaitingForAssociationEventService;
+        this.questionResourceMapper = questionResourceMapper;
+    }
+
+    public CreateResourceCommand handle(QuestionResourceDTO questionResourceDTO) {
+        log.debug("Request to create resource");
+        CreateResourceCommand createResourceCommand = new CreateResourceCommand();
+        questionResourceDTO.setQuestionState(States.WAITING);
+        final var saved = questionResourceService.save(questionResourceDTO);
+
+        final var resourceWaitingForAssociationEventDTO = new ResourceWaitingForAssociationEventDTO();
+        questionResourceDTO.setId(saved.getId());
+        resourceWaitingForAssociationEventDTO.setQuestionId(questionResourceDTO);
+        resourceWaitingForAssociationEventService.save(resourceWaitingForAssociationEventDTO);
+        return createResourceCommandRepository.save(
+            createResourceCommand.questionId(questionResourceMapper.toEntity(saved))
+        );
     }
 
     /**
@@ -43,8 +77,7 @@ public class CreateResourceCommandService {
      */
     public CreateResourceCommand update(CreateResourceCommand createResourceCommand) {
         log.debug("Request to update CreateResourceCommand : {}", createResourceCommand);
-        // no save call needed as we have no fields that can be updated
-        return createResourceCommand;
+        return createResourceCommandRepository.save(createResourceCommand);
     }
 
     /**
@@ -60,8 +93,8 @@ public class CreateResourceCommandService {
             .findById(createResourceCommand.getId())
             .map(existingCreateResourceCommand -> {
                 return existingCreateResourceCommand;
-            })// .map(createResourceCommandRepository::save)
-        ;
+            })
+            .map(createResourceCommandRepository::save);
     }
 
     /**

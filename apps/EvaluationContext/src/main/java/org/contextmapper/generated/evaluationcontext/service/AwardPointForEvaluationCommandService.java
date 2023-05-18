@@ -43,8 +43,7 @@ public class AwardPointForEvaluationCommandService {
      */
     public AwardPointForEvaluationCommand update(AwardPointForEvaluationCommand awardPointForEvaluationCommand) {
         log.debug("Request to update AwardPointForEvaluationCommand : {}", awardPointForEvaluationCommand);
-        // no save call needed as we have no fields that can be updated
-        return awardPointForEvaluationCommand;
+        return awardPointForEvaluationCommandRepository.save(awardPointForEvaluationCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class AwardPointForEvaluationCommandService {
             .findById(awardPointForEvaluationCommand.getId())
             .map(existingAwardPointForEvaluationCommand -> {
                 return existingAwardPointForEvaluationCommand;
-            })// .map(awardPointForEvaluationCommandRepository::save)
-        ;
+            })
+            .map(awardPointForEvaluationCommandRepository::save);
     }
 
     /**

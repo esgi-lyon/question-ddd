@@ -56,7 +56,7 @@ public class NotifiedQuestionEventService {
     public NotifiedQuestionEventDTO update(NotifiedQuestionEventDTO notifiedQuestionEventDTO) {
         log.debug("Request to update NotifiedQuestionEvent : {}", notifiedQuestionEventDTO);
         NotifiedQuestionEvent notifiedQuestionEvent = notifiedQuestionEventMapper.toEntity(notifiedQuestionEventDTO);
-        // no save call needed as we have no fields that can be updated
+        notifiedQuestionEvent = notifiedQuestionEventRepository.save(notifiedQuestionEvent);
         return notifiedQuestionEventMapper.toDto(notifiedQuestionEvent);
     }
 
@@ -76,7 +76,7 @@ public class NotifiedQuestionEventService {
 
                 return existingNotifiedQuestionEvent;
             })
-            // .map(notifiedQuestionEventRepository::save)
+            .map(notifiedQuestionEventRepository::save)
             .map(notifiedQuestionEventMapper::toDto);
     }
 

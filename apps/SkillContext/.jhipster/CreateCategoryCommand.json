@@ -13,6 +13,13 @@
   "name": "CreateCategoryCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "category",
+      "ownerSide": true,
+      "relationshipName": "category",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

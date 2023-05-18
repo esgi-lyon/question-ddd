@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity SendQuestionByTagsPreferencesCommand.
+    -->
+    <changeSet id="20230422153802-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="question_sent_id"
+                                 baseTableName="send_question_by_tags_preferences_command"
+                                 constraintName="fk_send_question_by_tags_preferences_command__question_sent_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_sent"/>
+    </changeSet>
+</databaseChangeLog>

@@ -13,6 +13,13 @@
   "name": "NotifiedQuestionEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionSent",
+      "ownerSide": true,
+      "relationshipName": "questionResource",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

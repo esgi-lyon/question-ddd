@@ -11,12 +11,22 @@ public class AwardedPointEventDTO implements Serializable {
 
     private Long id;
 
+    private EvaluatedAnswerDTO answer;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public EvaluatedAnswerDTO getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(EvaluatedAnswerDTO answer) {
+        this.answer = answer;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class AwardedPointEventDTO implements Serializable {
     public String toString() {
         return "AwardedPointEventDTO{" +
             "id=" + getId() +
+            ", answer=" + getAnswer() +
             "}";
     }
 }

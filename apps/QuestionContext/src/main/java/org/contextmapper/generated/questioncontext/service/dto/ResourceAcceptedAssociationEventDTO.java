@@ -11,12 +11,32 @@ public class ResourceAcceptedAssociationEventDTO implements Serializable {
 
     private Long id;
 
+    private QuestionResourceDTO questionId;
+
+    private QuestionResourceTagInfosDTO tagId;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionResourceDTO getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(QuestionResourceDTO questionId) {
+        this.questionId = questionId;
+    }
+
+    public QuestionResourceTagInfosDTO getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(QuestionResourceTagInfosDTO tagId) {
+        this.tagId = tagId;
     }
 
     @Override
@@ -45,6 +65,8 @@ public class ResourceAcceptedAssociationEventDTO implements Serializable {
     public String toString() {
         return "ResourceAcceptedAssociationEventDTO{" +
             "id=" + getId() +
+            ", questionId=" + getQuestionId() +
+            ", tagId=" + getTagId() +
             "}";
     }
 }

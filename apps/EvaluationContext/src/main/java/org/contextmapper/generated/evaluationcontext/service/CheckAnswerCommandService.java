@@ -43,8 +43,7 @@ public class CheckAnswerCommandService {
      */
     public CheckAnswerCommand update(CheckAnswerCommand checkAnswerCommand) {
         log.debug("Request to update CheckAnswerCommand : {}", checkAnswerCommand);
-        // no save call needed as we have no fields that can be updated
-        return checkAnswerCommand;
+        return checkAnswerCommandRepository.save(checkAnswerCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class CheckAnswerCommandService {
             .findById(checkAnswerCommand.getId())
             .map(existingCheckAnswerCommand -> {
                 return existingCheckAnswerCommand;
-            })// .map(checkAnswerCommandRepository::save)
-        ;
+            })
+            .map(checkAnswerCommandRepository::save);
     }
 
     /**

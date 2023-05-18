@@ -43,8 +43,7 @@ public class AnswerSubmitCommandService {
      */
     public AnswerSubmitCommand update(AnswerSubmitCommand answerSubmitCommand) {
         log.debug("Request to update AnswerSubmitCommand : {}", answerSubmitCommand);
-        // no save call needed as we have no fields that can be updated
-        return answerSubmitCommand;
+        return answerSubmitCommandRepository.save(answerSubmitCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class AnswerSubmitCommandService {
             .findById(answerSubmitCommand.getId())
             .map(existingAnswerSubmitCommand -> {
                 return existingAnswerSubmitCommand;
-            })// .map(answerSubmitCommandRepository::save)
-        ;
+            })
+            .map(answerSubmitCommandRepository::save);
     }
 
     /**

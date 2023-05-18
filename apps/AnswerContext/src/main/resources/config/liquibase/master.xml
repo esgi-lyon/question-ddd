@@ -29,6 +29,8 @@
     <include file="config/liquibase/changelog/20230518165900_added_entity_TagChoicesList.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518165901_added_entity_AnswerSubmit.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230422153402_added_entity_constraints_AnswerSubmitCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153702_added_entity_constraints_AnswerSubmittedEvent.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230422153802_added_entity_constraints_Answer.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518165859_added_entity_constraints_AnswerSubmitted.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230518165901_added_entity_constraints_AnswerSubmit.xml" relativeToChangelogFile="false"/>

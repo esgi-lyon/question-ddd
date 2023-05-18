@@ -13,6 +13,13 @@
   "name": "QuestionStatsViewedEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectQuestion",
+      "ownerSide": true,
+      "relationshipName": "question",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

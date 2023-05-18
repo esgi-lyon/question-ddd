@@ -13,6 +13,13 @@
   "name": "UserStatsViewedEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectUser",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

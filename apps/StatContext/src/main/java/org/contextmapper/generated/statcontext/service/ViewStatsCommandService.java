@@ -43,8 +43,7 @@ public class ViewStatsCommandService {
      */
     public ViewStatsCommand update(ViewStatsCommand viewStatsCommand) {
         log.debug("Request to update ViewStatsCommand : {}", viewStatsCommand);
-        // no save call needed as we have no fields that can be updated
-        return viewStatsCommand;
+        return viewStatsCommandRepository.save(viewStatsCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class ViewStatsCommandService {
             .findById(viewStatsCommand.getId())
             .map(existingViewStatsCommand -> {
                 return existingViewStatsCommand;
-            })// .map(viewStatsCommandRepository::save)
-        ;
+            })
+            .map(viewStatsCommandRepository::save);
     }
 
     /**

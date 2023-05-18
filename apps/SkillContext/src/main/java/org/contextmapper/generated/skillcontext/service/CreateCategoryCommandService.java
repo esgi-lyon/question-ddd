@@ -43,8 +43,7 @@ public class CreateCategoryCommandService {
      */
     public CreateCategoryCommand update(CreateCategoryCommand createCategoryCommand) {
         log.debug("Request to update CreateCategoryCommand : {}", createCategoryCommand);
-        // no save call needed as we have no fields that can be updated
-        return createCategoryCommand;
+        return createCategoryCommandRepository.save(createCategoryCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class CreateCategoryCommandService {
             .findById(createCategoryCommand.getId())
             .map(existingCreateCategoryCommand -> {
                 return existingCreateCategoryCommand;
-            })// .map(createCategoryCommandRepository::save)
-        ;
+            })
+            .map(createCategoryCommandRepository::save);
     }
 
     /**

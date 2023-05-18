@@ -11,12 +11,22 @@ public class CategoryCreatedEventDTO implements Serializable {
 
     private Long id;
 
+    private CategoryIdDTO categoryId;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public CategoryIdDTO getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(CategoryIdDTO categoryId) {
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class CategoryCreatedEventDTO implements Serializable {
     public String toString() {
         return "CategoryCreatedEventDTO{" +
             "id=" + getId() +
+            ", categoryId=" + getCategoryId() +
             "}";
     }
 }

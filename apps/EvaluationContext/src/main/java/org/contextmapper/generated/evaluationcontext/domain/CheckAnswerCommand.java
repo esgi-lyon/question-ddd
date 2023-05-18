@@ -22,6 +22,10 @@ public class CheckAnswerCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private EvaluatedAnswer answer;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class CheckAnswerCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public EvaluatedAnswer getAnswer() {
+        return this.answer;
+    }
+
+    public void setAnswer(EvaluatedAnswer evaluatedAnswer) {
+        this.answer = evaluatedAnswer;
+    }
+
+    public CheckAnswerCommand answer(EvaluatedAnswer evaluatedAnswer) {
+        this.setAnswer(evaluatedAnswer);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

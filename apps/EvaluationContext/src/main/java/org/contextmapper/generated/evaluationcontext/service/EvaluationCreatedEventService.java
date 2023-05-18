@@ -56,7 +56,7 @@ public class EvaluationCreatedEventService {
     public EvaluationCreatedEventDTO update(EvaluationCreatedEventDTO evaluationCreatedEventDTO) {
         log.debug("Request to update EvaluationCreatedEvent : {}", evaluationCreatedEventDTO);
         EvaluationCreatedEvent evaluationCreatedEvent = evaluationCreatedEventMapper.toEntity(evaluationCreatedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        evaluationCreatedEvent = evaluationCreatedEventRepository.save(evaluationCreatedEvent);
         return evaluationCreatedEventMapper.toDto(evaluationCreatedEvent);
     }
 
@@ -76,7 +76,7 @@ public class EvaluationCreatedEventService {
 
                 return existingEvaluationCreatedEvent;
             })
-            // .map(evaluationCreatedEventRepository::save)
+            .map(evaluationCreatedEventRepository::save)
             .map(evaluationCreatedEventMapper::toDto);
     }
 

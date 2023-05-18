@@ -22,6 +22,10 @@ public class CreateQuestionCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionSentQuestionResourceTagId resource;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class CreateQuestionCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionSentQuestionResourceTagId getResource() {
+        return this.resource;
+    }
+
+    public void setResource(QuestionSentQuestionResourceTagId questionSentQuestionResourceTagId) {
+        this.resource = questionSentQuestionResourceTagId;
+    }
+
+    public CreateQuestionCommand resource(QuestionSentQuestionResourceTagId questionSentQuestionResourceTagId) {
+        this.setResource(questionSentQuestionResourceTagId);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

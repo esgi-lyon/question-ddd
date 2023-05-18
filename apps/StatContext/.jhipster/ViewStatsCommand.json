@@ -13,6 +13,25 @@
   "name": "ViewStatsCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectUser",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "statisticSubjectQuestion",
+      "ownerSide": true,
+      "relationshipName": "question",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "statisticSubjectTag",
+      "ownerSide": true,
+      "relationshipName": "tag",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

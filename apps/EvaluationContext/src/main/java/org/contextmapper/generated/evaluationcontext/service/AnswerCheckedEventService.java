@@ -56,7 +56,7 @@ public class AnswerCheckedEventService {
     public AnswerCheckedEventDTO update(AnswerCheckedEventDTO answerCheckedEventDTO) {
         log.debug("Request to update AnswerCheckedEvent : {}", answerCheckedEventDTO);
         AnswerCheckedEvent answerCheckedEvent = answerCheckedEventMapper.toEntity(answerCheckedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        answerCheckedEvent = answerCheckedEventRepository.save(answerCheckedEvent);
         return answerCheckedEventMapper.toDto(answerCheckedEvent);
     }
 
@@ -76,7 +76,7 @@ public class AnswerCheckedEventService {
 
                 return existingAnswerCheckedEvent;
             })
-            // .map(answerCheckedEventRepository::save)
+            .map(answerCheckedEventRepository::save)
             .map(answerCheckedEventMapper::toDto);
     }
 

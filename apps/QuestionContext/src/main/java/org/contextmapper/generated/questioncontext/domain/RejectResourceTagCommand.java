@@ -22,6 +22,10 @@ public class RejectResourceTagCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionResource questionId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class RejectResourceTagCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionResource getQuestionId() {
+        return this.questionId;
+    }
+
+    public void setQuestionId(QuestionResource questionResource) {
+        this.questionId = questionResource;
+    }
+
+    public RejectResourceTagCommand questionId(QuestionResource questionResource) {
+        this.setQuestionId(questionResource);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

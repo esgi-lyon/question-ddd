@@ -13,6 +13,19 @@
   "name": "ResourceRefusedAssociationEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionResource",
+      "ownerSide": true,
+      "relationshipName": "questionId",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "questionResourceTagInfos",
+      "ownerSide": true,
+      "relationshipName": "tagId",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

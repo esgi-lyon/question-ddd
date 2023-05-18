@@ -11,12 +11,22 @@ public class NotifiedQuestionEventDTO implements Serializable {
 
     private Long id;
 
+    private QuestionSentDTO questionResource;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionSentDTO getQuestionResource() {
+        return questionResource;
+    }
+
+    public void setQuestionResource(QuestionSentDTO questionResource) {
+        this.questionResource = questionResource;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class NotifiedQuestionEventDTO implements Serializable {
     public String toString() {
         return "NotifiedQuestionEventDTO{" +
             "id=" + getId() +
+            ", questionResource=" + getQuestionResource() +
             "}";
     }
 }

@@ -13,6 +13,13 @@
   "name": "TagStatsViewedEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectTag",
+      "ownerSide": true,
+      "relationshipName": "tag",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

@@ -60,7 +60,7 @@ public class ResourceWaitingForAssociationEventService {
         ResourceWaitingForAssociationEvent resourceWaitingForAssociationEvent = resourceWaitingForAssociationEventMapper.toEntity(
             resourceWaitingForAssociationEventDTO
         );
-        // no save call needed as we have no fields that can be updated
+        resourceWaitingForAssociationEvent = resourceWaitingForAssociationEventRepository.save(resourceWaitingForAssociationEvent);
         return resourceWaitingForAssociationEventMapper.toDto(resourceWaitingForAssociationEvent);
     }
 
@@ -85,7 +85,7 @@ public class ResourceWaitingForAssociationEventService {
 
                 return existingResourceWaitingForAssociationEvent;
             })
-            // .map(resourceWaitingForAssociationEventRepository::save)
+            .map(resourceWaitingForAssociationEventRepository::save)
             .map(resourceWaitingForAssociationEventMapper::toDto);
     }
 

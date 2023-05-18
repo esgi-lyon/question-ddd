@@ -56,7 +56,7 @@ public class CategoryCreatedEventService {
     public CategoryCreatedEventDTO update(CategoryCreatedEventDTO categoryCreatedEventDTO) {
         log.debug("Request to update CategoryCreatedEvent : {}", categoryCreatedEventDTO);
         CategoryCreatedEvent categoryCreatedEvent = categoryCreatedEventMapper.toEntity(categoryCreatedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        categoryCreatedEvent = categoryCreatedEventRepository.save(categoryCreatedEvent);
         return categoryCreatedEventMapper.toDto(categoryCreatedEvent);
     }
 
@@ -76,7 +76,7 @@ public class CategoryCreatedEventService {
 
                 return existingCategoryCreatedEvent;
             })
-            // .map(categoryCreatedEventRepository::save)
+            .map(categoryCreatedEventRepository::save)
             .map(categoryCreatedEventMapper::toDto);
     }
 

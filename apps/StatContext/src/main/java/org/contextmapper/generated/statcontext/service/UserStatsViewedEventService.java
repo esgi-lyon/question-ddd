@@ -56,7 +56,7 @@ public class UserStatsViewedEventService {
     public UserStatsViewedEventDTO update(UserStatsViewedEventDTO userStatsViewedEventDTO) {
         log.debug("Request to update UserStatsViewedEvent : {}", userStatsViewedEventDTO);
         UserStatsViewedEvent userStatsViewedEvent = userStatsViewedEventMapper.toEntity(userStatsViewedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        userStatsViewedEvent = userStatsViewedEventRepository.save(userStatsViewedEvent);
         return userStatsViewedEventMapper.toDto(userStatsViewedEvent);
     }
 
@@ -76,7 +76,7 @@ public class UserStatsViewedEventService {
 
                 return existingUserStatsViewedEvent;
             })
-            // .map(userStatsViewedEventRepository::save)
+            .map(userStatsViewedEventRepository::save)
             .map(userStatsViewedEventMapper::toDto);
     }
 

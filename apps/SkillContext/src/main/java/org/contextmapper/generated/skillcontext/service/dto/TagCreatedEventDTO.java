@@ -11,12 +11,22 @@ public class TagCreatedEventDTO implements Serializable {
 
     private Long id;
 
+    private TagInfosDTO tagId;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TagInfosDTO getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(TagInfosDTO tagId) {
+        this.tagId = tagId;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class TagCreatedEventDTO implements Serializable {
     public String toString() {
         return "TagCreatedEventDTO{" +
             "id=" + getId() +
+            ", tagId=" + getTagId() +
             "}";
     }
 }

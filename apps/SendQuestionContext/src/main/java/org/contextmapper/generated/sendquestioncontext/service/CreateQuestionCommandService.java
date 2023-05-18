@@ -43,8 +43,7 @@ public class CreateQuestionCommandService {
      */
     public CreateQuestionCommand update(CreateQuestionCommand createQuestionCommand) {
         log.debug("Request to update CreateQuestionCommand : {}", createQuestionCommand);
-        // no save call needed as we have no fields that can be updated
-        return createQuestionCommand;
+        return createQuestionCommandRepository.save(createQuestionCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class CreateQuestionCommandService {
             .findById(createQuestionCommand.getId())
             .map(existingCreateQuestionCommand -> {
                 return existingCreateQuestionCommand;
-            })// .map(createQuestionCommandRepository::save)
-        ;
+            })
+            .map(createQuestionCommandRepository::save);
     }
 
     /**

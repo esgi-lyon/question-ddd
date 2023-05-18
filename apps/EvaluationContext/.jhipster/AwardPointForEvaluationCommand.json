@@ -13,6 +13,13 @@
   "name": "AwardPointForEvaluationCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "evaluation",
+      "ownerSide": true,
+      "relationshipName": "evaluation",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

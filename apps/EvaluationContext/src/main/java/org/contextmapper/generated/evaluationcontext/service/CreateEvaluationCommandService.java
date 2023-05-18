@@ -43,8 +43,7 @@ public class CreateEvaluationCommandService {
      */
     public CreateEvaluationCommand update(CreateEvaluationCommand createEvaluationCommand) {
         log.debug("Request to update CreateEvaluationCommand : {}", createEvaluationCommand);
-        // no save call needed as we have no fields that can be updated
-        return createEvaluationCommand;
+        return createEvaluationCommandRepository.save(createEvaluationCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class CreateEvaluationCommandService {
             .findById(createEvaluationCommand.getId())
             .map(existingCreateEvaluationCommand -> {
                 return existingCreateEvaluationCommand;
-            })// .map(createEvaluationCommandRepository::save)
-        ;
+            })
+            .map(createEvaluationCommandRepository::save);
     }
 
     /**

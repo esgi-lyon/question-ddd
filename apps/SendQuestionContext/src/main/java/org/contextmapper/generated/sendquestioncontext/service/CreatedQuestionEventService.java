@@ -56,7 +56,7 @@ public class CreatedQuestionEventService {
     public CreatedQuestionEventDTO update(CreatedQuestionEventDTO createdQuestionEventDTO) {
         log.debug("Request to update CreatedQuestionEvent : {}", createdQuestionEventDTO);
         CreatedQuestionEvent createdQuestionEvent = createdQuestionEventMapper.toEntity(createdQuestionEventDTO);
-        // no save call needed as we have no fields that can be updated
+        createdQuestionEvent = createdQuestionEventRepository.save(createdQuestionEvent);
         return createdQuestionEventMapper.toDto(createdQuestionEvent);
     }
 
@@ -76,7 +76,7 @@ public class CreatedQuestionEventService {
 
                 return existingCreatedQuestionEvent;
             })
-            // .map(createdQuestionEventRepository::save)
+            .map(createdQuestionEventRepository::save)
             .map(createdQuestionEventMapper::toDto);
     }
 

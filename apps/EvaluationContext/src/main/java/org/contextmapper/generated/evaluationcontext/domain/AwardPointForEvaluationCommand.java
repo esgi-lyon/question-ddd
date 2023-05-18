@@ -1,5 +1,6 @@
 package org.contextmapper.generated.evaluationcontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -22,6 +23,11 @@ public class AwardPointForEvaluationCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "tag", "question", "user" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Evaluation evaluation;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +41,19 @@ public class AwardPointForEvaluationCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Evaluation getEvaluation() {
+        return this.evaluation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public AwardPointForEvaluationCommand evaluation(Evaluation evaluation) {
+        this.setEvaluation(evaluation);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

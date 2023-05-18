@@ -43,8 +43,7 @@ public class RejectResourceTagCommandService {
      */
     public RejectResourceTagCommand update(RejectResourceTagCommand rejectResourceTagCommand) {
         log.debug("Request to update RejectResourceTagCommand : {}", rejectResourceTagCommand);
-        // no save call needed as we have no fields that can be updated
-        return rejectResourceTagCommand;
+        return rejectResourceTagCommandRepository.save(rejectResourceTagCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class RejectResourceTagCommandService {
             .findById(rejectResourceTagCommand.getId())
             .map(existingRejectResourceTagCommand -> {
                 return existingRejectResourceTagCommand;
-            })// .map(rejectResourceTagCommandRepository::save)
-        ;
+            })
+            .map(rejectResourceTagCommandRepository::save);
     }
 
     /**

@@ -53,7 +53,7 @@ public class TagCreatedEventService {
     public TagCreatedEventDTO update(TagCreatedEventDTO tagCreatedEventDTO) {
         log.debug("Request to update TagCreatedEvent : {}", tagCreatedEventDTO);
         TagCreatedEvent tagCreatedEvent = tagCreatedEventMapper.toEntity(tagCreatedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        tagCreatedEvent = tagCreatedEventRepository.save(tagCreatedEvent);
         return tagCreatedEventMapper.toDto(tagCreatedEvent);
     }
 
@@ -73,7 +73,7 @@ public class TagCreatedEventService {
 
                 return existingTagCreatedEvent;
             })
-            // .map(tagCreatedEventRepository::save)
+            .map(tagCreatedEventRepository::save)
             .map(tagCreatedEventMapper::toDto);
     }
 

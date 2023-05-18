@@ -56,7 +56,7 @@ public class AnswerSubmittedEventService {
     public AnswerSubmittedEventDTO update(AnswerSubmittedEventDTO answerSubmittedEventDTO) {
         log.debug("Request to update AnswerSubmittedEvent : {}", answerSubmittedEventDTO);
         AnswerSubmittedEvent answerSubmittedEvent = answerSubmittedEventMapper.toEntity(answerSubmittedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        answerSubmittedEvent = answerSubmittedEventRepository.save(answerSubmittedEvent);
         return answerSubmittedEventMapper.toDto(answerSubmittedEvent);
     }
 
@@ -76,7 +76,7 @@ public class AnswerSubmittedEventService {
 
                 return existingAnswerSubmittedEvent;
             })
-            // .map(answerSubmittedEventRepository::save)
+            .map(answerSubmittedEventRepository::save)
             .map(answerSubmittedEventMapper::toDto);
     }
 

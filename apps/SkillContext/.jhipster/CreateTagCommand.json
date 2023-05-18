@@ -13,6 +13,13 @@
   "name": "CreateTagCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "tag",
+      "ownerSide": true,
+      "relationshipName": "tag",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

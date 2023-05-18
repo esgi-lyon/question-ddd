@@ -56,7 +56,7 @@ public class AwardedPointEventService {
     public AwardedPointEventDTO update(AwardedPointEventDTO awardedPointEventDTO) {
         log.debug("Request to update AwardedPointEvent : {}", awardedPointEventDTO);
         AwardedPointEvent awardedPointEvent = awardedPointEventMapper.toEntity(awardedPointEventDTO);
-        // no save call needed as we have no fields that can be updated
+        awardedPointEvent = awardedPointEventRepository.save(awardedPointEvent);
         return awardedPointEventMapper.toDto(awardedPointEvent);
     }
 
@@ -76,7 +76,7 @@ public class AwardedPointEventService {
 
                 return existingAwardedPointEvent;
             })
-            // .map(awardedPointEventRepository::save)
+            .map(awardedPointEventRepository::save)
             .map(awardedPointEventMapper::toDto);
     }
 

@@ -22,6 +22,10 @@ public class UserStatsViewedEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private StatisticSubjectUser user;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class UserStatsViewedEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public StatisticSubjectUser getUser() {
+        return this.user;
+    }
+
+    public void setUser(StatisticSubjectUser statisticSubjectUser) {
+        this.user = statisticSubjectUser;
+    }
+
+    public UserStatsViewedEvent user(StatisticSubjectUser statisticSubjectUser) {
+        this.setUser(statisticSubjectUser);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

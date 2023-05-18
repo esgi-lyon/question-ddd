@@ -22,6 +22,18 @@ public class ViewStatsCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private StatisticSubjectUser user;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private StatisticSubjectQuestion question;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private StatisticSubjectTag tag;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +47,45 @@ public class ViewStatsCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public StatisticSubjectUser getUser() {
+        return this.user;
+    }
+
+    public void setUser(StatisticSubjectUser statisticSubjectUser) {
+        this.user = statisticSubjectUser;
+    }
+
+    public ViewStatsCommand user(StatisticSubjectUser statisticSubjectUser) {
+        this.setUser(statisticSubjectUser);
+        return this;
+    }
+
+    public StatisticSubjectQuestion getQuestion() {
+        return this.question;
+    }
+
+    public void setQuestion(StatisticSubjectQuestion statisticSubjectQuestion) {
+        this.question = statisticSubjectQuestion;
+    }
+
+    public ViewStatsCommand question(StatisticSubjectQuestion statisticSubjectQuestion) {
+        this.setQuestion(statisticSubjectQuestion);
+        return this;
+    }
+
+    public StatisticSubjectTag getTag() {
+        return this.tag;
+    }
+
+    public void setTag(StatisticSubjectTag statisticSubjectTag) {
+        this.tag = statisticSubjectTag;
+    }
+
+    public ViewStatsCommand tag(StatisticSubjectTag statisticSubjectTag) {
+        this.setTag(statisticSubjectTag);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -45,8 +45,7 @@ public class ValidateResourceTagLinkageCommandService {
      */
     public ValidateResourceTagLinkageCommand update(ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand) {
         log.debug("Request to update ValidateResourceTagLinkageCommand : {}", validateResourceTagLinkageCommand);
-        // no save call needed as we have no fields that can be updated
-        return validateResourceTagLinkageCommand;
+        return validateResourceTagLinkageCommandRepository.save(validateResourceTagLinkageCommand);
     }
 
     /**
@@ -62,8 +61,8 @@ public class ValidateResourceTagLinkageCommandService {
             .findById(validateResourceTagLinkageCommand.getId())
             .map(existingValidateResourceTagLinkageCommand -> {
                 return existingValidateResourceTagLinkageCommand;
-            })// .map(validateResourceTagLinkageCommandRepository::save)
-        ;
+            })
+            .map(validateResourceTagLinkageCommandRepository::save);
     }
 
     /**

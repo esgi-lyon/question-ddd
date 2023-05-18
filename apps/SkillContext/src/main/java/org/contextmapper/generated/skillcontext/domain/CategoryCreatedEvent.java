@@ -22,6 +22,10 @@ public class CategoryCreatedEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private CategoryId categoryId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class CategoryCreatedEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public CategoryId getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(CategoryId categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public CategoryCreatedEvent categoryId(CategoryId categoryId) {
+        this.setCategoryId(categoryId);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

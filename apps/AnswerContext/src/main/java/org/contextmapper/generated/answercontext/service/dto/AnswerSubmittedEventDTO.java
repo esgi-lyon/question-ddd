@@ -11,12 +11,22 @@ public class AnswerSubmittedEventDTO implements Serializable {
 
     private Long id;
 
+    private AnswerDTO answer;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AnswerDTO getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(AnswerDTO answer) {
+        this.answer = answer;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class AnswerSubmittedEventDTO implements Serializable {
     public String toString() {
         return "AnswerSubmittedEventDTO{" +
             "id=" + getId() +
+            ", answer=" + getAnswer() +
             "}";
     }
 }

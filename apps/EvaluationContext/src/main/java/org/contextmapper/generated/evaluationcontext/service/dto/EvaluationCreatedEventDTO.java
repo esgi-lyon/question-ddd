@@ -11,12 +11,22 @@ public class EvaluationCreatedEventDTO implements Serializable {
 
     private Long id;
 
+    private EvaluationDTO evaluation;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public EvaluationDTO getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(EvaluationDTO evaluation) {
+        this.evaluation = evaluation;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class EvaluationCreatedEventDTO implements Serializable {
     public String toString() {
         return "EvaluationCreatedEventDTO{" +
             "id=" + getId() +
+            ", evaluation=" + getEvaluation() +
             "}";
     }
 }

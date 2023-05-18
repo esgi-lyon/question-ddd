@@ -45,8 +45,7 @@ public class SendQuestionByTagsPreferencesCommandService {
      */
     public SendQuestionByTagsPreferencesCommand update(SendQuestionByTagsPreferencesCommand sendQuestionByTagsPreferencesCommand) {
         log.debug("Request to update SendQuestionByTagsPreferencesCommand : {}", sendQuestionByTagsPreferencesCommand);
-        // no save call needed as we have no fields that can be updated
-        return sendQuestionByTagsPreferencesCommand;
+        return sendQuestionByTagsPreferencesCommandRepository.save(sendQuestionByTagsPreferencesCommand);
     }
 
     /**
@@ -64,8 +63,8 @@ public class SendQuestionByTagsPreferencesCommandService {
             .findById(sendQuestionByTagsPreferencesCommand.getId())
             .map(existingSendQuestionByTagsPreferencesCommand -> {
                 return existingSendQuestionByTagsPreferencesCommand;
-            })// .map(sendQuestionByTagsPreferencesCommandRepository::save)
-        ;
+            })
+            .map(sendQuestionByTagsPreferencesCommandRepository::save);
     }
 
     /**

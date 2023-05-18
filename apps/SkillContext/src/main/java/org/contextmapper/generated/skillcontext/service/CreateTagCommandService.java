@@ -43,8 +43,7 @@ public class CreateTagCommandService {
      */
     public CreateTagCommand update(CreateTagCommand createTagCommand) {
         log.debug("Request to update CreateTagCommand : {}", createTagCommand);
-        // no save call needed as we have no fields that can be updated
-        return createTagCommand;
+        return createTagCommandRepository.save(createTagCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class CreateTagCommandService {
             .findById(createTagCommand.getId())
             .map(existingCreateTagCommand -> {
                 return existingCreateTagCommand;
-            })// .map(createTagCommandRepository::save)
-        ;
+            })
+            .map(createTagCommandRepository::save);
     }
 
     /**

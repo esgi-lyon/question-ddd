@@ -13,6 +13,13 @@
   "name": "AwardedPointEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "evaluatedAnswer",
+      "ownerSide": true,
+      "relationshipName": "answer",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

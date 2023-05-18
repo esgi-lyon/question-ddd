@@ -22,6 +22,10 @@ public class TagCreatedEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private TagInfos tagId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class TagCreatedEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TagInfos getTagId() {
+        return this.tagId;
+    }
+
+    public void setTagId(TagInfos tagInfos) {
+        this.tagId = tagInfos;
+    }
+
+    public TagCreatedEvent tagId(TagInfos tagInfos) {
+        this.setTagId(tagInfos);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

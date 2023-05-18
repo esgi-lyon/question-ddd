@@ -22,6 +22,14 @@ public class ResourceWaitingForAssociationEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionResource questionId;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionResourceTagInfos tagId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +43,32 @@ public class ResourceWaitingForAssociationEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionResource getQuestionId() {
+        return this.questionId;
+    }
+
+    public void setQuestionId(QuestionResource questionResource) {
+        this.questionId = questionResource;
+    }
+
+    public ResourceWaitingForAssociationEvent questionId(QuestionResource questionResource) {
+        this.setQuestionId(questionResource);
+        return this;
+    }
+
+    public QuestionResourceTagInfos getTagId() {
+        return this.tagId;
+    }
+
+    public void setTagId(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.tagId = questionResourceTagInfos;
+    }
+
+    public ResourceWaitingForAssociationEvent tagId(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.setTagId(questionResourceTagInfos);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -60,7 +60,7 @@ public class ResourceAcceptedAssociationEventService {
         ResourceAcceptedAssociationEvent resourceAcceptedAssociationEvent = resourceAcceptedAssociationEventMapper.toEntity(
             resourceAcceptedAssociationEventDTO
         );
-        // no save call needed as we have no fields that can be updated
+        resourceAcceptedAssociationEvent = resourceAcceptedAssociationEventRepository.save(resourceAcceptedAssociationEvent);
         return resourceAcceptedAssociationEventMapper.toDto(resourceAcceptedAssociationEvent);
     }
 
@@ -85,7 +85,7 @@ public class ResourceAcceptedAssociationEventService {
 
                 return existingResourceAcceptedAssociationEvent;
             })
-            // .map(resourceAcceptedAssociationEventRepository::save)
+            .map(resourceAcceptedAssociationEventRepository::save)
             .map(resourceAcceptedAssociationEventMapper::toDto);
     }
 

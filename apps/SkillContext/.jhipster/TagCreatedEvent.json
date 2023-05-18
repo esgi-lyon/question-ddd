@@ -13,6 +13,13 @@
   "name": "TagCreatedEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "tagInfos",
+      "ownerSide": true,
+      "relationshipName": "tagId",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

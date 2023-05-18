@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
 import org.contextmapper.generated.questioncontext.service.CreateResourceCommandService;
+import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
+import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
 import org.contextmapper.generated.questioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +44,20 @@ public class CreateResourceCommandResource {
         this.createResourceCommandService = createResourceCommandService;
         this.createResourceCommandRepository = createResourceCommandRepository;
     }
+
+    @PostMapping("/handle-resource-command")
+    public ResponseEntity<CreateResourceCommand> handle(@RequestBody QuestionResourceDTO createResource)
+        throws URISyntaxException {
+        log.debug("REST request to handle create resource command : {}", createResource);
+        if (createResource.getId() != null) {
+            throw new BadRequestAlertException("A new createResourceCommand cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        final var result = createResourceCommandService.handle(createResource);
+        return ResponseEntity
+            .created(new URI("/api/handle-resource-command/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }    
 
     /**
      * {@code POST  /create-resource-commands} : Create a new createResourceCommand.

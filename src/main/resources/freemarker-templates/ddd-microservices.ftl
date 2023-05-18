@@ -55,18 +55,25 @@ enum ${anEnum.name} {
 }
 </#list>
 
-<#assign entitiesAndValueObjects = entities + valueObjects + events + commands>
-<#list entitiesAndValueObjects as entity>
+<#assign entitiesAndValueObjects = entities + valueObjects>
+<#assign allObjects = entities + valueObjects + events + commands>
 
-<#list entity.references as reference>
-	<#if reference.domainObjectType?has_content && (instanceOf(reference.domainObjectType, Entity) || instanceOf(reference.domainObjectType, ValueObject))>
-		<#if reference.collectionType?has_content && reference.collectionType.name() != "NONE">
-			<#assign oneToManyRefs = oneToManyRefs + [ entity.name + "{" + reference.name + "} to " + reference.domainObjectType.name ]>
-		<#else>
-			<#assign oneToOneRefs = oneToOneRefs + [ entity.name + "{"+ reference.name + "} to " + reference.domainObjectType.name ]>
-		</#if>
+<#list allObjects as entity>
+	<#assign currentEntityName = entity.name>
+	<#if instanceOf(entity, DomainEvent)>
+		<#assign currentEntityName = "${currentEntityName}Event">
+	<#elseif instanceOf(entity, CommandEvent)>
+		<#assign currentEntityName = "${currentEntityName}Command">
 	</#if>
-</#list>
+	<#list entity.references as reference>
+		<#if reference.domainObjectType?has_content && (instanceOf(reference.domainObjectType, Entity) || instanceOf(reference.domainObjectType, ValueObject))>
+			<#if reference.collectionType?has_content && reference.collectionType.name() != "NONE">
+				<#assign oneToManyRefs = oneToManyRefs + [ currentEntityName + "{" + reference.name + "} to " + reference.domainObjectType.name ]>
+			<#else>
+				<#assign oneToOneRefs = oneToOneRefs + [ currentEntityName + "{"+ reference.name + "} to " + reference.domainObjectType.name ]>
+			</#if>
+		</#if>
+	</#list>
 
 <#if instanceOf(entity, ValueObject)>
 @readOnly

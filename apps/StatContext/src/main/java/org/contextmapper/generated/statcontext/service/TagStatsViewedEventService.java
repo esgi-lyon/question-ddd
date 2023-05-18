@@ -56,7 +56,7 @@ public class TagStatsViewedEventService {
     public TagStatsViewedEventDTO update(TagStatsViewedEventDTO tagStatsViewedEventDTO) {
         log.debug("Request to update TagStatsViewedEvent : {}", tagStatsViewedEventDTO);
         TagStatsViewedEvent tagStatsViewedEvent = tagStatsViewedEventMapper.toEntity(tagStatsViewedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        tagStatsViewedEvent = tagStatsViewedEventRepository.save(tagStatsViewedEvent);
         return tagStatsViewedEventMapper.toDto(tagStatsViewedEvent);
     }
 
@@ -76,7 +76,7 @@ public class TagStatsViewedEventService {
 
                 return existingTagStatsViewedEvent;
             })
-            // .map(tagStatsViewedEventRepository::save)
+            .map(tagStatsViewedEventRepository::save)
             .map(tagStatsViewedEventMapper::toDto);
     }
 

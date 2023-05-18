@@ -1,5 +1,6 @@
 package org.contextmapper.generated.sendquestioncontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -22,6 +23,11 @@ public class SendQuestionByTagsPreferencesCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionSent questionSent;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +41,19 @@ public class SendQuestionByTagsPreferencesCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionSent getQuestionSent() {
+        return this.questionSent;
+    }
+
+    public void setQuestionSent(QuestionSent questionSent) {
+        this.questionSent = questionSent;
+    }
+
+    public SendQuestionByTagsPreferencesCommand questionSent(QuestionSent questionSent) {
+        this.setQuestionSent(questionSent);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -13,6 +13,13 @@
   "name": "CreateQuestionCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionSentQuestionResourceTagId",
+      "ownerSide": true,
+      "relationshipName": "resource",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

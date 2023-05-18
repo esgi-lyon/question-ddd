@@ -13,6 +13,13 @@
   "name": "SendQuestionByTagsPreferencesCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionSent",
+      "ownerSide": true,
+      "relationshipName": "questionSent",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

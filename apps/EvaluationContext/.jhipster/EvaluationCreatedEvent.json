@@ -13,6 +13,13 @@
   "name": "EvaluationCreatedEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "evaluation",
+      "ownerSide": true,
+      "relationshipName": "evaluation",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

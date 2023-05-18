@@ -1,5 +1,6 @@
 package org.contextmapper.generated.answercontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -22,6 +23,11 @@ public class AnswerSubmittedEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "question", "answeredTag" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Answer answer;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +41,19 @@ public class AnswerSubmittedEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Answer getAnswer() {
+        return this.answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    public AnswerSubmittedEvent answer(Answer answer) {
+        this.setAnswer(answer);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
