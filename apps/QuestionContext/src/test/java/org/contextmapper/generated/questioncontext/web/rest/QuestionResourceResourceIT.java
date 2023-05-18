@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.questioncontext.IntegrationTest;
 import org.contextmapper.generated.questioncontext.domain.QuestionResource;
+import org.contextmapper.generated.questioncontext.domain.enumeration.States;
+import org.contextmapper.generated.questioncontext.domain.enumeration.Types;
 import org.contextmapper.generated.questioncontext.repository.QuestionResourceRepository;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
 import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
@@ -33,6 +35,15 @@ class QuestionResourceResourceIT {
 
     private static final String DEFAULT_QUESTION_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_QUESTION_CONTENT = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_TAG = 1;
+    private static final Integer UPDATED_TAG = 2;
+
+    private static final States DEFAULT_QUESTION_STATE = States.WAITING;
+    private static final States UPDATED_QUESTION_STATE = States.ASSOCIATED;
+
+    private static final Types DEFAULT_RESOURCE_TYPE = Types.IMG_URL;
+    private static final Types UPDATED_RESOURCE_TYPE = Types.URL;
 
     private static final String ENTITY_API_URL = "/api/question-resources";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +72,11 @@ class QuestionResourceResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static QuestionResource createEntity(EntityManager em) {
-        QuestionResource questionResource = new QuestionResource().questionContent(DEFAULT_QUESTION_CONTENT);
+        QuestionResource questionResource = new QuestionResource()
+            .questionContent(DEFAULT_QUESTION_CONTENT)
+            .tag(DEFAULT_TAG)
+            .questionState(DEFAULT_QUESTION_STATE)
+            .resourceType(DEFAULT_RESOURCE_TYPE);
         return questionResource;
     }
 
@@ -72,7 +87,11 @@ class QuestionResourceResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static QuestionResource createUpdatedEntity(EntityManager em) {
-        QuestionResource questionResource = new QuestionResource().questionContent(UPDATED_QUESTION_CONTENT);
+        QuestionResource questionResource = new QuestionResource()
+            .questionContent(UPDATED_QUESTION_CONTENT)
+            .tag(UPDATED_TAG)
+            .questionState(UPDATED_QUESTION_STATE)
+            .resourceType(UPDATED_RESOURCE_TYPE);
         return questionResource;
     }
 
@@ -98,6 +117,9 @@ class QuestionResourceResourceIT {
         assertThat(questionResourceList).hasSize(databaseSizeBeforeCreate + 1);
         QuestionResource testQuestionResource = questionResourceList.get(questionResourceList.size() - 1);
         assertThat(testQuestionResource.getQuestionContent()).isEqualTo(DEFAULT_QUESTION_CONTENT);
+        assertThat(testQuestionResource.getTag()).isEqualTo(DEFAULT_TAG);
+        assertThat(testQuestionResource.getQuestionState()).isEqualTo(DEFAULT_QUESTION_STATE);
+        assertThat(testQuestionResource.getResourceType()).isEqualTo(DEFAULT_RESOURCE_TYPE);
     }
 
     @Test
@@ -133,7 +155,10 @@ class QuestionResourceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questionResource.getId().intValue())))
-            .andExpect(jsonPath("$.[*].questionContent").value(hasItem(DEFAULT_QUESTION_CONTENT)));
+            .andExpect(jsonPath("$.[*].questionContent").value(hasItem(DEFAULT_QUESTION_CONTENT)))
+            .andExpect(jsonPath("$.[*].tag").value(hasItem(DEFAULT_TAG)))
+            .andExpect(jsonPath("$.[*].questionState").value(hasItem(DEFAULT_QUESTION_STATE.toString())))
+            .andExpect(jsonPath("$.[*].resourceType").value(hasItem(DEFAULT_RESOURCE_TYPE.toString())));
     }
 
     @Test
@@ -148,7 +173,10 @@ class QuestionResourceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questionResource.getId().intValue()))
-            .andExpect(jsonPath("$.questionContent").value(DEFAULT_QUESTION_CONTENT));
+            .andExpect(jsonPath("$.questionContent").value(DEFAULT_QUESTION_CONTENT))
+            .andExpect(jsonPath("$.tag").value(DEFAULT_TAG))
+            .andExpect(jsonPath("$.questionState").value(DEFAULT_QUESTION_STATE.toString()))
+            .andExpect(jsonPath("$.resourceType").value(DEFAULT_RESOURCE_TYPE.toString()));
     }
 
     @Test
@@ -170,7 +198,11 @@ class QuestionResourceResourceIT {
         QuestionResource updatedQuestionResource = questionResourceRepository.findById(questionResource.getId()).get();
         // Disconnect from session so that the updates on updatedQuestionResource are not directly saved in db
         em.detach(updatedQuestionResource);
-        updatedQuestionResource.questionContent(UPDATED_QUESTION_CONTENT);
+        updatedQuestionResource
+            .questionContent(UPDATED_QUESTION_CONTENT)
+            .tag(UPDATED_TAG)
+            .questionState(UPDATED_QUESTION_STATE)
+            .resourceType(UPDATED_RESOURCE_TYPE);
         QuestionResourceDTO questionResourceDTO = questionResourceMapper.toDto(updatedQuestionResource);
 
         restQuestionResourceMockMvc
@@ -186,6 +218,9 @@ class QuestionResourceResourceIT {
         assertThat(questionResourceList).hasSize(databaseSizeBeforeUpdate);
         QuestionResource testQuestionResource = questionResourceList.get(questionResourceList.size() - 1);
         assertThat(testQuestionResource.getQuestionContent()).isEqualTo(UPDATED_QUESTION_CONTENT);
+        assertThat(testQuestionResource.getTag()).isEqualTo(UPDATED_TAG);
+        assertThat(testQuestionResource.getQuestionState()).isEqualTo(UPDATED_QUESTION_STATE);
+        assertThat(testQuestionResource.getResourceType()).isEqualTo(UPDATED_RESOURCE_TYPE);
     }
 
     @Test
@@ -267,6 +302,8 @@ class QuestionResourceResourceIT {
         QuestionResource partialUpdatedQuestionResource = new QuestionResource();
         partialUpdatedQuestionResource.setId(questionResource.getId());
 
+        partialUpdatedQuestionResource.tag(UPDATED_TAG).resourceType(UPDATED_RESOURCE_TYPE);
+
         restQuestionResourceMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedQuestionResource.getId())
@@ -280,6 +317,9 @@ class QuestionResourceResourceIT {
         assertThat(questionResourceList).hasSize(databaseSizeBeforeUpdate);
         QuestionResource testQuestionResource = questionResourceList.get(questionResourceList.size() - 1);
         assertThat(testQuestionResource.getQuestionContent()).isEqualTo(DEFAULT_QUESTION_CONTENT);
+        assertThat(testQuestionResource.getTag()).isEqualTo(UPDATED_TAG);
+        assertThat(testQuestionResource.getQuestionState()).isEqualTo(DEFAULT_QUESTION_STATE);
+        assertThat(testQuestionResource.getResourceType()).isEqualTo(UPDATED_RESOURCE_TYPE);
     }
 
     @Test
@@ -294,7 +334,11 @@ class QuestionResourceResourceIT {
         QuestionResource partialUpdatedQuestionResource = new QuestionResource();
         partialUpdatedQuestionResource.setId(questionResource.getId());
 
-        partialUpdatedQuestionResource.questionContent(UPDATED_QUESTION_CONTENT);
+        partialUpdatedQuestionResource
+            .questionContent(UPDATED_QUESTION_CONTENT)
+            .tag(UPDATED_TAG)
+            .questionState(UPDATED_QUESTION_STATE)
+            .resourceType(UPDATED_RESOURCE_TYPE);
 
         restQuestionResourceMockMvc
             .perform(
@@ -309,6 +353,9 @@ class QuestionResourceResourceIT {
         assertThat(questionResourceList).hasSize(databaseSizeBeforeUpdate);
         QuestionResource testQuestionResource = questionResourceList.get(questionResourceList.size() - 1);
         assertThat(testQuestionResource.getQuestionContent()).isEqualTo(UPDATED_QUESTION_CONTENT);
+        assertThat(testQuestionResource.getTag()).isEqualTo(UPDATED_TAG);
+        assertThat(testQuestionResource.getQuestionState()).isEqualTo(UPDATED_QUESTION_STATE);
+        assertThat(testQuestionResource.getResourceType()).isEqualTo(UPDATED_RESOURCE_TYPE);
     }
 
     @Test

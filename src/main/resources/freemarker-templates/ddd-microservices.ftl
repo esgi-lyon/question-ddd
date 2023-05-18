@@ -58,6 +58,16 @@ enum ${anEnum.name} {
 <#assign entitiesAndValueObjects = entities + valueObjects>
 <#list entitiesAndValueObjects as entity>
 
+<#list entity.references as reference>
+	<#if reference.domainObjectType?has_content && (instanceOf(reference.domainObjectType, Entity) || instanceOf(reference.domainObjectType, ValueObject))>
+		<#if reference.collectionType?has_content && reference.collectionType.name() != "NONE">
+			<#assign oneToManyRefs = oneToManyRefs + [ entity.name + "{" + reference.name + "} to " + reference.domainObjectType.name ]>
+		<#else>
+			<#assign oneToOneRefs = oneToOneRefs + [ entity.name + "{"+ reference.name + "} to " + reference.domainObjectType.name ]>
+		</#if>
+	</#if>
+</#list>
+
 <#if instanceOf(entity, ValueObject)>
 @readOnly
 </#if>
@@ -69,16 +79,12 @@ entity ${entity.name} {
 	<#list entity.attributes as attribute>
 	${attribute.name} ${mapAttributeType(attribute.type)}
 	</#list>
-}
 	<#list entity.references as reference>
-		<#if reference.domainObjectType?has_content && (instanceOf(reference.domainObjectType, Entity) || instanceOf(reference.domainObjectType, ValueObject)) && entityNames?seq_contains(reference.domainObjectType.name)>
-			<#if reference.collectionType?has_content && reference.collectionType.name() != "NONE">
-				<#assign oneToManyRefs = oneToManyRefs + [ entity.name + "{" + reference.name + "} to " + reference.domainObjectType.name ]>
-			<#else>
-				<#assign oneToOneRefs = oneToOneRefs + [ entity.name + "{"+ reference.name + "} to " + reference.domainObjectType.name ]>
-			</#if>
-		</#if>
+	<#if reference.domainObjectType?has_content && instanceOf(reference.domainObjectType, Enum)>
+	${reference.name} ${reference.domainObjectType.name}
+	</#if>
 	</#list>
+}
 
 </#list>
 
@@ -105,12 +111,13 @@ entity ${command.name}Command {
 
 microservice ${entityNames?join(", ")} with ${bc.name}<#lt>
 </#if>
-<#assign allObjectNames=entityNames + eventNames?map(name->"${name}Event") />
+<#assign allValueObjectAndEntityNames=entitiesAndValueObjects?map(obj->obj.name) />
+<#assign allObjectNames=allValueObjectAndEntityNames + eventNames?map(name->"${name}Event") />
 <#assign allObjectNames=allObjectNames + commandNames?map(name->"${name}Command") />
 <#assign portCounter++ />
 application {
 	config {
-		baseName ${bc.name},
+		baseName ${bc.name}
 		packageName org.contextmapper.generated.${bc.name?lower_case}
 		applicationType microservice
 		serverPort ${portCounter?int?c}

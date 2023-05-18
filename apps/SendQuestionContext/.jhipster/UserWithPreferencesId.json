@@ -1,0 +1,23 @@
+{
+  "applications": ["SendQuestionContext"],
+  "changelogDate": "20230518163033",
+  "clientRootFolder": "SendQuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_with_preferences_id",
+  "fields": [
+    {
+      "fieldName": "userId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SendQuestionContext",
+  "name": "UserWithPreferencesId",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

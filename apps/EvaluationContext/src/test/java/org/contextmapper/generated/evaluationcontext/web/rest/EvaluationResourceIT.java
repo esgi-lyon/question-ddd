@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.Evaluation;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.Status;
 import org.contextmapper.generated.evaluationcontext.repository.EvaluationRepository;
 import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationDTO;
 import org.contextmapper.generated.evaluationcontext.service.mapper.EvaluationMapper;
@@ -33,6 +35,12 @@ class EvaluationResourceIT {
 
     private static final Integer DEFAULT_SCORE = 1;
     private static final Integer UPDATED_SCORE = 2;
+
+    private static final Status DEFAULT_STATUS = Status.VALID;
+    private static final Status UPDATED_STATUS = Status.INVALID;
+
+    private static final DifficultyLevel DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL = DifficultyLevel.EASY;
+    private static final DifficultyLevel UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL = DifficultyLevel.MEDIUM;
 
     private static final String ENTITY_API_URL = "/api/evaluations";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +69,10 @@ class EvaluationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Evaluation createEntity(EntityManager em) {
-        Evaluation evaluation = new Evaluation().score(DEFAULT_SCORE);
+        Evaluation evaluation = new Evaluation()
+            .score(DEFAULT_SCORE)
+            .status(DEFAULT_STATUS)
+            .answeredQuestionDifficultyLevel(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
         return evaluation;
     }
 
@@ -72,7 +83,10 @@ class EvaluationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Evaluation createUpdatedEntity(EntityManager em) {
-        Evaluation evaluation = new Evaluation().score(UPDATED_SCORE);
+        Evaluation evaluation = new Evaluation()
+            .score(UPDATED_SCORE)
+            .status(UPDATED_STATUS)
+            .answeredQuestionDifficultyLevel(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
         return evaluation;
     }
 
@@ -96,6 +110,8 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeCreate + 1);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(DEFAULT_SCORE);
+        assertThat(testEvaluation.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -129,7 +145,11 @@ class EvaluationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(evaluation.getId().intValue())))
-            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)));
+            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(
+                jsonPath("$.[*].answeredQuestionDifficultyLevel").value(hasItem(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL.toString()))
+            );
     }
 
     @Test
@@ -144,7 +164,9 @@ class EvaluationResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(evaluation.getId().intValue()))
-            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE));
+            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.answeredQuestionDifficultyLevel").value(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL.toString()));
     }
 
     @Test
@@ -166,7 +188,10 @@ class EvaluationResourceIT {
         Evaluation updatedEvaluation = evaluationRepository.findById(evaluation.getId()).get();
         // Disconnect from session so that the updates on updatedEvaluation are not directly saved in db
         em.detach(updatedEvaluation);
-        updatedEvaluation.score(UPDATED_SCORE);
+        updatedEvaluation
+            .score(UPDATED_SCORE)
+            .status(UPDATED_STATUS)
+            .answeredQuestionDifficultyLevel(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
         EvaluationDTO evaluationDTO = evaluationMapper.toDto(updatedEvaluation);
 
         restEvaluationMockMvc
@@ -182,6 +207,8 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeUpdate);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testEvaluation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -261,7 +288,7 @@ class EvaluationResourceIT {
         Evaluation partialUpdatedEvaluation = new Evaluation();
         partialUpdatedEvaluation.setId(evaluation.getId());
 
-        partialUpdatedEvaluation.score(UPDATED_SCORE);
+        partialUpdatedEvaluation.score(UPDATED_SCORE).status(UPDATED_STATUS);
 
         restEvaluationMockMvc
             .perform(
@@ -276,6 +303,8 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeUpdate);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testEvaluation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -290,7 +319,10 @@ class EvaluationResourceIT {
         Evaluation partialUpdatedEvaluation = new Evaluation();
         partialUpdatedEvaluation.setId(evaluation.getId());
 
-        partialUpdatedEvaluation.score(UPDATED_SCORE);
+        partialUpdatedEvaluation
+            .score(UPDATED_SCORE)
+            .status(UPDATED_STATUS)
+            .answeredQuestionDifficultyLevel(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
 
         restEvaluationMockMvc
             .perform(
@@ -305,6 +337,8 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeUpdate);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testEvaluation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
 
     @Test

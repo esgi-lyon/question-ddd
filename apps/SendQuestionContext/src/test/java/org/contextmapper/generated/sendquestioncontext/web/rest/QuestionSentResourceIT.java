@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.sendquestioncontext.IntegrationTest;
 import org.contextmapper.generated.sendquestioncontext.domain.QuestionSent;
+import org.contextmapper.generated.sendquestioncontext.domain.enumeration.QuestionNotificationStatus;
 import org.contextmapper.generated.sendquestioncontext.repository.QuestionSentRepository;
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
@@ -33,6 +34,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class QuestionSentResourceIT {
 
+    private static final Integer DEFAULT_RESOURCE = 1;
+    private static final Integer UPDATED_RESOURCE = 2;
+
     private static final LocalDate DEFAULT_SENT_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_SENT_DATE = LocalDate.now(ZoneId.systemDefault());
 
@@ -41,6 +45,9 @@ class QuestionSentResourceIT {
 
     private static final LocalDate DEFAULT_ANSWERED_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_ANSWERED_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final QuestionNotificationStatus DEFAULT_STATUS = QuestionNotificationStatus.SENT;
+    private static final QuestionNotificationStatus UPDATED_STATUS = QuestionNotificationStatus.VIEWED;
 
     private static final String ENTITY_API_URL = "/api/question-sents";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -70,9 +77,11 @@ class QuestionSentResourceIT {
      */
     public static QuestionSent createEntity(EntityManager em) {
         QuestionSent questionSent = new QuestionSent()
+            .resource(DEFAULT_RESOURCE)
             .sentDate(DEFAULT_SENT_DATE)
             .viewedDate(DEFAULT_VIEWED_DATE)
-            .answeredDate(DEFAULT_ANSWERED_DATE);
+            .answeredDate(DEFAULT_ANSWERED_DATE)
+            .status(DEFAULT_STATUS);
         return questionSent;
     }
 
@@ -84,9 +93,11 @@ class QuestionSentResourceIT {
      */
     public static QuestionSent createUpdatedEntity(EntityManager em) {
         QuestionSent questionSent = new QuestionSent()
+            .resource(UPDATED_RESOURCE)
             .sentDate(UPDATED_SENT_DATE)
             .viewedDate(UPDATED_VIEWED_DATE)
-            .answeredDate(UPDATED_ANSWERED_DATE);
+            .answeredDate(UPDATED_ANSWERED_DATE)
+            .status(UPDATED_STATUS);
         return questionSent;
     }
 
@@ -111,9 +122,11 @@ class QuestionSentResourceIT {
         List<QuestionSent> questionSentList = questionSentRepository.findAll();
         assertThat(questionSentList).hasSize(databaseSizeBeforeCreate + 1);
         QuestionSent testQuestionSent = questionSentList.get(questionSentList.size() - 1);
+        assertThat(testQuestionSent.getResource()).isEqualTo(DEFAULT_RESOURCE);
         assertThat(testQuestionSent.getSentDate()).isEqualTo(DEFAULT_SENT_DATE);
         assertThat(testQuestionSent.getViewedDate()).isEqualTo(DEFAULT_VIEWED_DATE);
         assertThat(testQuestionSent.getAnsweredDate()).isEqualTo(DEFAULT_ANSWERED_DATE);
+        assertThat(testQuestionSent.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -149,9 +162,11 @@ class QuestionSentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questionSent.getId().intValue())))
+            .andExpect(jsonPath("$.[*].resource").value(hasItem(DEFAULT_RESOURCE)))
             .andExpect(jsonPath("$.[*].sentDate").value(hasItem(DEFAULT_SENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].viewedDate").value(hasItem(DEFAULT_VIEWED_DATE.toString())))
-            .andExpect(jsonPath("$.[*].answeredDate").value(hasItem(DEFAULT_ANSWERED_DATE.toString())));
+            .andExpect(jsonPath("$.[*].answeredDate").value(hasItem(DEFAULT_ANSWERED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
     @Test
@@ -166,9 +181,11 @@ class QuestionSentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questionSent.getId().intValue()))
+            .andExpect(jsonPath("$.resource").value(DEFAULT_RESOURCE))
             .andExpect(jsonPath("$.sentDate").value(DEFAULT_SENT_DATE.toString()))
             .andExpect(jsonPath("$.viewedDate").value(DEFAULT_VIEWED_DATE.toString()))
-            .andExpect(jsonPath("$.answeredDate").value(DEFAULT_ANSWERED_DATE.toString()));
+            .andExpect(jsonPath("$.answeredDate").value(DEFAULT_ANSWERED_DATE.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -190,7 +207,12 @@ class QuestionSentResourceIT {
         QuestionSent updatedQuestionSent = questionSentRepository.findById(questionSent.getId()).get();
         // Disconnect from session so that the updates on updatedQuestionSent are not directly saved in db
         em.detach(updatedQuestionSent);
-        updatedQuestionSent.sentDate(UPDATED_SENT_DATE).viewedDate(UPDATED_VIEWED_DATE).answeredDate(UPDATED_ANSWERED_DATE);
+        updatedQuestionSent
+            .resource(UPDATED_RESOURCE)
+            .sentDate(UPDATED_SENT_DATE)
+            .viewedDate(UPDATED_VIEWED_DATE)
+            .answeredDate(UPDATED_ANSWERED_DATE)
+            .status(UPDATED_STATUS);
         QuestionSentDTO questionSentDTO = questionSentMapper.toDto(updatedQuestionSent);
 
         restQuestionSentMockMvc
@@ -205,9 +227,11 @@ class QuestionSentResourceIT {
         List<QuestionSent> questionSentList = questionSentRepository.findAll();
         assertThat(questionSentList).hasSize(databaseSizeBeforeUpdate);
         QuestionSent testQuestionSent = questionSentList.get(questionSentList.size() - 1);
+        assertThat(testQuestionSent.getResource()).isEqualTo(UPDATED_RESOURCE);
         assertThat(testQuestionSent.getSentDate()).isEqualTo(UPDATED_SENT_DATE);
         assertThat(testQuestionSent.getViewedDate()).isEqualTo(UPDATED_VIEWED_DATE);
         assertThat(testQuestionSent.getAnsweredDate()).isEqualTo(UPDATED_ANSWERED_DATE);
+        assertThat(testQuestionSent.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -289,7 +313,7 @@ class QuestionSentResourceIT {
         QuestionSent partialUpdatedQuestionSent = new QuestionSent();
         partialUpdatedQuestionSent.setId(questionSent.getId());
 
-        partialUpdatedQuestionSent.answeredDate(UPDATED_ANSWERED_DATE);
+        partialUpdatedQuestionSent.viewedDate(UPDATED_VIEWED_DATE).status(UPDATED_STATUS);
 
         restQuestionSentMockMvc
             .perform(
@@ -303,9 +327,11 @@ class QuestionSentResourceIT {
         List<QuestionSent> questionSentList = questionSentRepository.findAll();
         assertThat(questionSentList).hasSize(databaseSizeBeforeUpdate);
         QuestionSent testQuestionSent = questionSentList.get(questionSentList.size() - 1);
+        assertThat(testQuestionSent.getResource()).isEqualTo(DEFAULT_RESOURCE);
         assertThat(testQuestionSent.getSentDate()).isEqualTo(DEFAULT_SENT_DATE);
-        assertThat(testQuestionSent.getViewedDate()).isEqualTo(DEFAULT_VIEWED_DATE);
-        assertThat(testQuestionSent.getAnsweredDate()).isEqualTo(UPDATED_ANSWERED_DATE);
+        assertThat(testQuestionSent.getViewedDate()).isEqualTo(UPDATED_VIEWED_DATE);
+        assertThat(testQuestionSent.getAnsweredDate()).isEqualTo(DEFAULT_ANSWERED_DATE);
+        assertThat(testQuestionSent.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -320,7 +346,12 @@ class QuestionSentResourceIT {
         QuestionSent partialUpdatedQuestionSent = new QuestionSent();
         partialUpdatedQuestionSent.setId(questionSent.getId());
 
-        partialUpdatedQuestionSent.sentDate(UPDATED_SENT_DATE).viewedDate(UPDATED_VIEWED_DATE).answeredDate(UPDATED_ANSWERED_DATE);
+        partialUpdatedQuestionSent
+            .resource(UPDATED_RESOURCE)
+            .sentDate(UPDATED_SENT_DATE)
+            .viewedDate(UPDATED_VIEWED_DATE)
+            .answeredDate(UPDATED_ANSWERED_DATE)
+            .status(UPDATED_STATUS);
 
         restQuestionSentMockMvc
             .perform(
@@ -334,9 +365,11 @@ class QuestionSentResourceIT {
         List<QuestionSent> questionSentList = questionSentRepository.findAll();
         assertThat(questionSentList).hasSize(databaseSizeBeforeUpdate);
         QuestionSent testQuestionSent = questionSentList.get(questionSentList.size() - 1);
+        assertThat(testQuestionSent.getResource()).isEqualTo(UPDATED_RESOURCE);
         assertThat(testQuestionSent.getSentDate()).isEqualTo(UPDATED_SENT_DATE);
         assertThat(testQuestionSent.getViewedDate()).isEqualTo(UPDATED_VIEWED_DATE);
         assertThat(testQuestionSent.getAnsweredDate()).isEqualTo(UPDATED_ANSWERED_DATE);
+        assertThat(testQuestionSent.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

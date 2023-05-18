@@ -15,6 +15,8 @@ public class CategoryDTO implements Serializable {
 
     private String description;
 
+    private Integer createdBy;
+
     public Long getId() {
         return id;
     }
@@ -37,6 +39,14 @@ public class CategoryDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
     }
 
     @Override
@@ -67,6 +77,7 @@ public class CategoryDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", createdBy=" + getCreatedBy() +
             "}";
     }
 }

@@ -1,0 +1,27 @@
+{
+  "applications": ["SkillContext"],
+  "changelogDate": "20230518163030",
+  "clientRootFolder": "SkillContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tag_infos",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SkillContext",
+  "name": "TagInfos",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

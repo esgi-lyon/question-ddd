@@ -1,0 +1,27 @@
+{
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230518163047",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "evaluation_tag",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "EvaluationTag",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

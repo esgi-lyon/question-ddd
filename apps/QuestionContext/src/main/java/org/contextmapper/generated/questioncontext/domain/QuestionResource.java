@@ -2,6 +2,8 @@ package org.contextmapper.generated.questioncontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.questioncontext.domain.enumeration.States;
+import org.contextmapper.generated.questioncontext.domain.enumeration.Types;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +26,17 @@ public class QuestionResource implements Serializable {
 
     @Column(name = "question_content")
     private String questionContent;
+
+    @Column(name = "tag")
+    private Integer tag;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "question_state")
+    private States questionState;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "resource_type")
+    private Types resourceType;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -53,6 +66,45 @@ public class QuestionResource implements Serializable {
         this.questionContent = questionContent;
     }
 
+    public Integer getTag() {
+        return this.tag;
+    }
+
+    public QuestionResource tag(Integer tag) {
+        this.setTag(tag);
+        return this;
+    }
+
+    public void setTag(Integer tag) {
+        this.tag = tag;
+    }
+
+    public States getQuestionState() {
+        return this.questionState;
+    }
+
+    public QuestionResource questionState(States questionState) {
+        this.setQuestionState(questionState);
+        return this;
+    }
+
+    public void setQuestionState(States questionState) {
+        this.questionState = questionState;
+    }
+
+    public Types getResourceType() {
+        return this.resourceType;
+    }
+
+    public QuestionResource resourceType(Types resourceType) {
+        this.setResourceType(resourceType);
+        return this;
+    }
+
+    public void setResourceType(Types resourceType) {
+        this.resourceType = resourceType;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -78,6 +130,9 @@ public class QuestionResource implements Serializable {
         return "QuestionResource{" +
             "id=" + getId() +
             ", questionContent='" + getQuestionContent() + "'" +
+            ", tag=" + getTag() +
+            ", questionState='" + getQuestionState() + "'" +
+            ", resourceType='" + getResourceType() + "'" +
             "}";
     }
 }

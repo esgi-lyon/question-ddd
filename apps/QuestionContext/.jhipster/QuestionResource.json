@@ -10,6 +10,20 @@
     {
       "fieldName": "questionContent",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "tag",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "questionState",
+      "fieldType": "States",
+      "fieldValues": "WAITING,ASSOCIATED,REFUSED"
+    },
+    {
+      "fieldName": "resourceType",
+      "fieldType": "Types",
+      "fieldValues": "IMG_URL,URL,TEXT"
     }
   ],
   "fluentMethods": true,

@@ -2,6 +2,8 @@ package org.contextmapper.generated.evaluationcontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.UserLevel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +26,14 @@ public class PointAwardRule implements Serializable {
 
     @Column(name = "score_evolution")
     private Integer scoreEvolution;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "difficulty_level")
+    private DifficultyLevel difficultyLevel;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_level")
+    private UserLevel userLevel;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -53,6 +63,32 @@ public class PointAwardRule implements Serializable {
         this.scoreEvolution = scoreEvolution;
     }
 
+    public DifficultyLevel getDifficultyLevel() {
+        return this.difficultyLevel;
+    }
+
+    public PointAwardRule difficultyLevel(DifficultyLevel difficultyLevel) {
+        this.setDifficultyLevel(difficultyLevel);
+        return this;
+    }
+
+    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
+
+    public UserLevel getUserLevel() {
+        return this.userLevel;
+    }
+
+    public PointAwardRule userLevel(UserLevel userLevel) {
+        this.setUserLevel(userLevel);
+        return this;
+    }
+
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -78,6 +114,8 @@ public class PointAwardRule implements Serializable {
         return "PointAwardRule{" +
             "id=" + getId() +
             ", scoreEvolution=" + getScoreEvolution() +
+            ", difficultyLevel='" + getDifficultyLevel() + "'" +
+            ", userLevel='" + getUserLevel() + "'" +
             "}";
     }
 }

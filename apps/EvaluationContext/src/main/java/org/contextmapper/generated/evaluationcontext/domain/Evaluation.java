@@ -2,6 +2,8 @@ package org.contextmapper.generated.evaluationcontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.Status;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +26,26 @@ public class Evaluation implements Serializable {
 
     @Column(name = "score")
     private Integer score;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "answered_question_difficulty_level")
+    private DifficultyLevel answeredQuestionDifficultyLevel;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private EvaluationTag tag;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private EvaluationQuestion question;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private AnsweringUser user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -53,6 +75,71 @@ public class Evaluation implements Serializable {
         this.score = score;
     }
 
+    public Status getStatus() {
+        return this.status;
+    }
+
+    public Evaluation status(Status status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public DifficultyLevel getAnsweredQuestionDifficultyLevel() {
+        return this.answeredQuestionDifficultyLevel;
+    }
+
+    public Evaluation answeredQuestionDifficultyLevel(DifficultyLevel answeredQuestionDifficultyLevel) {
+        this.setAnsweredQuestionDifficultyLevel(answeredQuestionDifficultyLevel);
+        return this;
+    }
+
+    public void setAnsweredQuestionDifficultyLevel(DifficultyLevel answeredQuestionDifficultyLevel) {
+        this.answeredQuestionDifficultyLevel = answeredQuestionDifficultyLevel;
+    }
+
+    public EvaluationTag getTag() {
+        return this.tag;
+    }
+
+    public void setTag(EvaluationTag evaluationTag) {
+        this.tag = evaluationTag;
+    }
+
+    public Evaluation tag(EvaluationTag evaluationTag) {
+        this.setTag(evaluationTag);
+        return this;
+    }
+
+    public EvaluationQuestion getQuestion() {
+        return this.question;
+    }
+
+    public void setQuestion(EvaluationQuestion evaluationQuestion) {
+        this.question = evaluationQuestion;
+    }
+
+    public Evaluation question(EvaluationQuestion evaluationQuestion) {
+        this.setQuestion(evaluationQuestion);
+        return this;
+    }
+
+    public AnsweringUser getUser() {
+        return this.user;
+    }
+
+    public void setUser(AnsweringUser answeringUser) {
+        this.user = answeringUser;
+    }
+
+    public Evaluation user(AnsweringUser answeringUser) {
+        this.setUser(answeringUser);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -78,6 +165,8 @@ public class Evaluation implements Serializable {
         return "Evaluation{" +
             "id=" + getId() +
             ", score=" + getScore() +
+            ", status='" + getStatus() + "'" +
+            ", answeredQuestionDifficultyLevel='" + getAnsweredQuestionDifficultyLevel() + "'" +
             "}";
     }
 }

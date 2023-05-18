@@ -2,6 +2,8 @@ package org.contextmapper.generated.usermanagementcontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.usermanagementcontext.domain.enumeration.Roles;
+import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,6 +29,14 @@ public class UserInfos implements Serializable {
 
     @Column(name = "lastname")
     private String lastname;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Roles role;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -69,6 +79,32 @@ public class UserInfos implements Serializable {
         this.lastname = lastname;
     }
 
+    public Roles getRole() {
+        return this.role;
+    }
+
+    public UserInfos role(Roles role) {
+        this.setRole(role);
+        return this;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public UserStatus getStatus() {
+        return this.status;
+    }
+
+    public UserInfos status(UserStatus status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -95,6 +131,8 @@ public class UserInfos implements Serializable {
             "id=" + getId() +
             ", firstname='" + getFirstname() + "'" +
             ", lastname='" + getLastname() + "'" +
+            ", role='" + getRole() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

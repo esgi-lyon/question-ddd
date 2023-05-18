@@ -1,0 +1,23 @@
+{
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230518163048",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "evaluation_question",
+  "fields": [
+    {
+      "fieldName": "questionId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "EvaluationQuestion",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

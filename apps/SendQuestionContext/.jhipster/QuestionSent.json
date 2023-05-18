@@ -8,6 +8,10 @@
   "entityTableName": "question_sent",
   "fields": [
     {
+      "fieldName": "resource",
+      "fieldType": "Integer"
+    },
+    {
       "fieldName": "sentDate",
       "fieldType": "LocalDate"
     },
@@ -18,6 +22,11 @@
     {
       "fieldName": "answeredDate",
       "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "QuestionNotificationStatus",
+      "fieldValues": "SENT,VIEWED,ANSWERED"
     }
   ],
   "fluentMethods": true,
@@ -26,6 +35,13 @@
   "name": "QuestionSent",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionSentTagId",
+      "otherEntityRelationshipName": "questionSent",
+      "relationshipName": "tags",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "service": "serviceClass"
 }

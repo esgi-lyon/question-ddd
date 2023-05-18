@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.usermanagementcontext.IntegrationTest;
 import org.contextmapper.generated.usermanagementcontext.domain.UserInfos;
+import org.contextmapper.generated.usermanagementcontext.domain.enumeration.Roles;
+import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 import org.contextmapper.generated.usermanagementcontext.repository.UserInfosRepository;
 import org.contextmapper.generated.usermanagementcontext.service.dto.UserInfosDTO;
 import org.contextmapper.generated.usermanagementcontext.service.mapper.UserInfosMapper;
@@ -36,6 +38,12 @@ class UserInfosResourceIT {
 
     private static final String DEFAULT_LASTNAME = "AAAAAAAAAA";
     private static final String UPDATED_LASTNAME = "BBBBBBBBBB";
+
+    private static final Roles DEFAULT_ROLE = Roles.EVALUATOR;
+    private static final Roles UPDATED_ROLE = Roles.STUDENT;
+
+    private static final UserStatus DEFAULT_STATUS = UserStatus.VALIDATED;
+    private static final UserStatus UPDATED_STATUS = UserStatus.WAITING_VALIDATION;
 
     private static final String ENTITY_API_URL = "/api/user-infos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -64,7 +72,11 @@ class UserInfosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserInfos createEntity(EntityManager em) {
-        UserInfos userInfos = new UserInfos().firstname(DEFAULT_FIRSTNAME).lastname(DEFAULT_LASTNAME);
+        UserInfos userInfos = new UserInfos()
+            .firstname(DEFAULT_FIRSTNAME)
+            .lastname(DEFAULT_LASTNAME)
+            .role(DEFAULT_ROLE)
+            .status(DEFAULT_STATUS);
         return userInfos;
     }
 
@@ -75,7 +87,11 @@ class UserInfosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserInfos createUpdatedEntity(EntityManager em) {
-        UserInfos userInfos = new UserInfos().firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME);
+        UserInfos userInfos = new UserInfos()
+            .firstname(UPDATED_FIRSTNAME)
+            .lastname(UPDATED_LASTNAME)
+            .role(UPDATED_ROLE)
+            .status(UPDATED_STATUS);
         return userInfos;
     }
 
@@ -100,6 +116,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(DEFAULT_LASTNAME);
+        assertThat(testUserInfos.getRole()).isEqualTo(DEFAULT_ROLE);
+        assertThat(testUserInfos.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -134,7 +152,9 @@ class UserInfosResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userInfos.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstname").value(hasItem(DEFAULT_FIRSTNAME)))
-            .andExpect(jsonPath("$.[*].lastname").value(hasItem(DEFAULT_LASTNAME)));
+            .andExpect(jsonPath("$.[*].lastname").value(hasItem(DEFAULT_LASTNAME)))
+            .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE.toString())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
 
     @Test
@@ -150,7 +170,9 @@ class UserInfosResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userInfos.getId().intValue()))
             .andExpect(jsonPath("$.firstname").value(DEFAULT_FIRSTNAME))
-            .andExpect(jsonPath("$.lastname").value(DEFAULT_LASTNAME));
+            .andExpect(jsonPath("$.lastname").value(DEFAULT_LASTNAME))
+            .andExpect(jsonPath("$.role").value(DEFAULT_ROLE.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
 
     @Test
@@ -172,7 +194,7 @@ class UserInfosResourceIT {
         UserInfos updatedUserInfos = userInfosRepository.findById(userInfos.getId()).get();
         // Disconnect from session so that the updates on updatedUserInfos are not directly saved in db
         em.detach(updatedUserInfos);
-        updatedUserInfos.firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME);
+        updatedUserInfos.firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME).role(UPDATED_ROLE).status(UPDATED_STATUS);
         UserInfosDTO userInfosDTO = userInfosMapper.toDto(updatedUserInfos);
 
         restUserInfosMockMvc
@@ -189,6 +211,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(UPDATED_LASTNAME);
+        assertThat(testUserInfos.getRole()).isEqualTo(UPDATED_ROLE);
+        assertThat(testUserInfos.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -268,6 +292,8 @@ class UserInfosResourceIT {
         UserInfos partialUpdatedUserInfos = new UserInfos();
         partialUpdatedUserInfos.setId(userInfos.getId());
 
+        partialUpdatedUserInfos.role(UPDATED_ROLE);
+
         restUserInfosMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedUserInfos.getId())
@@ -282,6 +308,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(DEFAULT_LASTNAME);
+        assertThat(testUserInfos.getRole()).isEqualTo(UPDATED_ROLE);
+        assertThat(testUserInfos.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -296,7 +324,7 @@ class UserInfosResourceIT {
         UserInfos partialUpdatedUserInfos = new UserInfos();
         partialUpdatedUserInfos.setId(userInfos.getId());
 
-        partialUpdatedUserInfos.firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME);
+        partialUpdatedUserInfos.firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME).role(UPDATED_ROLE).status(UPDATED_STATUS);
 
         restUserInfosMockMvc
             .perform(
@@ -312,6 +340,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(UPDATED_LASTNAME);
+        assertThat(testUserInfos.getRole()).isEqualTo(UPDATED_ROLE);
+        assertThat(testUserInfos.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

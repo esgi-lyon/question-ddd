@@ -1,0 +1,23 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230518163051",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "stat_evaluation_tag",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "StatEvaluationTag",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

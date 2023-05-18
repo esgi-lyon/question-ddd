@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.PointAwardRule;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.UserLevel;
 import org.contextmapper.generated.evaluationcontext.repository.PointAwardRuleRepository;
 import org.contextmapper.generated.evaluationcontext.service.dto.PointAwardRuleDTO;
 import org.contextmapper.generated.evaluationcontext.service.mapper.PointAwardRuleMapper;
@@ -33,6 +35,12 @@ class PointAwardRuleResourceIT {
 
     private static final Integer DEFAULT_SCORE_EVOLUTION = 1;
     private static final Integer UPDATED_SCORE_EVOLUTION = 2;
+
+    private static final DifficultyLevel DEFAULT_DIFFICULTY_LEVEL = DifficultyLevel.EASY;
+    private static final DifficultyLevel UPDATED_DIFFICULTY_LEVEL = DifficultyLevel.MEDIUM;
+
+    private static final UserLevel DEFAULT_USER_LEVEL = UserLevel.NEW;
+    private static final UserLevel UPDATED_USER_LEVEL = UserLevel.REGULAR;
 
     private static final String ENTITY_API_URL = "/api/point-award-rules";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +69,10 @@ class PointAwardRuleResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static PointAwardRule createEntity(EntityManager em) {
-        PointAwardRule pointAwardRule = new PointAwardRule().scoreEvolution(DEFAULT_SCORE_EVOLUTION);
+        PointAwardRule pointAwardRule = new PointAwardRule()
+            .scoreEvolution(DEFAULT_SCORE_EVOLUTION)
+            .difficultyLevel(DEFAULT_DIFFICULTY_LEVEL)
+            .userLevel(DEFAULT_USER_LEVEL);
         return pointAwardRule;
     }
 
@@ -72,7 +83,10 @@ class PointAwardRuleResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static PointAwardRule createUpdatedEntity(EntityManager em) {
-        PointAwardRule pointAwardRule = new PointAwardRule().scoreEvolution(UPDATED_SCORE_EVOLUTION);
+        PointAwardRule pointAwardRule = new PointAwardRule()
+            .scoreEvolution(UPDATED_SCORE_EVOLUTION)
+            .difficultyLevel(UPDATED_DIFFICULTY_LEVEL)
+            .userLevel(UPDATED_USER_LEVEL);
         return pointAwardRule;
     }
 
@@ -98,6 +112,8 @@ class PointAwardRuleResourceIT {
         assertThat(pointAwardRuleList).hasSize(databaseSizeBeforeCreate + 1);
         PointAwardRule testPointAwardRule = pointAwardRuleList.get(pointAwardRuleList.size() - 1);
         assertThat(testPointAwardRule.getScoreEvolution()).isEqualTo(DEFAULT_SCORE_EVOLUTION);
+        assertThat(testPointAwardRule.getDifficultyLevel()).isEqualTo(DEFAULT_DIFFICULTY_LEVEL);
+        assertThat(testPointAwardRule.getUserLevel()).isEqualTo(DEFAULT_USER_LEVEL);
     }
 
     @Test
@@ -133,7 +149,9 @@ class PointAwardRuleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(pointAwardRule.getId().intValue())))
-            .andExpect(jsonPath("$.[*].scoreEvolution").value(hasItem(DEFAULT_SCORE_EVOLUTION)));
+            .andExpect(jsonPath("$.[*].scoreEvolution").value(hasItem(DEFAULT_SCORE_EVOLUTION)))
+            .andExpect(jsonPath("$.[*].difficultyLevel").value(hasItem(DEFAULT_DIFFICULTY_LEVEL.toString())))
+            .andExpect(jsonPath("$.[*].userLevel").value(hasItem(DEFAULT_USER_LEVEL.toString())));
     }
 
     @Test
@@ -148,7 +166,9 @@ class PointAwardRuleResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(pointAwardRule.getId().intValue()))
-            .andExpect(jsonPath("$.scoreEvolution").value(DEFAULT_SCORE_EVOLUTION));
+            .andExpect(jsonPath("$.scoreEvolution").value(DEFAULT_SCORE_EVOLUTION))
+            .andExpect(jsonPath("$.difficultyLevel").value(DEFAULT_DIFFICULTY_LEVEL.toString()))
+            .andExpect(jsonPath("$.userLevel").value(DEFAULT_USER_LEVEL.toString()));
     }
 
     @Test
@@ -170,7 +190,10 @@ class PointAwardRuleResourceIT {
         PointAwardRule updatedPointAwardRule = pointAwardRuleRepository.findById(pointAwardRule.getId()).get();
         // Disconnect from session so that the updates on updatedPointAwardRule are not directly saved in db
         em.detach(updatedPointAwardRule);
-        updatedPointAwardRule.scoreEvolution(UPDATED_SCORE_EVOLUTION);
+        updatedPointAwardRule
+            .scoreEvolution(UPDATED_SCORE_EVOLUTION)
+            .difficultyLevel(UPDATED_DIFFICULTY_LEVEL)
+            .userLevel(UPDATED_USER_LEVEL);
         PointAwardRuleDTO pointAwardRuleDTO = pointAwardRuleMapper.toDto(updatedPointAwardRule);
 
         restPointAwardRuleMockMvc
@@ -186,6 +209,8 @@ class PointAwardRuleResourceIT {
         assertThat(pointAwardRuleList).hasSize(databaseSizeBeforeUpdate);
         PointAwardRule testPointAwardRule = pointAwardRuleList.get(pointAwardRuleList.size() - 1);
         assertThat(testPointAwardRule.getScoreEvolution()).isEqualTo(UPDATED_SCORE_EVOLUTION);
+        assertThat(testPointAwardRule.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
+        assertThat(testPointAwardRule.getUserLevel()).isEqualTo(UPDATED_USER_LEVEL);
     }
 
     @Test
@@ -267,6 +292,8 @@ class PointAwardRuleResourceIT {
         PointAwardRule partialUpdatedPointAwardRule = new PointAwardRule();
         partialUpdatedPointAwardRule.setId(pointAwardRule.getId());
 
+        partialUpdatedPointAwardRule.difficultyLevel(UPDATED_DIFFICULTY_LEVEL).userLevel(UPDATED_USER_LEVEL);
+
         restPointAwardRuleMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedPointAwardRule.getId())
@@ -280,6 +307,8 @@ class PointAwardRuleResourceIT {
         assertThat(pointAwardRuleList).hasSize(databaseSizeBeforeUpdate);
         PointAwardRule testPointAwardRule = pointAwardRuleList.get(pointAwardRuleList.size() - 1);
         assertThat(testPointAwardRule.getScoreEvolution()).isEqualTo(DEFAULT_SCORE_EVOLUTION);
+        assertThat(testPointAwardRule.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
+        assertThat(testPointAwardRule.getUserLevel()).isEqualTo(UPDATED_USER_LEVEL);
     }
 
     @Test
@@ -294,7 +323,10 @@ class PointAwardRuleResourceIT {
         PointAwardRule partialUpdatedPointAwardRule = new PointAwardRule();
         partialUpdatedPointAwardRule.setId(pointAwardRule.getId());
 
-        partialUpdatedPointAwardRule.scoreEvolution(UPDATED_SCORE_EVOLUTION);
+        partialUpdatedPointAwardRule
+            .scoreEvolution(UPDATED_SCORE_EVOLUTION)
+            .difficultyLevel(UPDATED_DIFFICULTY_LEVEL)
+            .userLevel(UPDATED_USER_LEVEL);
 
         restPointAwardRuleMockMvc
             .perform(
@@ -309,6 +341,8 @@ class PointAwardRuleResourceIT {
         assertThat(pointAwardRuleList).hasSize(databaseSizeBeforeUpdate);
         PointAwardRule testPointAwardRule = pointAwardRuleList.get(pointAwardRuleList.size() - 1);
         assertThat(testPointAwardRule.getScoreEvolution()).isEqualTo(UPDATED_SCORE_EVOLUTION);
+        assertThat(testPointAwardRule.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
+        assertThat(testPointAwardRule.getUserLevel()).isEqualTo(UPDATED_USER_LEVEL);
     }
 
     @Test

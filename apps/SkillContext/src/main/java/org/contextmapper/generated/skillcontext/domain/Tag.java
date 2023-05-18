@@ -26,6 +26,9 @@ public class Tag implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "created_by")
+    private Integer createdBy;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
     private Category category;
@@ -56,6 +59,19 @@ public class Tag implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public Tag createdBy(Integer createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
     }
 
     public Category getCategory() {
@@ -96,6 +112,7 @@ public class Tag implements Serializable {
         return "Tag{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", createdBy=" + getCreatedBy() +
             "}";
     }
 }

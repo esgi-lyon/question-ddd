@@ -1,0 +1,27 @@
+{
+  "applications": ["QuestionContext"],
+  "changelogDate": "20230518163025",
+  "clientRootFolder": "QuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "question_resource_tag_infos",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "QuestionContext",
+  "name": "QuestionResourceTagInfos",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

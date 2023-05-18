@@ -24,7 +24,8 @@
       "ResourceAcceptedAssociationEvent",
       "QuestionResource",
       "RejectResourceTagCommand",
-      "ResourceRefusedAssociationEvent"
+      "ResourceRefusedAssociationEvent",
+      "QuestionResourceTagInfos"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": "",
@@ -32,7 +33,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "ZTRjZDJhMWZiYTY3ZGY1YTIzYzY0NDZkOGRlNzgxMzJkZWNhN2RiNzJkN2FhOWExNDg0MjM4NDg3N2NiN2Y5MWY0ZmU1MWFmNWJkNDYwNjNkMjZkYWE5NTkwNjIzMzNlMzc2Y2I3OTc1MmNjNjE3OGJkZGZlNTNlZGViN2JmNmE=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1682178002000,
+    "lastLiquibaseTimestamp": 1684427425000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

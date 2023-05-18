@@ -1,6 +1,9 @@
 package org.contextmapper.generated.sendquestioncontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,6 +25,15 @@ public class UserPreferences implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private UserWithPreferencesId user;
+
+    @OneToMany(mappedBy = "userPreferences")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "userPreferences" }, allowSetters = true)
+    private Set<UserPreferencesTagInfos> preferences = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +47,50 @@ public class UserPreferences implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UserWithPreferencesId getUser() {
+        return this.user;
+    }
+
+    public void setUser(UserWithPreferencesId userWithPreferencesId) {
+        this.user = userWithPreferencesId;
+    }
+
+    public UserPreferences user(UserWithPreferencesId userWithPreferencesId) {
+        this.setUser(userWithPreferencesId);
+        return this;
+    }
+
+    public Set<UserPreferencesTagInfos> getPreferences() {
+        return this.preferences;
+    }
+
+    public void setPreferences(Set<UserPreferencesTagInfos> userPreferencesTagInfos) {
+        if (this.preferences != null) {
+            this.preferences.forEach(i -> i.setUserPreferences(null));
+        }
+        if (userPreferencesTagInfos != null) {
+            userPreferencesTagInfos.forEach(i -> i.setUserPreferences(this));
+        }
+        this.preferences = userPreferencesTagInfos;
+    }
+
+    public UserPreferences preferences(Set<UserPreferencesTagInfos> userPreferencesTagInfos) {
+        this.setPreferences(userPreferencesTagInfos);
+        return this;
+    }
+
+    public UserPreferences addPreferences(UserPreferencesTagInfos userPreferencesTagInfos) {
+        this.preferences.add(userPreferencesTagInfos);
+        userPreferencesTagInfos.setUserPreferences(this);
+        return this;
+    }
+
+    public UserPreferences removePreferences(UserPreferencesTagInfos userPreferencesTagInfos) {
+        this.preferences.remove(userPreferencesTagInfos);
+        userPreferencesTagInfos.setUserPreferences(null);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

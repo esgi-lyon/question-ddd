@@ -1,0 +1,27 @@
+{
+  "applications": ["AnswerContext"],
+  "changelogDate": "20230518163039",
+  "clientRootFolder": "AnswerContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "answered_tag",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "AnswerContext",
+  "name": "AnsweredTag",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -54,6 +54,9 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.PointAwardRule.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.Evaluation.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnsweringUser.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationTag.class.getName());
+            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationQuestion.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -2,6 +2,8 @@ package org.contextmapper.generated.evaluationcontext.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.UserLevel;
 
 /**
  * A DTO for the {@link org.contextmapper.generated.evaluationcontext.domain.PointAwardRule} entity.
@@ -12,6 +14,10 @@ public class PointAwardRuleDTO implements Serializable {
     private Long id;
 
     private Integer scoreEvolution;
+
+    private DifficultyLevel difficultyLevel;
+
+    private UserLevel userLevel;
 
     public Long getId() {
         return id;
@@ -27,6 +33,22 @@ public class PointAwardRuleDTO implements Serializable {
 
     public void setScoreEvolution(Integer scoreEvolution) {
         this.scoreEvolution = scoreEvolution;
+    }
+
+    public DifficultyLevel getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
+
+    public UserLevel getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
     }
 
     @Override
@@ -56,6 +78,8 @@ public class PointAwardRuleDTO implements Serializable {
         return "PointAwardRuleDTO{" +
             "id=" + getId() +
             ", scoreEvolution=" + getScoreEvolution() +
+            ", difficultyLevel='" + getDifficultyLevel() + "'" +
+            ", userLevel='" + getUserLevel() + "'" +
             "}";
     }
 }

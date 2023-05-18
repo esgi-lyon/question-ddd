@@ -37,6 +37,9 @@ class CategoryResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_CREATED_BY = 1;
+    private static final Integer UPDATED_CREATED_BY = 2;
+
     private static final String ENTITY_API_URL = "/api/categories";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -64,7 +67,7 @@ class CategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Category createEntity(EntityManager em) {
-        Category category = new Category().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION);
+        Category category = new Category().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION).createdBy(DEFAULT_CREATED_BY);
         return category;
     }
 
@@ -75,7 +78,7 @@ class CategoryResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Category createUpdatedEntity(EntityManager em) {
-        Category category = new Category().name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+        Category category = new Category().name(UPDATED_NAME).description(UPDATED_DESCRIPTION).createdBy(UPDATED_CREATED_BY);
         return category;
     }
 
@@ -100,6 +103,7 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testCategory.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
     }
 
     @Test
@@ -134,7 +138,8 @@ class CategoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(category.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY)));
     }
 
     @Test
@@ -150,7 +155,8 @@ class CategoryResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(category.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY));
     }
 
     @Test
@@ -172,7 +178,7 @@ class CategoryResourceIT {
         Category updatedCategory = categoryRepository.findById(category.getId()).get();
         // Disconnect from session so that the updates on updatedCategory are not directly saved in db
         em.detach(updatedCategory);
-        updatedCategory.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+        updatedCategory.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).createdBy(UPDATED_CREATED_BY);
         CategoryDTO categoryDTO = categoryMapper.toDto(updatedCategory);
 
         restCategoryMockMvc
@@ -189,6 +195,7 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testCategory.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
     }
 
     @Test
@@ -284,6 +291,7 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCategory.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testCategory.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
     }
 
     @Test
@@ -298,7 +306,7 @@ class CategoryResourceIT {
         Category partialUpdatedCategory = new Category();
         partialUpdatedCategory.setId(category.getId());
 
-        partialUpdatedCategory.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+        partialUpdatedCategory.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).createdBy(UPDATED_CREATED_BY);
 
         restCategoryMockMvc
             .perform(
@@ -314,6 +322,7 @@ class CategoryResourceIT {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCategory.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testCategory.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
     }
 
     @Test

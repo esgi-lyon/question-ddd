@@ -1,0 +1,27 @@
+{
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230518163046",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "answering_user",
+  "fields": [
+    {
+      "fieldName": "userId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "AnsweringUser",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

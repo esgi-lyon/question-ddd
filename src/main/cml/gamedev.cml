@@ -97,9 +97,6 @@ BoundedContext UserManagementContext {
 			aggregateLifecycle
 				VALIDATED, WAITING_VALIDATION
 		}
-		ValueObject UserId {
-			int userId
-		}
 	}
 }
 
@@ -124,7 +121,7 @@ BoundedContext QuestionContext implements SkillDomain {
 			String questionContent
 			- @States questionState
 			- @Types resourceType
-			- Tag tag
+			Integer tag
 			def boolean isWaitingForAssociation();
 			def boolean accept();
 			def boolean refuse();
@@ -137,17 +134,21 @@ BoundedContext QuestionContext implements SkillDomain {
 			aggregateLifecycle
 				WAITING, ASSOCIATED, REFUSED
 		}
+		ValueObject QuestionResourceTagInfos {
+			int tagId
+			String name
+		}
 		DomainEvent ResourceWaitingForAssociation {
 			- QuestionResource questionId
-			- TagInfos tagId
+			- QuestionResourceTagInfos tagId
 		}
 		DomainEvent ResourceAcceptedAssociation {
 			- QuestionResource questionId
-			- TagInfos tagId
+			- QuestionResourceTagInfos tagId
 		}
 		DomainEvent ResourceRefusedAssociation {
 			- QuestionResource questionId
-			- TagInfos tagId
+			- QuestionResourceTagInfos tagId
 		}
 		Command CreateResource {
 			- QuestionResource questionId
@@ -174,7 +175,7 @@ BoundedContext SkillContext implements SkillDomain {
 		Entity Tag {
 			aggregateRoot
 			String name
-			- @UserInfos createdBy
+			Integer createdBy
 			def Tag setCategory(@Category category);
 		}
 		ValueObject TagInfos {
@@ -189,7 +190,7 @@ BoundedContext SkillContext implements SkillDomain {
 			String name
 			String description
 			- List<Tag> tags
-			- @UserInfos createdBy
+			Integer createdBy
 			def Category addTag(@Tag tag);
 		}
 		enum CategoryEvents {
@@ -228,17 +229,24 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 	Aggregate UserPreferences {
 		Entity UserPreferences {
 			aggregateRoot
-			- UserId user
-			- List<TagInfos> preferences
+			- UserWithPreferencesId user
+			- List<UserPreferencesTagInfos> preferences
 			def UserPreferences addPreference(@TagInfos tagId);
+		}
+		ValueObject UserWithPreferencesId {
+			int userId
+		}
+		ValueObject UserPreferencesTagInfos {
+			int tagId
+			String name
 		}
 	}
 	Aggregate QuestionNotification {
 		Entity QuestionSent {
 			aggregateRoot
 			- QuestionNotificationStatus status
-			- List<Tag> tags
-			- QuestionResource resource
+			- List<QuestionSentTagId> tags
+			Integer resource
 			Date sentDate
 			Date viewedDate
 			Date answeredDate
@@ -246,6 +254,10 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			def QuestionSent view();
 			def QuestionSent answer();
 		}
+		ValueObject QuestionSentTagId {
+			int tagId
+		}
+		
 		enum QuestionNotificationStatus {
 			aggregateLifecycle
 				SENT, VIEWED, ANSWERED
@@ -256,9 +268,13 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		DomainEvent NotifiedQuestion {
 			- QuestionSent questionResource
 		}
+		ValueObject QuestionSentTagInfos {
+			int tagId
+			String name
+		}
 		ValueObject Question {
-			- List<TagInfos> tags
-			- TagInfos resourceCorrectTag
+			- List<QuestionSentTagInfos> tags
+			- QuestionSentTagInfos resourceCorrectTag
 		}
 		Command CreateQuestion {
 			- @QuestionResource resource
@@ -281,9 +297,12 @@ BoundedContext AnswerContext implements QuestionDomain {
 	Aggregate Answer {
 		Entity Answer {
 			aggregateRoot
-			- Question question
-			- @UserInfos user
+			- QuestionId question
+			Integer user
 			- AnsweredTag answeredTag
+		}
+		ValueObject QuestionId {
+			int questionId
 		}
 		ValueObject AnsweredTag {
 			int tagId
@@ -386,9 +405,15 @@ BoundedContext StatContext implements StatDomain {
 	Aggregate Statistic {
 		Entity LeaderBoard {
 			aggregateRoot
-			- List<Evaluation> evaluation
+			- List<EvaluationId> evaluation
 			- DifficultyLevel difficultyLevel
-			- EvaluationTag tagId
+			- StatEvaluationTag tagId
+		}
+		ValueObject EvaluationId {
+			int evaluationId
+		}
+		ValueObject StatEvaluationTag {
+			int tagId
 		}
 		DomainEvent UserStatsViewed {
 			- AnsweringUser user

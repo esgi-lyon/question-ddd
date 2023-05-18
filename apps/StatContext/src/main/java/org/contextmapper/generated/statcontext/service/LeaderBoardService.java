@@ -53,7 +53,7 @@ public class LeaderBoardService {
     public LeaderBoardDTO update(LeaderBoardDTO leaderBoardDTO) {
         log.debug("Request to update LeaderBoard : {}", leaderBoardDTO);
         LeaderBoard leaderBoard = leaderBoardMapper.toEntity(leaderBoardDTO);
-        // no save call needed as we have no fields that can be updated
+        leaderBoard = leaderBoardRepository.save(leaderBoard);
         return leaderBoardMapper.toDto(leaderBoard);
     }
 
@@ -73,7 +73,7 @@ public class LeaderBoardService {
 
                 return existingLeaderBoard;
             })
-            // .map(leaderBoardRepository::save)
+            .map(leaderBoardRepository::save)
             .map(leaderBoardMapper::toDto);
     }
 

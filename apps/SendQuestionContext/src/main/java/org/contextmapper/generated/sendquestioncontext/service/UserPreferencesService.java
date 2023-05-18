@@ -53,7 +53,7 @@ public class UserPreferencesService {
     public UserPreferencesDTO update(UserPreferencesDTO userPreferencesDTO) {
         log.debug("Request to update UserPreferences : {}", userPreferencesDTO);
         UserPreferences userPreferences = userPreferencesMapper.toEntity(userPreferencesDTO);
-        // no save call needed as we have no fields that can be updated
+        userPreferences = userPreferencesRepository.save(userPreferences);
         return userPreferencesMapper.toDto(userPreferences);
     }
 
@@ -73,7 +73,7 @@ public class UserPreferencesService {
 
                 return existingUserPreferences;
             })
-            // .map(userPreferencesRepository::save)
+            .map(userPreferencesRepository::save)
             .map(userPreferencesMapper::toDto);
     }
 

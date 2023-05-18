@@ -1,8 +1,12 @@
 package org.contextmapper.generated.sendquestioncontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
+import org.contextmapper.generated.sendquestioncontext.domain.enumeration.QuestionNotificationStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,6 +27,9 @@ public class QuestionSent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "resource")
+    private Integer resource;
+
     @Column(name = "sent_date")
     private LocalDate sentDate;
 
@@ -31,6 +38,15 @@ public class QuestionSent implements Serializable {
 
     @Column(name = "answered_date")
     private LocalDate answeredDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private QuestionNotificationStatus status;
+
+    @OneToMany(mappedBy = "questionSent")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "questionSent" }, allowSetters = true)
+    private Set<QuestionSentTagId> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -45,6 +61,19 @@ public class QuestionSent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getResource() {
+        return this.resource;
+    }
+
+    public QuestionSent resource(Integer resource) {
+        this.setResource(resource);
+        return this;
+    }
+
+    public void setResource(Integer resource) {
+        this.resource = resource;
     }
 
     public LocalDate getSentDate() {
@@ -86,6 +115,50 @@ public class QuestionSent implements Serializable {
         this.answeredDate = answeredDate;
     }
 
+    public QuestionNotificationStatus getStatus() {
+        return this.status;
+    }
+
+    public QuestionSent status(QuestionNotificationStatus status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(QuestionNotificationStatus status) {
+        this.status = status;
+    }
+
+    public Set<QuestionSentTagId> getTags() {
+        return this.tags;
+    }
+
+    public void setTags(Set<QuestionSentTagId> questionSentTagIds) {
+        if (this.tags != null) {
+            this.tags.forEach(i -> i.setQuestionSent(null));
+        }
+        if (questionSentTagIds != null) {
+            questionSentTagIds.forEach(i -> i.setQuestionSent(this));
+        }
+        this.tags = questionSentTagIds;
+    }
+
+    public QuestionSent tags(Set<QuestionSentTagId> questionSentTagIds) {
+        this.setTags(questionSentTagIds);
+        return this;
+    }
+
+    public QuestionSent addTags(QuestionSentTagId questionSentTagId) {
+        this.tags.add(questionSentTagId);
+        questionSentTagId.setQuestionSent(this);
+        return this;
+    }
+
+    public QuestionSent removeTags(QuestionSentTagId questionSentTagId) {
+        this.tags.remove(questionSentTagId);
+        questionSentTagId.setQuestionSent(null);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -110,9 +183,11 @@ public class QuestionSent implements Serializable {
     public String toString() {
         return "QuestionSent{" +
             "id=" + getId() +
+            ", resource=" + getResource() +
             ", sentDate='" + getSentDate() + "'" +
             ", viewedDate='" + getViewedDate() + "'" +
             ", answeredDate='" + getAnsweredDate() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

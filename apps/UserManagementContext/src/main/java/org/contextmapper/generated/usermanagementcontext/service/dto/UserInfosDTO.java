@@ -2,6 +2,8 @@ package org.contextmapper.generated.usermanagementcontext.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import org.contextmapper.generated.usermanagementcontext.domain.enumeration.Roles;
+import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 
 /**
  * A DTO for the {@link org.contextmapper.generated.usermanagementcontext.domain.UserInfos} entity.
@@ -14,6 +16,10 @@ public class UserInfosDTO implements Serializable {
     private String firstname;
 
     private String lastname;
+
+    private Roles role;
+
+    private UserStatus status;
 
     public Long getId() {
         return id;
@@ -37,6 +43,22 @@ public class UserInfosDTO implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -67,6 +89,8 @@ public class UserInfosDTO implements Serializable {
             "id=" + getId() +
             ", firstname='" + getFirstname() + "'" +
             ", lastname='" + getLastname() + "'" +
+            ", role='" + getRole() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

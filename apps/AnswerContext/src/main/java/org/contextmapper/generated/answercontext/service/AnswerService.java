@@ -53,7 +53,7 @@ public class AnswerService {
     public AnswerDTO update(AnswerDTO answerDTO) {
         log.debug("Request to update Answer : {}", answerDTO);
         Answer answer = answerMapper.toEntity(answerDTO);
-        // no save call needed as we have no fields that can be updated
+        answer = answerRepository.save(answer);
         return answerMapper.toDto(answer);
     }
 
@@ -73,7 +73,7 @@ public class AnswerService {
 
                 return existingAnswer;
             })
-            // .map(answerRepository::save)
+            .map(answerRepository::save)
             .map(answerMapper::toDto);
     }
 

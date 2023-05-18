@@ -53,6 +53,8 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.skillcontext.domain.Category.class.getName());
             createCache(cm, org.contextmapper.generated.skillcontext.domain.Category.class.getName() + ".tags");
             createCache(cm, org.contextmapper.generated.skillcontext.domain.Tag.class.getName());
+            createCache(cm, org.contextmapper.generated.skillcontext.domain.TagInfos.class.getName());
+            createCache(cm, org.contextmapper.generated.skillcontext.domain.CategoryId.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -11,12 +11,22 @@ public class UserPreferencesDTO implements Serializable {
 
     private Long id;
 
+    private UserWithPreferencesIdDTO user;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UserWithPreferencesIdDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserWithPreferencesIdDTO user) {
+        this.user = user;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class UserPreferencesDTO implements Serializable {
     public String toString() {
         return "UserPreferencesDTO{" +
             "id=" + getId() +
+            ", user=" + getUser() +
             "}";
     }
 }

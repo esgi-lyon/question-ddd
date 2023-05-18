@@ -2,6 +2,8 @@ package org.contextmapper.generated.questioncontext.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import org.contextmapper.generated.questioncontext.domain.enumeration.States;
+import org.contextmapper.generated.questioncontext.domain.enumeration.Types;
 
 /**
  * A DTO for the {@link org.contextmapper.generated.questioncontext.domain.QuestionResource} entity.
@@ -12,6 +14,12 @@ public class QuestionResourceDTO implements Serializable {
     private Long id;
 
     private String questionContent;
+
+    private Integer tag;
+
+    private States questionState;
+
+    private Types resourceType;
 
     public Long getId() {
         return id;
@@ -27,6 +35,30 @@ public class QuestionResourceDTO implements Serializable {
 
     public void setQuestionContent(String questionContent) {
         this.questionContent = questionContent;
+    }
+
+    public Integer getTag() {
+        return tag;
+    }
+
+    public void setTag(Integer tag) {
+        this.tag = tag;
+    }
+
+    public States getQuestionState() {
+        return questionState;
+    }
+
+    public void setQuestionState(States questionState) {
+        this.questionState = questionState;
+    }
+
+    public Types getResourceType() {
+        return resourceType;
+    }
+
+    public void setResourceType(Types resourceType) {
+        this.resourceType = resourceType;
     }
 
     @Override
@@ -56,6 +88,9 @@ public class QuestionResourceDTO implements Serializable {
         return "QuestionResourceDTO{" +
             "id=" + getId() +
             ", questionContent='" + getQuestionContent() + "'" +
+            ", tag=" + getTag() +
+            ", questionState='" + getQuestionState() + "'" +
+            ", resourceType='" + getResourceType() + "'" +
             "}";
     }
 }

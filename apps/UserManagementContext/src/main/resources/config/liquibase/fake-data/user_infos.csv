@@ -1,11 +1,11 @@
-id;firstname;lastname
-1;District;protocol Division
-2;Buckinghamshire;plum HTTP bypass
-3;Minnesota Infrastructure 6th;Liaison Orchestrator Junctions
-4;Technician;Fresh transmitter generate
-5;Security leverage;invoice Granite engage
-6;Sheqel Argentina;Directives
-7;synthesizing Metal;technologies
-8;Row;Metal Music
-9;vortals Dollar;Uganda Branding
-10;Mission Clothing action-items;paradigms Networked
+id;firstname;lastname;role;status
+1;District;protocol Division;EVALUATOR;VALIDATED
+2;Shores Account Refined;Minnesota Infrastructure 6th;NONE;WAITING_VALIDATION
+3;Venezuela;Junctions silver needs-based;NONE;WAITING_VALIDATION
+4;cross-media 1080p Berkshire;Tuna;STUDENT;WAITING_VALIDATION
+5;Granite engage models;Argentina Wooden synthesizing;EVALUATOR;VALIDATED
+6;reintermediate technologies Soft;national;STUDENT;VALIDATED
+7;expedite;Rest indexing;NONE;VALIDATED
+8;invoice Mission Clothing;bricks-and-clicks paradigms;EVALUATOR;VALIDATED
+9;South recontextualize teal;Sahara out-of-the-box Sweden;EVALUATOR;WAITING_VALIDATION
+10;Borders;Agent;NONE;WAITING_VALIDATION

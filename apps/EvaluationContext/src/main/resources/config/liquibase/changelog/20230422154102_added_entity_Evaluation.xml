@@ -17,6 +17,21 @@
             <column name="score" type="integer">
                 <constraints nullable="true" />
             </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="answered_question_difficulty_level" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tag_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_evaluation__tag_id" />
+            </column>
+            <column name="question_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_evaluation__question_id" />
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_evaluation__user_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -39,6 +54,8 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="score" type="numeric"/>
+            <column name="status" type="string"/>
+            <column name="answered_question_difficulty_level" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
