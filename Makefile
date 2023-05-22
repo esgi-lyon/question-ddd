@@ -5,7 +5,7 @@ diagrams=$(foreach file,$(ordered_list),$(wildcard src-gen/*$(file)*.puml) $(wil
 sketch_only=$(foreach file,$(ordered_list),$(wildcard src-gen/*$(file)*.sketch_miner))
 
 JHIPSTER_VERSION=7.4.0
-microservices:=UserManagementContext QuestionContext SkillContext SendQuestionContext AnswerContext EvaluationContext StatContext gateway
+microservices:=UserManagementContext QuestionContext SkillContext SendQuestionContext AnswerContext EvaluationContext StatContext
 targets:=$(microservices)
 docker_targets:=$(addsuffix .docker,$(targets))
 

@@ -9,7 +9,7 @@
 <#assign oneToManyRefs = [] />
 <#assign oneToOneRefs = [] />
 <#assign contextNames = [] />
-<#assign gateway = true />
+<#assign gateway = false />
 <#assign deployment = true />
 <#assign threeTier = false />
 
