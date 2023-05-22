@@ -19,5 +19,11 @@
                                  constraintName="fk_answer__answered_tag_id"
                                  referencedColumnNames="id"
                                  referencedTableName="answered_tag"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id_id"
+                                 baseTableName="answer"
+                                 constraintName="fk_answer__user_id_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_id"/>
     </changeSet>
 </databaseChangeLog>

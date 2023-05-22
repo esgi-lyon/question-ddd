@@ -23,7 +23,7 @@ public class AnswerSubmit implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "question", "answeredTag" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "question", "answeredTag", "userId" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Answer answer;

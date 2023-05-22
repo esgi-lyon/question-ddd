@@ -37,7 +37,7 @@ build:
 	cd apps && \
 	mkdir gateway || true && \
 	javac --version && \
-	jhipster --force import-jdl ./../src-gen/output.jdl && \
+	jhipster $(args) import-jdl ./../src-gen/output.jdl && \
 	cd ..
 
 docker-consul:

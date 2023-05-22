@@ -9,7 +9,7 @@
   "fields": [
     {
       "fieldName": "questionId",
-      "fieldType": "Integer"
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

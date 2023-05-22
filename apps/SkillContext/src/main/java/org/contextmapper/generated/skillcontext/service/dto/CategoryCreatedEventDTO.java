@@ -11,7 +11,7 @@ public class CategoryCreatedEventDTO implements Serializable {
 
     private Long id;
 
-    private CategoryIdDTO categoryId;
+    private CategoryDTO categoryId;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class CategoryCreatedEventDTO implements Serializable {
         this.id = id;
     }
 
-    public CategoryIdDTO getCategoryId() {
+    public CategoryDTO getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(CategoryIdDTO categoryId) {
+    public void setCategoryId(CategoryDTO categoryId) {
         this.categoryId = categoryId;
     }
 

@@ -11,7 +11,7 @@ public class StatisticSubjectUserDTO implements Serializable {
 
     private Long id;
 
-    private Integer userId;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class StatisticSubjectUserDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

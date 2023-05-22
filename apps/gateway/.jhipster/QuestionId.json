@@ -1,0 +1,21 @@
+{
+  "applications": ["AnswerContext", "gateway"],
+  "changelogDate": "20230518163038",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "question_id",
+  "fields": [
+    {
+      "fieldName": "questionId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "QuestionId",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

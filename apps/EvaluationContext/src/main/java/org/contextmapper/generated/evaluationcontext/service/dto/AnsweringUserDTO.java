@@ -11,7 +11,7 @@ public class AnsweringUserDTO implements Serializable {
 
     private Long id;
 
-    private Integer userId;
+    private Long userId;
 
     private String name;
 
@@ -23,11 +23,11 @@ public class AnsweringUserDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

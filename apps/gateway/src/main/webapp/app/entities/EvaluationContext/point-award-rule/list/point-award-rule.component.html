@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="PointAwardRuleHeading">
+    <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.home.title">Point Award Rules</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-point-award-rule"
+        [routerLink]="['/point-award-rule/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.home.createLabel"> Create a new Point Award Rule </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pointAwardRules?.length === 0">
+    <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.home.notFound">No Point Award Rules found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="pointAwardRules && pointAwardRules.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="scoreEvolution">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.scoreEvolution">Score Evolution</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="difficultyLevel">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.difficultyLevel">Difficulty Level</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="userLevel">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.evaluationContextPointAwardRule.userLevel">User Level</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pointAwardRule of pointAwardRules; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/point-award-rule', pointAwardRule.id, 'view']">{{ pointAwardRule.id }}</a>
+          </td>
+          <td>{{ pointAwardRule.scoreEvolution }}</td>
+          <td jhiTranslate="{{ 'gatewayApp.DifficultyLevel.' + pointAwardRule.difficultyLevel }}">{{ pointAwardRule.difficultyLevel }}</td>
+          <td jhiTranslate="{{ 'gatewayApp.UserLevel.' + pointAwardRule.userLevel }}">{{ pointAwardRule.userLevel }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/point-award-rule', pointAwardRule.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/point-award-rule', pointAwardRule.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(pointAwardRule)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

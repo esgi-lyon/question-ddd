@@ -20,3 +20,7 @@ You can find more info's about the tool and a complete documentation on our webs
 ![Context map](./doc/gamedev_ContextMap.png)
 
 [**All Aggregates and event flows**](doc/diagrams.md)
+
+# Dev
+
+- Route for apis : `/v3/api-docs`

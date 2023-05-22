@@ -8,10 +8,6 @@
   "entityTableName": "question_sent",
   "fields": [
     {
-      "fieldName": "resource",
-      "fieldType": "Integer"
-    },
-    {
       "fieldName": "sentDate",
       "fieldType": "LocalDate"
     },
@@ -36,6 +32,12 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityName": "resourceId",
+      "ownerSide": true,
+      "relationshipName": "resourceId",
+      "relationshipType": "one-to-one"
+    },
     {
       "otherEntityName": "questionSentTagId",
       "otherEntityRelationshipName": "questionSent",

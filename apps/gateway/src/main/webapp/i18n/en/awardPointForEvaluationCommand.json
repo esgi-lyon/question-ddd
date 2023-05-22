@@ -1,0 +1,24 @@
+{
+  "gatewayApp": {
+    "awardPointForEvaluationCommand": {
+      "home": {
+        "title": "Award Point For Evaluation Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Award Point For Evaluation Command",
+        "createOrEditLabel": "Create or edit a Award Point For Evaluation Command",
+        "notFound": "No Award Point For Evaluation Commands found"
+      },
+      "created": "A new Award Point For Evaluation Command is created with identifier {{ param }}",
+      "updated": "A Award Point For Evaluation Command is updated with identifier {{ param }}",
+      "deleted": "A Award Point For Evaluation Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Award Point For Evaluation Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Award Point For Evaluation Command"
+      },
+      "id": "ID",
+      "evaluation": "Evaluation"
+    }
+  }
+}

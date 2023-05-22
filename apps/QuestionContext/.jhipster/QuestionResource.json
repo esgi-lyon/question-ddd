@@ -1,5 +1,5 @@
 {
-  "applications": ["QuestionContext", "gateway"],
+  "applications": ["QuestionContext"],
   "changelogDate": "20230422153802",
   "clientRootFolder": "QuestionContext",
   "databaseType": "sql",
@@ -10,10 +10,6 @@
     {
       "fieldName": "questionContent",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "tag",
-      "fieldType": "Integer"
     },
     {
       "fieldName": "questionState",
@@ -32,6 +28,13 @@
   "name": "QuestionResource",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionResourceTagInfos",
+      "ownerSide": true,
+      "relationshipName": "tagId",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

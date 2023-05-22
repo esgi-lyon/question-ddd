@@ -1,5 +1,5 @@
 {
-  "applications": ["QuestionContext", "gateway"],
+  "applications": ["QuestionContext"],
   "changelogDate": "20230518163025",
   "clientRootFolder": "QuestionContext",
   "databaseType": "sql",
@@ -9,7 +9,7 @@
   "fields": [
     {
       "fieldName": "tagId",
-      "fieldType": "Integer"
+      "fieldType": "Long"
     },
     {
       "fieldName": "name",

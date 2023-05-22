@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="answerSubmitCommand">
+      <h2 data-cy="answerSubmitCommandDetailsHeading">
+        <span jhiTranslate="gatewayApp.answerSubmitCommand.detail.title">Answer Submit Command</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ answerSubmitCommand.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.answerSubmitCommand.answer">Answer</span></dt>
+        <dd>
+          <div *ngIf="answerSubmitCommand.answer">
+            <a [routerLink]="['/answer', answerSubmitCommand.answer.id, 'view']">{{ answerSubmitCommand.answer.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/answer-submit-command', answerSubmitCommand.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -14,10 +14,6 @@
     {
       "fieldName": "description",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "createdBy",
-      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,

@@ -3,9 +3,11 @@ package org.contextmapper.generated.answercontext.service.mapper;
 import org.contextmapper.generated.answercontext.domain.Answer;
 import org.contextmapper.generated.answercontext.domain.AnsweredTag;
 import org.contextmapper.generated.answercontext.domain.QuestionId;
+import org.contextmapper.generated.answercontext.domain.UserId;
 import org.contextmapper.generated.answercontext.service.dto.AnswerDTO;
 import org.contextmapper.generated.answercontext.service.dto.AnsweredTagDTO;
 import org.contextmapper.generated.answercontext.service.dto.QuestionIdDTO;
+import org.contextmapper.generated.answercontext.service.dto.UserIdDTO;
 import org.mapstruct.*;
 
 /**
@@ -15,6 +17,7 @@ import org.mapstruct.*;
 public interface AnswerMapper extends EntityMapper<AnswerDTO, Answer> {
     @Mapping(target = "question", source = "question", qualifiedByName = "questionIdId")
     @Mapping(target = "answeredTag", source = "answeredTag", qualifiedByName = "answeredTagId")
+    @Mapping(target = "userId", source = "userId", qualifiedByName = "userIdId")
     AnswerDTO toDto(Answer s);
 
     @Named("questionIdId")
@@ -26,4 +29,9 @@ public interface AnswerMapper extends EntityMapper<AnswerDTO, Answer> {
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     AnsweredTagDTO toDtoAnsweredTagId(AnsweredTag answeredTag);
+
+    @Named("userIdId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    UserIdDTO toDtoUserIdId(UserId userId);
 }

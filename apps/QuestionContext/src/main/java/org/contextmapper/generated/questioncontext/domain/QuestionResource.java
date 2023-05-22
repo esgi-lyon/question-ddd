@@ -27,9 +27,6 @@ public class QuestionResource implements Serializable {
     @Column(name = "question_content")
     private String questionContent;
 
-    @Column(name = "tag")
-    private Integer tag;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "question_state")
     private States questionState;
@@ -37,6 +34,10 @@ public class QuestionResource implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "resource_type")
     private Types resourceType;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionResourceTagInfos tagId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -66,19 +67,6 @@ public class QuestionResource implements Serializable {
         this.questionContent = questionContent;
     }
 
-    public Integer getTag() {
-        return this.tag;
-    }
-
-    public QuestionResource tag(Integer tag) {
-        this.setTag(tag);
-        return this;
-    }
-
-    public void setTag(Integer tag) {
-        this.tag = tag;
-    }
-
     public States getQuestionState() {
         return this.questionState;
     }
@@ -103,6 +91,19 @@ public class QuestionResource implements Serializable {
 
     public void setResourceType(Types resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public QuestionResourceTagInfos getTagId() {
+        return this.tagId;
+    }
+
+    public void setTagId(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.tagId = questionResourceTagInfos;
+    }
+
+    public QuestionResource tagId(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.setTagId(questionResourceTagInfos);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -130,7 +131,6 @@ public class QuestionResource implements Serializable {
         return "QuestionResource{" +
             "id=" + getId() +
             ", questionContent='" + getQuestionContent() + "'" +
-            ", tag=" + getTag() +
             ", questionState='" + getQuestionState() + "'" +
             ", resourceType='" + getResourceType() + "'" +
             "}";

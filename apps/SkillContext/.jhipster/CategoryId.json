@@ -9,7 +9,7 @@
   "fields": [
     {
       "fieldName": "categoryId",
-      "fieldType": "Integer"
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

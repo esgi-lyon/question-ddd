@@ -31,12 +31,9 @@ public class Category implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_by")
-    private Integer createdBy;
-
     @OneToMany(mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "category" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "createdById", "category" }, allowSetters = true)
     private Set<Tag> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -78,19 +75,6 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getCreatedBy() {
-        return this.createdBy;
-    }
-
-    public Category createdBy(Integer createdBy) {
-        this.setCreatedBy(createdBy);
-        return this;
-    }
-
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
     }
 
     public Set<Tag> getTags() {
@@ -150,7 +134,6 @@ public class Category implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", createdBy=" + getCreatedBy() +
             "}";
     }
 }

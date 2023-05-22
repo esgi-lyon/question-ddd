@@ -12,6 +12,6 @@
                                  baseTableName="category_created_event"
                                  constraintName="fk_category_created_event__category_id_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="category_id"/>
+                                 referencedTableName="category"/>
     </changeSet>
 </databaseChangeLog>

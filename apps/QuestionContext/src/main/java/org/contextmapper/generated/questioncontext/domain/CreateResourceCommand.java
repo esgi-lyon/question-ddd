@@ -1,5 +1,6 @@
 package org.contextmapper.generated.questioncontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -22,6 +23,7 @@ public class CreateResourceCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "tagId" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private QuestionResource questionId;

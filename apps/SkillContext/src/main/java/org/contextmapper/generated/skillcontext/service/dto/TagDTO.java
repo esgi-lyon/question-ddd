@@ -13,7 +13,7 @@ public class TagDTO implements Serializable {
 
     private String name;
 
-    private Integer createdBy;
+    private CreatedByIdDTO createdById;
 
     private CategoryDTO category;
 
@@ -33,12 +33,12 @@ public class TagDTO implements Serializable {
         this.name = name;
     }
 
-    public Integer getCreatedBy() {
-        return createdBy;
+    public CreatedByIdDTO getCreatedById() {
+        return createdById;
     }
 
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
+    public void setCreatedById(CreatedByIdDTO createdById) {
+        this.createdById = createdById;
     }
 
     public CategoryDTO getCategory() {
@@ -76,7 +76,7 @@ public class TagDTO implements Serializable {
         return "TagDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", createdBy=" + getCreatedBy() +
+            ", createdById=" + getCreatedById() +
             ", category=" + getCategory() +
             "}";
     }

@@ -24,10 +24,10 @@ public class QuestionSentTagId implements Serializable {
     private Long id;
 
     @Column(name = "tag_id")
-    private Integer tagId;
+    private Long tagId;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "resourceId", "tags" }, allowSetters = true)
     private QuestionSent questionSent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -45,16 +45,16 @@ public class QuestionSentTagId implements Serializable {
         this.id = id;
     }
 
-    public Integer getTagId() {
+    public Long getTagId() {
         return this.tagId;
     }
 
-    public QuestionSentTagId tagId(Integer tagId) {
+    public QuestionSentTagId tagId(Long tagId) {
         this.setTagId(tagId);
         return this;
     }
 
-    public void setTagId(Integer tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 

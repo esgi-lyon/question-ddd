@@ -15,11 +15,11 @@ public class QuestionResourceDTO implements Serializable {
 
     private String questionContent;
 
-    private Integer tag;
-
     private States questionState;
 
     private Types resourceType;
+
+    private QuestionResourceTagInfosDTO tagId;
 
     public Long getId() {
         return id;
@@ -37,14 +37,6 @@ public class QuestionResourceDTO implements Serializable {
         this.questionContent = questionContent;
     }
 
-    public Integer getTag() {
-        return tag;
-    }
-
-    public void setTag(Integer tag) {
-        this.tag = tag;
-    }
-
     public States getQuestionState() {
         return questionState;
     }
@@ -59,6 +51,14 @@ public class QuestionResourceDTO implements Serializable {
 
     public void setResourceType(Types resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public QuestionResourceTagInfosDTO getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(QuestionResourceTagInfosDTO tagId) {
+        this.tagId = tagId;
     }
 
     @Override
@@ -88,9 +88,9 @@ public class QuestionResourceDTO implements Serializable {
         return "QuestionResourceDTO{" +
             "id=" + getId() +
             ", questionContent='" + getQuestionContent() + "'" +
-            ", tag=" + getTag() +
             ", questionState='" + getQuestionState() + "'" +
             ", resourceType='" + getResourceType() + "'" +
+            ", tagId=" + getTagId() +
             "}";
     }
 }

@@ -11,7 +11,7 @@ public class QuestionSentTagInfosDTO implements Serializable {
 
     private Long id;
 
-    private Integer tagId;
+    private Long tagId;
 
     private String name;
 
@@ -25,11 +25,11 @@ public class QuestionSentTagInfosDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getTagId() {
+    public Long getTagId() {
         return tagId;
     }
 
-    public void setTagId(Integer tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 

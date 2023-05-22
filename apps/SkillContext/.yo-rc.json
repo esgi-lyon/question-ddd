@@ -29,7 +29,10 @@
       "TagCreated",
       "CategoryCreated",
       "CreateTag",
-      "CreateCategory"
+      "CreateCategory",
+      "TagWithCategory",
+      "CreatedById",
+      "CategoryInfos"
     ],
     "entitySuffix": "",
     "gatewayServerPort": "8080",
@@ -38,7 +41,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "YjA1ODY2NzI0NGMxYWFlYTAzNmNiMmVmOTYyOGQwOGJkMzRlYjA4ZjZlZjBhMDNlZGY3MmI0NTk2MTQ0MzI1NDQ2Y2MwODMxMzY3YjQ4MTE4NDcxMDBiNzg0ZjRhNjA2ZWM2MGFjZWZhNTBiOTE2MGU2NjA5ODBjOGJmYmU5MTE=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1684429131000,
+    "lastLiquibaseTimestamp": 1684789777000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

@@ -23,7 +23,7 @@ public class AnsweringUser implements Serializable {
     private Long id;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     @Column(name = "name")
     private String name;
@@ -43,16 +43,16 @@ public class AnsweringUser implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return this.userId;
     }
 
-    public AnsweringUser userId(Integer userId) {
+    public AnsweringUser userId(Long userId) {
         this.setUserId(userId);
         return this;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

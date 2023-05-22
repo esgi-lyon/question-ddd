@@ -8,6 +8,12 @@
     -->
     <changeSet id="20230422153902-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="created_by_id_id"
+                                 baseTableName="tag"
+                                 constraintName="fk_tag__created_by_id_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="created_by_id"/>
+
         <addForeignKeyConstraint baseColumnNames="category_id"
                                  baseTableName="tag"
                                  constraintName="fk_tag__category_id"

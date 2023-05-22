@@ -6,12 +6,7 @@
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "answer",
-  "fields": [
-    {
-      "fieldName": "user",
-      "fieldType": "Integer"
-    }
-  ],
+  "fields": [],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "AnswerContext",
@@ -29,6 +24,12 @@
       "otherEntityName": "answeredTag",
       "ownerSide": true,
       "relationshipName": "answeredTag",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "userId",
+      "ownerSide": true,
+      "relationshipName": "userId",
       "relationshipType": "one-to-one"
     }
   ],

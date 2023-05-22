@@ -23,7 +23,7 @@ public class EvaluationTag implements Serializable {
     private Long id;
 
     @Column(name = "tag_id")
-    private Integer tagId;
+    private Long tagId;
 
     @Column(name = "name")
     private String name;
@@ -43,16 +43,16 @@ public class EvaluationTag implements Serializable {
         this.id = id;
     }
 
-    public Integer getTagId() {
+    public Long getTagId() {
         return this.tagId;
     }
 
-    public EvaluationTag tagId(Integer tagId) {
+    public EvaluationTag tagId(Long tagId) {
         this.setTagId(tagId);
         return this;
     }
 
-    public void setTagId(Integer tagId) {
+    public void setTagId(Long tagId) {
         this.tagId = tagId;
     }
 

@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="resourceRefusedAssociationEvent">
+      <h2 data-cy="resourceRefusedAssociationEventDetailsHeading">
+        <span jhiTranslate="gatewayApp.resourceRefusedAssociationEvent.detail.title">Resource Refused Association Event</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ resourceRefusedAssociationEvent.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.resourceRefusedAssociationEvent.questionId">Question Id</span></dt>
+        <dd>
+          <div *ngIf="resourceRefusedAssociationEvent.questionId">
+            <a [routerLink]="['/question-resource', resourceRefusedAssociationEvent.questionId.id, 'view']">{{
+              resourceRefusedAssociationEvent.questionId.id
+            }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.resourceRefusedAssociationEvent.tagId">Tag Id</span></dt>
+        <dd>
+          <div *ngIf="resourceRefusedAssociationEvent.tagId">
+            <a [routerLink]="['/question-resource-tag-infos', resourceRefusedAssociationEvent.tagId.id, 'view']">{{
+              resourceRefusedAssociationEvent.tagId.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+    </div>
+  </div>
+</div>

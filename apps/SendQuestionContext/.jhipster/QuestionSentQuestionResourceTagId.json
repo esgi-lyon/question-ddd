@@ -9,7 +9,7 @@
   "fields": [
     {
       "fieldName": "tagId",
-      "fieldType": "Integer"
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

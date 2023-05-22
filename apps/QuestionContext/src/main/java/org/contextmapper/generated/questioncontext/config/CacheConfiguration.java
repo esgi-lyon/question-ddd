@@ -46,14 +46,6 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.ValidateResourceTagLinkageCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceWaitingForAssociationEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.CreateResourceCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceAcceptedAssociationEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.QuestionResource.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.RejectResourceTagCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.ResourceRefusedAssociationEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.questioncontext.domain.QuestionResourceTagInfos.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

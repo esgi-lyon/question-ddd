@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CategoryIdResourceIT {
 
-    private static final Integer DEFAULT_CATEGORY_ID = 1;
-    private static final Integer UPDATED_CATEGORY_ID = 2;
+    private static final Long DEFAULT_CATEGORY_ID = 1L;
+    private static final Long UPDATED_CATEGORY_ID = 2L;
 
     private static final String ENTITY_API_URL = "/api/category-ids";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -93,7 +93,7 @@ class CategoryIdResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(categoryId.getId().intValue())))
-            .andExpect(jsonPath("$.[*].categoryId").value(hasItem(DEFAULT_CATEGORY_ID)));
+            .andExpect(jsonPath("$.[*].categoryId").value(hasItem(DEFAULT_CATEGORY_ID.intValue())));
     }
 
     @Test
@@ -108,7 +108,7 @@ class CategoryIdResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(categoryId.getId().intValue()))
-            .andExpect(jsonPath("$.categoryId").value(DEFAULT_CATEGORY_ID));
+            .andExpect(jsonPath("$.categoryId").value(DEFAULT_CATEGORY_ID.intValue()));
     }
 
     @Test

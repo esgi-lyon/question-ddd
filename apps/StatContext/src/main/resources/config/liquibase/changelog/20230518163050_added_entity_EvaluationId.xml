@@ -14,7 +14,7 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="evaluation_id" type="integer">
+            <column name="evaluation_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <column name="leader_board_id" type="bigint">

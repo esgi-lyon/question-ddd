@@ -1,0 +1,10 @@
+{
+  "gatewayApp": {
+    "DifficultyLevel": {
+      "null": "",
+      "EASY": "EASY",
+      "MEDIUM": "MEDIUM",
+      "HARD": "HARD"
+    }
+  }
+}

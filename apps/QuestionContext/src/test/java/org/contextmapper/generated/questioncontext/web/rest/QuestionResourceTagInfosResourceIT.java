@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class QuestionResourceTagInfosResourceIT {
 
-    private static final Integer DEFAULT_TAG_ID = 1;
-    private static final Integer UPDATED_TAG_ID = 2;
+    private static final Long DEFAULT_TAG_ID = 1L;
+    private static final Long UPDATED_TAG_ID = 2L;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -96,7 +96,7 @@ class QuestionResourceTagInfosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questionResourceTagInfos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tagId").value(hasItem(DEFAULT_TAG_ID)))
+            .andExpect(jsonPath("$.[*].tagId").value(hasItem(DEFAULT_TAG_ID.intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 
@@ -112,7 +112,7 @@ class QuestionResourceTagInfosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questionResourceTagInfos.getId().intValue()))
-            .andExpect(jsonPath("$.tagId").value(DEFAULT_TAG_ID))
+            .andExpect(jsonPath("$.tagId").value(DEFAULT_TAG_ID.intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 

@@ -24,7 +24,7 @@ public class EvaluationId implements Serializable {
     private Long id;
 
     @Column(name = "evaluation_id")
-    private Integer evaluationId;
+    private Long evaluationId;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "tagId", "evaluations" }, allowSetters = true)
@@ -45,16 +45,16 @@ public class EvaluationId implements Serializable {
         this.id = id;
     }
 
-    public Integer getEvaluationId() {
+    public Long getEvaluationId() {
         return this.evaluationId;
     }
 
-    public EvaluationId evaluationId(Integer evaluationId) {
+    public EvaluationId evaluationId(Long evaluationId) {
         this.setEvaluationId(evaluationId);
         return this;
     }
 
-    public void setEvaluationId(Integer evaluationId) {
+    public void setEvaluationId(Long evaluationId) {
         this.evaluationId = evaluationId;
     }
 

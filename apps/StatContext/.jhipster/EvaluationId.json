@@ -9,7 +9,7 @@
   "fields": [
     {
       "fieldName": "evaluationId",
-      "fieldType": "Integer"
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

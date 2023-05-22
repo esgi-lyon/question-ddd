@@ -10,10 +10,6 @@
     {
       "fieldName": "name",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "createdBy",
-      "fieldType": "Integer"
     }
   ],
   "fluentMethods": true,
@@ -23,6 +19,12 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityName": "createdById",
+      "ownerSide": true,
+      "relationshipName": "createdById",
+      "relationshipType": "one-to-one"
+    },
     {
       "otherEntityName": "category",
       "otherEntityRelationshipName": "tags",

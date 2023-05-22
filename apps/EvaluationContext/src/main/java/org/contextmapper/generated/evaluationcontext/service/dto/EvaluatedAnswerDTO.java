@@ -11,7 +11,7 @@ public class EvaluatedAnswerDTO implements Serializable {
 
     private Long id;
 
-    private Integer answerId;
+    private Long answerId;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class EvaluatedAnswerDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getAnswerId() {
+    public Long getAnswerId() {
         return answerId;
     }
 
-    public void setAnswerId(Integer answerId) {
+    public void setAnswerId(Long answerId) {
         this.answerId = answerId;
     }
 

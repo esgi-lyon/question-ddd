@@ -1,0 +1,10 @@
+{
+  "gatewayApp": {
+    "QuestionNotificationStatus": {
+      "null": "",
+      "SENT": "SENT",
+      "VIEWED": "VIEWED",
+      "ANSWERED": "ANSWERED"
+    }
+  }
+}

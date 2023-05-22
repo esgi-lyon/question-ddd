@@ -23,7 +23,7 @@ public class UserWithPreferencesId implements Serializable {
     private Long id;
 
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -40,16 +40,16 @@ public class UserWithPreferencesId implements Serializable {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return this.userId;
     }
 
-    public UserWithPreferencesId userId(Integer userId) {
+    public UserWithPreferencesId userId(Long userId) {
         this.setUserId(userId);
         return this;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

@@ -23,7 +23,7 @@ public class CreatedQuestion implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "resourceId", "tags" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private QuestionSent questionAndTag;

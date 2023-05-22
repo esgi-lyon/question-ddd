@@ -1,5 +1,5 @@
 {
-  "applications": ["SkillContext", "gateway"],
+  "applications": ["SkillContext"],
   "changelogDate": "20230422153502",
   "clientRootFolder": "SkillContext",
   "databaseType": "sql",
@@ -15,7 +15,7 @@
   "readOnly": true,
   "relationships": [
     {
-      "otherEntityName": "tagInfos",
+      "otherEntityName": "tag",
       "ownerSide": true,
       "relationshipName": "tagId",
       "relationshipType": "one-to-one"

@@ -13,8 +13,6 @@ public class QuestionSentDTO implements Serializable {
 
     private Long id;
 
-    private Integer resource;
-
     private LocalDate sentDate;
 
     private LocalDate viewedDate;
@@ -23,20 +21,14 @@ public class QuestionSentDTO implements Serializable {
 
     private QuestionNotificationStatus status;
 
+    private ResourceIdDTO resourceId;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getResource() {
-        return resource;
-    }
-
-    public void setResource(Integer resource) {
-        this.resource = resource;
     }
 
     public LocalDate getSentDate() {
@@ -71,6 +63,14 @@ public class QuestionSentDTO implements Serializable {
         this.status = status;
     }
 
+    public ResourceIdDTO getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(ResourceIdDTO resourceId) {
+        this.resourceId = resourceId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -97,11 +97,11 @@ public class QuestionSentDTO implements Serializable {
     public String toString() {
         return "QuestionSentDTO{" +
             "id=" + getId() +
-            ", resource=" + getResource() +
             ", sentDate='" + getSentDate() + "'" +
             ", viewedDate='" + getViewedDate() + "'" +
             ", answeredDate='" + getAnsweredDate() + "'" +
             ", status='" + getStatus() + "'" +
+            ", resourceId=" + getResourceId() +
             "}";
     }
 }

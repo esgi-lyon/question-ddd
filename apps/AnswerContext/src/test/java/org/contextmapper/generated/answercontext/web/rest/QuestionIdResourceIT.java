@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class QuestionIdResourceIT {
 
-    private static final Integer DEFAULT_QUESTION_ID = 1;
-    private static final Integer UPDATED_QUESTION_ID = 2;
+    private static final Long DEFAULT_QUESTION_ID = 1L;
+    private static final Long UPDATED_QUESTION_ID = 2L;
 
     private static final String ENTITY_API_URL = "/api/question-ids";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -93,7 +93,7 @@ class QuestionIdResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(questionId.getId().intValue())))
-            .andExpect(jsonPath("$.[*].questionId").value(hasItem(DEFAULT_QUESTION_ID)));
+            .andExpect(jsonPath("$.[*].questionId").value(hasItem(DEFAULT_QUESTION_ID.intValue())));
     }
 
     @Test
@@ -108,7 +108,7 @@ class QuestionIdResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(questionId.getId().intValue()))
-            .andExpect(jsonPath("$.questionId").value(DEFAULT_QUESTION_ID));
+            .andExpect(jsonPath("$.questionId").value(DEFAULT_QUESTION_ID.intValue()));
     }
 
     @Test

@@ -11,7 +11,7 @@ public class CategoryIdDTO implements Serializable {
 
     private Long id;
 
-    private Integer categoryId;
+    private Long categoryId;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class CategoryIdDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

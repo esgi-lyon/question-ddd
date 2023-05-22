@@ -23,7 +23,7 @@ public class EvaluatedAnswer implements Serializable {
     private Long id;
 
     @Column(name = "answer_id")
-    private Integer answerId;
+    private Long answerId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -40,16 +40,16 @@ public class EvaluatedAnswer implements Serializable {
         this.id = id;
     }
 
-    public Integer getAnswerId() {
+    public Long getAnswerId() {
         return this.answerId;
     }
 
-    public EvaluatedAnswer answerId(Integer answerId) {
+    public EvaluatedAnswer answerId(Long answerId) {
         this.setAnswerId(answerId);
         return this;
     }
 
-    public void setAnswerId(Integer answerId) {
+    public void setAnswerId(Long answerId) {
         this.answerId = answerId;
     }
 

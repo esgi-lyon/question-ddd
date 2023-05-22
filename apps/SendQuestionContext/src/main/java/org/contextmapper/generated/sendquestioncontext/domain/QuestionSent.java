@@ -27,9 +27,6 @@ public class QuestionSent implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "resource")
-    private Integer resource;
-
     @Column(name = "sent_date")
     private LocalDate sentDate;
 
@@ -42,6 +39,10 @@ public class QuestionSent implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private QuestionNotificationStatus status;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private ResourceId resourceId;
 
     @OneToMany(mappedBy = "questionSent")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -61,19 +62,6 @@ public class QuestionSent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getResource() {
-        return this.resource;
-    }
-
-    public QuestionSent resource(Integer resource) {
-        this.setResource(resource);
-        return this;
-    }
-
-    public void setResource(Integer resource) {
-        this.resource = resource;
     }
 
     public LocalDate getSentDate() {
@@ -126,6 +114,19 @@ public class QuestionSent implements Serializable {
 
     public void setStatus(QuestionNotificationStatus status) {
         this.status = status;
+    }
+
+    public ResourceId getResourceId() {
+        return this.resourceId;
+    }
+
+    public void setResourceId(ResourceId resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public QuestionSent resourceId(ResourceId resourceId) {
+        this.setResourceId(resourceId);
+        return this;
     }
 
     public Set<QuestionSentTagId> getTags() {
@@ -183,7 +184,6 @@ public class QuestionSent implements Serializable {
     public String toString() {
         return "QuestionSent{" +
             "id=" + getId() +
-            ", resource=" + getResource() +
             ", sentDate='" + getSentDate() + "'" +
             ", viewedDate='" + getViewedDate() + "'" +
             ", answeredDate='" + getAnsweredDate() + "'" +

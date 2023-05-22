@@ -23,7 +23,7 @@ public class CreateTag implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "category" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "createdById", "category" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private Tag tag;

@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="answeringUser">
+      <h2 data-cy="answeringUserDetailsHeading"><span jhiTranslate="gatewayApp.answeringUser.detail.title">Answering User</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ answeringUser.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.answeringUser.userId">User Id</span></dt>
+        <dd>
+          <span>{{ answeringUser.userId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.answeringUser.name">Name</span></dt>
+        <dd>
+          <span>{{ answeringUser.name }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+    </div>
+  </div>
+</div>

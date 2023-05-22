@@ -1,0 +1,17 @@
+{
+  "gatewayApp": {
+    "evaluationId": {
+      "home": {
+        "title": "Evaluation Ids",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Evaluation Ids found"
+      },
+      "detail": {
+        "title": "Evaluation Id"
+      },
+      "id": "ID",
+      "evaluationId": "Evaluation Id",
+      "leaderBoard": "Leader Board"
+    }
+  }
+}

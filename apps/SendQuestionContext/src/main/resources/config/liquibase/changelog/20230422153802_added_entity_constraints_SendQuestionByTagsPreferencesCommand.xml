@@ -8,9 +8,9 @@
     -->
     <changeSet id="20230422153802-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="question_sent_id"
+        <addForeignKeyConstraint baseColumnNames="question_to_send_id"
                                  baseTableName="send_question_by_tags_preferences_command"
-                                 constraintName="fk_send_question_by_tags_preferences_command__question_sent_id"
+                                 constraintName="fk_send_question_by_tags_prefer__question_to_send_e7_id"
                                  referencedColumnNames="id"
                                  referencedTableName="question_sent"/>
     </changeSet>

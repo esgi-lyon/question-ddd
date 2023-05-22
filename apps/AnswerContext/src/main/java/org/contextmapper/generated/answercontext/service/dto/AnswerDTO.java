@@ -11,11 +11,11 @@ public class AnswerDTO implements Serializable {
 
     private Long id;
 
-    private Integer user;
-
     private QuestionIdDTO question;
 
     private AnsweredTagDTO answeredTag;
+
+    private UserIdDTO userId;
 
     public Long getId() {
         return id;
@@ -23,14 +23,6 @@ public class AnswerDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getUser() {
-        return user;
-    }
-
-    public void setUser(Integer user) {
-        this.user = user;
     }
 
     public QuestionIdDTO getQuestion() {
@@ -47,6 +39,14 @@ public class AnswerDTO implements Serializable {
 
     public void setAnsweredTag(AnsweredTagDTO answeredTag) {
         this.answeredTag = answeredTag;
+    }
+
+    public UserIdDTO getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UserIdDTO userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -75,9 +75,9 @@ public class AnswerDTO implements Serializable {
     public String toString() {
         return "AnswerDTO{" +
             "id=" + getId() +
-            ", user=" + getUser() +
             ", question=" + getQuestion() +
             ", answeredTag=" + getAnsweredTag() +
+            ", userId=" + getUserId() +
             "}";
     }
 }

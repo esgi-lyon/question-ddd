@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "statisticSubjectQuestion": {
+      "home": {
+        "title": "Statistic Subject Questions",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Statistic Subject Questions found"
+      },
+      "detail": {
+        "title": "Statistic Subject Question"
+      },
+      "id": "ID",
+      "questionId": "Question Id"
+    }
+  }
+}

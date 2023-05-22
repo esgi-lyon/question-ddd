@@ -1,0 +1,63 @@
+<div>
+  <h2 id="page-heading" data-cy="StatisticSubjectTagHeading">
+    <span jhiTranslate="gatewayApp.statisticSubjectTag.home.title">Statistic Subject Tags</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gatewayApp.statisticSubjectTag.home.refreshListLabel">Refresh list</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="statisticSubjectTags?.length === 0">
+    <span jhiTranslate="gatewayApp.statisticSubjectTag.home.notFound">No Statistic Subject Tags found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="statisticSubjectTags && statisticSubjectTags.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="tagId">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.statisticSubjectTag.tagId">Tag Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let statisticSubjectTag of statisticSubjectTags; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/statistic-subject-tag', statisticSubjectTag.id, 'view']">{{ statisticSubjectTag.id }}</a>
+          </td>
+          <td>{{ statisticSubjectTag.tagId }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/statistic-subject-tag', statisticSubjectTag.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

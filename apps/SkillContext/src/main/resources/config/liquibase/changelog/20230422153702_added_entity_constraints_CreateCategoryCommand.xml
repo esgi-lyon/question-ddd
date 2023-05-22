@@ -12,6 +12,6 @@
                                  baseTableName="create_category_command"
                                  constraintName="fk_create_category_command__category_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="category"/>
+                                 referencedTableName="category_infos"/>
     </changeSet>
 </databaseChangeLog>

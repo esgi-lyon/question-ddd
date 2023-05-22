@@ -14,8 +14,8 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="question_sent_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_send_question_by_tags_preferences_command__question_sent_id" />
+            <column name="question_to_send_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_send_question_by_tags_prefer__question_to_send_id_00" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

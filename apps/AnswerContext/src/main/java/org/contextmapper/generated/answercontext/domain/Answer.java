@@ -22,9 +22,6 @@ public class Answer implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "jhi_user")
-    private Integer user;
-
     @OneToOne
     @JoinColumn(unique = true)
     private QuestionId question;
@@ -32,6 +29,10 @@ public class Answer implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private AnsweredTag answeredTag;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private UserId userId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -46,19 +47,6 @@ public class Answer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getUser() {
-        return this.user;
-    }
-
-    public Answer user(Integer user) {
-        this.setUser(user);
-        return this;
-    }
-
-    public void setUser(Integer user) {
-        this.user = user;
     }
 
     public QuestionId getQuestion() {
@@ -87,6 +75,19 @@ public class Answer implements Serializable {
         return this;
     }
 
+    public UserId getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(UserId userId) {
+        this.userId = userId;
+    }
+
+    public Answer userId(UserId userId) {
+        this.setUserId(userId);
+        return this;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -111,7 +112,6 @@ public class Answer implements Serializable {
     public String toString() {
         return "Answer{" +
             "id=" + getId() +
-            ", user=" + getUser() +
             "}";
     }
 }

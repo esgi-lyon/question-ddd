@@ -12,6 +12,6 @@
                                  baseTableName="create_tag_command"
                                  constraintName="fk_create_tag_command__tag_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="tag"/>
+                                 referencedTableName="tag_with_category"/>
     </changeSet>
 </databaseChangeLog>

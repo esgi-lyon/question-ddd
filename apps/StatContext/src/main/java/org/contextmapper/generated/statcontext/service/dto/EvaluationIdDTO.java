@@ -11,7 +11,7 @@ public class EvaluationIdDTO implements Serializable {
 
     private Long id;
 
-    private Integer evaluationId;
+    private Long evaluationId;
 
     private LeaderBoardDTO leaderBoard;
 
@@ -23,11 +23,11 @@ public class EvaluationIdDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getEvaluationId() {
+    public Long getEvaluationId() {
         return evaluationId;
     }
 
-    public void setEvaluationId(Integer evaluationId) {
+    public void setEvaluationId(Long evaluationId) {
         this.evaluationId = evaluationId;
     }
 

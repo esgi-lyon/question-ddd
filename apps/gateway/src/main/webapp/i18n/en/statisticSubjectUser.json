@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "statisticSubjectUser": {
+      "home": {
+        "title": "Statistic Subject Users",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Statistic Subject Users found"
+      },
+      "detail": {
+        "title": "Statistic Subject User"
+      },
+      "id": "ID",
+      "userId": "User Id"
+    }
+  }
+}

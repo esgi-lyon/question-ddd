@@ -31,9 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class AnswerResourceIT {
 
-    private static final Integer DEFAULT_USER = 1;
-    private static final Integer UPDATED_USER = 2;
-
     private static final String ENTITY_API_URL = "/api/answers";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -61,7 +58,7 @@ class AnswerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Answer createEntity(EntityManager em) {
-        Answer answer = new Answer().user(DEFAULT_USER);
+        Answer answer = new Answer();
         return answer;
     }
 
@@ -72,7 +69,7 @@ class AnswerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Answer createUpdatedEntity(EntityManager em) {
-        Answer answer = new Answer().user(UPDATED_USER);
+        Answer answer = new Answer();
         return answer;
     }
 
@@ -95,7 +92,6 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeCreate + 1);
         Answer testAnswer = answerList.get(answerList.size() - 1);
-        assertThat(testAnswer.getUser()).isEqualTo(DEFAULT_USER);
     }
 
     @Test
@@ -128,8 +124,7 @@ class AnswerResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(answer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].user").value(hasItem(DEFAULT_USER)));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(answer.getId().intValue())));
     }
 
     @Test
@@ -143,8 +138,7 @@ class AnswerResourceIT {
             .perform(get(ENTITY_API_URL_ID, answer.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(answer.getId().intValue()))
-            .andExpect(jsonPath("$.user").value(DEFAULT_USER));
+            .andExpect(jsonPath("$.id").value(answer.getId().intValue()));
     }
 
     @Test
@@ -166,7 +160,6 @@ class AnswerResourceIT {
         Answer updatedAnswer = answerRepository.findById(answer.getId()).get();
         // Disconnect from session so that the updates on updatedAnswer are not directly saved in db
         em.detach(updatedAnswer);
-        updatedAnswer.user(UPDATED_USER);
         AnswerDTO answerDTO = answerMapper.toDto(updatedAnswer);
 
         restAnswerMockMvc
@@ -181,7 +174,6 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeUpdate);
         Answer testAnswer = answerList.get(answerList.size() - 1);
-        assertThat(testAnswer.getUser()).isEqualTo(UPDATED_USER);
     }
 
     @Test
@@ -261,8 +253,6 @@ class AnswerResourceIT {
         Answer partialUpdatedAnswer = new Answer();
         partialUpdatedAnswer.setId(answer.getId());
 
-        partialUpdatedAnswer.user(UPDATED_USER);
-
         restAnswerMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedAnswer.getId())
@@ -275,7 +265,6 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeUpdate);
         Answer testAnswer = answerList.get(answerList.size() - 1);
-        assertThat(testAnswer.getUser()).isEqualTo(UPDATED_USER);
     }
 
     @Test
@@ -290,8 +279,6 @@ class AnswerResourceIT {
         Answer partialUpdatedAnswer = new Answer();
         partialUpdatedAnswer.setId(answer.getId());
 
-        partialUpdatedAnswer.user(UPDATED_USER);
-
         restAnswerMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedAnswer.getId())
@@ -304,7 +291,6 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeUpdate);
         Answer testAnswer = answerList.get(answerList.size() - 1);
-        assertThat(testAnswer.getUser()).isEqualTo(UPDATED_USER);
     }
 
     @Test

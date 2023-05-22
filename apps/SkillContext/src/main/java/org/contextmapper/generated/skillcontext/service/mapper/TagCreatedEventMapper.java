@@ -1,9 +1,9 @@
 package org.contextmapper.generated.skillcontext.service.mapper;
 
+import org.contextmapper.generated.skillcontext.domain.Tag;
 import org.contextmapper.generated.skillcontext.domain.TagCreatedEvent;
-import org.contextmapper.generated.skillcontext.domain.TagInfos;
 import org.contextmapper.generated.skillcontext.service.dto.TagCreatedEventDTO;
-import org.contextmapper.generated.skillcontext.service.dto.TagInfosDTO;
+import org.contextmapper.generated.skillcontext.service.dto.TagDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,11 +11,11 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface TagCreatedEventMapper extends EntityMapper<TagCreatedEventDTO, TagCreatedEvent> {
-    @Mapping(target = "tagId", source = "tagId", qualifiedByName = "tagInfosId")
+    @Mapping(target = "tagId", source = "tagId", qualifiedByName = "tagId")
     TagCreatedEventDTO toDto(TagCreatedEvent s);
 
-    @Named("tagInfosId")
+    @Named("tagId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    TagInfosDTO toDtoTagInfosId(TagInfos tagInfos);
+    TagDTO toDtoTagId(Tag tag);
 }

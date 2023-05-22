@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="evaluationId">
+      <h2 data-cy="evaluationIdDetailsHeading"><span jhiTranslate="gatewayApp.evaluationId.detail.title">Evaluation Id</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ evaluationId.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.evaluationId.evaluationId">Evaluation Id</span></dt>
+        <dd>
+          <span>{{ evaluationId.evaluationId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.evaluationId.leaderBoard">Leader Board</span></dt>
+        <dd>
+          <div *ngIf="evaluationId.leaderBoard">
+            <a [routerLink]="['/leader-board', evaluationId.leaderBoard.id, 'view']">{{ evaluationId.leaderBoard.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "categoryId": {
+      "home": {
+        "title": "Category Ids",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Category Ids found"
+      },
+      "detail": {
+        "title": "Category Id"
+      },
+      "id": "ID",
+      "categoryId": "Category Id"
+    }
+  }
+}

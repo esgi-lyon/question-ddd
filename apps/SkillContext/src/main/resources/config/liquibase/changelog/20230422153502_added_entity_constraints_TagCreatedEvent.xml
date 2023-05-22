@@ -12,6 +12,6 @@
                                  baseTableName="tag_created_event"
                                  constraintName="fk_tag_created_event__tag_id_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="tag_infos"/>
+                                 referencedTableName="tag"/>
     </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "statisticSubjectTag": {
+      "home": {
+        "title": "Statistic Subject Tags",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Statistic Subject Tags found"
+      },
+      "detail": {
+        "title": "Statistic Subject Tag"
+      },
+      "id": "ID",
+      "tagId": "Tag Id"
+    }
+  }
+}

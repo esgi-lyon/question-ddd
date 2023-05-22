@@ -1,0 +1,23 @@
+{
+  "applications": ["SkillContext", "gateway"],
+  "changelogDate": "20230422153702",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "create_category_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CreateCategoryCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "category",
+      "ownerSide": true,
+      "relationshipName": "category",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

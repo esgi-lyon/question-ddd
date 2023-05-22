@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "questionContextQuestionResource": {
+      "home": {
+        "title": "Question Resources",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Question Resource",
+        "createOrEditLabel": "Create or edit a Question Resource",
+        "notFound": "No Question Resources found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Question Resource {{ id }}?"
+      },
+      "detail": {
+        "title": "Question Resource"
+      },
+      "id": "ID",
+      "questionContent": "Question Content",
+      "tag": "Tag",
+      "questionState": "Question State",
+      "resourceType": "Resource Type"
+    }
+  },
+  "questionContextApp": {
+    "questionContextQuestionResource": {
+      "created": "A new Question Resource is created with identifier {{ param }}",
+      "updated": "A Question Resource is updated with identifier {{ param }}",
+      "deleted": "A Question Resource is deleted with identifier {{ param }}"
+    }
+  }
+}

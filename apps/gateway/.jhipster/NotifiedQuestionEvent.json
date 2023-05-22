@@ -1,0 +1,23 @@
+{
+  "applications": ["SendQuestionContext", "gateway"],
+  "changelogDate": "20230422153502",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "notified_question_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "NotifiedQuestionEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "questionSent",
+      "ownerSide": true,
+      "relationshipName": "questionResource",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

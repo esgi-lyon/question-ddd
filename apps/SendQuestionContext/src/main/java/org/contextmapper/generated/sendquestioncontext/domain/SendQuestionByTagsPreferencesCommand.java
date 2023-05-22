@@ -23,10 +23,10 @@ public class SendQuestionByTagsPreferencesCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "resourceId", "tags" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private QuestionSent questionSent;
+    private QuestionSent questionToSend;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -43,16 +43,16 @@ public class SendQuestionByTagsPreferencesCommand implements Serializable {
         this.id = id;
     }
 
-    public QuestionSent getQuestionSent() {
-        return this.questionSent;
+    public QuestionSent getQuestionToSend() {
+        return this.questionToSend;
     }
 
-    public void setQuestionSent(QuestionSent questionSent) {
-        this.questionSent = questionSent;
+    public void setQuestionToSend(QuestionSent questionSent) {
+        this.questionToSend = questionSent;
     }
 
-    public SendQuestionByTagsPreferencesCommand questionSent(QuestionSent questionSent) {
-        this.setQuestionSent(questionSent);
+    public SendQuestionByTagsPreferencesCommand questionToSend(QuestionSent questionSent) {
+        this.setQuestionToSend(questionSent);
         return this;
     }
 

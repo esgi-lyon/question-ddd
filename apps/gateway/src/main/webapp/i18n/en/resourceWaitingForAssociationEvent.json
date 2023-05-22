@@ -1,0 +1,17 @@
+{
+  "gatewayApp": {
+    "resourceWaitingForAssociationEvent": {
+      "home": {
+        "title": "Resource Waiting For Association Events",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Resource Waiting For Association Events found"
+      },
+      "detail": {
+        "title": "Resource Waiting For Association Event"
+      },
+      "id": "ID",
+      "questionId": "Question Id",
+      "tagId": "Tag Id"
+    }
+  }
+}

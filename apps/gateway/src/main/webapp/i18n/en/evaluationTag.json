@@ -1,0 +1,17 @@
+{
+  "gatewayApp": {
+    "evaluationTag": {
+      "home": {
+        "title": "Evaluation Tags",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Evaluation Tags found"
+      },
+      "detail": {
+        "title": "Evaluation Tag"
+      },
+      "id": "ID",
+      "tagId": "Tag Id",
+      "name": "Name"
+    }
+  }
+}

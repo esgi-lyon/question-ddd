@@ -77,7 +77,7 @@ enum ${anEnum.name} {
 <#if instanceOf(entity, ValueObject)>
 @readOnly
 </#if>
-<#if instanceOf(entity, Entity) && threeTier>
+<#if instanceOf(entity, Entity)>
 @service(serviceClass)
 </#if>
 @dto(mapstruct)

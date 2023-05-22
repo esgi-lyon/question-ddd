@@ -17,7 +17,7 @@
     {
       "otherEntityName": "questionSent",
       "ownerSide": true,
-      "relationshipName": "questionSent",
+      "relationshipName": "questionToSend",
       "relationshipType": "one-to-one"
     }
   ],
