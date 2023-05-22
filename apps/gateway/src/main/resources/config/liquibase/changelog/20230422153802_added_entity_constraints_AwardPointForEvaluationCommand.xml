@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity AwardPointForEvaluationCommand.
+    -->
+    <changeSet id="20230422153802-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="evaluation_id"
+                                 baseTableName="award_point_for_evaluation_command"
+                                 constraintName="fk_award_point_for_evaluation_command__evaluation_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="evaluation"/>
+    </changeSet>
+</databaseChangeLog>

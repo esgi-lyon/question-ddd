@@ -1,0 +1,10 @@
+{
+  "gatewayApp": {
+    "Roles": {
+      "null": "",
+      "EVALUATOR": "EVALUATOR",
+      "STUDENT": "STUDENT",
+      "NONE": "NONE"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userInfos">
+      <h2 data-cy="userInfosDetailsHeading">
+        <span jhiTranslate="gatewayApp.userManagementContextUserInfos.detail.title">User Infos</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ userInfos.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.userManagementContextUserInfos.firstname">Firstname</span></dt>
+        <dd>
+          <span>{{ userInfos.firstname }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.userManagementContextUserInfos.lastname">Lastname</span></dt>
+        <dd>
+          <span>{{ userInfos.lastname }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.userManagementContextUserInfos.role">Role</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gatewayApp.Roles.' + userInfos.role }}">{{ userInfos.role }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.userManagementContextUserInfos.status">Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gatewayApp.UserStatus.' + userInfos.status }}">{{ userInfos.status }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-infos', userInfos.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

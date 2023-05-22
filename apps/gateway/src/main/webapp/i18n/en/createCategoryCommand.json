@@ -1,0 +1,24 @@
+{
+  "gatewayApp": {
+    "createCategoryCommand": {
+      "home": {
+        "title": "Create Category Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Create Category Command",
+        "createOrEditLabel": "Create or edit a Create Category Command",
+        "notFound": "No Create Category Commands found"
+      },
+      "created": "A new Create Category Command is created with identifier {{ param }}",
+      "updated": "A Create Category Command is updated with identifier {{ param }}",
+      "deleted": "A Create Category Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Create Category Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Create Category Command"
+      },
+      "id": "ID",
+      "category": "Category"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "gatewayApp": {
+    "UserLevel": {
+      "null": "",
+      "NEW": "NEW",
+      "REGULAR": "REGULAR",
+      "EXPERT": "EXPERT"
+    }
+  }
+}

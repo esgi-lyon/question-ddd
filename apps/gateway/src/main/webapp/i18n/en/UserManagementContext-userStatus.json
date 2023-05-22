@@ -1,0 +1,9 @@
+{
+  "gatewayApp": {
+    "UserStatus": {
+      "null": "",
+      "VALIDATED": "VALIDATED",
+      "WAITING_VALIDATION": "WAITING_VALIDATION"
+    }
+  }
+}

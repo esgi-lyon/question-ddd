@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="viewStatsCommand">
+      <h2 data-cy="viewStatsCommandDetailsHeading">
+        <span jhiTranslate="gatewayApp.viewStatsCommand.detail.title">View Stats Command</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ viewStatsCommand.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.viewStatsCommand.user">User</span></dt>
+        <dd>
+          <div *ngIf="viewStatsCommand.user">
+            <a [routerLink]="['/statistic-subject-user', viewStatsCommand.user.id, 'view']">{{ viewStatsCommand.user.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.viewStatsCommand.question">Question</span></dt>
+        <dd>
+          <div *ngIf="viewStatsCommand.question">
+            <a [routerLink]="['/statistic-subject-question', viewStatsCommand.question.id, 'view']">{{ viewStatsCommand.question.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.viewStatsCommand.tag">Tag</span></dt>
+        <dd>
+          <div *ngIf="viewStatsCommand.tag">
+            <a [routerLink]="['/statistic-subject-tag', viewStatsCommand.tag.id, 'view']">{{ viewStatsCommand.tag.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/view-stats-command', viewStatsCommand.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

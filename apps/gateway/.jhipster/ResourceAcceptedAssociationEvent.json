@@ -1,0 +1,29 @@
+{
+  "applications": ["QuestionContext", "gateway"],
+  "changelogDate": "20230422153702",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "resource_accepted_association_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ResourceAcceptedAssociationEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "questionResource",
+      "ownerSide": true,
+      "relationshipName": "questionId",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "questionResourceTagInfos",
+      "ownerSide": true,
+      "relationshipName": "tagId",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "evaluationQuestion": {
+      "home": {
+        "title": "Evaluation Questions",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Evaluation Questions found"
+      },
+      "detail": {
+        "title": "Evaluation Question"
+      },
+      "id": "ID",
+      "questionId": "Question Id"
+    }
+  }
+}

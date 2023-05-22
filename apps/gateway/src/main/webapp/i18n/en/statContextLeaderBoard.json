@@ -1,0 +1,30 @@
+{
+  "gatewayApp": {
+    "statContextLeaderBoard": {
+      "home": {
+        "title": "Leader Boards",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Leader Board",
+        "createOrEditLabel": "Create or edit a Leader Board",
+        "notFound": "No Leader Boards found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Leader Board {{ id }}?"
+      },
+      "detail": {
+        "title": "Leader Board"
+      },
+      "id": "ID",
+      "difficultyLevel": "Difficulty Level",
+      "tagId": "Tag Id",
+      "evaluation": "Evaluation"
+    }
+  },
+  "statContextApp": {
+    "statContextLeaderBoard": {
+      "created": "A new Leader Board is created with identifier {{ param }}",
+      "updated": "A Leader Board is updated with identifier {{ param }}",
+      "deleted": "A Leader Board is deleted with identifier {{ param }}"
+    }
+  }
+}

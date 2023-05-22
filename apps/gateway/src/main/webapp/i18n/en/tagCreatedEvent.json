@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "tagCreatedEvent": {
+      "home": {
+        "title": "Tag Created Events",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Tag Created Events found"
+      },
+      "detail": {
+        "title": "Tag Created Event"
+      },
+      "id": "ID",
+      "tagId": "Tag Id"
+    }
+  }
+}

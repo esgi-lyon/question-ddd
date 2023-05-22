@@ -1,0 +1,69 @@
+<div>
+  <h2 id="page-heading" data-cy="NotifiedQuestionEventHeading">
+    <span jhiTranslate="gatewayApp.notifiedQuestionEvent.home.title">Notified Question Events</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gatewayApp.notifiedQuestionEvent.home.refreshListLabel">Refresh list</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="notifiedQuestionEvents?.length === 0">
+    <span jhiTranslate="gatewayApp.notifiedQuestionEvent.home.notFound">No Notified Question Events found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="notifiedQuestionEvents && notifiedQuestionEvents.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="questionResource.id">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.notifiedQuestionEvent.questionResource">Question Resource</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let notifiedQuestionEvent of notifiedQuestionEvents; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/notified-question-event', notifiedQuestionEvent.id, 'view']">{{ notifiedQuestionEvent.id }}</a>
+          </td>
+          <td>
+            <div *ngIf="notifiedQuestionEvent.questionResource">
+              <a [routerLink]="['/question-sent', notifiedQuestionEvent.questionResource.id, 'view']">{{
+                notifiedQuestionEvent.questionResource.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/notified-question-event', notifiedQuestionEvent.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

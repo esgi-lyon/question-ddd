@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "questionSentQuestionResourceTagId": {
+      "home": {
+        "title": "Question Sent Question Resource Tag Ids",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Question Sent Question Resource Tag Ids found"
+      },
+      "detail": {
+        "title": "Question Sent Question Resource Tag Id"
+      },
+      "id": "ID",
+      "tagId": "Tag Id"
+    }
+  }
+}

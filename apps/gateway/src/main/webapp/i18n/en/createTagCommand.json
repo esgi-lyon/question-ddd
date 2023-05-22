@@ -1,0 +1,24 @@
+{
+  "gatewayApp": {
+    "createTagCommand": {
+      "home": {
+        "title": "Create Tag Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Create Tag Command",
+        "createOrEditLabel": "Create or edit a Create Tag Command",
+        "notFound": "No Create Tag Commands found"
+      },
+      "created": "A new Create Tag Command is created with identifier {{ param }}",
+      "updated": "A Create Tag Command is updated with identifier {{ param }}",
+      "deleted": "A Create Tag Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Create Tag Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Create Tag Command"
+      },
+      "id": "ID",
+      "tag": "Tag"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "notifiedQuestionEvent": {
+      "home": {
+        "title": "Notified Question Events",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Notified Question Events found"
+      },
+      "detail": {
+        "title": "Notified Question Event"
+      },
+      "id": "ID",
+      "questionResource": "Question Resource"
+    }
+  }
+}

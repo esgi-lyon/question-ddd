@@ -1,0 +1,17 @@
+{
+  "gatewayApp": {
+    "question": {
+      "home": {
+        "title": "Questions",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Questions found"
+      },
+      "detail": {
+        "title": "Question"
+      },
+      "id": "ID",
+      "resourceCorrectTag": "Resource Correct Tag",
+      "tags": "Tags"
+    }
+  }
+}

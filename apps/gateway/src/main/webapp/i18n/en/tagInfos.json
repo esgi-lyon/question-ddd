@@ -1,0 +1,17 @@
+{
+  "gatewayApp": {
+    "tagInfos": {
+      "home": {
+        "title": "Tag Infos",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Tag Infos found"
+      },
+      "detail": {
+        "title": "Tag Infos"
+      },
+      "id": "ID",
+      "tagId": "Tag Id",
+      "name": "Name"
+    }
+  }
+}

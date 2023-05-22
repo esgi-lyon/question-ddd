@@ -1,0 +1,16 @@
+{
+  "gatewayApp": {
+    "questionId": {
+      "home": {
+        "title": "Question Ids",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Question Ids found"
+      },
+      "detail": {
+        "title": "Question Id"
+      },
+      "id": "ID",
+      "questionId": "Question Id"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "gatewayApp": {
+    "answerSubmitCommand": {
+      "home": {
+        "title": "Answer Submit Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Answer Submit Command",
+        "createOrEditLabel": "Create or edit a Answer Submit Command",
+        "notFound": "No Answer Submit Commands found"
+      },
+      "created": "A new Answer Submit Command is created with identifier {{ param }}",
+      "updated": "A Answer Submit Command is updated with identifier {{ param }}",
+      "deleted": "A Answer Submit Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Answer Submit Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Answer Submit Command"
+      },
+      "id": "ID",
+      "answer": "Answer"
+    }
+  }
+}

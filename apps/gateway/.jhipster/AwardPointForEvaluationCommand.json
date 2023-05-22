@@ -1,0 +1,23 @@
+{
+  "applications": ["EvaluationContext", "gateway"],
+  "changelogDate": "20230422153802",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "award_point_for_evaluation_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "AwardPointForEvaluationCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "evaluation",
+      "ownerSide": true,
+      "relationshipName": "evaluation",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

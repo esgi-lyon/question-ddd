@@ -1,0 +1,23 @@
+{
+  "applications": ["SkillContext", "gateway"],
+  "changelogDate": "20230422153602",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "create_tag_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CreateTagCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "tag",
+      "ownerSide": true,
+      "relationshipName": "tag",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

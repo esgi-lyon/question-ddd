@@ -1,0 +1,10 @@
+{
+  "gatewayApp": {
+    "Status": {
+      "null": "",
+      "VALID": "VALID",
+      "INVALID": "INVALID",
+      "OPENED": "OPENED"
+    }
+  }
+}

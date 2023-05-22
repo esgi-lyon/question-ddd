@@ -1,0 +1,23 @@
+{
+  "applications": ["SkillContext", "gateway"],
+  "changelogDate": "20230422153502",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tag_created_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TagCreatedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "tagInfos",
+      "ownerSide": true,
+      "relationshipName": "tagId",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

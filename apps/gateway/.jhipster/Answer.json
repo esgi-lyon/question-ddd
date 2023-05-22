@@ -1,0 +1,36 @@
+{
+  "applications": ["AnswerContext", "gateway"],
+  "changelogDate": "20230422153802",
+  "clientRootFolder": "AnswerContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "answer",
+  "fields": [
+    {
+      "fieldName": "user",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "AnswerContext",
+  "name": "Answer",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "questionId",
+      "ownerSide": true,
+      "relationshipName": "question",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "answeredTag",
+      "ownerSide": true,
+      "relationshipName": "answeredTag",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

@@ -1,0 +1,18 @@
+{
+  "gatewayApp": {
+    "userPreferencesTagInfos": {
+      "home": {
+        "title": "User Preferences Tag Infos",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No User Preferences Tag Infos found"
+      },
+      "detail": {
+        "title": "User Preferences Tag Infos"
+      },
+      "id": "ID",
+      "tagId": "Tag Id",
+      "name": "Name",
+      "userPreferences": "User Preferences"
+    }
+  }
+}

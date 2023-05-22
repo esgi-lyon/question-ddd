@@ -1,0 +1,24 @@
+{
+  "gatewayApp": {
+    "createResourceCommand": {
+      "home": {
+        "title": "Create Resource Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Create Resource Command",
+        "createOrEditLabel": "Create or edit a Create Resource Command",
+        "notFound": "No Create Resource Commands found"
+      },
+      "created": "A new Create Resource Command is created with identifier {{ param }}",
+      "updated": "A Create Resource Command is updated with identifier {{ param }}",
+      "deleted": "A Create Resource Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Create Resource Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Create Resource Command"
+      },
+      "id": "ID",
+      "questionId": "Question Id"
+    }
+  }
+}

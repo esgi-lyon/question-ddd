@@ -1,0 +1,30 @@
+{
+  "gatewayApp": {
+    "evaluationContextPointAwardRule": {
+      "home": {
+        "title": "Point Award Rules",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Point Award Rule",
+        "createOrEditLabel": "Create or edit a Point Award Rule",
+        "notFound": "No Point Award Rules found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Point Award Rule {{ id }}?"
+      },
+      "detail": {
+        "title": "Point Award Rule"
+      },
+      "id": "ID",
+      "scoreEvolution": "Score Evolution",
+      "difficultyLevel": "Difficulty Level",
+      "userLevel": "User Level"
+    }
+  },
+  "evaluationContextApp": {
+    "evaluationContextPointAwardRule": {
+      "created": "A new Point Award Rule is created with identifier {{ param }}",
+      "updated": "A Point Award Rule is updated with identifier {{ param }}",
+      "deleted": "A Point Award Rule is deleted with identifier {{ param }}"
+    }
+  }
+}

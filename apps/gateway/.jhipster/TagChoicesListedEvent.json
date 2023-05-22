@@ -1,0 +1,16 @@
+{
+  "applications": ["AnswerContext", "gateway"],
+  "changelogDate": "20230422153502",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "tag_choices_listed_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TagChoicesListedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [],
+  "service": "serviceClass"
+}

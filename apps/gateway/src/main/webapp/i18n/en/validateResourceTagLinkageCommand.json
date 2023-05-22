@@ -1,0 +1,24 @@
+{
+  "gatewayApp": {
+    "validateResourceTagLinkageCommand": {
+      "home": {
+        "title": "Validate Resource Tag Linkage Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Validate Resource Tag Linkage Command",
+        "createOrEditLabel": "Create or edit a Validate Resource Tag Linkage Command",
+        "notFound": "No Validate Resource Tag Linkage Commands found"
+      },
+      "created": "A new Validate Resource Tag Linkage Command is created with identifier {{ param }}",
+      "updated": "A Validate Resource Tag Linkage Command is updated with identifier {{ param }}",
+      "deleted": "A Validate Resource Tag Linkage Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Validate Resource Tag Linkage Command {{ id }}?"
+      },
+      "detail": {
+        "title": "Validate Resource Tag Linkage Command"
+      },
+      "id": "ID",
+      "questionId": "Question Id"
+    }
+  }
+}

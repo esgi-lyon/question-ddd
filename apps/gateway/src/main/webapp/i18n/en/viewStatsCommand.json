@@ -1,0 +1,26 @@
+{
+  "gatewayApp": {
+    "viewStatsCommand": {
+      "home": {
+        "title": "View Stats Commands",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new View Stats Command",
+        "createOrEditLabel": "Create or edit a View Stats Command",
+        "notFound": "No View Stats Commands found"
+      },
+      "created": "A new View Stats Command is created with identifier {{ param }}",
+      "updated": "A View Stats Command is updated with identifier {{ param }}",
+      "deleted": "A View Stats Command is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete View Stats Command {{ id }}?"
+      },
+      "detail": {
+        "title": "View Stats Command"
+      },
+      "id": "ID",
+      "user": "User",
+      "question": "Question",
+      "tag": "Tag"
+    }
+  }
+}
