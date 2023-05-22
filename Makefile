@@ -5,8 +5,9 @@ diagrams=$(foreach file,$(ordered_list),$(wildcard src-gen/*$(file)*.puml) $(wil
 sketch_only=$(foreach file,$(ordered_list),$(wildcard src-gen/*$(file)*.sketch_miner))
 
 JHIPSTER_VERSION=7.4.0
-microservices:=UserManagementContext QuestionContext SkillContext SendQuestionContext AnswerContext EvaluationContext StatContext
+microservices:=UserManagementContext QuestionContext SkillContext SendQuestionContext AnswerContext EvaluationContext StatContext gateway
 targets:=$(microservices)
+docker_targets:=$(addsuffix .docker,$(targets))
 
 .PHONY: all $(targets) help build jhipster-registry run dev markdown
 
@@ -34,18 +35,31 @@ diagrams:
 
 build:	
 	cd apps && \
+	mkdir gateway || true && \
 	javac --version && \
-	jhipster --force import-jdl ./../src-gen/output.jdl &&\ 
-	cd -
+	jhipster --force import-jdl ./../src-gen/output.jdl && \
+	cd ..
 
 docker-consul:
-	docker-compose -f apps/UserManagementContext/src/main/docker/consul.yml up -d
+	docker-compose -f apps/docker-compose/docker-compose.yml up consul consul-config-loader -d
+
+docker-consul-down:
+	docker-compose -f apps/docker-compose/docker-compose.yml down
 
 $(targets):
 	@cd apps/$@ && ./mvnw -P dev,api-docs,tls
 
+$(docker_targets):
+	$(eval target=$(subst .docker,,$@))
+	@cd apps/$(target) && ./mvnw -ntp -Pprod clean compile jib:dockerBuild
+
 # Use make -j8
 all: $(targets)
+
+all-docker: $(docker_targets)
+
+all-docker-compose: docker-consul
+	docker-compose -f apps/docker-compose/docker-compose.yml up -d
 
 start:
 	make docker-consul

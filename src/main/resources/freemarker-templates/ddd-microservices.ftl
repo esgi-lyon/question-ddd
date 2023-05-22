@@ -9,8 +9,8 @@
 <#assign oneToManyRefs = [] />
 <#assign oneToOneRefs = [] />
 <#assign contextNames = [] />
-<#assign gateway = false />
-<#assign deployment = false />
+<#assign gateway = true />
+<#assign deployment = true />
 <#assign threeTier = false />
 
 <#-- 
@@ -42,7 +42,6 @@
 <#assign eventNames = events?map(e -> e.name)>
 <#assign commandNames = commands?map(e -> e.name)>
 <#assign enumNames = enums?map(e -> e.name)>
-<#assign allEntityNames = allEntityNames + entityNames>
 <#assign contextNames=contextNames + [bc.name]/>
 
 <#if entities?has_content>
@@ -121,6 +120,9 @@ microservice ${entityNames?join(", ")} with ${bc.name}<#lt>
 <#assign allValueObjectAndEntityNames=entitiesAndValueObjects?map(obj->obj.name) />
 <#assign allObjectNames=allValueObjectAndEntityNames + eventNames?map(name->"${name}Event") />
 <#assign allObjectNames=allObjectNames + commandNames?map(name->"${name}Command") />
+
+<#assign allEntityNames = allEntityNames + allObjectNames>
+
 <#assign portCounter++ />
 application {
 	config {
@@ -164,7 +166,7 @@ application {
 /* microservice gateway app */
 application {
 	config {
-		baseName gateway,
+		baseName gateway
 		packageName org.contextmapper.generated.gateway
 		applicationType gateway
 		serverPort 8080

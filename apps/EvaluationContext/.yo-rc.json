@@ -38,6 +38,7 @@
       "AwardPointForEvaluation"
     ],
     "entitySuffix": "",
+    "gatewayServerPort": "8080",
     "gradleEnterpriseHost": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.9.3",

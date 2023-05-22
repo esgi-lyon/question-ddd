@@ -1,5 +1,5 @@
 {
-  "applications": ["SkillContext"],
+  "applications": ["SkillContext", "gateway"],
   "changelogDate": "20230422153402",
   "clientRootFolder": "SkillContext",
   "databaseType": "sql",

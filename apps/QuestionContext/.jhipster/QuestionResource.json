@@ -1,5 +1,5 @@
 {
-  "applications": ["QuestionContext"],
+  "applications": ["QuestionContext", "gateway"],
   "changelogDate": "20230422153802",
   "clientRootFolder": "QuestionContext",
   "databaseType": "sql",

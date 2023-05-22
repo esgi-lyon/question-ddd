@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "UserManagementContext",
+      "QuestionContext",
+      "SkillContext",
+      "SendQuestionContext",
+      "AnswerContext",
+      "EvaluationContext",
+      "StatContext"
+    ],
+    "clusteredDbApps": [],
+    "deploymentType": "docker-compose",
+    "directoryPath": "../",
+    "dockerRepositoryName": "loicroux",
+    "gatewayType": "SpringCloudGateway",
+    "jwtSecretKey": "ODg5OTA5ODZlM2Y3ZDNkZTQ3OGQwMzQxMTU1MTc2MzU5YTFmMmI0YzU1ZTk4MDMzM2NhMDk2MTViYWQ0NjZlYTgxMGI0OGZkYmRkMzhlZDAwNTdmYzQ0OWQ0N2JhMDY5NmY5Yw==",
+    "monitoring": "no",
+    "serviceDiscoveryType": "consul"
+  }
+}
