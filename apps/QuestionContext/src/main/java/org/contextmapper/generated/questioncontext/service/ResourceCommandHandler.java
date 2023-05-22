@@ -4,6 +4,7 @@ import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
+import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceTagInfosDTO;
 import org.contextmapper.generated.questioncontext.service.dto.ResourceWaitingForAssociationEventDTO;
 import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
 import org.slf4j.Logger;
@@ -24,17 +25,31 @@ public class ResourceCommandHandler extends CreateResourceCommandService {
 
     private final QuestionResourceMapper questionResourceMapper;
 
-    public ResourceCommandHandler(CreateResourceCommandRepository createResourceCommandRepository, QuestionResourceService questionResourceService, ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService, QuestionResourceMapper questionResourceMapper) {
+    private final QuestionResourceTagInfosService questionResourceTagInfosService;
+
+    public ResourceCommandHandler(
+        CreateResourceCommandRepository createResourceCommandRepository,
+        QuestionResourceService questionResourceService,
+        ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService,
+        QuestionResourceMapper questionResourceMapper,
+        QuestionResourceTagInfosService questionResourceTagInfosService
+    ) {
         super(createResourceCommandRepository);
         this.questionResourceService = questionResourceService;
         this.questionResourceMapper = questionResourceMapper;
         this.resourceWaitingForAssociationEventService = resourceWaitingForAssociationEventService;
+        this.questionResourceTagInfosService = questionResourceTagInfosService;
     }
 
     public CreateResourceCommand handle(QuestionResourceDTO questionResourceDTO) {
         log.debug("Request to create resource");
         CreateResourceCommand createResourceCommand = new CreateResourceCommand();
+
+        // TODO validate and overwrite with values from api client call
+        final var tagInfosSaved = questionResourceTagInfosService.save(questionResourceDTO.getTagId());
+
         questionResourceDTO.setQuestionState(States.WAITING);
+        questionResourceDTO.setTagId(tagInfosSaved);
         final var saved = questionResourceService.save(questionResourceDTO);
 
         final var resourceWaitingForAssociationEventDTO = new ResourceWaitingForAssociationEventDTO();

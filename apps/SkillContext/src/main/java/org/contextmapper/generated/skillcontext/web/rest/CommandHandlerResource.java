@@ -4,8 +4,8 @@ import org.contextmapper.generated.skillcontext.domain.CreateCategoryCommand;
 import org.contextmapper.generated.skillcontext.domain.CreateTagCommand;
 import org.contextmapper.generated.skillcontext.service.CreateCategoryCommandHandler;
 import org.contextmapper.generated.skillcontext.service.CreateTagCommandHandler;
-import org.contextmapper.generated.skillcontext.service.dto.CategoryInfosDTO;
-import org.contextmapper.generated.skillcontext.service.dto.TagWithCategoryDTO;
+import org.contextmapper.generated.skillcontext.service.dto.CategoryDTO;
+import org.contextmapper.generated.skillcontext.service.dto.TagDTO;
 import org.contextmapper.generated.skillcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class CommandHandlerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/create-tag-command")
-    public ResponseEntity<CreateTagCommand> createCreateTagCommand(@RequestBody TagWithCategoryDTO createTag)
+    public ResponseEntity<CreateTagCommand> createCreateTagCommand(@RequestBody TagDTO createTag)
         throws URISyntaxException {
         log.debug("REST request to save CreateTagCommand : {}", createTag);
         if (createTag.getId() != null) {
@@ -73,7 +73,7 @@ public class CommandHandlerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/create-category-command")
-    public ResponseEntity<CreateCategoryCommand> createCreateCategoryCommand(@RequestBody CategoryInfosDTO createCategory)
+    public ResponseEntity<CreateCategoryCommand> createCreateCategoryCommand(@RequestBody CategoryDTO createCategory)
         throws URISyntaxException {
         log.debug("REST request to save CreateCategoryCommand : {}", createCategory);
         if (createCategory.getId() != null) {

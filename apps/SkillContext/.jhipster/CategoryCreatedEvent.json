@@ -1,6 +1,6 @@
 {
   "applications": ["SkillContext"],
-  "changelogDate": "20230422153402",
+  "changelogDate": "20230522214035",
   "clientRootFolder": "SkillContext",
   "databaseType": "sql",
   "dto": "mapstruct",

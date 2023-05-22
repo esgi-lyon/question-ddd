@@ -1,14 +1,10 @@
 package org.contextmapper.generated.skillcontext.service;
 
-import org.contextmapper.generated.skillcontext.domain.CategoryInfos;
 import org.contextmapper.generated.skillcontext.domain.CreateCategoryCommand;
-import org.contextmapper.generated.skillcontext.repository.CategoryIdRepository;
 import org.contextmapper.generated.skillcontext.repository.CreateCategoryCommandRepository;
 import org.contextmapper.generated.skillcontext.service.dto.CategoryCreatedEventDTO;
 import org.contextmapper.generated.skillcontext.service.dto.CategoryDTO;
-import org.contextmapper.generated.skillcontext.service.dto.CategoryIdDTO;
-import org.contextmapper.generated.skillcontext.service.dto.CategoryInfosDTO;
-import org.contextmapper.generated.skillcontext.service.mapper.CategoryInfosMapper;
+import org.contextmapper.generated.skillcontext.service.mapper.CategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -29,28 +25,25 @@ public class CreateCategoryCommandHandler extends CreateCategoryCommandService {
 
     private final CategoryService categoryService;
 
-    private final CategoryInfosMapper categoryInfosMapper;
+    private final CategoryMapper categoryMapper;
 
     public CreateCategoryCommandHandler(
         CreateCategoryCommandRepository repo,
         CategoryCreatedEventService eventService,
         CategoryService categoryService,
-        CategoryInfosMapper categoryInfosMapper
+        CategoryMapper categoryMapper
     ) {
         super(repo);
         this.eventService = eventService;
         this.categoryService = categoryService;
-        this.categoryInfosMapper = categoryInfosMapper;
+        this.categoryMapper = categoryMapper;
     }
 
-    public CreateCategoryCommand handle(CategoryInfosDTO createCategory) {
+    public CreateCategoryCommand handle(CategoryDTO createCategory) {
         log.debug("Create Tag Command handler for : {}", createCategory);
         final var cmd = new CreateCategoryCommand();
-        final var categoryDto = new CategoryDTO();
-        categoryDto.setDescription(createCategory.getDescription());
-        categoryDto.setName(createCategory.getName());
 
-        final var saved = categoryService.save(categoryDto);
+        final var saved = categoryService.save(createCategory);
 
         final var createdEvent = new CategoryCreatedEventDTO();
         createdEvent.setCategoryId(saved);
@@ -59,6 +52,6 @@ public class CreateCategoryCommandHandler extends CreateCategoryCommandService {
 
         createCategory.setId(saved.getId());
 
-        return save(cmd.category(categoryInfosMapper.toEntity(createCategory)));
+        return save(cmd.category(categoryMapper.toEntity(saved)));
     }
 }

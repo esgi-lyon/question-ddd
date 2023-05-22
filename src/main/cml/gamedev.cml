@@ -122,7 +122,7 @@ BoundedContext QuestionContext implements SkillDomain {
 			String questionContent
 			- @States questionState
 			- @Types resourceType
-			- QuestionResourceTagInfos tagId
+			- QuestionResourceTagInfos tagInfos
 			def boolean isWaitingForAssociation();
 			def boolean accept();
 			def boolean refuse();
@@ -141,15 +141,15 @@ BoundedContext QuestionContext implements SkillDomain {
 		}
 		DomainEvent ResourceWaitingForAssociation {
 			- QuestionResource questionId
-			- QuestionResourceTagInfos tagId
+			- QuestionResourceTagInfos tagInfos
 		}
 		DomainEvent ResourceAcceptedAssociation {
 			- QuestionResource questionId
-			- QuestionResourceTagInfos tagId
+			- QuestionResourceTagInfos tagInfos
 		}
 		DomainEvent ResourceRefusedAssociation {
 			- QuestionResource questionId
-			- QuestionResourceTagInfos tagId
+			- QuestionResourceTagInfos tagInfos
 		}
 		Command CreateResource {
 			- QuestionResource questionId

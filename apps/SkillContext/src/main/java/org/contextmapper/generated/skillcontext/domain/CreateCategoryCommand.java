@@ -1,5 +1,6 @@
 package org.contextmapper.generated.skillcontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -22,9 +23,10 @@ public class CreateCategoryCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private CategoryInfos category;
+    private Category category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -41,16 +43,16 @@ public class CreateCategoryCommand implements Serializable {
         this.id = id;
     }
 
-    public CategoryInfos getCategory() {
+    public Category getCategory() {
         return this.category;
     }
 
-    public void setCategory(CategoryInfos categoryInfos) {
-        this.category = categoryInfos;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public CreateCategoryCommand category(CategoryInfos categoryInfos) {
-        this.setCategory(categoryInfos);
+    public CreateCategoryCommand category(Category category) {
+        this.setCategory(category);
         return this;
     }
 
