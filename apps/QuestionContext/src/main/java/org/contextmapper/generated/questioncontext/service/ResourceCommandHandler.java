@@ -4,9 +4,10 @@ import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
-import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceTagInfosDTO;
 import org.contextmapper.generated.questioncontext.service.dto.ResourceWaitingForAssociationEventDTO;
 import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
+import org.contextmapper.generated.skillcontext.web.ApiClient;
+import org.contextmapper.generated.skillcontext.web.api.TagResourceApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -27,6 +28,9 @@ public class ResourceCommandHandler extends CreateResourceCommandService {
 
     private final QuestionResourceTagInfosService questionResourceTagInfosService;
 
+    private final TagResourceApi tagResourceApi = new TagResourceApi(new ApiClient());
+    ;
+
     public ResourceCommandHandler(
         CreateResourceCommandRepository createResourceCommandRepository,
         QuestionResourceService questionResourceService,
@@ -45,20 +49,26 @@ public class ResourceCommandHandler extends CreateResourceCommandService {
         log.debug("Request to create resource");
         CreateResourceCommand createResourceCommand = new CreateResourceCommand();
 
-        // TODO validate and overwrite with values from api client call
-        final var tagInfosSaved = questionResourceTagInfosService.save(questionResourceDTO.getTagId());
+        try {
+            final var tagFromApi = tagResourceApi.getTag(questionResourceDTO.getTagId().getId());
+            questionResourceDTO.getTagId().setTagId(tagFromApi.getId());
+            final var tagInfosSaved = questionResourceTagInfosService.save(questionResourceDTO.getTagId());
 
-        questionResourceDTO.setQuestionState(States.WAITING);
-        questionResourceDTO.setTagId(tagInfosSaved);
-        final var saved = questionResourceService.save(questionResourceDTO);
+            questionResourceDTO.setQuestionState(States.WAITING);
+            questionResourceDTO.setTagId(tagInfosSaved);
+            final var saved = questionResourceService.save(questionResourceDTO);
 
-        final var resourceWaitingForAssociationEventDTO = new ResourceWaitingForAssociationEventDTO();
-        questionResourceDTO.setId(saved.getId());
-        resourceWaitingForAssociationEventDTO.setQuestionId(questionResourceDTO);
-        resourceWaitingForAssociationEventService.save(resourceWaitingForAssociationEventDTO);
+            final var resourceWaitingForAssociationEventDTO = new ResourceWaitingForAssociationEventDTO();
+            questionResourceDTO.setId(saved.getId());
+            resourceWaitingForAssociationEventDTO.setQuestionId(questionResourceDTO);
+            resourceWaitingForAssociationEventService.save(resourceWaitingForAssociationEventDTO);
 
-        return save(
-            createResourceCommand.questionId(questionResourceMapper.toEntity(saved))
-        );
+            return save(
+                createResourceCommand.questionId(questionResourceMapper.toEntity(saved))
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Tag not found", e);
+        }
+
     }
 }

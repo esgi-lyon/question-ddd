@@ -324,6 +324,12 @@
             <artifactId>metrics-core</artifactId>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -767,6 +773,26 @@
                                 <configOptions>
                                     <delegatePattern>true</delegatePattern>
                                     <title>question-context</title>
+                                </configOptions>
+                            </configuration>
+                        </execution>
+                        <!-- Skill Context dependency  -->
+                        <execution>
+                            <id>skillcontext</id>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <configuration>
+                                <inputSpec>http://localhost:8083/v3/api-docs.yaml</inputSpec>
+                                <skipValidateSpec>true</skipValidateSpec>
+                                <generatorName>java</generatorName>
+                                <apiPackage>org.contextmapper.generated.skillcontext.web.api</apiPackage>
+                                <modelPackage>org.contextmapper.generated.skillcontext.service.api.dto</modelPackage>
+                                <library>native</library>
+                                <configOptions>
+                                    <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                    <sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>
+                                    <checkDuplicatedModelName>true</checkDuplicatedModelName>
                                 </configOptions>
                             </configuration>
                         </execution>

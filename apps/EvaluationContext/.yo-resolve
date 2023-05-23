@@ -1,0 +1,2 @@
+pom.xml skip
+src/main/resources/swagger/api.yml skip

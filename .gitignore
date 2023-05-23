@@ -44,3 +44,6 @@ build
 hs_err_pid*
 
 node_modules
+
+apis/*
+!apis/.gitkeep

@@ -8,6 +8,7 @@ JHIPSTER_VERSION=7.4.0
 microservices:=UserManagementContext QuestionContext SkillContext SendQuestionContext AnswerContext EvaluationContext StatContext
 targets:=$(microservices)
 docker_targets:=$(addsuffix .docker,$(targets))
+client_targets:=$(addsuffix .client,$(targets))
 
 .PHONY: all $(targets) help build jhipster-registry run dev markdown
 
@@ -53,13 +54,24 @@ $(docker_targets):
 	$(eval target=$(subst .docker,,$@))
 	@cd apps/$(target) && ./mvnw -ntp -Pprod clean compile jib:dockerBuild
 
+$(client_targets):
+	$(eval target=$(subst .client,,$@))
+	$(eval swagger_port:=$(shell grep -A3 "baseName $(target)" src-gen/output.jdl | grep serverPort | awk '{print $$2}'))
+	curl -fSsLk https://localhost:$(swagger_port)/v3/api-docs.yaml > apis/$(target).yaml
+
 # Use make -j8
 all: $(targets)
 
 all-docker: $(docker_targets)
 
+# need make -j8 on all before
+all-client: $(client_targets) copy-clients
+
 all-docker-compose: docker-consul
 	docker-compose -f apps/docker-compose/docker-compose.yml up -d
+
+all-docker-compose-down: docker-consul-down
+	docker-compose -f apps/docker-compose/docker-compose.yml down
 
 start:
 	make docker-consul

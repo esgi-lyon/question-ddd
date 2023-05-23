@@ -1,0 +1,2 @@
+src/main/resources/swagger/api.yml skip
+src/main/java/org/contextmapper/generated/skillcontext/config/SecurityConfiguration.java skip
