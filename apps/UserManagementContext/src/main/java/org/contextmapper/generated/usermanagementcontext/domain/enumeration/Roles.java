@@ -6,5 +6,6 @@ package org.contextmapper.generated.usermanagementcontext.domain.enumeration;
 public enum Roles {
     EVALUATOR,
     STUDENT,
+    INQUISITOR,
     NONE,
 }

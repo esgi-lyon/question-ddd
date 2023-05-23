@@ -32,7 +32,7 @@
     {
       "otherEntityName": "questionResourceTagInfos",
       "ownerSide": true,
-      "relationshipName": "tagId",
+      "relationshipName": "tagInfos",
       "relationshipType": "one-to-one"
     }
   ],

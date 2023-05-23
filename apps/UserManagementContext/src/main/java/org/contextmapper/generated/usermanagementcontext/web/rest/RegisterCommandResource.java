@@ -1,0 +1,172 @@
+package org.contextmapper.generated.usermanagementcontext.web.rest;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand;
+import org.contextmapper.generated.usermanagementcontext.repository.RegisterCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.RegisterCommandService;
+import org.contextmapper.generated.usermanagementcontext.web.rest.errors.BadRequestAlertException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.ResponseUtil;
+
+/**
+ * REST controller for managing {@link org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand}.
+ */
+@RestController
+@RequestMapping("/api")
+public class RegisterCommandResource {
+
+    private final Logger log = LoggerFactory.getLogger(RegisterCommandResource.class);
+
+    private static final String ENTITY_NAME = "userManagementContextRegisterCommand";
+
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
+
+    private final RegisterCommandService registerCommandService;
+
+    private final RegisterCommandRepository registerCommandRepository;
+
+    public RegisterCommandResource(RegisterCommandService registerCommandService, RegisterCommandRepository registerCommandRepository) {
+        this.registerCommandService = registerCommandService;
+        this.registerCommandRepository = registerCommandRepository;
+    }
+
+    /**
+     * {@code POST  /register-commands} : Create a new registerCommand.
+     *
+     * @param registerCommand the registerCommand to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new registerCommand, or with status {@code 400 (Bad Request)} if the registerCommand has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/register-commands")
+    public ResponseEntity<RegisterCommand> createRegisterCommand(@RequestBody RegisterCommand registerCommand) throws URISyntaxException {
+        log.debug("REST request to save RegisterCommand : {}", registerCommand);
+        if (registerCommand.getId() != null) {
+            throw new BadRequestAlertException("A new registerCommand cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        RegisterCommand result = registerCommandService.save(registerCommand);
+        return ResponseEntity
+            .created(new URI("/api/register-commands/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code PUT  /register-commands/:id} : Updates an existing registerCommand.
+     *
+     * @param id the id of the registerCommand to save.
+     * @param registerCommand the registerCommand to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated registerCommand,
+     * or with status {@code 400 (Bad Request)} if the registerCommand is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the registerCommand couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/register-commands/{id}")
+    public ResponseEntity<RegisterCommand> updateRegisterCommand(
+        @PathVariable(value = "id", required = false) final Long id,
+        @RequestBody RegisterCommand registerCommand
+    ) throws URISyntaxException {
+        log.debug("REST request to update RegisterCommand : {}, {}", id, registerCommand);
+        if (registerCommand.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, registerCommand.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!registerCommandRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        RegisterCommand result = registerCommandService.update(registerCommand);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, registerCommand.getId().toString()))
+            .body(result);
+    }
+
+    /**
+     * {@code PATCH  /register-commands/:id} : Partial updates given fields of an existing registerCommand, field will ignore if it is null
+     *
+     * @param id the id of the registerCommand to save.
+     * @param registerCommand the registerCommand to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated registerCommand,
+     * or with status {@code 400 (Bad Request)} if the registerCommand is not valid,
+     * or with status {@code 404 (Not Found)} if the registerCommand is not found,
+     * or with status {@code 500 (Internal Server Error)} if the registerCommand couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping(value = "/register-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<RegisterCommand> partialUpdateRegisterCommand(
+        @PathVariable(value = "id", required = false) final Long id,
+        @RequestBody RegisterCommand registerCommand
+    ) throws URISyntaxException {
+        log.debug("REST request to partial update RegisterCommand partially : {}, {}", id, registerCommand);
+        if (registerCommand.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        if (!Objects.equals(id, registerCommand.getId())) {
+            throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
+        }
+
+        if (!registerCommandRepository.existsById(id)) {
+            throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
+        }
+
+        Optional<RegisterCommand> result = registerCommandService.partialUpdate(registerCommand);
+
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, registerCommand.getId().toString())
+        );
+    }
+
+    /**
+     * {@code GET  /register-commands} : get all the registerCommands.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of registerCommands in body.
+     */
+    @GetMapping("/register-commands")
+    public List<RegisterCommand> getAllRegisterCommands() {
+        log.debug("REST request to get all RegisterCommands");
+        return registerCommandService.findAll();
+    }
+
+    /**
+     * {@code GET  /register-commands/:id} : get the "id" registerCommand.
+     *
+     * @param id the id of the registerCommand to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the registerCommand, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/register-commands/{id}")
+    public ResponseEntity<RegisterCommand> getRegisterCommand(@PathVariable Long id) {
+        log.debug("REST request to get RegisterCommand : {}", id);
+        Optional<RegisterCommand> registerCommand = registerCommandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(registerCommand);
+    }
+
+    /**
+     * {@code DELETE  /register-commands/:id} : delete the "id" registerCommand.
+     *
+     * @param id the id of the registerCommand to delete.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/register-commands/{id}")
+    public ResponseEntity<Void> deleteRegisterCommand(@PathVariable Long id) {
+        log.debug("REST request to delete RegisterCommand : {}", id);
+        registerCommandService.delete(id);
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
+    }
+}

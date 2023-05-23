@@ -1,0 +1,40 @@
+{
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230523195846",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "register_command",
+  "fields": [
+    {
+      "fieldName": "firstname",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastname",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "Roles",
+      "fieldValues": "EVALUATOR,STUDENT,INQUISITOR,NONE"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "RegisterCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

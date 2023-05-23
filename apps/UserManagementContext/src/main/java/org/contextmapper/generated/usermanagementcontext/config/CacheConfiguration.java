@@ -46,6 +46,13 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.UserInfos.class.getName());
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.UserWaitingForValidationEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.UserValidatedEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.UserRejectedEvent.class.getName());
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.usermanagementcontext.domain.RejectUserCommand.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

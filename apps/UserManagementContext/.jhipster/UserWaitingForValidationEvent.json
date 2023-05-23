@@ -1,0 +1,25 @@
+{
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230523195843",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_waiting_for_validation_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "UserWaitingForValidationEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "userInfos",
+      "ownerSide": true,
+      "relationshipName": "userInfos",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

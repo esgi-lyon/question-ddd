@@ -17,6 +17,10 @@ public class UserInfosDTO implements Serializable {
 
     private String lastname;
 
+    private String password;
+
+    private String mail;
+
     private Roles role;
 
     private UserStatus status;
@@ -43,6 +47,22 @@ public class UserInfosDTO implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Roles getRole() {
@@ -89,6 +109,8 @@ public class UserInfosDTO implements Serializable {
             "id=" + getId() +
             ", firstname='" + getFirstname() + "'" +
             ", lastname='" + getLastname() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", mail='" + getMail() + "'" +
             ", role='" + getRole() + "'" +
             ", status='" + getStatus() + "'" +
             "}";

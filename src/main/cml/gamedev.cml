@@ -79,23 +79,55 @@ ContextMap Poller {
 BoundedContext UserManagementContext {
 	type = SYSTEM
 	implementationTechnology = "Java, Spring App"
+	Application {
+		Flow Authentication {
+			command Register delegates to User [WAITING_VALIDATION -> WAITING_VALIDATION] emits event UserWaitingForValidation
+			event UserWaitingForValidation triggers command ValidateUser X RejectUser
+			command ValidateUser delegates to User [WAITING_VALIDATION -> VALIDATED] emits event UserValidated
+			command RejectUser delegates to User [WAITING_VALIDATION -> WAITING_VALIDATION] emits event UserRejected
+		}
+	}
 	Aggregate User {
 		Entity UserInfos {
 			aggregateRoot
 			String firstname
 			String lastname
+			String password
+			String mail email
 			- @Roles role
 			- @UserStatus status
-			def AddressId validateUser();
-			def boolean promoteToStudent();
-			def boolean promoteToEvaluator();
+			def void validateUser();
+			def void promoteToStudent();
+			def void promoteToEvaluator();
 		}
 		enum Roles {
-			EVALUATOR, STUDENT, NONE
+			EVALUATOR, STUDENT, INQUISITOR, NONE
 		}
 		enum UserStatus {
 			aggregateLifecycle
 				VALIDATED, WAITING_VALIDATION
+		}
+		Command Register {
+			String firstname
+			String lastname
+			String mail email
+			String password
+			- Roles role
+		}
+		Command ValidateUser {
+			- UserInfos userInfos
+		}
+		Command RejectUser {
+			- UserInfos userInfos
+		}
+		DomainEvent UserWaitingForValidation {
+			- UserInfos userInfos
+		}
+		DomainEvent UserValidated {
+			- UserInfos userInfos
+		}
+		DomainEvent UserRejected {
+			- UserInfos userInfos
 		}
 	}
 }
@@ -260,7 +292,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		ValueObject QuestionSentQuestionResourceTagId {
 			Long tagId
 		}
-			ValueObject ResourceId {
+		ValueObject ResourceId {
 			Long id
 		}
 		enum QuestionNotificationStatus {
@@ -441,3 +473,4 @@ BoundedContext StatContext implements StatDomain {
 		}
 	}
 }
+

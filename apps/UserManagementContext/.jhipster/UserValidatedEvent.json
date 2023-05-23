@@ -1,0 +1,25 @@
+{
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230523195844",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_validated_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "UserValidatedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "userInfos",
+      "ownerSide": true,
+      "relationshipName": "userInfos",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

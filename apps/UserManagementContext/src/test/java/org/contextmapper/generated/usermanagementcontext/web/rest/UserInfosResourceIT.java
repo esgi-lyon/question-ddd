@@ -39,6 +39,12 @@ class UserInfosResourceIT {
     private static final String DEFAULT_LASTNAME = "AAAAAAAAAA";
     private static final String UPDATED_LASTNAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PASSWORD = "AAAAAAAAAA";
+    private static final String UPDATED_PASSWORD = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MAIL = "AAAAAAAAAA";
+    private static final String UPDATED_MAIL = "BBBBBBBBBB";
+
     private static final Roles DEFAULT_ROLE = Roles.EVALUATOR;
     private static final Roles UPDATED_ROLE = Roles.STUDENT;
 
@@ -75,6 +81,8 @@ class UserInfosResourceIT {
         UserInfos userInfos = new UserInfos()
             .firstname(DEFAULT_FIRSTNAME)
             .lastname(DEFAULT_LASTNAME)
+            .password(DEFAULT_PASSWORD)
+            .mail(DEFAULT_MAIL)
             .role(DEFAULT_ROLE)
             .status(DEFAULT_STATUS);
         return userInfos;
@@ -90,6 +98,8 @@ class UserInfosResourceIT {
         UserInfos userInfos = new UserInfos()
             .firstname(UPDATED_FIRSTNAME)
             .lastname(UPDATED_LASTNAME)
+            .password(UPDATED_PASSWORD)
+            .mail(UPDATED_MAIL)
             .role(UPDATED_ROLE)
             .status(UPDATED_STATUS);
         return userInfos;
@@ -116,6 +126,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(DEFAULT_LASTNAME);
+        assertThat(testUserInfos.getPassword()).isEqualTo(DEFAULT_PASSWORD);
+        assertThat(testUserInfos.getMail()).isEqualTo(DEFAULT_MAIL);
         assertThat(testUserInfos.getRole()).isEqualTo(DEFAULT_ROLE);
         assertThat(testUserInfos.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
@@ -153,6 +165,8 @@ class UserInfosResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(userInfos.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstname").value(hasItem(DEFAULT_FIRSTNAME)))
             .andExpect(jsonPath("$.[*].lastname").value(hasItem(DEFAULT_LASTNAME)))
+            .andExpect(jsonPath("$.[*].password").value(hasItem(DEFAULT_PASSWORD)))
+            .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL)))
             .andExpect(jsonPath("$.[*].role").value(hasItem(DEFAULT_ROLE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
@@ -171,6 +185,8 @@ class UserInfosResourceIT {
             .andExpect(jsonPath("$.id").value(userInfos.getId().intValue()))
             .andExpect(jsonPath("$.firstname").value(DEFAULT_FIRSTNAME))
             .andExpect(jsonPath("$.lastname").value(DEFAULT_LASTNAME))
+            .andExpect(jsonPath("$.password").value(DEFAULT_PASSWORD))
+            .andExpect(jsonPath("$.mail").value(DEFAULT_MAIL))
             .andExpect(jsonPath("$.role").value(DEFAULT_ROLE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
@@ -194,7 +210,13 @@ class UserInfosResourceIT {
         UserInfos updatedUserInfos = userInfosRepository.findById(userInfos.getId()).get();
         // Disconnect from session so that the updates on updatedUserInfos are not directly saved in db
         em.detach(updatedUserInfos);
-        updatedUserInfos.firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME).role(UPDATED_ROLE).status(UPDATED_STATUS);
+        updatedUserInfos
+            .firstname(UPDATED_FIRSTNAME)
+            .lastname(UPDATED_LASTNAME)
+            .password(UPDATED_PASSWORD)
+            .mail(UPDATED_MAIL)
+            .role(UPDATED_ROLE)
+            .status(UPDATED_STATUS);
         UserInfosDTO userInfosDTO = userInfosMapper.toDto(updatedUserInfos);
 
         restUserInfosMockMvc
@@ -211,6 +233,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(UPDATED_LASTNAME);
+        assertThat(testUserInfos.getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(testUserInfos.getMail()).isEqualTo(UPDATED_MAIL);
         assertThat(testUserInfos.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testUserInfos.getStatus()).isEqualTo(UPDATED_STATUS);
     }
@@ -292,7 +316,7 @@ class UserInfosResourceIT {
         UserInfos partialUpdatedUserInfos = new UserInfos();
         partialUpdatedUserInfos.setId(userInfos.getId());
 
-        partialUpdatedUserInfos.role(UPDATED_ROLE);
+        partialUpdatedUserInfos.password(UPDATED_PASSWORD).role(UPDATED_ROLE).status(UPDATED_STATUS);
 
         restUserInfosMockMvc
             .perform(
@@ -308,8 +332,10 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(DEFAULT_LASTNAME);
+        assertThat(testUserInfos.getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(testUserInfos.getMail()).isEqualTo(DEFAULT_MAIL);
         assertThat(testUserInfos.getRole()).isEqualTo(UPDATED_ROLE);
-        assertThat(testUserInfos.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testUserInfos.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test
@@ -324,7 +350,13 @@ class UserInfosResourceIT {
         UserInfos partialUpdatedUserInfos = new UserInfos();
         partialUpdatedUserInfos.setId(userInfos.getId());
 
-        partialUpdatedUserInfos.firstname(UPDATED_FIRSTNAME).lastname(UPDATED_LASTNAME).role(UPDATED_ROLE).status(UPDATED_STATUS);
+        partialUpdatedUserInfos
+            .firstname(UPDATED_FIRSTNAME)
+            .lastname(UPDATED_LASTNAME)
+            .password(UPDATED_PASSWORD)
+            .mail(UPDATED_MAIL)
+            .role(UPDATED_ROLE)
+            .status(UPDATED_STATUS);
 
         restUserInfosMockMvc
             .perform(
@@ -340,6 +372,8 @@ class UserInfosResourceIT {
         UserInfos testUserInfos = userInfosList.get(userInfosList.size() - 1);
         assertThat(testUserInfos.getFirstname()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUserInfos.getLastname()).isEqualTo(UPDATED_LASTNAME);
+        assertThat(testUserInfos.getPassword()).isEqualTo(UPDATED_PASSWORD);
+        assertThat(testUserInfos.getMail()).isEqualTo(UPDATED_MAIL);
         assertThat(testUserInfos.getRole()).isEqualTo(UPDATED_ROLE);
         assertThat(testUserInfos.getStatus()).isEqualTo(UPDATED_STATUS);
     }

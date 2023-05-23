@@ -30,6 +30,12 @@ public class UserInfos implements Serializable {
     @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "mail")
+    private String mail;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Roles role;
@@ -77,6 +83,32 @@ public class UserInfos implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public UserInfos password(String password) {
+        this.setPassword(password);
+        return this;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getMail() {
+        return this.mail;
+    }
+
+    public UserInfos mail(String mail) {
+        this.setMail(mail);
+        return this;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public Roles getRole() {
@@ -131,6 +163,8 @@ public class UserInfos implements Serializable {
             "id=" + getId() +
             ", firstname='" + getFirstname() + "'" +
             ", lastname='" + getLastname() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", mail='" + getMail() + "'" +
             ", role='" + getRole() + "'" +
             ", status='" + getStatus() + "'" +
             "}";

@@ -101,6 +101,11 @@ entity ${event.name}Event {
 	<#list event.attributes as attribute>
 	${attribute.name} ${mapAttributeType(attribute.type)}
 	</#list>
+	<#list event.references as reference>
+	<#if reference.domainObjectType?has_content && instanceOf(reference.domainObjectType, Enum)>
+	${reference.name} ${reference.domainObjectType.name}
+	</#if>
+	</#list>
 }
 
 </#list>
@@ -110,6 +115,11 @@ entity ${event.name}Event {
 entity ${command.name}Command {
 	<#list command.attributes as attribute>
 	${attribute.name} ${mapAttributeType(attribute.type)}
+	</#list>
+	<#list command.references as reference>
+	<#if reference.domainObjectType?has_content && instanceOf(reference.domainObjectType, Enum)>
+	${reference.name} ${reference.domainObjectType.name}
+	</#if>
 	</#list>
 }
 

@@ -1,0 +1,25 @@
+{
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230523195848",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "reject_user_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "RejectUserCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userInfos",
+      "ownerSide": true,
+      "relationshipName": "userInfos",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
