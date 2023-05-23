@@ -1,18 +1,22 @@
 package org.contextmapper.generated.questioncontext.service;
 
+import org.contextmapper.generated.questioncontext.client.skillcontext.api.TagResourceApiClient;
+import org.contextmapper.generated.questioncontext.client.skillcontext.model.TagDTO;
+import org.contextmapper.generated.questioncontext.client.skillcontext.model.TagInfosDTO;
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
+import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceTagInfosDTO;
 import org.contextmapper.generated.questioncontext.service.dto.ResourceWaitingForAssociationEventDTO;
 import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
-import org.contextmapper.generated.skillcontext.web.ApiClient;
-import org.contextmapper.generated.skillcontext.web.api.TagResourceApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Primary
 @Service
@@ -28,47 +32,49 @@ public class ResourceCommandHandler extends CreateResourceCommandService {
 
     private final QuestionResourceTagInfosService questionResourceTagInfosService;
 
-    private final TagResourceApi tagResourceApi = new TagResourceApi(new ApiClient());
-    ;
+    private final TagResourceApiClient tagResourceApi;
 
     public ResourceCommandHandler(
         CreateResourceCommandRepository createResourceCommandRepository,
         QuestionResourceService questionResourceService,
         ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService,
         QuestionResourceMapper questionResourceMapper,
-        QuestionResourceTagInfosService questionResourceTagInfosService
+        QuestionResourceTagInfosService questionResourceTagInfosService,
+        TagResourceApiClient tagResourceApi
     ) {
         super(createResourceCommandRepository);
         this.questionResourceService = questionResourceService;
         this.questionResourceMapper = questionResourceMapper;
         this.resourceWaitingForAssociationEventService = resourceWaitingForAssociationEventService;
         this.questionResourceTagInfosService = questionResourceTagInfosService;
+        this.tagResourceApi = tagResourceApi;
     }
 
     public CreateResourceCommand handle(QuestionResourceDTO questionResourceDTO) {
         log.debug("Request to create resource");
         CreateResourceCommand createResourceCommand = new CreateResourceCommand();
 
-        try {
-            final var tagFromApi = tagResourceApi.getTag(questionResourceDTO.getTagId().getId());
-            questionResourceDTO.getTagId().setTagId(tagFromApi.getId());
-            final var tagInfosSaved = questionResourceTagInfosService.save(questionResourceDTO.getTagId());
+        final var tagFromApi = Optional.ofNullable(
+            tagResourceApi.getTag(questionResourceDTO.getTagId().getTagId()).getBody()
+        ).orElseThrow();
 
-            questionResourceDTO.setQuestionState(States.WAITING);
-            questionResourceDTO.setTagId(tagInfosSaved);
-            final var saved = questionResourceService.save(questionResourceDTO);
+        final var tagInfosDto = new QuestionResourceTagInfosDTO();
+        tagInfosDto.setTagId(tagFromApi.getId());
+        tagInfosDto.setName(tagFromApi.getName());
 
-            final var resourceWaitingForAssociationEventDTO = new ResourceWaitingForAssociationEventDTO();
-            questionResourceDTO.setId(saved.getId());
-            resourceWaitingForAssociationEventDTO.setQuestionId(questionResourceDTO);
-            resourceWaitingForAssociationEventService.save(resourceWaitingForAssociationEventDTO);
+        final var tagInfosSaved = questionResourceTagInfosService.save(tagInfosDto);
 
-            return save(
-                createResourceCommand.questionId(questionResourceMapper.toEntity(saved))
-            );
-        } catch (Exception e) {
-            throw new RuntimeException("Tag not found", e);
-        }
+        questionResourceDTO.setQuestionState(States.WAITING);
+        questionResourceDTO.setTagId(tagInfosSaved);
+        final var saved = questionResourceService.save(questionResourceDTO);
 
+        final var resourceWaitingForAssociationEventDTO = new ResourceWaitingForAssociationEventDTO();
+        questionResourceDTO.setId(saved.getId());
+        resourceWaitingForAssociationEventDTO.setQuestionId(questionResourceDTO);
+        resourceWaitingForAssociationEventService.save(resourceWaitingForAssociationEventDTO);
+
+        return save(
+            createResourceCommand.questionId(questionResourceMapper.toEntity(saved))
+        );
     }
 }

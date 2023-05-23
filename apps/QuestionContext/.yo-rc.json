@@ -38,6 +38,12 @@
     "microfrontend": false,
     "monorepository": true,
     "nativeLanguage": "en",
+    "openApiClients": {
+      "skillcontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8083/v3/api-docs.yaml"
+      }
+    },
     "otherModules": [],
     "packageFolder": "org/contextmapper/generated/questioncontext",
     "packageName": "org.contextmapper.generated.questioncontext",

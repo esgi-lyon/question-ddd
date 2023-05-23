@@ -1,0 +1,7 @@
+{
+  "generator-jhipster:7.9.3": {
+    "promptValues": {
+      "customEndpoint": "http://localhost:8083/v3/api-docs.yaml"
+    }
+  }
+}

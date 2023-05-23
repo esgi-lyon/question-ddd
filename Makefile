@@ -54,18 +54,21 @@ $(docker_targets):
 	$(eval target=$(subst .docker,,$@))
 	@cd apps/$(target) && ./mvnw -ntp -Pprod clean compile jib:dockerBuild
 
+APP:=
+
 $(client_targets):
 	$(eval target=$(subst .client,,$@))
 	$(eval swagger_port:=$(shell grep -A3 "baseName $(target)" src-gen/output.jdl | grep serverPort | awk '{print $$2}'))
-	curl -fSsLk https://localhost:$(swagger_port)/v3/api-docs.yaml > apis/$(target).yaml
+	@echo "Custom specification endpoint to use : http://localhost:$(swagger_port)/v3/api-docs.yaml"
+	cd apps/$(or $(APP),$(target)) && jhipster openapi-client
 
 # Use make -j8
 all: $(targets)
 
 all-docker: $(docker_targets)
 
-# need make -j8 on all before
-all-client: $(client_targets) copy-clients
+# need make -j8 with servers running before
+all-client: $(client_targets)
 
 all-docker-compose: docker-consul
 	docker-compose -f apps/docker-compose/docker-compose.yml up -d
