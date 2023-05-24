@@ -1,8 +1,6 @@
 package org.contextmapper.generated.questioncontext.service;
 
 import org.contextmapper.generated.questioncontext.client.skillcontext.api.TagResourceApiClient;
-import org.contextmapper.generated.questioncontext.client.skillcontext.model.TagDTO;
-import org.contextmapper.generated.questioncontext.client.skillcontext.model.TagInfosDTO;
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
@@ -50,8 +48,8 @@ public class ResourceCommandHandler extends CreateResourceCommandService {
         this.tagResourceApi = tagResourceApi;
     }
 
-    public CreateResourceCommand handle(QuestionResourceDTO questionResourceDTO) {
-        log.debug("Request to create resource");
+    public CreateResourceCommand handleCreateResourceCommand(QuestionResourceDTO questionResourceDTO) {
+        log.info("Handle command to create resource");
         CreateResourceCommand createResourceCommand = new CreateResourceCommand();
 
         final var tagFromApi = Optional.ofNullable(

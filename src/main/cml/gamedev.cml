@@ -350,7 +350,8 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	implementationTechnology = "Java, Spring App"
 	Application {
 		Flow EvaluationFlow {
-			event AnswerSubmitted triggers command CheckAnswer
+			event AnswerSubmitted triggers command NotifyNewAnswer
+			command NotifyNewAnswer delegates to Exercice [OPENED -> OPENED] emits event NewAnswerNotified
 			command CheckAnswer delegates to Exercice [OPENED -> VALID X INVALID] emits event AnswerChecked
 			event AnswerChecked triggers command CreateEvaluation
 			command CreateEvaluation delegates to Exercice emits event EvaluationCreated
@@ -395,11 +396,17 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		DomainEvent EvaluationCreated {
 			- @Evaluation evaluation
 		}
+		DomainEvent NewAnswerNotified {
+			- @Answer answer
+		}
 		Command CheckAnswer {
 			- @EvaluatedAnswer answer
 		}
 		Command CreateEvaluation {
 			- @EvaluatedAnswer	 answer
+		}
+		Command NotifyNewAnswer {
+			- @Answer answer
 		}
 	}
 	Aggregate PointAwardRule {

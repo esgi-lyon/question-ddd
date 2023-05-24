@@ -42,11 +42,11 @@ public class ValidateUserCommandHandlerService extends ValidateUserCommandServic
         log.debug("Request to handle ValidateUserCommand : {}", validateUserCommand);
 
         final var userId = validateUserCommand.getUserInfos().getId();
+        final var statusToSet = validateUserCommand.getUserInfos().getStatus();
 
         final var userInfos = userInfosService.findOne(userId).map(foundUserInfos -> {
-            foundUserInfos.setStatus(UserStatus.VALIDATED);
+            foundUserInfos.setStatus(statusToSet);
             return userInfosService.save(foundUserInfos);
-
         });
 
        validateUserCommand.setUserInfos(
