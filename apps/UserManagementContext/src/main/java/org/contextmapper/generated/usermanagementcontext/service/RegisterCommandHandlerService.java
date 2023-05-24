@@ -71,10 +71,10 @@ public class RegisterCommandHandlerService extends RegisterCommandService {
         userInfos.setPassword(passwordEncoder.encode(registerCommand.getPassword()));
         userInfos.setRole(registerCommand.getRole());
         userInfos.setStatus(UserStatus.WAITING_VALIDATION);
-        userInfosService.save(userInfos);
+        final var savedUserInfos = userInfosService.save(userInfos);
 
         final var userWaitingForValidationEventDTO = new UserWaitingForValidationEventDTO();
-        userWaitingForValidationEventDTO.setUserInfos(userInfos);
+        userWaitingForValidationEventDTO.setUserInfos(savedUserInfos);
 
         userWaitingForValidationEventService.save(userWaitingForValidationEventDTO);
 

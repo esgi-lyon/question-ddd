@@ -35,7 +35,9 @@
       "AwardedPoint",
       "CheckAnswer",
       "CreateEvaluation",
-      "AwardPointForEvaluation"
+      "AwardPointForEvaluation",
+      "NewAnswerNotifiedEvent",
+      "NotifyNewAnswerCommand"
     ],
     "entitySuffix": "",
     "gatewayServerPort": "8080",
@@ -44,7 +46,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "OWQ5OTljZDdhZDM2ZDVjN2FlMzM0YWRkNGY1ZTJiZGQzZmRjYmQ0MTk3MjczNzA3YWZiMTMxNTRhYjc3NWI2YjdiYTkwMDZhMTUzMmNkMWIzMTFkNGIzOGU1MzAxMjcwMGRkYWI2MTBmZjRjZTFmMTY5OTZiYTYxOTA5N2M1Y2I=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1684429148000,
+    "lastLiquibaseTimestamp": 1684963226000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

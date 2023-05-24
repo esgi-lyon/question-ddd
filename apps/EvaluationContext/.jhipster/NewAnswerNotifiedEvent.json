@@ -1,0 +1,25 @@
+{
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230524212025",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "new_answer_notified_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "NewAnswerNotifiedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "evaluatedAnswer",
+      "ownerSide": true,
+      "relationshipName": "answer",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

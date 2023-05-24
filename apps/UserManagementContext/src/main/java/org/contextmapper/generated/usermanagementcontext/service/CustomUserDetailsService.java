@@ -31,6 +31,10 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException("User is not yet validated " + mail);
         }
 
+        if (user.getStatus() == UserStatus.REJECTED) {
+            throw new RuntimeException("User is rejected " + mail);
+        }
+
         Set<GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(user
             .getRole().toString())
         );

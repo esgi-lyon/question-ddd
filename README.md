@@ -52,6 +52,13 @@ make SkillContext.client APP=QuestionContext
 make start
 ```
 
+## View Databases
+
+Each bounded context has same system, here example for user management :
+
+Username : `UserManagementContext`
+Url : ./apps/UserManagementContext/target/h2db/db/usermanagementcontext
+
 ## Open the Demo File
 In the folder `src/main/cml` you find a small **[CML demo](./src/main/cml/demo.cml)** (DDD sample application) where you can start to familiarize yourself with our DSL and our tools.
 You can find more info's about the tool and a complete documentation on our website [https://contextmapper.org/](https://contextmapper.org/).

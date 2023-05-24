@@ -397,16 +397,16 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- @Evaluation evaluation
 		}
 		DomainEvent NewAnswerNotified {
-			- @Answer answer
+			- @EvaluatedAnswer answer
 		}
 		Command CheckAnswer {
 			- @EvaluatedAnswer answer
 		}
 		Command CreateEvaluation {
-			- @EvaluatedAnswer	 answer
+			- @EvaluatedAnswer answer
 		}
 		Command NotifyNewAnswer {
-			- @Answer answer
+			- @EvaluatedAnswer answer
 		}
 	}
 	Aggregate PointAwardRule {

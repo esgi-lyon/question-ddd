@@ -21,6 +21,8 @@
     "puml-for-markdown": "^1.2.1",
     "puml-to-png": "0.0.3",
     "puppeteer": "^19.10.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
     "typescript": "^5.0.4"
   }
 }
