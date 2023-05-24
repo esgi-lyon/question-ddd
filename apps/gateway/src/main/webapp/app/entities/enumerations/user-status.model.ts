@@ -1,5 +1,0 @@
-export enum UserStatus {
-  VALIDATED = 'VALIDATED',
-
-  WAITING_VALIDATION = 'WAITING_VALIDATION',
-}

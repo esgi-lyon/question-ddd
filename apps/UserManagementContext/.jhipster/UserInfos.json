@@ -31,7 +31,7 @@
     {
       "fieldName": "status",
       "fieldType": "UserStatus",
-      "fieldValues": "VALIDATED,WAITING_VALIDATION"
+      "fieldValues": "VALIDATED,WAITING_VALIDATION,REJECTED"
     }
   ],
   "fluentMethods": true,

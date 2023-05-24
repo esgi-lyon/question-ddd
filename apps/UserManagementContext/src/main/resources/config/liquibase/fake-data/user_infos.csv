@@ -1,11 +1,11 @@
 id;firstname;lastname;password;mail;role;status
 1;District;protocol Division;Buckinghamshire;plum HTTP bypass;INQUISITOR;WAITING_VALIDATION
 2;matrix Gorgeous;Principal;Orchestrator Junctions;Technician;INQUISITOR;VALIDATED
-3;calculating transmitter generate;Security leverage;invoice Granite engage;Sheqel Argentina;EVALUATOR;WAITING_VALIDATION
-4;Shirt;Associate interface Table;Soft Metal Music;vortals Dollar;STUDENT;WAITING_VALIDATION
-5;Frozen optical Berkshire;maroon hard Shoes;online Producer;1080p;NONE;WAITING_VALIDATION
-6;transmit SQL;Granite Ball Corporate;encryption Gloves application;XML;NONE;WAITING_VALIDATION
-7;framework;Health seize;digital Soft;Frozen bluetooth;NONE;WAITING_VALIDATION
-8;Account Human parallelism;e-business virtual models;foreground;District driver;EVALUATOR;WAITING_VALIDATION
-9;Kids Soft;Awesome Dynamic Keyboard;Architect neural;XML;STUDENT;VALIDATED
+3;calculating transmitter generate;Security leverage;invoice Granite engage;Sheqel Argentina;EVALUATOR;REJECTED
+4;Shirt;Associate interface Table;Soft Metal Music;vortals Dollar;STUDENT;REJECTED
+5;Frozen optical Berkshire;maroon hard Shoes;online Producer;1080p;NONE;REJECTED
+6;transmit SQL;Granite Ball Corporate;encryption Gloves application;XML;NONE;REJECTED
+7;framework;Health seize;digital Soft;Frozen bluetooth;NONE;REJECTED
+8;Account Human parallelism;e-business virtual models;foreground;District driver;EVALUATOR;REJECTED
+9;Kids Soft;Awesome Dynamic Keyboard;Architect neural;XML;STUDENT;WAITING_VALIDATION
 10;index;synthesize Toys plug-and-play;payment withdrawal;Money Tools Chief;STUDENT;VALIDATED

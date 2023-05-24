@@ -19,6 +19,7 @@
     "lz-string": "^1.5.0",
     "pend": "^1.2.0",
     "puml-for-markdown": "^1.2.1",
+    "puml-to-png": "0.0.3",
     "puppeteer": "^19.10.1",
     "typescript": "^5.0.4"
   }

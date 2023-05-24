@@ -82,9 +82,7 @@ BoundedContext UserManagementContext {
 	Application {
 		Flow Authentication {
 			command Register delegates to User [WAITING_VALIDATION -> WAITING_VALIDATION] emits event UserWaitingForValidation
-			event UserWaitingForValidation triggers command ValidateUser X RejectUser
-			command ValidateUser delegates to User [WAITING_VALIDATION -> VALIDATED] emits event UserValidated
-			command RejectUser delegates to User [WAITING_VALIDATION -> WAITING_VALIDATION] emits event UserRejected
+			command ValidateUser delegates to User [WAITING_VALIDATION -> VALIDATED X REJECTED] emits event UserValidated X UserRejected
 		}
 	}
 	Aggregate User {
@@ -105,7 +103,7 @@ BoundedContext UserManagementContext {
 		}
 		enum UserStatus {
 			aggregateLifecycle
-				VALIDATED, WAITING_VALIDATION
+				VALIDATED, WAITING_VALIDATION, REJECTED
 		}
 		Command Register {
 			String firstname
@@ -143,9 +141,7 @@ BoundedContext QuestionContext implements SkillDomain {
 		 */
 		Flow AssociateQuestionFlow {
 			command CreateResource delegates to QuestionResource [WAITING -> WAITING] emits event ResourceWaitingForAssociation
-			event ResourceWaitingForAssociation triggers command ValidateResourceTagLinkage X RejectResourceTag
-			command ValidateResourceTagLinkage delegates to QuestionResource [WAITING -> ASSOCIATED X REFUSED] emits event ResourceAcceptedAssociation
-			command RejectResourceTag delegates to QuestionResource [WAITING -> REFUSED] emits event ResourceRefusedAssociation
+			command ValidateResourceTagLinkage delegates to QuestionResource [WAITING -> ASSOCIATED X REFUSED] emits event ResourceAcceptedAssociation X ResourceRefusedAssociation
 		}
 	}
 	Aggregate QuestionResource {
@@ -187,9 +183,6 @@ BoundedContext QuestionContext implements SkillDomain {
 			- QuestionResource questionId
 		}
 		Command ValidateResourceTagLinkage {
-			- QuestionResource questionId
-		}
-		Command RejectResourceTag {
 			- QuestionResource questionId
 		}
 	}

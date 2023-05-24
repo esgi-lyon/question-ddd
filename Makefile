@@ -27,12 +27,16 @@ help:
 	@echo "------------------------------"
 	@echo "available microservices to generate : $(microservices)"
 
+.PHONY: diagrams
+
 diagrams:
 	@echo '# Diagrams' > doc/diagrams.md
-	for i in $(diagrams);do i=$${i//sketch_miner/sketch_miner.png} && echo -e "![$$i](../dist_puml/$${i//puml/png})\n" | tee -a doc/diagrams.md; done
-	@npx puml-for-markdown -m doc/ -d -t
-	./bnpm-sketch-gen.js dist_puml/src-gen/ $(strip $(sketch_only))
-	@cp -f src-gen/gamedev_ContextMap.png doc/
+	@mkdir -p doc/dist/src-gen
+	@cp -fp src-gen/gamedev_ContextMap.png doc/
+	for i in $(diagrams);do i=$${i//sketch_miner/sketch_miner.png} && echo -e "![$$i](./dist/$${i//puml/png})\n" | tee -a doc/diagrams.md; done
+	@npx puml-to-png src-gen/
+	@cp -rpf src-gen/*.png doc/dist/src-gen
+	./bnpm-sketch-gen.js doc/dist/src-gen $(strip $(sketch_only))
 
 build:	
 	cd apps && \
