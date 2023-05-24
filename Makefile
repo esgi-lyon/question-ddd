@@ -38,7 +38,7 @@ diagrams:
 	@cp -rpf src-gen/*.png doc/dist/src-gen
 	./bnpm-sketch-gen.js doc/dist/src-gen $(strip $(sketch_only))
 
-build:	
+build:
 	cd apps && \
 	mkdir gateway || true && \
 	javac --version && \

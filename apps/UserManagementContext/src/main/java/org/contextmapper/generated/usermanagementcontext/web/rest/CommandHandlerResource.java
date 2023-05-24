@@ -1,8 +1,9 @@
 package org.contextmapper.generated.usermanagementcontext.web.rest;
 
 import org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand;
-import org.contextmapper.generated.usermanagementcontext.repository.RegisterCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
 import org.contextmapper.generated.usermanagementcontext.service.RegisterCommandHandlerService;
+import org.contextmapper.generated.usermanagementcontext.service.ValidateUserCommandHandlerService;
 import org.contextmapper.generated.usermanagementcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +32,14 @@ public class CommandHandlerResource {
 
     private final RegisterCommandHandlerService registerCommandHandlerService;
 
+    private final ValidateUserCommandHandlerService validateUserCommandHandler;
 
-    public CommandHandlerResource(RegisterCommandHandlerService registerCommandHandlerService, RegisterCommandRepository registerCommandRepository) {
+    public CommandHandlerResource(
+        RegisterCommandHandlerService registerCommandHandlerService,
+        ValidateUserCommandHandlerService validateUserCommandHandler
+    ) {
         this.registerCommandHandlerService = registerCommandHandlerService;
+        this.validateUserCommandHandler = validateUserCommandHandler;
     }
 
     /**
@@ -53,6 +59,19 @@ public class CommandHandlerResource {
         return ResponseEntity
             .created(new URI("/api/handlers/register-command/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, REGISTER_ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+
+    @PostMapping("/validate-user-command")
+    public ResponseEntity<ValidateUserCommand> handleRegisterCommand(@RequestBody ValidateUserCommand userCommand) throws URISyntaxException {
+        log.debug("REST request to save RegisterCommand : {}", userCommand);
+        if (userCommand.getId() != null) {
+            throw new BadRequestAlertException("A new registerCommand cannot already have an ID", REGISTER_ENTITY_NAME, "idexists");
+        }
+        final var result = validateUserCommandHandler.handleValidateUser(userCommand);
+        return ResponseEntity
+            .created(new URI("/api/handlers/validate-user-command" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, "ValidateUserCommand", result.getId().toString()))
             .body(result);
     }
 }
