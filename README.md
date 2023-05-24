@@ -58,7 +58,7 @@ You can find more info's about the tool and a complete documentation on our webs
 
 # Context map
 
-![Context map](./doc/dist/gamedev_ContextMap.png)
+![Context map](./doc/gamedev_ContextMap.png)
 
 [**All Aggregates and event flows**](doc/diagrams.md)
 
