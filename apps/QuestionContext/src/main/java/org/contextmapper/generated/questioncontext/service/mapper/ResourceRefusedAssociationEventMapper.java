@@ -15,7 +15,7 @@ import org.mapstruct.*;
 public interface ResourceRefusedAssociationEventMapper
     extends EntityMapper<ResourceRefusedAssociationEventDTO, ResourceRefusedAssociationEvent> {
     @Mapping(target = "questionId", source = "questionId", qualifiedByName = "questionResourceId")
-    @Mapping(target = "tagId", source = "tagId", qualifiedByName = "questionResourceTagInfosId")
+    @Mapping(target = "tagInfos", source = "tagInfos", qualifiedByName = "questionResourceTagInfosId")
     ResourceRefusedAssociationEventDTO toDto(ResourceRefusedAssociationEvent s);
 
     @Named("questionResourceId")

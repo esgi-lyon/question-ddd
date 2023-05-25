@@ -81,7 +81,7 @@ public class ValidateResourceTagLinkageCommandHandler extends ValidateResourceTa
         if (questionResource.getQuestionState() == States.ASSOCIATED) {
             final var event = new ResourceAcceptedAssociationEventDTO();
             event.setQuestionId(questionResource);
-            event.setTagId(questionResource.getTagId());
+            event.setTagInfos(questionResource.getTagInfos());
             resourceAcceptedAssociationEventService.save(event);
         }
 

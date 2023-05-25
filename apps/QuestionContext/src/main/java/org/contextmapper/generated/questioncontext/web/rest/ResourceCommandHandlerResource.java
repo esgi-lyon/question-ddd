@@ -2,7 +2,7 @@ package org.contextmapper.generated.questioncontext.web.rest;
 
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.ValidateResourceTagLinkageCommand;
-import org.contextmapper.generated.questioncontext.service.ResourceCommandHandler;
+import org.contextmapper.generated.questioncontext.service.CreateResourceCommandHandler;
 import org.contextmapper.generated.questioncontext.service.ValidateResourceTagLinkageCommandHandler;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
 import org.contextmapper.generated.questioncontext.web.rest.errors.BadRequestAlertException;
@@ -28,7 +28,7 @@ public class ResourceCommandHandlerResource {
     private static final String ENTITY_NAME_CREATE = "questionContextCreateResourceCommand";
     private static final String ENTITY_NAME_VALIDATION = "questionContextValidateResourceTagLinkageCommand";
 
-    private final ResourceCommandHandler createResourceCommandService;
+    private final CreateResourceCommandHandler createResourceCommandService;
 
     private final ValidateResourceTagLinkageCommandHandler validateResourceTagLinkageCommandHandler;
 
@@ -36,7 +36,7 @@ public class ResourceCommandHandlerResource {
     private String applicationName;
 
     public ResourceCommandHandlerResource(
-        ResourceCommandHandler createResourceCommandService,
+        CreateResourceCommandHandler createResourceCommandService,
         ValidateResourceTagLinkageCommandHandler validateResourceTagLinkageCommandHandler
     ) {
         this.createResourceCommandService = createResourceCommandService;

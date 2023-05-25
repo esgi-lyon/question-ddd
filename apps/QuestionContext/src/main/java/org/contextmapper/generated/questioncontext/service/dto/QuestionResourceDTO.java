@@ -19,7 +19,7 @@ public class QuestionResourceDTO implements Serializable {
 
     private Types resourceType;
 
-    private QuestionResourceTagInfosDTO tagId;
+    private QuestionResourceTagInfosDTO tagInfos;
 
     public Long getId() {
         return id;
@@ -53,12 +53,12 @@ public class QuestionResourceDTO implements Serializable {
         this.resourceType = resourceType;
     }
 
-    public QuestionResourceTagInfosDTO getTagId() {
-        return tagId;
+    public QuestionResourceTagInfosDTO getTagInfos() {
+        return tagInfos;
     }
 
-    public void setTagId(QuestionResourceTagInfosDTO tagId) {
-        this.tagId = tagId;
+    public void setTagInfos(QuestionResourceTagInfosDTO tagInfos) {
+        this.tagInfos = tagInfos;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class QuestionResourceDTO implements Serializable {
             ", questionContent='" + getQuestionContent() + "'" +
             ", questionState='" + getQuestionState() + "'" +
             ", resourceType='" + getResourceType() + "'" +
-            ", tagId=" + getTagId() +
+            ", tagInfos=" + getTagInfos() +
             "}";
     }
 }

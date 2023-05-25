@@ -45,6 +45,12 @@
     "microfrontend": false,
     "monorepository": true,
     "nativeLanguage": "en",
+    "openApiClients": {
+      "evaluationcontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8086/v3/api-docs"
+      }
+    },
     "otherModules": [],
     "packageFolder": "org/contextmapper/generated/statcontext",
     "packageName": "org.contextmapper.generated.statcontext",

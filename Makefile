@@ -90,6 +90,5 @@ $(liquibase_targets):
 
 all-liquibase: $(liquibase_targets)
 
-start:
-	make docker-consul
+start: docker-core
 	$(MAKE) all -j8

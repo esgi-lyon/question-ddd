@@ -13,7 +13,7 @@ public class ResourceWaitingForAssociationEventDTO implements Serializable {
 
     private QuestionResourceDTO questionId;
 
-    private QuestionResourceTagInfosDTO tagId;
+    private QuestionResourceTagInfosDTO tagInfos;
 
     public Long getId() {
         return id;
@@ -31,12 +31,12 @@ public class ResourceWaitingForAssociationEventDTO implements Serializable {
         this.questionId = questionId;
     }
 
-    public QuestionResourceTagInfosDTO getTagId() {
-        return tagId;
+    public QuestionResourceTagInfosDTO getTagInfos() {
+        return tagInfos;
     }
 
-    public void setTagId(QuestionResourceTagInfosDTO tagId) {
-        this.tagId = tagId;
+    public void setTagInfos(QuestionResourceTagInfosDTO tagInfos) {
+        this.tagInfos = tagInfos;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ResourceWaitingForAssociationEventDTO implements Serializable {
         return "ResourceWaitingForAssociationEventDTO{" +
             "id=" + getId() +
             ", questionId=" + getQuestionId() +
-            ", tagId=" + getTagId() +
+            ", tagInfos=" + getTagInfos() +
             "}";
     }
 }

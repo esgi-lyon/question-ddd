@@ -44,6 +44,10 @@
     "monorepository": true,
     "nativeLanguage": "en",
     "openApiClients": {
+      "sendquestioncontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8084/v3/api-docs.yaml"
+      },
       "usermanagement": {
         "generatorName": "spring",
         "spec": "http://127.0.0.1:8081/v3/api-docs"

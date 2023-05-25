@@ -21,10 +21,10 @@ import tech.jhipster.web.util.ResponseUtil;
  * REST controller for managing {@link org.contextmapper.generated.sendquestioncontext.domain.SendQuestionByTagsPreferencesCommand}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/handlers")
 public class SendQuestionByTagsPreferencesCommandResource {
 
-    private final Logger log = LoggerFactory.getLogger(SendQuestionByTagsPreferencesCommandResource.class);
+    private final Logger log = LoggerFactory.getLogger(SendQuestionByTagsPreferencesCommandHandlerResource.class);
 
     private static final String ENTITY_NAME = "sendQuestionContextSendQuestionByTagsPreferencesCommand";
 

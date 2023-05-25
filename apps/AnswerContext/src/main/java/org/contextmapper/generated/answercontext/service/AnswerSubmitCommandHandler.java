@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 @Service
 @Transactional
 public class AnswerSubmitCommandHandler extends AnswerSubmitCommandService {
-    private final Logger log = LoggerFactory.getLogger(AnswerCommandHandler.class);
+    private final Logger log = LoggerFactory.getLogger(AnswerSubmitCommandHandler.class);
 
     private final AnswerService answerService;
 

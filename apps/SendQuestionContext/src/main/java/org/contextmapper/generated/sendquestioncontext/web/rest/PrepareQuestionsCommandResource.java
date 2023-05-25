@@ -24,7 +24,7 @@ import tech.jhipster.web.util.ResponseUtil;
 @RequestMapping("/api")
 public class PrepareQuestionsCommandResource {
 
-    private final Logger log = LoggerFactory.getLogger(PrepareQuestionsCommandResource.class);
+    private final Logger log = LoggerFactory.getLogger(PrepareQuestionsCommandResourceHandler.class);
 
     private static final String ENTITY_NAME = "sendQuestionContextPrepareQuestionsCommand";
 

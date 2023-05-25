@@ -15,7 +15,7 @@ import org.mapstruct.*;
 public interface ResourceAcceptedAssociationEventMapper
     extends EntityMapper<ResourceAcceptedAssociationEventDTO, ResourceAcceptedAssociationEvent> {
     @Mapping(target = "questionId", source = "questionId", qualifiedByName = "questionResourceId")
-    @Mapping(target = "tagId", source = "tagId", qualifiedByName = "questionResourceTagInfosId")
+    @Mapping(target = "tagInfos", source = "tagInfos", qualifiedByName = "questionResourceTagInfosId")
     ResourceAcceptedAssociationEventDTO toDto(ResourceAcceptedAssociationEvent s);
 
     @Named("questionResourceId")

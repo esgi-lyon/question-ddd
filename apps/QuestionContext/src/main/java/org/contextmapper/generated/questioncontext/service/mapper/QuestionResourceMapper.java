@@ -11,7 +11,7 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface QuestionResourceMapper extends EntityMapper<QuestionResourceDTO, QuestionResource> {
-    @Mapping(target = "tagId", source = "tagId", qualifiedByName = "questionResourceTagInfosId")
+    @Mapping(target = "tagInfos", source = "tagInfos", qualifiedByName = "questionResourceTagInfosId")
     QuestionResourceDTO toDto(QuestionResource s);
 
     @Named("questionResourceTagInfosId")

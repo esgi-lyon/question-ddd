@@ -21,10 +21,10 @@ import tech.jhipster.web.util.ResponseUtil;
  * REST controller for managing {@link org.contextmapper.generated.answercontext.domain.TagChoicesListCommand}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/handlers")
 public class TagChoicesListCommandResource {
 
-    private final Logger log = LoggerFactory.getLogger(TagChoicesListCommandResource.class);
+    private final Logger log = LoggerFactory.getLogger(TagChoicesListQueryResource.class);
 
     private static final String ENTITY_NAME = "answerContextTagChoicesListCommand";
 

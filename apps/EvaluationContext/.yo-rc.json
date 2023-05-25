@@ -51,6 +51,12 @@
     "microfrontend": false,
     "monorepository": true,
     "nativeLanguage": "en",
+    "openApiClients": {
+      "answercontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8085/v3/api-docs.yaml"
+      }
+    },
     "otherModules": [],
     "packageFolder": "org/contextmapper/generated/evaluationcontext",
     "packageName": "org.contextmapper.generated.evaluationcontext",
