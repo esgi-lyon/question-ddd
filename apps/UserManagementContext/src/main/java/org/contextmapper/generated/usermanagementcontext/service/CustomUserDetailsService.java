@@ -1,8 +1,10 @@
 package org.contextmapper.generated.usermanagementcontext.service;
 
 import org.contextmapper.generated.usermanagementcontext.domain.UserInfos;
+
 import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 import org.contextmapper.generated.usermanagementcontext.repository.CustomUserInfosRepository;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,11 +30,11 @@ public class CustomUserDetailsService implements UserDetailsService {
                 new UsernameNotFoundException("User not found with username or email: "+ mail));
 
         if (user.getStatus() == UserStatus.WAITING_VALIDATION) {
-            throw new RuntimeException("User is not yet validated " + mail);
+            throw new DisabledException("User is not yet validated " + mail);
         }
 
         if (user.getStatus() == UserStatus.REJECTED) {
-            throw new RuntimeException("User is rejected " + mail);
+            throw new DisabledException("User is rejected " + mail);
         }
 
         Set<GrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(user

@@ -106,8 +106,8 @@ const createTag = async (token) => {
 };
 
 (async () => {
-  const existingEvaluatorToken = await login("District driver", "foreground")
-  const evaluatorId = await register("EVALUATOR", "evaluator@example.com")
+  const existingEvaluatorToken = await login("admin@admin.fr", "admin")
+  const evaluatorId = await register("EVALUATOR", "admin")
 
   await validateUser(existingEvaluatorToken, evaluatorId)
   const studentId = await register("STUDENT", "student@example.com")

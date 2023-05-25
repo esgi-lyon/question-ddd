@@ -9,6 +9,8 @@ microservices:=UserManagementContext QuestionContext SkillContext SendQuestionCo
 targets:=$(microservices)
 docker_targets:=$(addsuffix .docker,$(targets))
 client_targets:=$(addsuffix .client,$(targets))
+databases:=statcontext evaluationcontext answercontext sendquestioncontext skillcontext questioncontext usermanagementcontext
+databases_pg:=$(foreach db,$(databases),$(db)-postgresql)
 
 .PHONY: all $(targets) help build jhipster-registry run dev markdown
 
@@ -52,7 +54,7 @@ docker-consul-down:
 	docker-compose -f apps/docker-compose/docker-compose.yml down
 
 $(targets):
-	@cd apps/$@ && ./mvnw -P dev,api-docs,tls
+	@cd apps/$@ && ./mvnw -P dev,api-docs
 
 $(docker_targets):
 	$(eval target=$(subst .docker,,$@))
@@ -79,6 +81,9 @@ all-docker-compose: docker-consul
 
 all-docker-compose-down: docker-consul-down
 	docker-compose -f apps/docker-compose/docker-compose.yml down
+
+all-docker-compose-db:
+	docker-compose -f apps/docker-compose/docker-compose.yml up -d $(databases_pg)
 
 start:
 	make docker-consul

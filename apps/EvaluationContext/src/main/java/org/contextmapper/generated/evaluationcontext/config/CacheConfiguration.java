@@ -46,26 +46,6 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnswerCheckedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationCreatedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardedPointEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluationCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.PointAwardRule.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.Evaluation.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnsweringUser.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationTag.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationQuestion.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluatedAnswer.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnswerChecked.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationCreated.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardedPoint.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CheckAnswer.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CreateEvaluation.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluation.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.NewAnswerNotifiedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.NotifyNewAnswerCommand.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

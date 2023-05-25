@@ -1,8 +1,8 @@
 package org.contextmapper.generated.usermanagementcontext.web.rest;
 
-import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 import org.contextmapper.generated.usermanagementcontext.repository.CustomUserInfosRepository;
 import org.contextmapper.generated.usermanagementcontext.security.jwt.TokenProvider;
+import org.contextmapper.generated.usermanagementcontext.service.dto.UserInfosDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,27 +15,6 @@ import java.security.Principal;
 @RestController
 @RequestMapping("/api")
 public class AuthenticateResource {
-
-    public static class LoginDto {
-        private String mail;
-        private String password;
-
-        public String getMail() {
-            return mail;
-        }
-
-        public void setMail(String mail) {
-            this.mail = mail;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
 
     public static class JwtResponseModel {
         private final String token;
@@ -66,17 +45,11 @@ public class AuthenticateResource {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JwtResponseModel> authenticateUser(@RequestBody LoginDto loginDto) throws Exception {
+    public ResponseEntity<JwtResponseModel> authenticateUser(@RequestBody UserInfosDTO loginDto) throws Exception {
         try {
             final var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getMail(), loginDto.getPassword())
             );
-
-            userInfosRepo.findByMail(loginDto.getMail()).ifPresent(userInfos -> {
-                if (userInfos.getStatus() == UserStatus.WAITING_VALIDATION) {
-                    throw new RuntimeException("User is not yet validated " + loginDto.getMail());
-                }
-            });
 
             final String jwtToken = tokenManager.createToken(authentication, true);
             return ResponseEntity.ok(new JwtResponseModel(jwtToken));
