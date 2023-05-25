@@ -51,8 +51,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     public void saveAdmin(String email, String password) {
-        return;
-        /*if (userInfosRepository.findByMail(email).isPresent()) {
+        if (userInfosRepository.findByMail(email).isPresent()) {
             return;
         }
 
@@ -63,6 +62,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         user.setPassword(password);
         user.setRole(Roles.EVALUATOR);
         user.setStatus(UserStatus.VALIDATED);
-        userInfosRepository.save(user);*/
+        userInfosRepository.save(user);
     }
 }

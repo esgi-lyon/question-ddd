@@ -55,11 +55,6 @@ ContextMap Poller {
 		exposedAggregates = User
 	}
 
-	UserManagementContext [U, OHS, PL]->[D, ACL] SkillContext {
-		implementationTechnology = "RESTfulHTTP"
-		exposedAggregates = User
-	}
-
 	SendQuestionContext [S]->[C] AnswerContext {
 		implementationTechnology = "RESTfulHTTP"
 		exposedAggregates = UserPreferences, QuestionNotification
@@ -350,8 +345,6 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	implementationTechnology = "Java, Spring App"
 	Application {
 		Flow EvaluationFlow {
-			event AnswerSubmitted triggers command NotifyNewAnswer
-			command NotifyNewAnswer delegates to Exercice [OPENED -> OPENED] emits event NewAnswerNotified
 			command CheckAnswer delegates to Exercice [OPENED -> VALID X INVALID] emits event AnswerChecked
 			event AnswerChecked triggers command CreateEvaluation
 			command CreateEvaluation delegates to Exercice emits event EvaluationCreated

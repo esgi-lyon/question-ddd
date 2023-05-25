@@ -46,27 +46,6 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSent.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSent.class.getName() + ".tags");
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.NotifiedQuestionEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.UserPreferences.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.UserPreferences.class.getName() + ".preferences");
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.CreatedQuestionEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.SendQuestionByTagsPreferencesCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.CreateQuestionCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.UserWithPreferencesId.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.UserPreferencesTagInfos.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSentTagId.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSentTagInfos.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.Question.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.Question.class.getName() + ".tags");
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.QuestionSentQuestionResourceTagId.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.CreatedQuestion.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.NotifiedQuestion.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.CreateQuestion.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.SendQuestionByTagsPreferences.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.ResourceId.class.getName());
-            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionsCommand.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

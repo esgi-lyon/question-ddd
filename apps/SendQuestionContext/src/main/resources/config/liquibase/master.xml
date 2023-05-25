@@ -17,39 +17,7 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153402_added_entity_QuestionSent.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153502_added_entity_NotifiedQuestionEvent.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153602_added_entity_UserPreferences.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153702_added_entity_CreatedQuestionEvent.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153802_added_entity_SendQuestionByTagsPreferencesCommand.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153902_added_entity_CreateQuestionCommand.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163033_added_entity_UserWithPreferencesId.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163034_added_entity_UserPreferencesTagInfos.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163035_added_entity_QuestionSentTagId.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163036_added_entity_QuestionSentTagInfos.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163037_added_entity_Question.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165853_added_entity_QuestionSentQuestionResourceTagId.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165854_added_entity_CreatedQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165855_added_entity_NotifiedQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165856_added_entity_CreateQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165857_added_entity_SendQuestionByTagsPreferences.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230522200546_added_entity_ResourceId.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230522211010_added_entity_PrepareQuestionsCommand.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20230422153402_added_entity_constraints_QuestionSent.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153502_added_entity_constraints_NotifiedQuestionEvent.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153602_added_entity_constraints_UserPreferences.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153702_added_entity_constraints_CreatedQuestionEvent.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153802_added_entity_constraints_SendQuestionByTagsPreferencesCommand.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230422153902_added_entity_constraints_CreateQuestionCommand.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163034_added_entity_constraints_UserPreferencesTagInfos.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163035_added_entity_constraints_QuestionSentTagId.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163036_added_entity_constraints_QuestionSentTagInfos.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518163037_added_entity_constraints_Question.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165854_added_entity_constraints_CreatedQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165855_added_entity_constraints_NotifiedQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165856_added_entity_constraints_CreateQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20230518165857_added_entity_constraints_SendQuestionByTagsPreferences.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

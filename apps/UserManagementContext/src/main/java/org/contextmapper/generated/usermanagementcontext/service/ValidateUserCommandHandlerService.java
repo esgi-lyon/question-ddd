@@ -1,7 +1,6 @@
 package org.contextmapper.generated.usermanagementcontext.service;
 
 import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
-import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 import org.contextmapper.generated.usermanagementcontext.repository.ValidateUserCommandRepository;
 import org.contextmapper.generated.usermanagementcontext.service.mapper.UserInfosMapper;
 import org.slf4j.Logger;

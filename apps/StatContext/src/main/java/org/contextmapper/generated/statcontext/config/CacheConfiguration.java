@@ -46,21 +46,6 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, org.contextmapper.generated.statcontext.domain.ViewStatsCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.QuestionStatsViewedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.UserStatsViewedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.LeaderBoard.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.LeaderBoard.class.getName() + ".evaluations");
-            createCache(cm, org.contextmapper.generated.statcontext.domain.TagStatsViewedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.EvaluationId.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.StatEvaluationTag.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.StatisticSubjectTag.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.StatisticSubjectUser.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.StatisticSubjectQuestion.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.UserStatsViewed.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.QuestionStatsViewed.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.TagStatsViewed.class.getName());
-            createCache(cm, org.contextmapper.generated.statcontext.domain.ViewStats.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

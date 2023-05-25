@@ -43,6 +43,12 @@
     "microfrontend": false,
     "monorepository": true,
     "nativeLanguage": "en",
+    "openApiClients": {
+      "usermanagement": {
+        "generatorName": "spring",
+        "spec": "http://127.0.0.1:8081/v3/api-docs"
+      }
+    },
     "otherModules": [],
     "packageFolder": "org/contextmapper/generated/answercontext",
     "packageName": "org.contextmapper.generated.answercontext",

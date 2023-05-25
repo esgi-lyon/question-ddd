@@ -49,6 +49,20 @@
     "microfrontend": false,
     "monorepository": true,
     "nativeLanguage": "en",
+    "openApiClients": {
+      "questioncontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8082/v3/api-docs.yaml"
+      },
+      "skillcontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8083/v3/api-docs.yaml"
+      },
+      "usermanagement": {
+        "generatorName": "spring",
+        "spec": "http://127.0.0.1:8081/v3/api-docs"
+      }
+    },
     "otherModules": [],
     "packageFolder": "org/contextmapper/generated/sendquestioncontext",
     "packageName": "org.contextmapper.generated.sendquestioncontext",
