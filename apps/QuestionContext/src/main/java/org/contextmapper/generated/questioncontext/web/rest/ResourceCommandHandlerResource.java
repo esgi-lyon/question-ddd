@@ -58,8 +58,9 @@ public class ResourceCommandHandlerResource {
     }
 
     @PostMapping("/validate-resource-command")
-    public ResponseEntity<ValidateResourceTagLinkageCommand> handleValidateResource(ValidateResourceTagLinkageCommand command)
-        throws URISyntaxException {
+    public ResponseEntity<ValidateResourceTagLinkageCommand> handleValidateResource(
+        @RequestBody ValidateResourceTagLinkageCommand command
+    ) throws URISyntaxException {
         log.debug("REST request to handle validate resource command : {}", command);
         if (command.getId() != null) {
             throw new BadRequestAlertException("New entity cannot already have an ID", ENTITY_NAME_VALIDATION, "idexists");

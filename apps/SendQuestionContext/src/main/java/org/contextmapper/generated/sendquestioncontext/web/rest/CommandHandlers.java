@@ -1,8 +1,11 @@
 package org.contextmapper.generated.sendquestioncontext.web.rest;
 
+import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionsCommand;
 import org.contextmapper.generated.sendquestioncontext.domain.SendQuestionByTagsPreferencesCommand;
+import org.contextmapper.generated.sendquestioncontext.service.PrepareQuestionCommandHandler;
 import org.contextmapper.generated.sendquestioncontext.service.SendQuestionByTagsPreferencesCommandHandler;
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
+import org.contextmapper.generated.sendquestioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,22 +20,44 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping("/api")
-public class SendQuestionByTagsPreferencesCommandHandlerResource {
+@RequestMapping("/api/handlers")
+public class CommandHandlers {
 
-    private final Logger log = LoggerFactory.getLogger(SendQuestionByTagsPreferencesCommandHandlerResource.class);
+    private final Logger log = LoggerFactory.getLogger(CommandHandlers.class);
 
-    private static final String ENTITY_NAME = "sendQuestionContextSendQuestionByTagsPreferencesCommand";
+    private static final String ENTITY_NAME = "sendQuestionContextPrepareQuestionsCommand";
+
+    private static final String ENTITY_NAME_PREFS = "sendQuestionContextSendQuestionByTagsPreferencesCommand";
+
+    private final PrepareQuestionCommandHandler prepareQuestionCommandHandler;
 
     private final SendQuestionByTagsPreferencesCommandHandler sendQuestionByTagsPreferencesCommandHandler;
+
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    public SendQuestionByTagsPreferencesCommandHandlerResource(
+    public CommandHandlers(
+        PrepareQuestionCommandHandler prepareQuestionCommandHandler,
         SendQuestionByTagsPreferencesCommandHandler sendQuestionByTagsPreferencesCommandHandler
+
     ) {
         this.sendQuestionByTagsPreferencesCommandHandler = sendQuestionByTagsPreferencesCommandHandler;
+        this.prepareQuestionCommandHandler = prepareQuestionCommandHandler;
+    }
+
+    @PostMapping("/prepare-question-command")
+    public ResponseEntity<PrepareQuestionsCommand> handlePrepareQuestionsCommand(@RequestBody PrepareQuestionsCommand command)
+        throws URISyntaxException {
+        log.debug("REST request to handle PrepareQuestionsCommand : {}", command);
+        if (command.getId() != null) {
+            throw new BadRequestAlertException("New entity cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        final var result = prepareQuestionCommandHandler.handlePrepareQuestionsCommand(command);
+        return ResponseEntity
+            .created(new URI("/api/handlers/prepare-question-command/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     @PostMapping("/send-question-by-preferences-command")
@@ -42,7 +67,7 @@ public class SendQuestionByTagsPreferencesCommandHandlerResource {
         final var result = sendQuestionByTagsPreferencesCommandHandler.handleSendQuestionByTagsPreferencesCommand(questionSentDTO);
         return ResponseEntity
             .created(new URI("/api/handlers/send-question-by-preferences-command/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME_PREFS, result.getId().toString()))
             .body(result);
     }
 }

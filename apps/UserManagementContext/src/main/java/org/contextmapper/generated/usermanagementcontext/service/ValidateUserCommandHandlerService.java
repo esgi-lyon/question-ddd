@@ -48,13 +48,11 @@ public class ValidateUserCommandHandlerService extends ValidateUserCommandServic
             return userInfosService.save(foundUserInfos);
         });
 
-       validateUserCommand.setUserInfos(
-           userInfosMapper.toEntity(
+        validateUserCommand.setUserInfos(
+            userInfosMapper.toEntity(
                 userInfos.orElseThrow(() -> new RuntimeException("User not found"))
-           )
-       );
-
-        validateUserCommandRepository.save(validateUserCommand);
+            )
+        );
 
         return validateUserCommand;
     }

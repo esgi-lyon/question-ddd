@@ -241,7 +241,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 	Application {
 		Flow CreateChoiceFlow {
 			// Randomized choice creation
-			command PrepareQuestions delegates to QuestionNotification emits event CreatedQuestion
+			command PrepareQuestion delegates to QuestionNotification emits event CreatedQuestion
 			event CreatedQuestion triggers command SendQuestionByTagsPreferences
 			command SendQuestionByTagsPreferences delegates to QuestionNotification emits event NotifiedQuestion
 		}
@@ -293,8 +293,8 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		DomainEvent NotifiedQuestion {
 			- QuestionSent questionResource
 		}
-		Command PrepareQuestions {
-			Integer tagToPrepareQuestions
+		Command PrepareQuestion {
+			Integer resourceId
 		}
 		Command SendQuestionByTagsPreferences {
 			- QuestionSent questionToSend
@@ -307,33 +307,48 @@ BoundedContext AnswerContext implements QuestionDomain {
 	implementationTechnology = "Java, Spring App"
 	Application {
 		Flow ChoiceSubmitFlow {
-			command TagChoicesList delegates to QuestionResource emits event TagChoicesListed
-			command AnswerSubmit delegates to QuestionResource emits event AnswerSubmitted
+			command TagChoicesList delegates to Answer [OPEN -> OPEN] emits event TagChoicesListed + AnswerCreated
+			command AnswerSubmit delegates to Answer emits event AnswerSubmitted
 		}
 	}
 	Aggregate Answer {
 		Entity Answer {
 			aggregateRoot
-			- QuestionId question
+			- QuestionSentId question
 			- AnsweredTag answeredTag
 			- UserId userId
+			- AnswerState answerState
 		}
-		ValueObject QuestionId {
+		enum AnswerState {
+			aggregateLifecycle
+				DONE, OPEN
+		}
+		ValueObject AvailableAnswer {
+			Long tagId
+			String tagName
+		}
+		ValueObject QuestionSentId {
 			Long questionId
 		}
 		ValueObject AnsweredTag {
 			Long tagId
-			String name
 		}
 		ValueObject UserId {
 			Long id
 		}
-		DomainEvent TagChoicesListed
+		DomainEvent TagChoicesListed {
+			- List<AvailableAnswer> tags
+		}
 		DomainEvent AnswerSubmitted {
 			- @Answer answer
 		}
+		DomainEvent AnswerCreated {
+			- @Answer answer
+		}
 		// Query
-		Command TagChoicesList
+		Command TagChoicesList {
+			- QuestionSentId questionSent
+		}
 		Command AnswerSubmit {
 			- @Answer answer
 		}

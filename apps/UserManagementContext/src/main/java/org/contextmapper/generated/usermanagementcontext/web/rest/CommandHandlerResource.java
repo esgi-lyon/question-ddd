@@ -70,8 +70,8 @@ public class CommandHandlerResource {
         }
         final var result = validateUserCommandHandler.handleValidateUser(userCommand);
         return ResponseEntity
-            .created(new URI("/api/handlers/validate-user-command" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, "ValidateUserCommand", result.getId().toString()))
+            .created(new URI("/api/handlers/validate-user-command" + result.getUserInfos().getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, "ValidateUserCommand", result.getUserInfos().getId().toString()))
             .body(result);
     }
 }

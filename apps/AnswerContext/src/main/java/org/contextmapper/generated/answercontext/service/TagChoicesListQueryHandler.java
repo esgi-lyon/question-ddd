@@ -25,7 +25,7 @@ public class TagChoicesListQueryHandler extends TagChoicesListCommandService {
         this.tagChoicesListedEventService = tagChoicesListedEventService;
     }
 
-    public TagChoicesListCommand handleTagChoicesListCommand() {
+    public TagChoicesListCommand handleTagChoicesListCommand(Long questionId) {
         log.info("Handle command to list tag choices");
         TagChoicesListCommand tagChoicesListCommand = new TagChoicesListCommand();
 

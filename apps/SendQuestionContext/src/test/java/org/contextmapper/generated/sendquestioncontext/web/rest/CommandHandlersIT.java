@@ -22,12 +22,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Integration tests for the {@link PrepareQuestionsCommandResourceHandler} REST controller.
+ * Integration tests for the {@link CommandHandlers} REST controller.
  */
 @IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
-class PrepareQuestionsCommandResourceHandlerIT {
+class CommandHandlersIT {
 
     private static final Integer DEFAULT_TAG_TO_PREPARE_QUESTIONS = 1;
     private static final Integer UPDATED_TAG_TO_PREPARE_QUESTIONS = 2;

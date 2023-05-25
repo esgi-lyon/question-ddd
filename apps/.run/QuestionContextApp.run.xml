@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="QuestionContextApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ACTIVE_PROFILES" value="dev api-docs liquibase" />
     <module name="question-context" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="org.contextmapper.generated.questioncontext.QuestionContextApp" />
     <option name="WORKING_DIRECTORY" value="file://QuestionContext" />
