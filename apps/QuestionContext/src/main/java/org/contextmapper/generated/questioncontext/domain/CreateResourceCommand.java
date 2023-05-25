@@ -23,7 +23,7 @@ public class CreateResourceCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "tagId" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "tagInfos" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private QuestionResource questionId;

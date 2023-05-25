@@ -9,8 +9,7 @@ microservices:=UserManagementContext QuestionContext SkillContext SendQuestionCo
 targets:=$(microservices)
 docker_targets:=$(addsuffix .docker,$(targets))
 client_targets:=$(addsuffix .client,$(targets))
-databases:=statcontext evaluationcontext answercontext sendquestioncontext skillcontext questioncontext usermanagementcontext
-databases_pg:=$(foreach db,$(databases),$(db)-postgresql)
+liquibase_targets:=$(addsuffix .liquibase,$(targets))
 
 .PHONY: all $(targets) help build jhipster-registry run dev markdown
 
@@ -47,10 +46,10 @@ build:
 	jhipster $(args) import-jdl ./../src-gen/output.jdl && \
 	cd ..
 
-docker-consul:
+docker-core:
 	docker-compose -f apps/docker-compose/docker-compose.yml up consul consul-config-loader -d
 
-docker-consul-down:
+docker-core-down:
 	docker-compose -f apps/docker-compose/docker-compose.yml down
 
 $(targets):
@@ -84,6 +83,12 @@ all-docker-compose-down: docker-consul-down
 
 all-docker-compose-db:
 	docker-compose -f apps/docker-compose/docker-compose.yml up -d $(databases_pg)
+
+$(liquibase_targets): 
+	$(eval target=$(subst .liquibase,,$@))
+	cd apps/$(target) && jhipster --with-entities
+
+all-liquibase: $(liquibase_targets)
 
 start:
 	make docker-consul

@@ -14,9 +14,9 @@
                                  referencedColumnNames="id"
                                  referencedTableName="question_resource"/>
 
-        <addForeignKeyConstraint baseColumnNames="tag_id_id"
+        <addForeignKeyConstraint baseColumnNames="tag_infos_id"
                                  baseTableName="resource_refused_association_event"
-                                 constraintName="fk_resource_refused_association_event__tag_id_id"
+                                 constraintName="fk_resource_refused_association_event__tag_infos_id"
                                  referencedColumnNames="id"
                                  referencedTableName="question_resource_tag_infos"/>
     </changeSet>

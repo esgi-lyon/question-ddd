@@ -37,7 +37,7 @@ public class QuestionResource implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private QuestionResourceTagInfos tagId;
+    private QuestionResourceTagInfos tagInfos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -93,16 +93,16 @@ public class QuestionResource implements Serializable {
         this.resourceType = resourceType;
     }
 
-    public QuestionResourceTagInfos getTagId() {
-        return this.tagId;
+    public QuestionResourceTagInfos getTagInfos() {
+        return this.tagInfos;
     }
 
-    public void setTagId(QuestionResourceTagInfos questionResourceTagInfos) {
-        this.tagId = questionResourceTagInfos;
+    public void setTagInfos(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.tagInfos = questionResourceTagInfos;
     }
 
-    public QuestionResource tagId(QuestionResourceTagInfos questionResourceTagInfos) {
-        this.setTagId(questionResourceTagInfos);
+    public QuestionResource tagInfos(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.setTagInfos(questionResourceTagInfos);
         return this;
     }
 

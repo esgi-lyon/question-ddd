@@ -23,14 +23,14 @@ public class ResourceRefusedAssociationEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "tagId" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "tagInfos" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private QuestionResource questionId;
 
     @OneToOne
     @JoinColumn(unique = true)
-    private QuestionResourceTagInfos tagId;
+    private QuestionResourceTagInfos tagInfos;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -60,16 +60,16 @@ public class ResourceRefusedAssociationEvent implements Serializable {
         return this;
     }
 
-    public QuestionResourceTagInfos getTagId() {
-        return this.tagId;
+    public QuestionResourceTagInfos getTagInfos() {
+        return this.tagInfos;
     }
 
-    public void setTagId(QuestionResourceTagInfos questionResourceTagInfos) {
-        this.tagId = questionResourceTagInfos;
+    public void setTagInfos(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.tagInfos = questionResourceTagInfos;
     }
 
-    public ResourceRefusedAssociationEvent tagId(QuestionResourceTagInfos questionResourceTagInfos) {
-        this.setTagId(questionResourceTagInfos);
+    public ResourceRefusedAssociationEvent tagInfos(QuestionResourceTagInfos questionResourceTagInfos) {
+        this.setTagInfos(questionResourceTagInfos);
         return this;
     }
 

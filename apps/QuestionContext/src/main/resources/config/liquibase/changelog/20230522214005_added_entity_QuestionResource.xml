@@ -23,8 +23,8 @@
             <column name="resource_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="tag_id_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_question_resource__tag_id_id" />
+            <column name="tag_infos_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_question_resource__tag_infos_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

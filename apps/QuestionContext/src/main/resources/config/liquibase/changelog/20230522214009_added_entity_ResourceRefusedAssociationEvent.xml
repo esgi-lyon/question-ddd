@@ -17,8 +17,8 @@
             <column name="question_id_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_resource_refused_association_event__question_id_id" />
             </column>
-            <column name="tag_id_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_resource_refused_association_event__tag_id_id" />
+            <column name="tag_infos_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_resource_refused_association_event__tag_infos_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
