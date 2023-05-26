@@ -292,7 +292,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			- QuestionSent questionResource
 		}
 		Command PrepareQuestion {
-			Integer resourceId
+			Long resourceId
 		}
 		Command SendByPreferences {
 			- QuestionSent questionToSend

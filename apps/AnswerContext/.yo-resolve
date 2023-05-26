@@ -1,3 +1,4 @@
 src/main/resources/swagger/api.yml skip
 pom.xml skip
 src/main/java/org/contextmapper/generated/answercontext/AnswerContextApp.java skip
+package.json skip

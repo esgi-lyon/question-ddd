@@ -19,13 +19,14 @@ const register = async (role, mail) => {
   try {
     console.log(`register ${mail} with role ${role}`);
     const response = JSON.parse(await request(options));
-    return response.userInfos.id;
+    console.log(response)
+    return response.id;
   } catch (e) {
     const errRes = JSON.parse(e.response?.body || '{"details": null}');
     if (errRes.detail !== "Mail already exists") {
-      console.info("Skipping same email error");
       throw e;
     }
+    console.info("Skipping same email error");
   }
 };
 
@@ -139,7 +140,10 @@ const createResource = async (token, tagId, content) => {
       },
     }),
   };
-  return JSON.parse(await request(options)).questionId.id;
+  console.log("create resource for tag : " + tagId);
+  const response = JSON.parse(await request(options))
+  console.log(response)
+  return response.questionId.id;
 };
 
 const validateLinkageResource = async (
@@ -203,6 +207,7 @@ const sendQuestionByTagsPreferences = async (token, questionSent) => {
 
   console.log("Sending question to interested users " + questionSent);
   const response = JSON.parse(await request(options));
+  console.log(response)
 
   return response;
 };

@@ -8,6 +8,7 @@ import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestio
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
 import org.contextmapper.generated.sendquestioncontext.service.dto.CreatedQuestionEventDTO;
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentTagInfosDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.ResourceIdDTO;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,30 +58,28 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionCommandService
 
     public PrepareQuestionCommand handlePrepareQuestionsCommand(PrepareQuestionCommand prepareQuestionsCommand) {
         log.info("Handle command to prepare questions for tag: {}", prepareQuestionsCommand);
-        Random rand = new Random();
-        Set<TagDTO> randomTags = rand.longs(3L, 0L, 100L)
-                .boxed()
-                .map(tagResourceApi::getTag)
-                .map(HttpEntity::getBody)
-                .collect(Collectors.toUnmodifiableSet());
-
-        final var questionSendTags = randomTags.stream().map(tag -> {
-            final var questionSentTagId = new QuestionSentTagInfosDTO();
-            questionSentTagId.setId(tag.getId());
-            return questionSentTagIdService.save(questionSentTagId);
-        }).collect(Collectors.toList());
 
         QuestionSentDTO questionSentDTO = new QuestionSentDTO();
-
+        final var resourceIdDTO = new ResourceIdDTO();
+        resourceIdDTO.setId(prepareQuestionsCommand.getResourceId());
+        questionSentDTO.setResourceId(resourceIdDTO);
         questionSentDTO.setStatus(QuestionNotificationStatus.SENT);
         questionSentDTO.setSentDate(LocalDate.now());
-        final var questionSentTagId = new QuestionSentTagInfosDTO();
-        // questionSentTagId.setId(question.getTag());
-        questionSentTagIdService.save(questionSentTagId);
-// Assuming single tag for simplicity
-        //questionSentDTO.setResourceId(new ResourceIdDTO(question.getId()));  // Assuming question ID is the resource ID
 
         QuestionSentDTO saved = questionSentService.save(questionSentDTO);
+
+        Set<TagDTO> randomTags = Objects.requireNonNull(tagResourceApi.getAllTags().getBody())
+            .stream()
+            .limit(3)
+            .collect(Collectors.toUnmodifiableSet());
+
+        randomTags.forEach(tag -> {
+            final var questionSentTagId = new QuestionSentTagInfosDTO();
+            questionSentTagId.setTagId(tag.getId());
+            questionSentTagId.setTagName(tag.getName());
+            questionSentTagId.setQuestionSent(saved);
+            questionSentTagIdService.save(questionSentTagId);
+        });
 
         CreatedQuestionEventDTO eventDTO = new CreatedQuestionEventDTO();
         eventDTO.setQuestionAndTag(saved);

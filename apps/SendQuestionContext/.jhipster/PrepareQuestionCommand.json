@@ -9,7 +9,7 @@
   "fields": [
     {
       "fieldName": "resourceId",
-      "fieldType": "Integer"
+      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,

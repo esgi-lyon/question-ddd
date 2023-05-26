@@ -29,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class PrepareQuestionCommandResourceIT {
 
-    private static final Integer DEFAULT_RESOURCE_ID = 1;
-    private static final Integer UPDATED_RESOURCE_ID = 2;
+    private static final Long DEFAULT_RESOURCE_ID = 1L;
+    private static final Long UPDATED_RESOURCE_ID = 2L;
 
     private static final String ENTITY_API_URL = "/api/prepare-question-commands";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -130,7 +130,7 @@ class PrepareQuestionCommandResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(prepareQuestionCommand.getId().intValue())))
-            .andExpect(jsonPath("$.[*].resourceId").value(hasItem(DEFAULT_RESOURCE_ID)));
+            .andExpect(jsonPath("$.[*].resourceId").value(hasItem(DEFAULT_RESOURCE_ID.intValue())));
     }
 
     @Test
@@ -145,7 +145,7 @@ class PrepareQuestionCommandResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(prepareQuestionCommand.getId().intValue()))
-            .andExpect(jsonPath("$.resourceId").value(DEFAULT_RESOURCE_ID));
+            .andExpect(jsonPath("$.resourceId").value(DEFAULT_RESOURCE_ID.intValue()));
     }
 
     @Test
