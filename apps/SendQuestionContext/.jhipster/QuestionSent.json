@@ -1,6 +1,6 @@
 {
   "applications": ["SendQuestionContext"],
-  "changelogDate": "20230422153402",
+  "changelogDate": "20230526071526",
   "clientRootFolder": "SendQuestionContext",
   "databaseType": "sql",
   "dto": "mapstruct",
@@ -39,7 +39,7 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityName": "questionSentTagId",
+      "otherEntityName": "questionSentTagInfos",
       "otherEntityRelationshipName": "questionSent",
       "relationshipName": "tags",
       "relationshipType": "one-to-many"

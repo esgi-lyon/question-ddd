@@ -1,0 +1,34 @@
+{
+  "applications": ["AnswerContext"],
+  "changelogDate": "20230526062319",
+  "clientRootFolder": "AnswerContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "available_answer",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "tagName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "AnswerContext",
+  "name": "AvailableAnswer",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "tagChoicesListedEvent",
+      "otherEntityRelationshipName": "tags",
+      "relationshipName": "tagChoicesListedEvent",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

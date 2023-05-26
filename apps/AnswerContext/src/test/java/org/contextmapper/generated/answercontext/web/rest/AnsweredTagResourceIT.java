@@ -34,9 +34,6 @@ class AnsweredTagResourceIT {
     private static final Long DEFAULT_TAG_ID = 1L;
     private static final Long UPDATED_TAG_ID = 2L;
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
-
     private static final String ENTITY_API_URL = "/api/answered-tags";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -64,7 +61,7 @@ class AnsweredTagResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AnsweredTag createEntity(EntityManager em) {
-        AnsweredTag answeredTag = new AnsweredTag().tagId(DEFAULT_TAG_ID).name(DEFAULT_NAME);
+        AnsweredTag answeredTag = new AnsweredTag().tagId(DEFAULT_TAG_ID);
         return answeredTag;
     }
 
@@ -75,7 +72,7 @@ class AnsweredTagResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AnsweredTag createUpdatedEntity(EntityManager em) {
-        AnsweredTag answeredTag = new AnsweredTag().tagId(UPDATED_TAG_ID).name(UPDATED_NAME);
+        AnsweredTag answeredTag = new AnsweredTag().tagId(UPDATED_TAG_ID);
         return answeredTag;
     }
 
@@ -96,8 +93,7 @@ class AnsweredTagResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(answeredTag.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tagId").value(hasItem(DEFAULT_TAG_ID.intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].tagId").value(hasItem(DEFAULT_TAG_ID.intValue())));
     }
 
     @Test
@@ -112,8 +108,7 @@ class AnsweredTagResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(answeredTag.getId().intValue()))
-            .andExpect(jsonPath("$.tagId").value(DEFAULT_TAG_ID.intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.tagId").value(DEFAULT_TAG_ID.intValue()));
     }
 
     @Test

@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionDTO;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionSentDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -19,16 +19,16 @@ import javax.annotation.Generated;
  * QuestionSentTagInfosDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T18:07:12.588883+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:39:32.961922+02:00[Europe/Paris]")
 public class QuestionSentTagInfosDTO {
 
   private Long id;
 
   private Long tagId;
 
-  private String name;
+  private String tagName;
 
-  private QuestionDTO question;
+  private QuestionSentDTO questionSent;
 
   public QuestionSentTagInfosDTO id(Long id) {
     this.id = id;
@@ -70,44 +70,44 @@ public class QuestionSentTagInfosDTO {
     this.tagId = tagId;
   }
 
-  public QuestionSentTagInfosDTO name(String name) {
-    this.name = name;
+  public QuestionSentTagInfosDTO tagName(String tagName) {
+    this.tagName = tagName;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get tagName
+   * @return tagName
   */
   
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  @Schema(name = "tagName", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("tagName")
+  public String getTagName() {
+    return tagName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setTagName(String tagName) {
+    this.tagName = tagName;
   }
 
-  public QuestionSentTagInfosDTO question(QuestionDTO question) {
-    this.question = question;
+  public QuestionSentTagInfosDTO questionSent(QuestionSentDTO questionSent) {
+    this.questionSent = questionSent;
     return this;
   }
 
   /**
-   * Get question
-   * @return question
+   * Get questionSent
+   * @return questionSent
   */
   @Valid 
-  @Schema(name = "question", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("question")
-  public QuestionDTO getQuestion() {
-    return question;
+  @Schema(name = "questionSent", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("questionSent")
+  public QuestionSentDTO getQuestionSent() {
+    return questionSent;
   }
 
-  public void setQuestion(QuestionDTO question) {
-    this.question = question;
+  public void setQuestionSent(QuestionSentDTO questionSent) {
+    this.questionSent = questionSent;
   }
 
   @Override
@@ -121,13 +121,13 @@ public class QuestionSentTagInfosDTO {
     QuestionSentTagInfosDTO questionSentTagInfosDTO = (QuestionSentTagInfosDTO) o;
     return Objects.equals(this.id, questionSentTagInfosDTO.id) &&
         Objects.equals(this.tagId, questionSentTagInfosDTO.tagId) &&
-        Objects.equals(this.name, questionSentTagInfosDTO.name) &&
-        Objects.equals(this.question, questionSentTagInfosDTO.question);
+        Objects.equals(this.tagName, questionSentTagInfosDTO.tagName) &&
+        Objects.equals(this.questionSent, questionSentTagInfosDTO.questionSent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tagId, name, question);
+    return Objects.hash(id, tagId, tagName, questionSent);
   }
 
   @Override
@@ -136,8 +136,8 @@ public class QuestionSentTagInfosDTO {
     sb.append("class QuestionSentTagInfosDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    tagId: ").append(toIndentedString(tagId)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    question: ").append(toIndentedString(question)).append("\n");
+    sb.append("    tagName: ").append(toIndentedString(tagName)).append("\n");
+    sb.append("    questionSent: ").append(toIndentedString(questionSent)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -22,6 +22,10 @@ public class TagChoicesListCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(unique = true)
+    private QuestionSentId questionSent;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -35,6 +39,19 @@ public class TagChoicesListCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public QuestionSentId getQuestionSent() {
+        return this.questionSent;
+    }
+
+    public void setQuestionSent(QuestionSentId questionSentId) {
+        this.questionSent = questionSentId;
+    }
+
+    public TagChoicesListCommand questionSent(QuestionSentId questionSentId) {
+        this.setQuestionSent(questionSentId);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

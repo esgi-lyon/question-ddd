@@ -47,7 +47,7 @@ public class QuestionSent implements Serializable {
     @OneToMany(mappedBy = "questionSent")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "questionSent" }, allowSetters = true)
-    private Set<QuestionSentTagId> tags = new HashSet<>();
+    private Set<QuestionSentTagInfos> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -129,34 +129,34 @@ public class QuestionSent implements Serializable {
         return this;
     }
 
-    public Set<QuestionSentTagId> getTags() {
+    public Set<QuestionSentTagInfos> getTags() {
         return this.tags;
     }
 
-    public void setTags(Set<QuestionSentTagId> questionSentTagIds) {
+    public void setTags(Set<QuestionSentTagInfos> questionSentTagInfos) {
         if (this.tags != null) {
             this.tags.forEach(i -> i.setQuestionSent(null));
         }
-        if (questionSentTagIds != null) {
-            questionSentTagIds.forEach(i -> i.setQuestionSent(this));
+        if (questionSentTagInfos != null) {
+            questionSentTagInfos.forEach(i -> i.setQuestionSent(this));
         }
-        this.tags = questionSentTagIds;
+        this.tags = questionSentTagInfos;
     }
 
-    public QuestionSent tags(Set<QuestionSentTagId> questionSentTagIds) {
-        this.setTags(questionSentTagIds);
+    public QuestionSent tags(Set<QuestionSentTagInfos> questionSentTagInfos) {
+        this.setTags(questionSentTagInfos);
         return this;
     }
 
-    public QuestionSent addTags(QuestionSentTagId questionSentTagId) {
-        this.tags.add(questionSentTagId);
-        questionSentTagId.setQuestionSent(this);
+    public QuestionSent addTags(QuestionSentTagInfos questionSentTagInfos) {
+        this.tags.add(questionSentTagInfos);
+        questionSentTagInfos.setQuestionSent(this);
         return this;
     }
 
-    public QuestionSent removeTags(QuestionSentTagId questionSentTagId) {
-        this.tags.remove(questionSentTagId);
-        questionSentTagId.setQuestionSent(null);
+    public QuestionSent removeTags(QuestionSentTagInfos questionSentTagInfos) {
+        this.tags.remove(questionSentTagInfos);
+        questionSentTagInfos.setQuestionSent(null);
         return this;
     }
 

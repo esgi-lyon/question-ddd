@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:29:24.478064+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:00.127213+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "resource-command-handler-resource", description = "the resource-command-handler-resource API")
 public interface ResourceCommandHandlerResourceApi {
@@ -68,7 +68,7 @@ public interface ResourceCommandHandlerResourceApi {
     /**
      * POST /api/handlers/validate-resource-command
      *
-     * @param command  (required)
+     * @param validateResourceTagLinkageCommand  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -83,10 +83,11 @@ public interface ResourceCommandHandlerResourceApi {
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/api/handlers/validate-resource-command",
-        produces = "*/*"
+        produces = "*/*",
+        consumes = "application/json"
     )
     ResponseEntity<ValidateResourceTagLinkageCommand> handleValidateResource(
-        @NotNull @Parameter(name = "command", description = "", required = true, in = ParameterIn.QUERY) @Valid ValidateResourceTagLinkageCommand command
+        @Parameter(name = "ValidateResourceTagLinkageCommand", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
     );
 
 }

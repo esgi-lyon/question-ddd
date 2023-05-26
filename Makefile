@@ -72,8 +72,15 @@ all: $(targets)
 
 all-docker: $(docker_targets)
 
-# need make -j8 with servers running before
-all-client: $(client_targets)
+all-client:
+	$(MAKE) UserManagementContext.client APP=QuestionContext
+	$(MAKE) UserManagementContext.client APP=SendQuestionContext
+	$(MAKE) UserManagementContext.client APP=AnswerContext
+	$(MAKE) QuestionContext.client APP=SendQuestionContext
+	$(MAKE) SkillContext.client APP=SendQuestionContext
+	$(MAKE) SendQuestionContext.client APP=AnswerContext
+	$(MAKE) AnswerContext.client APP=EvaluationContext
+	$(MAKE) EvaluationContext.client APP=StatContext
 
 all-docker-compose: docker-consul
 	docker-compose -f apps/docker-compose/docker-compose.yml up -d

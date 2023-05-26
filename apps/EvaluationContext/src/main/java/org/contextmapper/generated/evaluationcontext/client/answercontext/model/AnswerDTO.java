@@ -4,8 +4,9 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnsweredTagDTO;
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.QuestionIdDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.QuestionSentIdDTO;
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.UserIdDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -21,12 +22,49 @@ import javax.annotation.Generated;
  * AnswerDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T18:16:38.612220+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
 public class AnswerDTO {
 
   private Long id;
 
-  private QuestionIdDTO question;
+  /**
+   * Gets or Sets answerState
+   */
+  public enum AnswerStateEnum {
+    DONE("DONE"),
+    
+    OPEN("OPEN");
+
+    private String value;
+
+    AnswerStateEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AnswerStateEnum fromValue(String value) {
+      for (AnswerStateEnum b : AnswerStateEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  private AnswerStateEnum answerState;
+
+  private QuestionSentIdDTO question;
 
   private AnsweredTagDTO answeredTag;
 
@@ -52,7 +90,27 @@ public class AnswerDTO {
     this.id = id;
   }
 
-  public AnswerDTO question(QuestionIdDTO question) {
+  public AnswerDTO answerState(AnswerStateEnum answerState) {
+    this.answerState = answerState;
+    return this;
+  }
+
+  /**
+   * Get answerState
+   * @return answerState
+  */
+  
+  @Schema(name = "answerState", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("answerState")
+  public AnswerStateEnum getAnswerState() {
+    return answerState;
+  }
+
+  public void setAnswerState(AnswerStateEnum answerState) {
+    this.answerState = answerState;
+  }
+
+  public AnswerDTO question(QuestionSentIdDTO question) {
     this.question = question;
     return this;
   }
@@ -64,11 +122,11 @@ public class AnswerDTO {
   @Valid 
   @Schema(name = "question", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("question")
-  public QuestionIdDTO getQuestion() {
+  public QuestionSentIdDTO getQuestion() {
     return question;
   }
 
-  public void setQuestion(QuestionIdDTO question) {
+  public void setQuestion(QuestionSentIdDTO question) {
     this.question = question;
   }
 
@@ -122,6 +180,7 @@ public class AnswerDTO {
     }
     AnswerDTO answerDTO = (AnswerDTO) o;
     return Objects.equals(this.id, answerDTO.id) &&
+        Objects.equals(this.answerState, answerDTO.answerState) &&
         Objects.equals(this.question, answerDTO.question) &&
         Objects.equals(this.answeredTag, answerDTO.answeredTag) &&
         Objects.equals(this.userId, answerDTO.userId);
@@ -129,7 +188,7 @@ public class AnswerDTO {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, question, answeredTag, userId);
+    return Objects.hash(id, answerState, question, answeredTag, userId);
   }
 
   @Override
@@ -137,6 +196,7 @@ public class AnswerDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class AnswerDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    answerState: ").append(toIndentedString(answerState)).append("\n");
     sb.append("    question: ").append(toIndentedString(question)).append("\n");
     sb.append("    answeredTag: ").append(toIndentedString(answeredTag)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");

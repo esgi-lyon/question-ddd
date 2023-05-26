@@ -13,8 +13,6 @@ public class AnsweredTagDTO implements Serializable {
 
     private Long tagId;
 
-    private String name;
-
     public Long getId() {
         return id;
     }
@@ -29,14 +27,6 @@ public class AnsweredTagDTO implements Serializable {
 
     public void setTagId(Long tagId) {
         this.tagId = tagId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -66,7 +56,6 @@ public class AnsweredTagDTO implements Serializable {
         return "AnsweredTagDTO{" +
             "id=" + getId() +
             ", tagId=" + getTagId() +
-            ", name='" + getName() + "'" +
             "}";
     }
 }

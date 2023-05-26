@@ -2,11 +2,11 @@ package org.contextmapper.generated.answercontext.service.mapper;
 
 import org.contextmapper.generated.answercontext.domain.Answer;
 import org.contextmapper.generated.answercontext.domain.AnsweredTag;
-import org.contextmapper.generated.answercontext.domain.QuestionId;
+import org.contextmapper.generated.answercontext.domain.QuestionSentId;
 import org.contextmapper.generated.answercontext.domain.UserId;
 import org.contextmapper.generated.answercontext.service.dto.AnswerDTO;
 import org.contextmapper.generated.answercontext.service.dto.AnsweredTagDTO;
-import org.contextmapper.generated.answercontext.service.dto.QuestionIdDTO;
+import org.contextmapper.generated.answercontext.service.dto.QuestionSentIdDTO;
 import org.contextmapper.generated.answercontext.service.dto.UserIdDTO;
 import org.mapstruct.*;
 
@@ -15,15 +15,15 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface AnswerMapper extends EntityMapper<AnswerDTO, Answer> {
-    @Mapping(target = "question", source = "question", qualifiedByName = "questionIdId")
+    @Mapping(target = "question", source = "question", qualifiedByName = "questionSentIdId")
     @Mapping(target = "answeredTag", source = "answeredTag", qualifiedByName = "answeredTagId")
     @Mapping(target = "userId", source = "userId", qualifiedByName = "userIdId")
     AnswerDTO toDto(Answer s);
 
-    @Named("questionIdId")
+    @Named("questionSentIdId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    QuestionIdDTO toDtoQuestionIdId(QuestionId questionId);
+    QuestionSentIdDTO toDtoQuestionSentIdId(QuestionSentId questionSentId);
 
     @Named("answeredTagId")
     @BeanMapping(ignoreByDefault = true)

@@ -1,0 +1,23 @@
+{
+  "applications": ["SendQuestionContext"],
+  "changelogDate": "20230526071533",
+  "clientRootFolder": "SendQuestionContext",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "prepare_question_command",
+  "fields": [
+    {
+      "fieldName": "resourceId",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SendQuestionContext",
+  "name": "PrepareQuestionCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

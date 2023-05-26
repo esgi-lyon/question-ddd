@@ -2,12 +2,12 @@ package org.contextmapper.generated.sendquestioncontext.service;
 
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.api.TagResourceApi;
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.TagDTO;
-import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionsCommand;
+import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionCommand;
 import org.contextmapper.generated.sendquestioncontext.domain.enumeration.QuestionNotificationStatus;
-import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestionsCommandRepository;
+import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestionCommandRepository;
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
 import org.contextmapper.generated.sendquestioncontext.service.dto.CreatedQuestionEventDTO;
-import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentTagIdDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentTagInfosDTO;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Primary
 @Service
 @Transactional
-public class PrepareQuestionCommandHandler extends PrepareQuestionsCommandService {
+public class PrepareQuestionCommandHandler extends PrepareQuestionCommandService {
     private final Logger log = LoggerFactory.getLogger(PrepareQuestionCommandHandler.class);
 
     private final QuestionSentService questionSentService;
@@ -35,15 +36,15 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionsCommandServic
 
     private final TagResourceApi tagResourceApi;  // Assuming an external API to fetch questions based on tag
 
-    private final QuestionSentTagIdService questionSentTagIdService;
+    private final QuestionSentTagInfosService questionSentTagIdService;
 
     public PrepareQuestionCommandHandler(
-        PrepareQuestionsCommandRepository prepareQuestionsCommandRepository,
-        QuestionSentService questionSentService,
-        CreatedQuestionEventService createdQuestionEventService,
-        QuestionSentMapper questionSentMapper,
-        TagResourceApi tagResourceApi,
-        QuestionSentTagIdService questionSentTagIdService
+            PrepareQuestionCommandRepository prepareQuestionsCommandRepository,
+            QuestionSentService questionSentService,
+            CreatedQuestionEventService createdQuestionEventService,
+            QuestionSentMapper questionSentMapper,
+            TagResourceApi tagResourceApi,
+            QuestionSentTagInfosService questionSentTagIdService
     ) {
         super(prepareQuestionsCommandRepository);
         this.questionSentService = questionSentService;
@@ -53,17 +54,17 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionsCommandServic
         this.questionSentTagIdService = questionSentTagIdService;
     }
 
-    public PrepareQuestionsCommand handlePrepareQuestionsCommand(PrepareQuestionsCommand prepareQuestionsCommand) {
+    public PrepareQuestionCommand handlePrepareQuestionsCommand(PrepareQuestionCommand prepareQuestionsCommand) {
         log.info("Handle command to prepare questions for tag: {}", prepareQuestionsCommand);
         Random rand = new Random();
-        List<TagDTO> randomTags = rand.longs(3L, 0L, 100L)
-            .boxed()
-            .map(randNb -> tagResourceApi.getTag(randNb))
-            .map(HttpEntity::getBody)
-            .collect(Collectors.toList());
+        Set<TagDTO> randomTags = rand.longs(3L, 0L, 100L)
+                .boxed()
+                .map(tagResourceApi::getTag)
+                .map(HttpEntity::getBody)
+                .collect(Collectors.toUnmodifiableSet());
 
         final var questionSendTags = randomTags.stream().map(tag -> {
-            final var questionSentTagId = new QuestionSentTagIdDTO();
+            final var questionSentTagId = new QuestionSentTagInfosDTO();
             questionSentTagId.setId(tag.getId());
             return questionSentTagIdService.save(questionSentTagId);
         }).collect(Collectors.toList());
@@ -72,7 +73,7 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionsCommandServic
 
         questionSentDTO.setStatus(QuestionNotificationStatus.SENT);
         questionSentDTO.setSentDate(LocalDate.now());
-        final var questionSentTagId = new QuestionSentTagIdDTO();
+        final var questionSentTagId = new QuestionSentTagInfosDTO();
         // questionSentTagId.setId(question.getTag());
         questionSentTagIdService.save(questionSentTagId);
 // Assuming single tag for simplicity
@@ -84,6 +85,6 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionsCommandServic
         eventDTO.setQuestionAndTag(saved);
         createdQuestionEventService.save(eventDTO);
 
-        return save(new PrepareQuestionsCommand());
+        return save(new PrepareQuestionCommand());
     }
 }

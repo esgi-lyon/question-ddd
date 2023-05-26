@@ -25,9 +25,6 @@ public class AnsweredTag implements Serializable {
     @Column(name = "tag_id")
     private Long tagId;
 
-    @Column(name = "name")
-    private String name;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -56,19 +53,6 @@ public class AnsweredTag implements Serializable {
         this.tagId = tagId;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public AnsweredTag name(String name) {
-        this.setName(name);
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -94,7 +78,6 @@ public class AnsweredTag implements Serializable {
         return "AnsweredTag{" +
             "id=" + getId() +
             ", tagId=" + getTagId() +
-            ", name='" + getName() + "'" +
             "}";
     }
 }

@@ -32,13 +32,13 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T18:16:38.612220+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "answer-submit-command-resource", description = "the answer-submit-command-resource API")
 public interface AnswerSubmitCommandResourceApi {
 
     /**
-     * POST /api/handlers/answer-submit-commands
+     * POST /api/answer-submit-commands
      *
      * @param answerSubmitCommand  (required)
      * @return OK (status code 200)
@@ -54,7 +54,7 @@ public interface AnswerSubmitCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/api/handlers/answer-submit-commands",
+        value = "/api/answer-submit-commands",
         produces = "*/*",
         consumes = "application/json"
     )
@@ -64,7 +64,7 @@ public interface AnswerSubmitCommandResourceApi {
 
 
     /**
-     * DELETE /api/handlers/answer-submit-commands/{id}
+     * DELETE /api/answer-submit-commands/{id}
      *
      * @param id  (required)
      * @return OK (status code 200)
@@ -78,7 +78,7 @@ public interface AnswerSubmitCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/api/handlers/answer-submit-commands/{id}"
+        value = "/api/answer-submit-commands/{id}"
     )
     ResponseEntity<Void> deleteAnswerSubmitCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
@@ -86,7 +86,7 @@ public interface AnswerSubmitCommandResourceApi {
 
 
     /**
-     * GET /api/handlers/answer-submit-commands
+     * GET /api/answer-submit-commands
      *
      * @return OK (status code 200)
      */
@@ -101,7 +101,7 @@ public interface AnswerSubmitCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/handlers/answer-submit-commands",
+        value = "/api/answer-submit-commands",
         produces = "*/*"
     )
     ResponseEntity<List<AnswerSubmitCommand>> getAllAnswerSubmitCommands(
@@ -110,7 +110,7 @@ public interface AnswerSubmitCommandResourceApi {
 
 
     /**
-     * GET /api/handlers/answer-submit-commands/{id}
+     * GET /api/answer-submit-commands/{id}
      *
      * @param id  (required)
      * @return OK (status code 200)
@@ -126,7 +126,7 @@ public interface AnswerSubmitCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/handlers/answer-submit-commands/{id}",
+        value = "/api/answer-submit-commands/{id}",
         produces = "*/*"
     )
     ResponseEntity<AnswerSubmitCommand> getAnswerSubmitCommand(
@@ -135,7 +135,7 @@ public interface AnswerSubmitCommandResourceApi {
 
 
     /**
-     * PATCH /api/handlers/answer-submit-commands/{id}
+     * PATCH /api/answer-submit-commands/{id}
      *
      * @param id  (required)
      * @param answerSubmitCommand  (required)
@@ -152,7 +152,7 @@ public interface AnswerSubmitCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.PATCH,
-        value = "/api/handlers/answer-submit-commands/{id}",
+        value = "/api/answer-submit-commands/{id}",
         produces = "*/*",
         consumes = "application/json"
     )
@@ -163,7 +163,7 @@ public interface AnswerSubmitCommandResourceApi {
 
 
     /**
-     * PUT /api/handlers/answer-submit-commands/{id}
+     * PUT /api/answer-submit-commands/{id}
      *
      * @param id  (required)
      * @param answerSubmitCommand  (required)
@@ -180,7 +180,7 @@ public interface AnswerSubmitCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/api/handlers/answer-submit-commands/{id}",
+        value = "/api/answer-submit-commands/{id}",
         produces = "*/*",
         consumes = "application/json"
     )

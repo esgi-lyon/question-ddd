@@ -13,9 +13,9 @@ public class QuestionSentTagInfosDTO implements Serializable {
 
     private Long tagId;
 
-    private String name;
+    private String tagName;
 
-    private QuestionDTO question;
+    private QuestionSentDTO questionSent;
 
     public Long getId() {
         return id;
@@ -33,20 +33,20 @@ public class QuestionSentTagInfosDTO implements Serializable {
         this.tagId = tagId;
     }
 
-    public String getName() {
-        return name;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
-    public QuestionDTO getQuestion() {
-        return question;
+    public QuestionSentDTO getQuestionSent() {
+        return questionSent;
     }
 
-    public void setQuestion(QuestionDTO question) {
-        this.question = question;
+    public void setQuestionSent(QuestionSentDTO questionSent) {
+        this.questionSent = questionSent;
     }
 
     @Override
@@ -76,8 +76,8 @@ public class QuestionSentTagInfosDTO implements Serializable {
         return "QuestionSentTagInfosDTO{" +
             "id=" + getId() +
             ", tagId=" + getTagId() +
-            ", name='" + getName() + "'" +
-            ", question=" + getQuestion() +
+            ", tagName='" + getTagName() + "'" +
+            ", questionSent=" + getQuestionSent() +
             "}";
     }
 }

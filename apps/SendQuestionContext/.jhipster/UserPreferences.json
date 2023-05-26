@@ -1,6 +1,6 @@
 {
   "applications": ["SendQuestionContext"],
-  "changelogDate": "20230422153602",
+  "changelogDate": "20230526071525",
   "clientRootFolder": "SendQuestionContext",
   "databaseType": "sql",
   "dto": "mapstruct",

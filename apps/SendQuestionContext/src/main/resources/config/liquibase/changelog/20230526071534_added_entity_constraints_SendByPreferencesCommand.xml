@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity SendByPreferencesCommand.
+    -->
+    <changeSet id="20230526071534-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="question_to_send_id"
+                                 baseTableName="send_by_preferences_command"
+                                 constraintName="fk_send_by_preferences_command__question_to_send_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_sent"/>
+    </changeSet>
+</databaseChangeLog>

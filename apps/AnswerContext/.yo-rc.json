@@ -29,7 +29,10 @@
       "AnswerSubmitted",
       "TagChoicesList",
       "AnswerSubmit",
-      "UserId"
+      "UserId",
+      "AvailableAnswer",
+      "QuestionSentId",
+      "AnswerCreatedEvent"
     ],
     "entitySuffix": "",
     "gatewayServerPort": "8080",
@@ -38,7 +41,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "N2ExYTkyMWQ2MjIxOWY2Mjk0NjUyYmE1YjViZjM1YmQ0NWNmNjFjZmM2M2FmNDZiMDkzYWMxNjJhM2JkMTYxY2RiZTA0MmE1YjdhMjczMDBkODhiYzM0M2Y0OGI2ODIxN2MzMjM0N2M3NDJhODEzZDJhOGIxY2MyYjdiZmE2OWY=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1684785951000,
+    "lastLiquibaseTimestamp": 1685082201000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

@@ -2,6 +2,7 @@ package org.contextmapper.generated.answercontext.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import org.contextmapper.generated.answercontext.domain.enumeration.AnswerState;
 
 /**
  * A DTO for the {@link org.contextmapper.generated.answercontext.domain.Answer} entity.
@@ -11,7 +12,9 @@ public class AnswerDTO implements Serializable {
 
     private Long id;
 
-    private QuestionIdDTO question;
+    private AnswerState answerState;
+
+    private QuestionSentIdDTO question;
 
     private AnsweredTagDTO answeredTag;
 
@@ -25,11 +28,19 @@ public class AnswerDTO implements Serializable {
         this.id = id;
     }
 
-    public QuestionIdDTO getQuestion() {
+    public AnswerState getAnswerState() {
+        return answerState;
+    }
+
+    public void setAnswerState(AnswerState answerState) {
+        this.answerState = answerState;
+    }
+
+    public QuestionSentIdDTO getQuestion() {
         return question;
     }
 
-    public void setQuestion(QuestionIdDTO question) {
+    public void setQuestion(QuestionSentIdDTO question) {
         this.question = question;
     }
 
@@ -75,6 +86,7 @@ public class AnswerDTO implements Serializable {
     public String toString() {
         return "AnswerDTO{" +
             "id=" + getId() +
+            ", answerState='" + getAnswerState() + "'" +
             ", question=" + getQuestion() +
             ", answeredTag=" + getAnsweredTag() +
             ", userId=" + getUserId() +

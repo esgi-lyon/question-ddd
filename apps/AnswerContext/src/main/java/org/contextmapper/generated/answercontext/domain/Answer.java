@@ -2,6 +2,7 @@ package org.contextmapper.generated.answercontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.answercontext.domain.enumeration.AnswerState;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -22,9 +23,13 @@ public class Answer implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "answer_state")
+    private AnswerState answerState;
+
     @OneToOne
     @JoinColumn(unique = true)
-    private QuestionId question;
+    private QuestionSentId question;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -49,16 +54,29 @@ public class Answer implements Serializable {
         this.id = id;
     }
 
-    public QuestionId getQuestion() {
+    public AnswerState getAnswerState() {
+        return this.answerState;
+    }
+
+    public Answer answerState(AnswerState answerState) {
+        this.setAnswerState(answerState);
+        return this;
+    }
+
+    public void setAnswerState(AnswerState answerState) {
+        this.answerState = answerState;
+    }
+
+    public QuestionSentId getQuestion() {
         return this.question;
     }
 
-    public void setQuestion(QuestionId questionId) {
-        this.question = questionId;
+    public void setQuestion(QuestionSentId questionSentId) {
+        this.question = questionSentId;
     }
 
-    public Answer question(QuestionId questionId) {
-        this.setQuestion(questionId);
+    public Answer question(QuestionSentId questionSentId) {
+        this.setQuestion(questionSentId);
         return this;
     }
 
@@ -112,6 +130,7 @@ public class Answer implements Serializable {
     public String toString() {
         return "Answer{" +
             "id=" + getId() +
+            ", answerState='" + getAnswerState() + "'" +
             "}";
     }
 }

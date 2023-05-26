@@ -6,7 +6,13 @@
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "answer",
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "answerState",
+      "fieldType": "AnswerState",
+      "fieldValues": "DONE,OPEN"
+    }
+  ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "AnswerContext",
@@ -15,7 +21,7 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "questionId",
+      "otherEntityName": "questionSentId",
       "ownerSide": true,
       "relationshipName": "question",
       "relationshipType": "one-to-one"

@@ -7,6 +7,7 @@ package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerDTO;
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmitCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListCommand;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T18:16:38.612220+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "answer-submit-command-handler-resource", description = "the answer-submit-command-handler-resource API")
 public interface AnswerSubmitCommandHandlerResourceApi {
@@ -61,6 +62,31 @@ public interface AnswerSubmitCommandHandlerResourceApi {
     )
     ResponseEntity<AnswerSubmitCommand> handleAnswerSubmitCommand(
         @Parameter(name = "AnswerDTO", description = "", required = true) @Valid @RequestBody AnswerDTO answerDTO
+    );
+
+
+    /**
+     * GET /api/handlers/tags-choices-list-query
+     *
+     * @param questionId  (required)
+     * @return OK (status code 200)
+     */
+    @Operation(
+        operationId = "handleTagChoicesListCommand",
+        tags = { "answer-submit-command-handler-resource" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommand.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/handlers/tags-choices-list-query",
+        produces = "*/*"
+    )
+    ResponseEntity<TagChoicesListCommand> handleTagChoicesListCommand(
+        @NotNull @Parameter(name = "questionId", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "questionId", required = true) Long questionId
     );
 
 }

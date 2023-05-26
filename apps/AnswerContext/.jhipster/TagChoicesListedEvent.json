@@ -13,6 +13,13 @@
   "name": "TagChoicesListedEvent",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "availableAnswer",
+      "otherEntityRelationshipName": "tagChoicesListedEvent",
+      "relationshipName": "tags",
+      "relationshipType": "one-to-many"
+    }
+  ],
   "service": "serviceClass"
 }

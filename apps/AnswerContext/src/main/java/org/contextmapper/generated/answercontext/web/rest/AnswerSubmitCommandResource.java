@@ -21,7 +21,7 @@ import tech.jhipster.web.util.ResponseUtil;
  * REST controller for managing {@link org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand}.
  */
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class AnswerSubmitCommandResource {
 
     private final Logger log = LoggerFactory.getLogger(AnswerSubmitCommandResource.class);

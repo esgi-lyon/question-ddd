@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  * QuestionSent
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T18:07:12.588883+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:39:32.961922+02:00[Europe/Paris]")
 public class QuestionSent {
 
   private Long id;

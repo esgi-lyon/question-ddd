@@ -43,8 +43,7 @@ public class TagChoicesListCommandService {
      */
     public TagChoicesListCommand update(TagChoicesListCommand tagChoicesListCommand) {
         log.debug("Request to update TagChoicesListCommand : {}", tagChoicesListCommand);
-        // no save call needed as we have no fields that can be updated
-        return tagChoicesListCommand;
+        return tagChoicesListCommandRepository.save(tagChoicesListCommand);
     }
 
     /**
@@ -60,8 +59,8 @@ public class TagChoicesListCommandService {
             .findById(tagChoicesListCommand.getId())
             .map(existingTagChoicesListCommand -> {
                 return existingTagChoicesListCommand;
-            })// .map(tagChoicesListCommandRepository::save)
-        ;
+            })
+            .map(tagChoicesListCommandRepository::save);
     }
 
     /**

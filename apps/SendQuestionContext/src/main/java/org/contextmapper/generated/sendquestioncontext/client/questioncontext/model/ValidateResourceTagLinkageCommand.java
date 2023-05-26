@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * ValidateResourceTagLinkageCommand
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:29:24.478064+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:00.127213+02:00[Europe/Paris]")
 public class ValidateResourceTagLinkageCommand {
 
   private Long id;

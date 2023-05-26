@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.answercontext.IntegrationTest;
 import org.contextmapper.generated.answercontext.domain.Answer;
+import org.contextmapper.generated.answercontext.domain.enumeration.AnswerState;
 import org.contextmapper.generated.answercontext.repository.AnswerRepository;
 import org.contextmapper.generated.answercontext.service.dto.AnswerDTO;
 import org.contextmapper.generated.answercontext.service.mapper.AnswerMapper;
@@ -30,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class AnswerResourceIT {
+
+    private static final AnswerState DEFAULT_ANSWER_STATE = AnswerState.DONE;
+    private static final AnswerState UPDATED_ANSWER_STATE = AnswerState.OPEN;
 
     private static final String ENTITY_API_URL = "/api/answers";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -58,7 +62,7 @@ class AnswerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Answer createEntity(EntityManager em) {
-        Answer answer = new Answer();
+        Answer answer = new Answer().answerState(DEFAULT_ANSWER_STATE);
         return answer;
     }
 
@@ -69,7 +73,7 @@ class AnswerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Answer createUpdatedEntity(EntityManager em) {
-        Answer answer = new Answer();
+        Answer answer = new Answer().answerState(UPDATED_ANSWER_STATE);
         return answer;
     }
 
@@ -92,6 +96,7 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeCreate + 1);
         Answer testAnswer = answerList.get(answerList.size() - 1);
+        assertThat(testAnswer.getAnswerState()).isEqualTo(DEFAULT_ANSWER_STATE);
     }
 
     @Test
@@ -124,7 +129,8 @@ class AnswerResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(answer.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(answer.getId().intValue())))
+            .andExpect(jsonPath("$.[*].answerState").value(hasItem(DEFAULT_ANSWER_STATE.toString())));
     }
 
     @Test
@@ -138,7 +144,8 @@ class AnswerResourceIT {
             .perform(get(ENTITY_API_URL_ID, answer.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(answer.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(answer.getId().intValue()))
+            .andExpect(jsonPath("$.answerState").value(DEFAULT_ANSWER_STATE.toString()));
     }
 
     @Test
@@ -160,6 +167,7 @@ class AnswerResourceIT {
         Answer updatedAnswer = answerRepository.findById(answer.getId()).get();
         // Disconnect from session so that the updates on updatedAnswer are not directly saved in db
         em.detach(updatedAnswer);
+        updatedAnswer.answerState(UPDATED_ANSWER_STATE);
         AnswerDTO answerDTO = answerMapper.toDto(updatedAnswer);
 
         restAnswerMockMvc
@@ -174,6 +182,7 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeUpdate);
         Answer testAnswer = answerList.get(answerList.size() - 1);
+        assertThat(testAnswer.getAnswerState()).isEqualTo(UPDATED_ANSWER_STATE);
     }
 
     @Test
@@ -253,6 +262,8 @@ class AnswerResourceIT {
         Answer partialUpdatedAnswer = new Answer();
         partialUpdatedAnswer.setId(answer.getId());
 
+        partialUpdatedAnswer.answerState(UPDATED_ANSWER_STATE);
+
         restAnswerMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedAnswer.getId())
@@ -265,6 +276,7 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeUpdate);
         Answer testAnswer = answerList.get(answerList.size() - 1);
+        assertThat(testAnswer.getAnswerState()).isEqualTo(UPDATED_ANSWER_STATE);
     }
 
     @Test
@@ -279,6 +291,8 @@ class AnswerResourceIT {
         Answer partialUpdatedAnswer = new Answer();
         partialUpdatedAnswer.setId(answer.getId());
 
+        partialUpdatedAnswer.answerState(UPDATED_ANSWER_STATE);
+
         restAnswerMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedAnswer.getId())
@@ -291,6 +305,7 @@ class AnswerResourceIT {
         List<Answer> answerList = answerRepository.findAll();
         assertThat(answerList).hasSize(databaseSizeBeforeUpdate);
         Answer testAnswer = answerList.get(answerList.size() - 1);
+        assertThat(testAnswer.getAnswerState()).isEqualTo(UPDATED_ANSWER_STATE);
     }
 
     @Test

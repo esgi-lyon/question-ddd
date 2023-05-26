@@ -10,10 +10,6 @@
     {
       "fieldName": "tagId",
       "fieldType": "Long"
-    },
-    {
-      "fieldName": "name",
-      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

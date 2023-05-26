@@ -242,8 +242,8 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		Flow CreateChoiceFlow {
 			// Randomized choice creation
 			command PrepareQuestion delegates to QuestionNotification emits event CreatedQuestion
-			event CreatedQuestion triggers command SendQuestionByTagsPreferences
-			command SendQuestionByTagsPreferences delegates to QuestionNotification emits event NotifiedQuestion
+			event CreatedQuestion triggers command SendByPreferences
+			command SendByPreferences delegates to QuestionNotification emits event NotifiedQuestion
 		}
 	}
 	Aggregate UserPreferences {
@@ -265,7 +265,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		Entity QuestionSent {
 			aggregateRoot
 			- QuestionNotificationStatus status
-			- List<QuestionSentTagId> tags
+			- List<QuestionSentTagInfos> tags
 			Date sentDate
 			Date viewedDate
 			Date answeredDate
@@ -274,11 +274,9 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			def QuestionSent answer();
 			- ResourceId resourceId
 		}
-		ValueObject QuestionSentTagId {
+		ValueObject QuestionSentTagInfos {
 			Long tagId
-		}
-		ValueObject QuestionSentQuestionResourceTagId {
-			Long tagId
+			String tagName
 		}
 		ValueObject ResourceId {
 			Long id
@@ -296,7 +294,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		Command PrepareQuestion {
 			Integer resourceId
 		}
-		Command SendQuestionByTagsPreferences {
+		Command SendByPreferences {
 			- QuestionSent questionToSend
 		}
 	}

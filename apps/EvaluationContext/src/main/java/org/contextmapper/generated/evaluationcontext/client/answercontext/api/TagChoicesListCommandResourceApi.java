@@ -32,13 +32,13 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T18:16:38.612220+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "tag-choices-list-command-resource", description = "the tag-choices-list-command-resource API")
 public interface TagChoicesListCommandResourceApi {
 
     /**
-     * POST /api/handlers/tag-choices-list-commands
+     * POST /api/tag-choices-list-commands
      *
      * @param tagChoicesListCommand  (required)
      * @return OK (status code 200)
@@ -54,7 +54,7 @@ public interface TagChoicesListCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/api/handlers/tag-choices-list-commands",
+        value = "/api/tag-choices-list-commands",
         produces = "*/*",
         consumes = "application/json"
     )
@@ -64,7 +64,7 @@ public interface TagChoicesListCommandResourceApi {
 
 
     /**
-     * DELETE /api/handlers/tag-choices-list-commands/{id}
+     * DELETE /api/tag-choices-list-commands/{id}
      *
      * @param id  (required)
      * @return OK (status code 200)
@@ -78,7 +78,7 @@ public interface TagChoicesListCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/api/handlers/tag-choices-list-commands/{id}"
+        value = "/api/tag-choices-list-commands/{id}"
     )
     ResponseEntity<Void> deleteTagChoicesListCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
@@ -86,7 +86,7 @@ public interface TagChoicesListCommandResourceApi {
 
 
     /**
-     * GET /api/handlers/tag-choices-list-commands
+     * GET /api/tag-choices-list-commands
      *
      * @return OK (status code 200)
      */
@@ -101,7 +101,7 @@ public interface TagChoicesListCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/handlers/tag-choices-list-commands",
+        value = "/api/tag-choices-list-commands",
         produces = "*/*"
     )
     ResponseEntity<List<TagChoicesListCommand>> getAllTagChoicesListCommands(
@@ -110,7 +110,7 @@ public interface TagChoicesListCommandResourceApi {
 
 
     /**
-     * GET /api/handlers/tag-choices-list-commands/{id}
+     * GET /api/tag-choices-list-commands/{id}
      *
      * @param id  (required)
      * @return OK (status code 200)
@@ -126,7 +126,7 @@ public interface TagChoicesListCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/handlers/tag-choices-list-commands/{id}",
+        value = "/api/tag-choices-list-commands/{id}",
         produces = "*/*"
     )
     ResponseEntity<TagChoicesListCommand> getTagChoicesListCommand(
@@ -135,7 +135,7 @@ public interface TagChoicesListCommandResourceApi {
 
 
     /**
-     * PATCH /api/handlers/tag-choices-list-commands/{id}
+     * PATCH /api/tag-choices-list-commands/{id}
      *
      * @param id  (required)
      * @param tagChoicesListCommand  (required)
@@ -152,7 +152,7 @@ public interface TagChoicesListCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.PATCH,
-        value = "/api/handlers/tag-choices-list-commands/{id}",
+        value = "/api/tag-choices-list-commands/{id}",
         produces = "*/*",
         consumes = "application/json"
     )
@@ -163,7 +163,7 @@ public interface TagChoicesListCommandResourceApi {
 
 
     /**
-     * PUT /api/handlers/tag-choices-list-commands/{id}
+     * PUT /api/tag-choices-list-commands/{id}
      *
      * @param id  (required)
      * @param tagChoicesListCommand  (required)
@@ -180,7 +180,7 @@ public interface TagChoicesListCommandResourceApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/api/handlers/tag-choices-list-commands/{id}",
+        value = "/api/tag-choices-list-commands/{id}",
         produces = "*/*",
         consumes = "application/json"
     )

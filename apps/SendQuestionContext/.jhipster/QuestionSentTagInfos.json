@@ -1,6 +1,6 @@
 {
   "applications": ["SendQuestionContext"],
-  "changelogDate": "20230518163036",
+  "changelogDate": "20230526071529",
   "clientRootFolder": "SendQuestionContext",
   "databaseType": "sql",
   "dto": "mapstruct",
@@ -12,7 +12,7 @@
       "fieldType": "Long"
     },
     {
-      "fieldName": "name",
+      "fieldName": "tagName",
       "fieldType": "String"
     }
   ],
@@ -24,9 +24,9 @@
   "readOnly": true,
   "relationships": [
     {
-      "otherEntityName": "question",
+      "otherEntityName": "questionSent",
       "otherEntityRelationshipName": "tags",
-      "relationshipName": "question",
+      "relationshipName": "questionSent",
       "relationshipType": "many-to-one"
     }
   ],

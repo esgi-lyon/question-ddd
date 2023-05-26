@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * CreateTagCommand
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:51:40.044962+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:33.252958+02:00[Europe/Paris]")
 public class CreateTagCommand {
 
   private Long id;

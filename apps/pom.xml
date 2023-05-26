@@ -37,4 +37,10 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>liquibase</id>
+        </profile>
+    </profiles>
 </project>

@@ -13,6 +13,13 @@
   "name": "TagChoicesListCommand",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "questionSentId",
+      "ownerSide": true,
+      "relationshipName": "questionSent",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

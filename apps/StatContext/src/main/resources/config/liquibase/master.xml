@@ -17,7 +17,31 @@
     <property name="datetimeType" value="datetime" dbms="postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153402_added_entity_ViewStatsCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153502_added_entity_QuestionStatsViewedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153602_added_entity_UserStatsViewedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153702_added_entity_LeaderBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153802_added_entity_TagStatsViewedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518163050_added_entity_EvaluationId.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518163051_added_entity_StatEvaluationTag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165908_added_entity_StatisticSubjectTag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165909_added_entity_StatisticSubjectUser.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165910_added_entity_StatisticSubjectQuestion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165911_added_entity_UserStatsViewed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165912_added_entity_QuestionStatsViewed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165913_added_entity_TagStatsViewed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165914_added_entity_ViewStats.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230422153402_added_entity_constraints_ViewStatsCommand.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153502_added_entity_constraints_QuestionStatsViewedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153602_added_entity_constraints_UserStatsViewedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153702_added_entity_constraints_LeaderBoard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230422153802_added_entity_constraints_TagStatsViewedEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518163050_added_entity_constraints_EvaluationId.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165911_added_entity_constraints_UserStatsViewed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165912_added_entity_constraints_QuestionStatsViewed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165913_added_entity_constraints_TagStatsViewed.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230518165914_added_entity_constraints_ViewStats.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

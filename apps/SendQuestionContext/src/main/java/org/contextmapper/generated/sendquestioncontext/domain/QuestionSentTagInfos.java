@@ -26,12 +26,12 @@ public class QuestionSentTagInfos implements Serializable {
     @Column(name = "tag_id")
     private Long tagId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "tag_name")
+    private String tagName;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "resourceCorrectTag", "tags" }, allowSetters = true)
-    private Question question;
+    @JsonIgnoreProperties(value = { "resourceId", "tags" }, allowSetters = true)
+    private QuestionSent questionSent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -61,29 +61,29 @@ public class QuestionSentTagInfos implements Serializable {
         this.tagId = tagId;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTagName() {
+        return this.tagName;
     }
 
-    public QuestionSentTagInfos name(String name) {
-        this.setName(name);
+    public QuestionSentTagInfos tagName(String tagName) {
+        this.setTagName(tagName);
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
-    public Question getQuestion() {
-        return this.question;
+    public QuestionSent getQuestionSent() {
+        return this.questionSent;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setQuestionSent(QuestionSent questionSent) {
+        this.questionSent = questionSent;
     }
 
-    public QuestionSentTagInfos question(Question question) {
-        this.setQuestion(question);
+    public QuestionSentTagInfos questionSent(QuestionSent questionSent) {
+        this.setQuestionSent(questionSent);
         return this;
     }
 
@@ -112,7 +112,7 @@ public class QuestionSentTagInfos implements Serializable {
         return "QuestionSentTagInfos{" +
             "id=" + getId() +
             ", tagId=" + getTagId() +
-            ", name='" + getName() + "'" +
+            ", tagName='" + getTagName() + "'" +
             "}";
     }
 }

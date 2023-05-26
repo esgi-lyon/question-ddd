@@ -20,14 +20,14 @@ import javax.annotation.Generated;
  * ResourceAcceptedAssociationEventDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:29:24.478064+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:00.127213+02:00[Europe/Paris]")
 public class ResourceAcceptedAssociationEventDTO {
 
   private Long id;
 
   private QuestionResourceDTO questionId;
 
-  private QuestionResourceTagInfosDTO tagId;
+  private QuestionResourceTagInfosDTO tagInfos;
 
   public ResourceAcceptedAssociationEventDTO id(Long id) {
     this.id = id;
@@ -69,24 +69,24 @@ public class ResourceAcceptedAssociationEventDTO {
     this.questionId = questionId;
   }
 
-  public ResourceAcceptedAssociationEventDTO tagId(QuestionResourceTagInfosDTO tagId) {
-    this.tagId = tagId;
+  public ResourceAcceptedAssociationEventDTO tagInfos(QuestionResourceTagInfosDTO tagInfos) {
+    this.tagInfos = tagInfos;
     return this;
   }
 
   /**
-   * Get tagId
-   * @return tagId
+   * Get tagInfos
+   * @return tagInfos
   */
   @Valid 
-  @Schema(name = "tagId", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("tagId")
-  public QuestionResourceTagInfosDTO getTagId() {
-    return tagId;
+  @Schema(name = "tagInfos", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("tagInfos")
+  public QuestionResourceTagInfosDTO getTagInfos() {
+    return tagInfos;
   }
 
-  public void setTagId(QuestionResourceTagInfosDTO tagId) {
-    this.tagId = tagId;
+  public void setTagInfos(QuestionResourceTagInfosDTO tagInfos) {
+    this.tagInfos = tagInfos;
   }
 
   @Override
@@ -100,12 +100,12 @@ public class ResourceAcceptedAssociationEventDTO {
     ResourceAcceptedAssociationEventDTO resourceAcceptedAssociationEventDTO = (ResourceAcceptedAssociationEventDTO) o;
     return Objects.equals(this.id, resourceAcceptedAssociationEventDTO.id) &&
         Objects.equals(this.questionId, resourceAcceptedAssociationEventDTO.questionId) &&
-        Objects.equals(this.tagId, resourceAcceptedAssociationEventDTO.tagId);
+        Objects.equals(this.tagInfos, resourceAcceptedAssociationEventDTO.tagInfos);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, questionId, tagId);
+    return Objects.hash(id, questionId, tagInfos);
   }
 
   @Override
@@ -114,7 +114,7 @@ public class ResourceAcceptedAssociationEventDTO {
     sb.append("class ResourceAcceptedAssociationEventDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    questionId: ").append(toIndentedString(questionId)).append("\n");
-    sb.append("    tagId: ").append(toIndentedString(tagId)).append("\n");
+    sb.append("    tagInfos: ").append(toIndentedString(tagInfos)).append("\n");
     sb.append("}");
     return sb.toString();
   }
