@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.sendquestioncontext.IntegrationTest;
 import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionCommand;
 import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestionCommandRepository;
+import org.contextmapper.generated.sendquestioncontext.service.dto.PrepareQuestionCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.PrepareQuestionCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,9 @@ class PrepareQuestionCommandResourceIT {
 
     @Autowired
     private PrepareQuestionCommandRepository prepareQuestionCommandRepository;
+
+    @Autowired
+    private PrepareQuestionCommandMapper prepareQuestionCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -81,11 +86,12 @@ class PrepareQuestionCommandResourceIT {
     void createPrepareQuestionCommand() throws Exception {
         int databaseSizeBeforeCreate = prepareQuestionCommandRepository.findAll().size();
         // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
         restPrepareQuestionCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -101,6 +107,7 @@ class PrepareQuestionCommandResourceIT {
     void createPrepareQuestionCommandWithExistingId() throws Exception {
         // Create the PrepareQuestionCommand with an existing ID
         prepareQuestionCommand.setId(1L);
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
 
         int databaseSizeBeforeCreate = prepareQuestionCommandRepository.findAll().size();
 
@@ -109,7 +116,7 @@ class PrepareQuestionCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -170,12 +177,13 @@ class PrepareQuestionCommandResourceIT {
         // Disconnect from session so that the updates on updatedPrepareQuestionCommand are not directly saved in db
         em.detach(updatedPrepareQuestionCommand);
         updatedPrepareQuestionCommand.resourceId(UPDATED_RESOURCE_ID);
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(updatedPrepareQuestionCommand);
 
         restPrepareQuestionCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedPrepareQuestionCommand.getId())
+                put(ENTITY_API_URL_ID, prepareQuestionCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedPrepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -192,12 +200,15 @@ class PrepareQuestionCommandResourceIT {
         int databaseSizeBeforeUpdate = prepareQuestionCommandRepository.findAll().size();
         prepareQuestionCommand.setId(count.incrementAndGet());
 
+        // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPrepareQuestionCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, prepareQuestionCommand.getId())
+                put(ENTITY_API_URL_ID, prepareQuestionCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -212,12 +223,15 @@ class PrepareQuestionCommandResourceIT {
         int databaseSizeBeforeUpdate = prepareQuestionCommandRepository.findAll().size();
         prepareQuestionCommand.setId(count.incrementAndGet());
 
+        // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPrepareQuestionCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -232,12 +246,15 @@ class PrepareQuestionCommandResourceIT {
         int databaseSizeBeforeUpdate = prepareQuestionCommandRepository.findAll().size();
         prepareQuestionCommand.setId(count.incrementAndGet());
 
+        // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPrepareQuestionCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -310,12 +327,15 @@ class PrepareQuestionCommandResourceIT {
         int databaseSizeBeforeUpdate = prepareQuestionCommandRepository.findAll().size();
         prepareQuestionCommand.setId(count.incrementAndGet());
 
+        // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPrepareQuestionCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, prepareQuestionCommand.getId())
+                patch(ENTITY_API_URL_ID, prepareQuestionCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -330,12 +350,15 @@ class PrepareQuestionCommandResourceIT {
         int databaseSizeBeforeUpdate = prepareQuestionCommandRepository.findAll().size();
         prepareQuestionCommand.setId(count.incrementAndGet());
 
+        // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPrepareQuestionCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -350,12 +373,15 @@ class PrepareQuestionCommandResourceIT {
         int databaseSizeBeforeUpdate = prepareQuestionCommandRepository.findAll().size();
         prepareQuestionCommand.setId(count.incrementAndGet());
 
+        // Create the PrepareQuestionCommand
+        PrepareQuestionCommandDTO prepareQuestionCommandDTO = prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restPrepareQuestionCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(prepareQuestionCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

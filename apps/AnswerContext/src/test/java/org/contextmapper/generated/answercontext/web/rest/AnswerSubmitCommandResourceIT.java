@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.answercontext.IntegrationTest;
 import org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand;
 import org.contextmapper.generated.answercontext.repository.AnswerSubmitCommandRepository;
+import org.contextmapper.generated.answercontext.service.dto.AnswerSubmitCommandDTO;
+import org.contextmapper.generated.answercontext.service.mapper.AnswerSubmitCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class AnswerSubmitCommandResourceIT {
 
     @Autowired
     private AnswerSubmitCommandRepository answerSubmitCommandRepository;
+
+    @Autowired
+    private AnswerSubmitCommandMapper answerSubmitCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,9 +83,12 @@ class AnswerSubmitCommandResourceIT {
     void createAnswerSubmitCommand() throws Exception {
         int databaseSizeBeforeCreate = answerSubmitCommandRepository.findAll().size();
         // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
         restAnswerSubmitCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -95,13 +103,16 @@ class AnswerSubmitCommandResourceIT {
     void createAnswerSubmitCommandWithExistingId() throws Exception {
         // Create the AnswerSubmitCommand with an existing ID
         answerSubmitCommand.setId(1L);
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
 
         int databaseSizeBeforeCreate = answerSubmitCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAnswerSubmitCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -157,12 +168,13 @@ class AnswerSubmitCommandResourceIT {
         AnswerSubmitCommand updatedAnswerSubmitCommand = answerSubmitCommandRepository.findById(answerSubmitCommand.getId()).get();
         // Disconnect from session so that the updates on updatedAnswerSubmitCommand are not directly saved in db
         em.detach(updatedAnswerSubmitCommand);
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(updatedAnswerSubmitCommand);
 
         restAnswerSubmitCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedAnswerSubmitCommand.getId())
+                put(ENTITY_API_URL_ID, answerSubmitCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedAnswerSubmitCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -178,12 +190,15 @@ class AnswerSubmitCommandResourceIT {
         int databaseSizeBeforeUpdate = answerSubmitCommandRepository.findAll().size();
         answerSubmitCommand.setId(count.incrementAndGet());
 
+        // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAnswerSubmitCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, answerSubmitCommand.getId())
+                put(ENTITY_API_URL_ID, answerSubmitCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -198,12 +213,15 @@ class AnswerSubmitCommandResourceIT {
         int databaseSizeBeforeUpdate = answerSubmitCommandRepository.findAll().size();
         answerSubmitCommand.setId(count.incrementAndGet());
 
+        // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAnswerSubmitCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -218,10 +236,15 @@ class AnswerSubmitCommandResourceIT {
         int databaseSizeBeforeUpdate = answerSubmitCommandRepository.findAll().size();
         answerSubmitCommand.setId(count.incrementAndGet());
 
+        // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAnswerSubmitCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                put(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -288,12 +311,15 @@ class AnswerSubmitCommandResourceIT {
         int databaseSizeBeforeUpdate = answerSubmitCommandRepository.findAll().size();
         answerSubmitCommand.setId(count.incrementAndGet());
 
+        // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAnswerSubmitCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, answerSubmitCommand.getId())
+                patch(ENTITY_API_URL_ID, answerSubmitCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -308,12 +334,15 @@ class AnswerSubmitCommandResourceIT {
         int databaseSizeBeforeUpdate = answerSubmitCommandRepository.findAll().size();
         answerSubmitCommand.setId(count.incrementAndGet());
 
+        // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAnswerSubmitCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -328,12 +357,15 @@ class AnswerSubmitCommandResourceIT {
         int databaseSizeBeforeUpdate = answerSubmitCommandRepository.findAll().size();
         answerSubmitCommand.setId(count.incrementAndGet());
 
+        // Create the AnswerSubmitCommand
+        AnswerSubmitCommandDTO answerSubmitCommandDTO = answerSubmitCommandMapper.toDto(answerSubmitCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAnswerSubmitCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(answerSubmitCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

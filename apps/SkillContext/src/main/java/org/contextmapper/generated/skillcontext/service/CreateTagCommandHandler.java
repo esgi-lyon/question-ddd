@@ -2,8 +2,10 @@ package org.contextmapper.generated.skillcontext.service;
 
 import org.contextmapper.generated.skillcontext.domain.CreateTagCommand;
 import org.contextmapper.generated.skillcontext.repository.CreateTagCommandRepository;
+import org.contextmapper.generated.skillcontext.service.dto.CreateTagCommandDTO;
 import org.contextmapper.generated.skillcontext.service.dto.TagCreatedEventDTO;
 import org.contextmapper.generated.skillcontext.service.dto.TagDTO;
+import org.contextmapper.generated.skillcontext.service.mapper.CreateTagCommandMapper;
 import org.contextmapper.generated.skillcontext.service.mapper.TagMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,17 +34,18 @@ public class CreateTagCommandHandler extends CreateTagCommandService {
         TagService tagService,
         TagCreatedEventService tagCreatedEventService,
         CategoryService categoryService,
-        TagMapper tagMapper
+        TagMapper tagMapper,
+        CreateTagCommandMapper createTagCommandMapper
     ) {
-        super(createTagCommandRepository);
+        super(createTagCommandRepository, createTagCommandMapper);
         this.tagService = tagService;
         this.tagCreatedEventService = tagCreatedEventService;
         this.categoryService = categoryService;
         this.tagMapper = tagMapper;
     }
 
-    public CreateTagCommand handle(TagDTO createTag) {
-        final var cmd = new CreateTagCommand();
+    public CreateTagCommandDTO handle(TagDTO createTag) {
+        final var cmd = new CreateTagCommandDTO();
         final var tagDto = new TagDTO();
 
         tagDto.setName(createTag.getName());
@@ -59,6 +62,8 @@ public class CreateTagCommandHandler extends CreateTagCommandService {
 
         tagCreatedEventService.save(tagCreatedEvent);
 
-        return save(cmd.tag(tagMapper.toEntity(saved)));
+        cmd.setTag(saved);
+
+        return save(cmd);
     }
 }

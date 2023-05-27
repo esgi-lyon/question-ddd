@@ -3,7 +3,7 @@
   "changelogDate": "20230526071534",
   "clientRootFolder": "SendQuestionContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "send_by_preferences_command",
   "fields": [],

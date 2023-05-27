@@ -3,7 +3,7 @@
   "changelogDate": "20230522214010",
   "clientRootFolder": "QuestionContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "create_resource_command",
   "fields": [],

@@ -1,10 +1,10 @@
 package org.contextmapper.generated.sendquestioncontext.web.rest;
 
-import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionCommand;
-import org.contextmapper.generated.sendquestioncontext.domain.SendByPreferencesCommand;
 import org.contextmapper.generated.sendquestioncontext.service.PrepareQuestionCommandHandler;
 import org.contextmapper.generated.sendquestioncontext.service.SendByPreferencesCommandHandler;
+import org.contextmapper.generated.sendquestioncontext.service.dto.PrepareQuestionCommandDTO;
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.SendByPreferencesCommandDTO;
 import org.contextmapper.generated.sendquestioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class CommandHandlers {
     }
 
     @PostMapping("/prepare-question-command")
-    public ResponseEntity<PrepareQuestionCommand> handlePrepareQuestionsCommand(@RequestBody PrepareQuestionCommand command)
+    public ResponseEntity<PrepareQuestionCommandDTO> handlePrepareQuestionsCommand(@RequestBody PrepareQuestionCommandDTO command)
             throws URISyntaxException {
         log.debug("REST request to handle PrepareQuestionsCommand : {}", command);
         if (command.getId() != null) {
@@ -61,7 +61,7 @@ public class CommandHandlers {
     }
 
     @PostMapping("/send-question-by-preferences-command")
-    public ResponseEntity<SendByPreferencesCommand> handleSendQuestionByTagsPreferencesCommand(@RequestBody QuestionSentDTO questionSentDTO)
+    public ResponseEntity<SendByPreferencesCommandDTO> handleSendQuestionByTagsPreferencesCommand(@RequestBody QuestionSentDTO questionSentDTO)
             throws URISyntaxException {
         log.debug("REST request to handle SendQuestionByTagsPreferencesCommand : {}", questionSentDTO);
         final var result = sendByPreferencesCommandHandler.handleSendQuestionByTagsPreferencesCommand(questionSentDTO);

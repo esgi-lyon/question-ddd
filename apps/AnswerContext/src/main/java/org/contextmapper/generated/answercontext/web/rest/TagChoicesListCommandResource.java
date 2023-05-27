@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.contextmapper.generated.answercontext.domain.TagChoicesListCommand;
 import org.contextmapper.generated.answercontext.repository.TagChoicesListCommandRepository;
 import org.contextmapper.generated.answercontext.service.TagChoicesListCommandService;
+import org.contextmapper.generated.answercontext.service.dto.TagChoicesListCommandDTO;
 import org.contextmapper.generated.answercontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +46,19 @@ public class TagChoicesListCommandResource {
     /**
      * {@code POST  /tag-choices-list-commands} : Create a new tagChoicesListCommand.
      *
-     * @param tagChoicesListCommand the tagChoicesListCommand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tagChoicesListCommand, or with status {@code 400 (Bad Request)} if the tagChoicesListCommand has already an ID.
+     * @param tagChoicesListCommandDTO the tagChoicesListCommandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new tagChoicesListCommandDTO, or with status {@code 400 (Bad Request)} if the tagChoicesListCommand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/tag-choices-list-commands")
-    public ResponseEntity<TagChoicesListCommand> createTagChoicesListCommand(@RequestBody TagChoicesListCommand tagChoicesListCommand)
-        throws URISyntaxException {
-        log.debug("REST request to save TagChoicesListCommand : {}", tagChoicesListCommand);
-        if (tagChoicesListCommand.getId() != null) {
+    public ResponseEntity<TagChoicesListCommandDTO> createTagChoicesListCommand(
+        @RequestBody TagChoicesListCommandDTO tagChoicesListCommandDTO
+    ) throws URISyntaxException {
+        log.debug("REST request to save TagChoicesListCommand : {}", tagChoicesListCommandDTO);
+        if (tagChoicesListCommandDTO.getId() != null) {
             throw new BadRequestAlertException("A new tagChoicesListCommand cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        TagChoicesListCommand result = tagChoicesListCommandService.save(tagChoicesListCommand);
+        TagChoicesListCommandDTO result = tagChoicesListCommandService.save(tagChoicesListCommandDTO);
         return ResponseEntity
             .created(new URI("/api/tag-choices-list-commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -67,23 +68,23 @@ public class TagChoicesListCommandResource {
     /**
      * {@code PUT  /tag-choices-list-commands/:id} : Updates an existing tagChoicesListCommand.
      *
-     * @param id the id of the tagChoicesListCommand to save.
-     * @param tagChoicesListCommand the tagChoicesListCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tagChoicesListCommand,
-     * or with status {@code 400 (Bad Request)} if the tagChoicesListCommand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the tagChoicesListCommand couldn't be updated.
+     * @param id the id of the tagChoicesListCommandDTO to save.
+     * @param tagChoicesListCommandDTO the tagChoicesListCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tagChoicesListCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the tagChoicesListCommandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the tagChoicesListCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/tag-choices-list-commands/{id}")
-    public ResponseEntity<TagChoicesListCommand> updateTagChoicesListCommand(
+    public ResponseEntity<TagChoicesListCommandDTO> updateTagChoicesListCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody TagChoicesListCommand tagChoicesListCommand
+        @RequestBody TagChoicesListCommandDTO tagChoicesListCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update TagChoicesListCommand : {}, {}", id, tagChoicesListCommand);
-        if (tagChoicesListCommand.getId() == null) {
+        log.debug("REST request to update TagChoicesListCommand : {}, {}", id, tagChoicesListCommandDTO);
+        if (tagChoicesListCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, tagChoicesListCommand.getId())) {
+        if (!Objects.equals(id, tagChoicesListCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -91,34 +92,34 @@ public class TagChoicesListCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        TagChoicesListCommand result = tagChoicesListCommandService.update(tagChoicesListCommand);
+        TagChoicesListCommandDTO result = tagChoicesListCommandService.update(tagChoicesListCommandDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tagChoicesListCommand.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tagChoicesListCommandDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /tag-choices-list-commands/:id} : Partial updates given fields of an existing tagChoicesListCommand, field will ignore if it is null
      *
-     * @param id the id of the tagChoicesListCommand to save.
-     * @param tagChoicesListCommand the tagChoicesListCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tagChoicesListCommand,
-     * or with status {@code 400 (Bad Request)} if the tagChoicesListCommand is not valid,
-     * or with status {@code 404 (Not Found)} if the tagChoicesListCommand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the tagChoicesListCommand couldn't be updated.
+     * @param id the id of the tagChoicesListCommandDTO to save.
+     * @param tagChoicesListCommandDTO the tagChoicesListCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated tagChoicesListCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the tagChoicesListCommandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the tagChoicesListCommandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the tagChoicesListCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/tag-choices-list-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<TagChoicesListCommand> partialUpdateTagChoicesListCommand(
+    public ResponseEntity<TagChoicesListCommandDTO> partialUpdateTagChoicesListCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody TagChoicesListCommand tagChoicesListCommand
+        @RequestBody TagChoicesListCommandDTO tagChoicesListCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update TagChoicesListCommand partially : {}, {}", id, tagChoicesListCommand);
-        if (tagChoicesListCommand.getId() == null) {
+        log.debug("REST request to partial update TagChoicesListCommand partially : {}, {}", id, tagChoicesListCommandDTO);
+        if (tagChoicesListCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, tagChoicesListCommand.getId())) {
+        if (!Objects.equals(id, tagChoicesListCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -126,11 +127,11 @@ public class TagChoicesListCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<TagChoicesListCommand> result = tagChoicesListCommandService.partialUpdate(tagChoicesListCommand);
+        Optional<TagChoicesListCommandDTO> result = tagChoicesListCommandService.partialUpdate(tagChoicesListCommandDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tagChoicesListCommand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tagChoicesListCommandDTO.getId().toString())
         );
     }
 
@@ -140,7 +141,7 @@ public class TagChoicesListCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tagChoicesListCommands in body.
      */
     @GetMapping("/tag-choices-list-commands")
-    public List<TagChoicesListCommand> getAllTagChoicesListCommands() {
+    public List<TagChoicesListCommandDTO> getAllTagChoicesListCommands() {
         log.debug("REST request to get all TagChoicesListCommands");
         return tagChoicesListCommandService.findAll();
     }
@@ -148,20 +149,20 @@ public class TagChoicesListCommandResource {
     /**
      * {@code GET  /tag-choices-list-commands/:id} : get the "id" tagChoicesListCommand.
      *
-     * @param id the id of the tagChoicesListCommand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the tagChoicesListCommand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the tagChoicesListCommandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the tagChoicesListCommandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/tag-choices-list-commands/{id}")
-    public ResponseEntity<TagChoicesListCommand> getTagChoicesListCommand(@PathVariable Long id) {
+    public ResponseEntity<TagChoicesListCommandDTO> getTagChoicesListCommand(@PathVariable Long id) {
         log.debug("REST request to get TagChoicesListCommand : {}", id);
-        Optional<TagChoicesListCommand> tagChoicesListCommand = tagChoicesListCommandService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(tagChoicesListCommand);
+        Optional<TagChoicesListCommandDTO> tagChoicesListCommandDTO = tagChoicesListCommandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(tagChoicesListCommandDTO);
     }
 
     /**
      * {@code DELETE  /tag-choices-list-commands/:id} : delete the "id" tagChoicesListCommand.
      *
-     * @param id the id of the tagChoicesListCommand to delete.
+     * @param id the id of the tagChoicesListCommandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/tag-choices-list-commands/{id}")

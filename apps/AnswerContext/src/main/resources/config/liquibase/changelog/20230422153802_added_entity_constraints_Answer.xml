@@ -20,10 +20,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="answered_tag"/>
 
-        <addForeignKeyConstraint baseColumnNames="user_id_id"
+        <addForeignKeyConstraint baseColumnNames="user_email_id"
                                  baseTableName="answer"
-                                 constraintName="fk_answer__user_id_id"
+                                 constraintName="fk_answer__user_email_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="user_id"/>
+                                 referencedTableName="user_email"/>
     </changeSet>
 </databaseChangeLog>

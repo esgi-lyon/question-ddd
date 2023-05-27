@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand;
 import org.contextmapper.generated.evaluationcontext.repository.CheckAnswerCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.CheckAnswerCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.CheckAnswerCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class CheckAnswerCommandResourceIT {
 
     @Autowired
     private CheckAnswerCommandRepository checkAnswerCommandRepository;
+
+    @Autowired
+    private CheckAnswerCommandMapper checkAnswerCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,9 +83,12 @@ class CheckAnswerCommandResourceIT {
     void createCheckAnswerCommand() throws Exception {
         int databaseSizeBeforeCreate = checkAnswerCommandRepository.findAll().size();
         // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
         restCheckAnswerCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -95,13 +103,16 @@ class CheckAnswerCommandResourceIT {
     void createCheckAnswerCommandWithExistingId() throws Exception {
         // Create the CheckAnswerCommand with an existing ID
         checkAnswerCommand.setId(1L);
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
 
         int databaseSizeBeforeCreate = checkAnswerCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCheckAnswerCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -157,12 +168,13 @@ class CheckAnswerCommandResourceIT {
         CheckAnswerCommand updatedCheckAnswerCommand = checkAnswerCommandRepository.findById(checkAnswerCommand.getId()).get();
         // Disconnect from session so that the updates on updatedCheckAnswerCommand are not directly saved in db
         em.detach(updatedCheckAnswerCommand);
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(updatedCheckAnswerCommand);
 
         restCheckAnswerCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCheckAnswerCommand.getId())
+                put(ENTITY_API_URL_ID, checkAnswerCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedCheckAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -178,12 +190,15 @@ class CheckAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = checkAnswerCommandRepository.findAll().size();
         checkAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCheckAnswerCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, checkAnswerCommand.getId())
+                put(ENTITY_API_URL_ID, checkAnswerCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -198,12 +213,15 @@ class CheckAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = checkAnswerCommandRepository.findAll().size();
         checkAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCheckAnswerCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -218,10 +236,15 @@ class CheckAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = checkAnswerCommandRepository.findAll().size();
         checkAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCheckAnswerCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                put(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -288,12 +311,15 @@ class CheckAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = checkAnswerCommandRepository.findAll().size();
         checkAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCheckAnswerCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, checkAnswerCommand.getId())
+                patch(ENTITY_API_URL_ID, checkAnswerCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -308,12 +334,15 @@ class CheckAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = checkAnswerCommandRepository.findAll().size();
         checkAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCheckAnswerCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -328,12 +357,15 @@ class CheckAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = checkAnswerCommandRepository.findAll().size();
         checkAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the CheckAnswerCommand
+        CheckAnswerCommandDTO checkAnswerCommandDTO = checkAnswerCommandMapper.toDto(checkAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCheckAnswerCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(checkAnswerCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

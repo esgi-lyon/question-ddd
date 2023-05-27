@@ -11,8 +11,6 @@ public class AnsweringUserDTO implements Serializable {
 
     private Long id;
 
-    private Long userId;
-
     private String name;
 
     public Long getId() {
@@ -21,14 +19,6 @@ public class AnsweringUserDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getName() {
@@ -65,7 +55,6 @@ public class AnsweringUserDTO implements Serializable {
     public String toString() {
         return "AnsweringUserDTO{" +
             "id=" + getId() +
-            ", userId=" + getUserId() +
             ", name='" + getName() + "'" +
             "}";
     }

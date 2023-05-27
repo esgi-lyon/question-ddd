@@ -3,7 +3,7 @@
   "changelogDate": "20230523195846",
   "clientRootFolder": "UserManagementContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "register_command",
   "fields": [

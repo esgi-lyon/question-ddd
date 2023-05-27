@@ -4,9 +4,11 @@ import org.contextmapper.generated.questioncontext.client.skillcontext.api.TagRe
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
+import org.contextmapper.generated.questioncontext.service.dto.CreateResourceCommandDTO;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceTagInfosDTO;
 import org.contextmapper.generated.questioncontext.service.dto.ResourceWaitingForAssociationEventDTO;
+import org.contextmapper.generated.questioncontext.service.mapper.CreateResourceCommandMapper;
 import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,6 @@ public class CreateResourceCommandHandler extends CreateResourceCommandService {
 
     private final ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService;
 
-    private final QuestionResourceMapper questionResourceMapper;
-
     private final QuestionResourceTagInfosService questionResourceTagInfosService;
 
     private final TagResourceApiClient tagResourceApi;
@@ -36,21 +36,20 @@ public class CreateResourceCommandHandler extends CreateResourceCommandService {
         CreateResourceCommandRepository createResourceCommandRepository,
         QuestionResourceService questionResourceService,
         ResourceWaitingForAssociationEventService resourceWaitingForAssociationEventService,
-        QuestionResourceMapper questionResourceMapper,
+        CreateResourceCommandMapper questionResourceMapper,
         QuestionResourceTagInfosService questionResourceTagInfosService,
         TagResourceApiClient tagResourceApi
     ) {
-        super(createResourceCommandRepository);
+        super(createResourceCommandRepository, questionResourceMapper);
         this.questionResourceService = questionResourceService;
-        this.questionResourceMapper = questionResourceMapper;
         this.resourceWaitingForAssociationEventService = resourceWaitingForAssociationEventService;
         this.questionResourceTagInfosService = questionResourceTagInfosService;
         this.tagResourceApi = tagResourceApi;
     }
 
-    public CreateResourceCommand handleCreateResourceCommand(QuestionResourceDTO questionResourceDTO) {
+    public CreateResourceCommandDTO handleCreateResourceCommand(QuestionResourceDTO questionResourceDTO) {
         log.info("Handle command to create resource");
-        CreateResourceCommand createResourceCommand = new CreateResourceCommand();
+        CreateResourceCommandDTO createResourceCommand = new CreateResourceCommandDTO();
 
         final var tagFromApi = Optional.ofNullable(
             tagResourceApi.getTag(questionResourceDTO.getTagInfos().getTagId()).getBody()
@@ -71,8 +70,8 @@ public class CreateResourceCommandHandler extends CreateResourceCommandService {
         resourceWaitingForAssociationEventDTO.setQuestionId(questionResourceDTO);
         resourceWaitingForAssociationEventService.save(resourceWaitingForAssociationEventDTO);
 
-        return save(
-            createResourceCommand.questionId(questionResourceMapper.toEntity(saved))
-        );
+        createResourceCommand.setQuestionId(saved);
+
+        return save(createResourceCommand);
     }
 }

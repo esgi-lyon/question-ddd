@@ -8,10 +8,6 @@
   "entityTableName": "answering_user",
   "fields": [
     {
-      "fieldName": "userId",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "name",
       "fieldType": "String"
     }

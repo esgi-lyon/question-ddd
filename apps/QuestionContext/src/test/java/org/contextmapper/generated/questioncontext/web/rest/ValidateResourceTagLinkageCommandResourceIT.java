@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.questioncontext.IntegrationTest;
 import org.contextmapper.generated.questioncontext.domain.ValidateResourceTagLinkageCommand;
 import org.contextmapper.generated.questioncontext.repository.ValidateResourceTagLinkageCommandRepository;
+import org.contextmapper.generated.questioncontext.service.dto.ValidateResourceTagLinkageCommandDTO;
+import org.contextmapper.generated.questioncontext.service.mapper.ValidateResourceTagLinkageCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class ValidateResourceTagLinkageCommandResourceIT {
 
     @Autowired
     private ValidateResourceTagLinkageCommandRepository validateResourceTagLinkageCommandRepository;
+
+    @Autowired
+    private ValidateResourceTagLinkageCommandMapper validateResourceTagLinkageCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,14 @@ class ValidateResourceTagLinkageCommandResourceIT {
     void createValidateResourceTagLinkageCommand() throws Exception {
         int databaseSizeBeforeCreate = validateResourceTagLinkageCommandRepository.findAll().size();
         // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -99,6 +107,9 @@ class ValidateResourceTagLinkageCommandResourceIT {
     void createValidateResourceTagLinkageCommandWithExistingId() throws Exception {
         // Create the ValidateResourceTagLinkageCommand with an existing ID
         validateResourceTagLinkageCommand.setId(1L);
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
 
         int databaseSizeBeforeCreate = validateResourceTagLinkageCommandRepository.findAll().size();
 
@@ -107,7 +118,7 @@ class ValidateResourceTagLinkageCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -165,12 +176,15 @@ class ValidateResourceTagLinkageCommandResourceIT {
             .get();
         // Disconnect from session so that the updates on updatedValidateResourceTagLinkageCommand are not directly saved in db
         em.detach(updatedValidateResourceTagLinkageCommand);
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            updatedValidateResourceTagLinkageCommand
+        );
 
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedValidateResourceTagLinkageCommand.getId())
+                put(ENTITY_API_URL_ID, validateResourceTagLinkageCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedValidateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -188,12 +202,17 @@ class ValidateResourceTagLinkageCommandResourceIT {
         int databaseSizeBeforeUpdate = validateResourceTagLinkageCommandRepository.findAll().size();
         validateResourceTagLinkageCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, validateResourceTagLinkageCommand.getId())
+                put(ENTITY_API_URL_ID, validateResourceTagLinkageCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -208,12 +227,17 @@ class ValidateResourceTagLinkageCommandResourceIT {
         int databaseSizeBeforeUpdate = validateResourceTagLinkageCommandRepository.findAll().size();
         validateResourceTagLinkageCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -228,12 +252,17 @@ class ValidateResourceTagLinkageCommandResourceIT {
         int databaseSizeBeforeUpdate = validateResourceTagLinkageCommandRepository.findAll().size();
         validateResourceTagLinkageCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -304,12 +333,17 @@ class ValidateResourceTagLinkageCommandResourceIT {
         int databaseSizeBeforeUpdate = validateResourceTagLinkageCommandRepository.findAll().size();
         validateResourceTagLinkageCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, validateResourceTagLinkageCommand.getId())
+                patch(ENTITY_API_URL_ID, validateResourceTagLinkageCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -324,12 +358,17 @@ class ValidateResourceTagLinkageCommandResourceIT {
         int databaseSizeBeforeUpdate = validateResourceTagLinkageCommandRepository.findAll().size();
         validateResourceTagLinkageCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -344,12 +383,17 @@ class ValidateResourceTagLinkageCommandResourceIT {
         int databaseSizeBeforeUpdate = validateResourceTagLinkageCommandRepository.findAll().size();
         validateResourceTagLinkageCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateResourceTagLinkageCommand
+        ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandMapper.toDto(
+            validateResourceTagLinkageCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateResourceTagLinkageCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateResourceTagLinkageCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

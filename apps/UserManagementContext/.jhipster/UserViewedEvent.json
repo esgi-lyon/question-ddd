@@ -1,0 +1,25 @@
+{
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230526114531",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_viewed_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "UserViewedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "userInfos",
+      "ownerSide": true,
+      "relationshipName": "userInfos",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

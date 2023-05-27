@@ -1,9 +1,13 @@
 package org.contextmapper.generated.answercontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand;
 import org.contextmapper.generated.answercontext.repository.AnswerSubmitCommandRepository;
+import org.contextmapper.generated.answercontext.service.dto.AnswerSubmitCommandDTO;
+import org.contextmapper.generated.answercontext.service.mapper.AnswerSubmitCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class AnswerSubmitCommandService {
 
     private final AnswerSubmitCommandRepository answerSubmitCommandRepository;
 
-    public AnswerSubmitCommandService(AnswerSubmitCommandRepository answerSubmitCommandRepository) {
+    private final AnswerSubmitCommandMapper answerSubmitCommandMapper;
+
+    public AnswerSubmitCommandService(
+        AnswerSubmitCommandRepository answerSubmitCommandRepository,
+        AnswerSubmitCommandMapper answerSubmitCommandMapper
+    ) {
         this.answerSubmitCommandRepository = answerSubmitCommandRepository;
+        this.answerSubmitCommandMapper = answerSubmitCommandMapper;
     }
 
     /**
      * Save a answerSubmitCommand.
      *
-     * @param answerSubmitCommand the entity to save.
+     * @param answerSubmitCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public AnswerSubmitCommand save(AnswerSubmitCommand answerSubmitCommand) {
-        log.debug("Request to save AnswerSubmitCommand : {}", answerSubmitCommand);
-        return answerSubmitCommandRepository.save(answerSubmitCommand);
+    public AnswerSubmitCommandDTO save(AnswerSubmitCommandDTO answerSubmitCommandDTO) {
+        log.debug("Request to save AnswerSubmitCommand : {}", answerSubmitCommandDTO);
+        AnswerSubmitCommand answerSubmitCommand = answerSubmitCommandMapper.toEntity(answerSubmitCommandDTO);
+        answerSubmitCommand = answerSubmitCommandRepository.save(answerSubmitCommand);
+        return answerSubmitCommandMapper.toDto(answerSubmitCommand);
     }
 
     /**
      * Update a answerSubmitCommand.
      *
-     * @param answerSubmitCommand the entity to save.
+     * @param answerSubmitCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public AnswerSubmitCommand update(AnswerSubmitCommand answerSubmitCommand) {
-        log.debug("Request to update AnswerSubmitCommand : {}", answerSubmitCommand);
-        return answerSubmitCommandRepository.save(answerSubmitCommand);
+    public AnswerSubmitCommandDTO update(AnswerSubmitCommandDTO answerSubmitCommandDTO) {
+        log.debug("Request to update AnswerSubmitCommand : {}", answerSubmitCommandDTO);
+        AnswerSubmitCommand answerSubmitCommand = answerSubmitCommandMapper.toEntity(answerSubmitCommandDTO);
+        answerSubmitCommand = answerSubmitCommandRepository.save(answerSubmitCommand);
+        return answerSubmitCommandMapper.toDto(answerSubmitCommand);
     }
 
     /**
      * Partially update a answerSubmitCommand.
      *
-     * @param answerSubmitCommand the entity to update partially.
+     * @param answerSubmitCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<AnswerSubmitCommand> partialUpdate(AnswerSubmitCommand answerSubmitCommand) {
-        log.debug("Request to partially update AnswerSubmitCommand : {}", answerSubmitCommand);
+    public Optional<AnswerSubmitCommandDTO> partialUpdate(AnswerSubmitCommandDTO answerSubmitCommandDTO) {
+        log.debug("Request to partially update AnswerSubmitCommand : {}", answerSubmitCommandDTO);
 
         return answerSubmitCommandRepository
-            .findById(answerSubmitCommand.getId())
+            .findById(answerSubmitCommandDTO.getId())
             .map(existingAnswerSubmitCommand -> {
+                answerSubmitCommandMapper.partialUpdate(existingAnswerSubmitCommand, answerSubmitCommandDTO);
+
                 return existingAnswerSubmitCommand;
             })
-            .map(answerSubmitCommandRepository::save);
+            .map(answerSubmitCommandRepository::save)
+            .map(answerSubmitCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class AnswerSubmitCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<AnswerSubmitCommand> findAll() {
+    public List<AnswerSubmitCommandDTO> findAll() {
         log.debug("Request to get all AnswerSubmitCommands");
-        return answerSubmitCommandRepository.findAll();
+        return answerSubmitCommandRepository
+            .findAll()
+            .stream()
+            .map(answerSubmitCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class AnswerSubmitCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<AnswerSubmitCommand> findOne(Long id) {
+    public Optional<AnswerSubmitCommandDTO> findOne(Long id) {
         log.debug("Request to get AnswerSubmitCommand : {}", id);
-        return answerSubmitCommandRepository.findById(id);
+        return answerSubmitCommandRepository.findById(id).map(answerSubmitCommandMapper::toDto);
     }
 
     /**

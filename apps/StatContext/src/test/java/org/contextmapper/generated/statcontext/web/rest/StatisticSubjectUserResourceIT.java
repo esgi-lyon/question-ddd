@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class StatisticSubjectUserResourceIT {
 
-    private static final Long DEFAULT_USER_ID = 1L;
-    private static final Long UPDATED_USER_ID = 2L;
+    private static final String DEFAULT_MAIL = "AAAAAAAAAA";
+    private static final String UPDATED_MAIL = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/statistic-subject-users";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +61,7 @@ class StatisticSubjectUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static StatisticSubjectUser createEntity(EntityManager em) {
-        StatisticSubjectUser statisticSubjectUser = new StatisticSubjectUser().userId(DEFAULT_USER_ID);
+        StatisticSubjectUser statisticSubjectUser = new StatisticSubjectUser().mail(DEFAULT_MAIL);
         return statisticSubjectUser;
     }
 
@@ -72,7 +72,7 @@ class StatisticSubjectUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static StatisticSubjectUser createUpdatedEntity(EntityManager em) {
-        StatisticSubjectUser statisticSubjectUser = new StatisticSubjectUser().userId(UPDATED_USER_ID);
+        StatisticSubjectUser statisticSubjectUser = new StatisticSubjectUser().mail(UPDATED_MAIL);
         return statisticSubjectUser;
     }
 
@@ -93,7 +93,7 @@ class StatisticSubjectUserResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(statisticSubjectUser.getId().intValue())))
-            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID.intValue())));
+            .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL)));
     }
 
     @Test
@@ -108,7 +108,7 @@ class StatisticSubjectUserResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(statisticSubjectUser.getId().intValue()))
-            .andExpect(jsonPath("$.userId").value(DEFAULT_USER_ID.intValue()));
+            .andExpect(jsonPath("$.mail").value(DEFAULT_MAIL));
     }
 
     @Test

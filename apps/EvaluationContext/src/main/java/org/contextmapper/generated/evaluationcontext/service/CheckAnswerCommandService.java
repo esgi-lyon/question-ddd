@@ -1,9 +1,13 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand;
 import org.contextmapper.generated.evaluationcontext.repository.CheckAnswerCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.CheckAnswerCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.CheckAnswerCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class CheckAnswerCommandService {
 
     private final CheckAnswerCommandRepository checkAnswerCommandRepository;
 
-    public CheckAnswerCommandService(CheckAnswerCommandRepository checkAnswerCommandRepository) {
+    private final CheckAnswerCommandMapper checkAnswerCommandMapper;
+
+    public CheckAnswerCommandService(
+        CheckAnswerCommandRepository checkAnswerCommandRepository,
+        CheckAnswerCommandMapper checkAnswerCommandMapper
+    ) {
         this.checkAnswerCommandRepository = checkAnswerCommandRepository;
+        this.checkAnswerCommandMapper = checkAnswerCommandMapper;
     }
 
     /**
      * Save a checkAnswerCommand.
      *
-     * @param checkAnswerCommand the entity to save.
+     * @param checkAnswerCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CheckAnswerCommand save(CheckAnswerCommand checkAnswerCommand) {
-        log.debug("Request to save CheckAnswerCommand : {}", checkAnswerCommand);
-        return checkAnswerCommandRepository.save(checkAnswerCommand);
+    public CheckAnswerCommandDTO save(CheckAnswerCommandDTO checkAnswerCommandDTO) {
+        log.debug("Request to save CheckAnswerCommand : {}", checkAnswerCommandDTO);
+        CheckAnswerCommand checkAnswerCommand = checkAnswerCommandMapper.toEntity(checkAnswerCommandDTO);
+        checkAnswerCommand = checkAnswerCommandRepository.save(checkAnswerCommand);
+        return checkAnswerCommandMapper.toDto(checkAnswerCommand);
     }
 
     /**
      * Update a checkAnswerCommand.
      *
-     * @param checkAnswerCommand the entity to save.
+     * @param checkAnswerCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CheckAnswerCommand update(CheckAnswerCommand checkAnswerCommand) {
-        log.debug("Request to update CheckAnswerCommand : {}", checkAnswerCommand);
-        return checkAnswerCommandRepository.save(checkAnswerCommand);
+    public CheckAnswerCommandDTO update(CheckAnswerCommandDTO checkAnswerCommandDTO) {
+        log.debug("Request to update CheckAnswerCommand : {}", checkAnswerCommandDTO);
+        CheckAnswerCommand checkAnswerCommand = checkAnswerCommandMapper.toEntity(checkAnswerCommandDTO);
+        checkAnswerCommand = checkAnswerCommandRepository.save(checkAnswerCommand);
+        return checkAnswerCommandMapper.toDto(checkAnswerCommand);
     }
 
     /**
      * Partially update a checkAnswerCommand.
      *
-     * @param checkAnswerCommand the entity to update partially.
+     * @param checkAnswerCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<CheckAnswerCommand> partialUpdate(CheckAnswerCommand checkAnswerCommand) {
-        log.debug("Request to partially update CheckAnswerCommand : {}", checkAnswerCommand);
+    public Optional<CheckAnswerCommandDTO> partialUpdate(CheckAnswerCommandDTO checkAnswerCommandDTO) {
+        log.debug("Request to partially update CheckAnswerCommand : {}", checkAnswerCommandDTO);
 
         return checkAnswerCommandRepository
-            .findById(checkAnswerCommand.getId())
+            .findById(checkAnswerCommandDTO.getId())
             .map(existingCheckAnswerCommand -> {
+                checkAnswerCommandMapper.partialUpdate(existingCheckAnswerCommand, checkAnswerCommandDTO);
+
                 return existingCheckAnswerCommand;
             })
-            .map(checkAnswerCommandRepository::save);
+            .map(checkAnswerCommandRepository::save)
+            .map(checkAnswerCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class CheckAnswerCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<CheckAnswerCommand> findAll() {
+    public List<CheckAnswerCommandDTO> findAll() {
         log.debug("Request to get all CheckAnswerCommands");
-        return checkAnswerCommandRepository.findAll();
+        return checkAnswerCommandRepository
+            .findAll()
+            .stream()
+            .map(checkAnswerCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class CheckAnswerCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<CheckAnswerCommand> findOne(Long id) {
+    public Optional<CheckAnswerCommandDTO> findOne(Long id) {
         log.debug("Request to get CheckAnswerCommand : {}", id);
-        return checkAnswerCommandRepository.findById(id);
+        return checkAnswerCommandRepository.findById(id).map(checkAnswerCommandMapper::toDto);
     }
 
     /**

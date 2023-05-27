@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.contextmapper.generated.statcontext.domain.ViewStatsCommand;
 import org.contextmapper.generated.statcontext.repository.ViewStatsCommandRepository;
 import org.contextmapper.generated.statcontext.service.ViewStatsCommandService;
+import org.contextmapper.generated.statcontext.service.dto.ViewStatsCommandDTO;
 import org.contextmapper.generated.statcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +46,18 @@ public class ViewStatsCommandResource {
     /**
      * {@code POST  /view-stats-commands} : Create a new viewStatsCommand.
      *
-     * @param viewStatsCommand the viewStatsCommand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new viewStatsCommand, or with status {@code 400 (Bad Request)} if the viewStatsCommand has already an ID.
+     * @param viewStatsCommandDTO the viewStatsCommandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new viewStatsCommandDTO, or with status {@code 400 (Bad Request)} if the viewStatsCommand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/view-stats-commands")
-    public ResponseEntity<ViewStatsCommand> createViewStatsCommand(@RequestBody ViewStatsCommand viewStatsCommand)
+    public ResponseEntity<ViewStatsCommandDTO> createViewStatsCommand(@RequestBody ViewStatsCommandDTO viewStatsCommandDTO)
         throws URISyntaxException {
-        log.debug("REST request to save ViewStatsCommand : {}", viewStatsCommand);
-        if (viewStatsCommand.getId() != null) {
+        log.debug("REST request to save ViewStatsCommand : {}", viewStatsCommandDTO);
+        if (viewStatsCommandDTO.getId() != null) {
             throw new BadRequestAlertException("A new viewStatsCommand cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ViewStatsCommand result = viewStatsCommandService.save(viewStatsCommand);
+        ViewStatsCommandDTO result = viewStatsCommandService.save(viewStatsCommandDTO);
         return ResponseEntity
             .created(new URI("/api/view-stats-commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -67,23 +67,23 @@ public class ViewStatsCommandResource {
     /**
      * {@code PUT  /view-stats-commands/:id} : Updates an existing viewStatsCommand.
      *
-     * @param id the id of the viewStatsCommand to save.
-     * @param viewStatsCommand the viewStatsCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated viewStatsCommand,
-     * or with status {@code 400 (Bad Request)} if the viewStatsCommand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the viewStatsCommand couldn't be updated.
+     * @param id the id of the viewStatsCommandDTO to save.
+     * @param viewStatsCommandDTO the viewStatsCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated viewStatsCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the viewStatsCommandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the viewStatsCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/view-stats-commands/{id}")
-    public ResponseEntity<ViewStatsCommand> updateViewStatsCommand(
+    public ResponseEntity<ViewStatsCommandDTO> updateViewStatsCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ViewStatsCommand viewStatsCommand
+        @RequestBody ViewStatsCommandDTO viewStatsCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update ViewStatsCommand : {}, {}", id, viewStatsCommand);
-        if (viewStatsCommand.getId() == null) {
+        log.debug("REST request to update ViewStatsCommand : {}, {}", id, viewStatsCommandDTO);
+        if (viewStatsCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, viewStatsCommand.getId())) {
+        if (!Objects.equals(id, viewStatsCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -91,34 +91,34 @@ public class ViewStatsCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ViewStatsCommand result = viewStatsCommandService.update(viewStatsCommand);
+        ViewStatsCommandDTO result = viewStatsCommandService.update(viewStatsCommandDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, viewStatsCommand.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, viewStatsCommandDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /view-stats-commands/:id} : Partial updates given fields of an existing viewStatsCommand, field will ignore if it is null
      *
-     * @param id the id of the viewStatsCommand to save.
-     * @param viewStatsCommand the viewStatsCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated viewStatsCommand,
-     * or with status {@code 400 (Bad Request)} if the viewStatsCommand is not valid,
-     * or with status {@code 404 (Not Found)} if the viewStatsCommand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the viewStatsCommand couldn't be updated.
+     * @param id the id of the viewStatsCommandDTO to save.
+     * @param viewStatsCommandDTO the viewStatsCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated viewStatsCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the viewStatsCommandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the viewStatsCommandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the viewStatsCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/view-stats-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<ViewStatsCommand> partialUpdateViewStatsCommand(
+    public ResponseEntity<ViewStatsCommandDTO> partialUpdateViewStatsCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ViewStatsCommand viewStatsCommand
+        @RequestBody ViewStatsCommandDTO viewStatsCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update ViewStatsCommand partially : {}, {}", id, viewStatsCommand);
-        if (viewStatsCommand.getId() == null) {
+        log.debug("REST request to partial update ViewStatsCommand partially : {}, {}", id, viewStatsCommandDTO);
+        if (viewStatsCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, viewStatsCommand.getId())) {
+        if (!Objects.equals(id, viewStatsCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -126,11 +126,11 @@ public class ViewStatsCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ViewStatsCommand> result = viewStatsCommandService.partialUpdate(viewStatsCommand);
+        Optional<ViewStatsCommandDTO> result = viewStatsCommandService.partialUpdate(viewStatsCommandDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, viewStatsCommand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, viewStatsCommandDTO.getId().toString())
         );
     }
 
@@ -140,7 +140,7 @@ public class ViewStatsCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of viewStatsCommands in body.
      */
     @GetMapping("/view-stats-commands")
-    public List<ViewStatsCommand> getAllViewStatsCommands() {
+    public List<ViewStatsCommandDTO> getAllViewStatsCommands() {
         log.debug("REST request to get all ViewStatsCommands");
         return viewStatsCommandService.findAll();
     }
@@ -148,20 +148,20 @@ public class ViewStatsCommandResource {
     /**
      * {@code GET  /view-stats-commands/:id} : get the "id" viewStatsCommand.
      *
-     * @param id the id of the viewStatsCommand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the viewStatsCommand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the viewStatsCommandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the viewStatsCommandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/view-stats-commands/{id}")
-    public ResponseEntity<ViewStatsCommand> getViewStatsCommand(@PathVariable Long id) {
+    public ResponseEntity<ViewStatsCommandDTO> getViewStatsCommand(@PathVariable Long id) {
         log.debug("REST request to get ViewStatsCommand : {}", id);
-        Optional<ViewStatsCommand> viewStatsCommand = viewStatsCommandService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(viewStatsCommand);
+        Optional<ViewStatsCommandDTO> viewStatsCommandDTO = viewStatsCommandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(viewStatsCommandDTO);
     }
 
     /**
      * {@code DELETE  /view-stats-commands/:id} : delete the "id" viewStatsCommand.
      *
-     * @param id the id of the viewStatsCommand to delete.
+     * @param id the id of the viewStatsCommandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/view-stats-commands/{id}")

@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.skillcontext.IntegrationTest;
 import org.contextmapper.generated.skillcontext.domain.CreateTagCommand;
 import org.contextmapper.generated.skillcontext.repository.CreateTagCommandRepository;
+import org.contextmapper.generated.skillcontext.service.dto.CreateTagCommandDTO;
+import org.contextmapper.generated.skillcontext.service.mapper.CreateTagCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class CreateTagCommandResourceIT {
 
     @Autowired
     private CreateTagCommandRepository createTagCommandRepository;
+
+    @Autowired
+    private CreateTagCommandMapper createTagCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,9 +83,10 @@ class CreateTagCommandResourceIT {
     void createCreateTagCommand() throws Exception {
         int databaseSizeBeforeCreate = createTagCommandRepository.findAll().size();
         // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
         restCreateTagCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -95,13 +101,14 @@ class CreateTagCommandResourceIT {
     void createCreateTagCommandWithExistingId() throws Exception {
         // Create the CreateTagCommand with an existing ID
         createTagCommand.setId(1L);
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
 
         int databaseSizeBeforeCreate = createTagCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCreateTagCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -157,12 +164,13 @@ class CreateTagCommandResourceIT {
         CreateTagCommand updatedCreateTagCommand = createTagCommandRepository.findById(createTagCommand.getId()).get();
         // Disconnect from session so that the updates on updatedCreateTagCommand are not directly saved in db
         em.detach(updatedCreateTagCommand);
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(updatedCreateTagCommand);
 
         restCreateTagCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCreateTagCommand.getId())
+                put(ENTITY_API_URL_ID, createTagCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedCreateTagCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -178,12 +186,15 @@ class CreateTagCommandResourceIT {
         int databaseSizeBeforeUpdate = createTagCommandRepository.findAll().size();
         createTagCommand.setId(count.incrementAndGet());
 
+        // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateTagCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, createTagCommand.getId())
+                put(ENTITY_API_URL_ID, createTagCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -198,12 +209,15 @@ class CreateTagCommandResourceIT {
         int databaseSizeBeforeUpdate = createTagCommandRepository.findAll().size();
         createTagCommand.setId(count.incrementAndGet());
 
+        // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateTagCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -218,10 +232,13 @@ class CreateTagCommandResourceIT {
         int databaseSizeBeforeUpdate = createTagCommandRepository.findAll().size();
         createTagCommand.setId(count.incrementAndGet());
 
+        // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateTagCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -288,12 +305,15 @@ class CreateTagCommandResourceIT {
         int databaseSizeBeforeUpdate = createTagCommandRepository.findAll().size();
         createTagCommand.setId(count.incrementAndGet());
 
+        // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateTagCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, createTagCommand.getId())
+                patch(ENTITY_API_URL_ID, createTagCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -308,12 +328,15 @@ class CreateTagCommandResourceIT {
         int databaseSizeBeforeUpdate = createTagCommandRepository.findAll().size();
         createTagCommand.setId(count.incrementAndGet());
 
+        // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateTagCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -328,12 +351,15 @@ class CreateTagCommandResourceIT {
         int databaseSizeBeforeUpdate = createTagCommandRepository.findAll().size();
         createTagCommand.setId(count.incrementAndGet());
 
+        // Create the CreateTagCommand
+        CreateTagCommandDTO createTagCommandDTO = createTagCommandMapper.toDto(createTagCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateTagCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createTagCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createTagCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

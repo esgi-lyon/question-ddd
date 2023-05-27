@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.ValidateUserCommandRepository;
 import org.contextmapper.generated.usermanagementcontext.service.ValidateUserCommandService;
+import org.contextmapper.generated.usermanagementcontext.service.dto.ValidateUserCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +46,18 @@ public class ValidateUserCommandResource {
     /**
      * {@code POST  /validate-user-commands} : Create a new validateUserCommand.
      *
-     * @param validateUserCommand the validateUserCommand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new validateUserCommand, or with status {@code 400 (Bad Request)} if the validateUserCommand has already an ID.
+     * @param validateUserCommandDTO the validateUserCommandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new validateUserCommandDTO, or with status {@code 400 (Bad Request)} if the validateUserCommand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/validate-user-commands")
-    public ResponseEntity<ValidateUserCommand> createValidateUserCommand(@RequestBody ValidateUserCommand validateUserCommand)
+    public ResponseEntity<ValidateUserCommandDTO> createValidateUserCommand(@RequestBody ValidateUserCommandDTO validateUserCommandDTO)
         throws URISyntaxException {
-        log.debug("REST request to save ValidateUserCommand : {}", validateUserCommand);
-        if (validateUserCommand.getId() != null) {
+        log.debug("REST request to save ValidateUserCommand : {}", validateUserCommandDTO);
+        if (validateUserCommandDTO.getId() != null) {
             throw new BadRequestAlertException("A new validateUserCommand cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ValidateUserCommand result = validateUserCommandService.save(validateUserCommand);
+        ValidateUserCommandDTO result = validateUserCommandService.save(validateUserCommandDTO);
         return ResponseEntity
             .created(new URI("/api/validate-user-commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -67,23 +67,23 @@ public class ValidateUserCommandResource {
     /**
      * {@code PUT  /validate-user-commands/:id} : Updates an existing validateUserCommand.
      *
-     * @param id the id of the validateUserCommand to save.
-     * @param validateUserCommand the validateUserCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateUserCommand,
-     * or with status {@code 400 (Bad Request)} if the validateUserCommand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the validateUserCommand couldn't be updated.
+     * @param id the id of the validateUserCommandDTO to save.
+     * @param validateUserCommandDTO the validateUserCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateUserCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the validateUserCommandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the validateUserCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/validate-user-commands/{id}")
-    public ResponseEntity<ValidateUserCommand> updateValidateUserCommand(
+    public ResponseEntity<ValidateUserCommandDTO> updateValidateUserCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ValidateUserCommand validateUserCommand
+        @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update ValidateUserCommand : {}, {}", id, validateUserCommand);
-        if (validateUserCommand.getId() == null) {
+        log.debug("REST request to update ValidateUserCommand : {}, {}", id, validateUserCommandDTO);
+        if (validateUserCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, validateUserCommand.getId())) {
+        if (!Objects.equals(id, validateUserCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -91,34 +91,34 @@ public class ValidateUserCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ValidateUserCommand result = validateUserCommandService.update(validateUserCommand);
+        ValidateUserCommandDTO result = validateUserCommandService.update(validateUserCommandDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateUserCommand.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateUserCommandDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /validate-user-commands/:id} : Partial updates given fields of an existing validateUserCommand, field will ignore if it is null
      *
-     * @param id the id of the validateUserCommand to save.
-     * @param validateUserCommand the validateUserCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateUserCommand,
-     * or with status {@code 400 (Bad Request)} if the validateUserCommand is not valid,
-     * or with status {@code 404 (Not Found)} if the validateUserCommand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the validateUserCommand couldn't be updated.
+     * @param id the id of the validateUserCommandDTO to save.
+     * @param validateUserCommandDTO the validateUserCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateUserCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the validateUserCommandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the validateUserCommandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the validateUserCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/validate-user-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<ValidateUserCommand> partialUpdateValidateUserCommand(
+    public ResponseEntity<ValidateUserCommandDTO> partialUpdateValidateUserCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ValidateUserCommand validateUserCommand
+        @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update ValidateUserCommand partially : {}, {}", id, validateUserCommand);
-        if (validateUserCommand.getId() == null) {
+        log.debug("REST request to partial update ValidateUserCommand partially : {}, {}", id, validateUserCommandDTO);
+        if (validateUserCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, validateUserCommand.getId())) {
+        if (!Objects.equals(id, validateUserCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -126,11 +126,11 @@ public class ValidateUserCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ValidateUserCommand> result = validateUserCommandService.partialUpdate(validateUserCommand);
+        Optional<ValidateUserCommandDTO> result = validateUserCommandService.partialUpdate(validateUserCommandDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateUserCommand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateUserCommandDTO.getId().toString())
         );
     }
 
@@ -140,7 +140,7 @@ public class ValidateUserCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of validateUserCommands in body.
      */
     @GetMapping("/validate-user-commands")
-    public List<ValidateUserCommand> getAllValidateUserCommands() {
+    public List<ValidateUserCommandDTO> getAllValidateUserCommands() {
         log.debug("REST request to get all ValidateUserCommands");
         return validateUserCommandService.findAll();
     }
@@ -148,20 +148,20 @@ public class ValidateUserCommandResource {
     /**
      * {@code GET  /validate-user-commands/:id} : get the "id" validateUserCommand.
      *
-     * @param id the id of the validateUserCommand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the validateUserCommand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the validateUserCommandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the validateUserCommandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/validate-user-commands/{id}")
-    public ResponseEntity<ValidateUserCommand> getValidateUserCommand(@PathVariable Long id) {
+    public ResponseEntity<ValidateUserCommandDTO> getValidateUserCommand(@PathVariable Long id) {
         log.debug("REST request to get ValidateUserCommand : {}", id);
-        Optional<ValidateUserCommand> validateUserCommand = validateUserCommandService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(validateUserCommand);
+        Optional<ValidateUserCommandDTO> validateUserCommandDTO = validateUserCommandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(validateUserCommandDTO);
     }
 
     /**
      * {@code DELETE  /validate-user-commands/:id} : delete the "id" validateUserCommand.
      *
-     * @param id the id of the validateUserCommand to delete.
+     * @param id the id of the validateUserCommandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/validate-user-commands/{id}")

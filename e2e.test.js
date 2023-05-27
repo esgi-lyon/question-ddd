@@ -189,7 +189,28 @@ const prepareQuestionCommand = async (token, resourceId) => {
   return response;
 };
 
-const sendQuestionByTagsPreferences = async (token, questionSent) => {
+const userPreferencesCommand = async (token, userId, tagId) => {
+  var options = {
+    'method': 'POST',
+    'url': 'http://127.0.0.1:8084/api/user-preferences',
+    'headers': {
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    },
+    body: JSON.stringify({
+      "id": -73629986,
+      "user": {
+        "id": -14847874,
+        "userId": -40372427
+      }
+    })
+  
+  };
+  await request(options);
+  
+}
+
+const sendByPreferences = async (token, questionSent) => {
   var options = {
     method: "POST",
     url: "http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command",
@@ -364,7 +385,7 @@ const createEvaluation = async (token, answerId) => {
     createResourceId
   );
 
-  await sendQuestionByTagsPreferences(inquisitorToken, questionToSendId);
+  await sendByPreferences(inquisitorToken, questionToSendId);
 
   const answerId = await tagChoicesListCommand(studentToken, questionToSendId);
 

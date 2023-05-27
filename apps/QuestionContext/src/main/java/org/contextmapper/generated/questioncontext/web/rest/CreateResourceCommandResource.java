@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
 import org.contextmapper.generated.questioncontext.service.CreateResourceCommandService;
+import org.contextmapper.generated.questioncontext.service.dto.CreateResourceCommandDTO;
 import org.contextmapper.generated.questioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +46,19 @@ public class CreateResourceCommandResource {
     /**
      * {@code POST  /create-resource-commands} : Create a new createResourceCommand.
      *
-     * @param createResourceCommand the createResourceCommand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new createResourceCommand, or with status {@code 400 (Bad Request)} if the createResourceCommand has already an ID.
+     * @param createResourceCommandDTO the createResourceCommandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new createResourceCommandDTO, or with status {@code 400 (Bad Request)} if the createResourceCommand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/create-resource-commands")
-    public ResponseEntity<CreateResourceCommand> createCreateResourceCommand(@RequestBody CreateResourceCommand createResourceCommand)
-        throws URISyntaxException {
-        log.debug("REST request to save CreateResourceCommand : {}", createResourceCommand);
-        if (createResourceCommand.getId() != null) {
+    public ResponseEntity<CreateResourceCommandDTO> createCreateResourceCommand(
+        @RequestBody CreateResourceCommandDTO createResourceCommandDTO
+    ) throws URISyntaxException {
+        log.debug("REST request to save CreateResourceCommand : {}", createResourceCommandDTO);
+        if (createResourceCommandDTO.getId() != null) {
             throw new BadRequestAlertException("A new createResourceCommand cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CreateResourceCommand result = createResourceCommandService.save(createResourceCommand);
+        CreateResourceCommandDTO result = createResourceCommandService.save(createResourceCommandDTO);
         return ResponseEntity
             .created(new URI("/api/create-resource-commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -67,23 +68,23 @@ public class CreateResourceCommandResource {
     /**
      * {@code PUT  /create-resource-commands/:id} : Updates an existing createResourceCommand.
      *
-     * @param id the id of the createResourceCommand to save.
-     * @param createResourceCommand the createResourceCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated createResourceCommand,
-     * or with status {@code 400 (Bad Request)} if the createResourceCommand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the createResourceCommand couldn't be updated.
+     * @param id the id of the createResourceCommandDTO to save.
+     * @param createResourceCommandDTO the createResourceCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated createResourceCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the createResourceCommandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the createResourceCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/create-resource-commands/{id}")
-    public ResponseEntity<CreateResourceCommand> updateCreateResourceCommand(
+    public ResponseEntity<CreateResourceCommandDTO> updateCreateResourceCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody CreateResourceCommand createResourceCommand
+        @RequestBody CreateResourceCommandDTO createResourceCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update CreateResourceCommand : {}, {}", id, createResourceCommand);
-        if (createResourceCommand.getId() == null) {
+        log.debug("REST request to update CreateResourceCommand : {}, {}", id, createResourceCommandDTO);
+        if (createResourceCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, createResourceCommand.getId())) {
+        if (!Objects.equals(id, createResourceCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -91,34 +92,34 @@ public class CreateResourceCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        CreateResourceCommand result = createResourceCommandService.update(createResourceCommand);
+        CreateResourceCommandDTO result = createResourceCommandService.update(createResourceCommandDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, createResourceCommand.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, createResourceCommandDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /create-resource-commands/:id} : Partial updates given fields of an existing createResourceCommand, field will ignore if it is null
      *
-     * @param id the id of the createResourceCommand to save.
-     * @param createResourceCommand the createResourceCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated createResourceCommand,
-     * or with status {@code 400 (Bad Request)} if the createResourceCommand is not valid,
-     * or with status {@code 404 (Not Found)} if the createResourceCommand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the createResourceCommand couldn't be updated.
+     * @param id the id of the createResourceCommandDTO to save.
+     * @param createResourceCommandDTO the createResourceCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated createResourceCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the createResourceCommandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the createResourceCommandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the createResourceCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/create-resource-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<CreateResourceCommand> partialUpdateCreateResourceCommand(
+    public ResponseEntity<CreateResourceCommandDTO> partialUpdateCreateResourceCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody CreateResourceCommand createResourceCommand
+        @RequestBody CreateResourceCommandDTO createResourceCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update CreateResourceCommand partially : {}, {}", id, createResourceCommand);
-        if (createResourceCommand.getId() == null) {
+        log.debug("REST request to partial update CreateResourceCommand partially : {}, {}", id, createResourceCommandDTO);
+        if (createResourceCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, createResourceCommand.getId())) {
+        if (!Objects.equals(id, createResourceCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -126,11 +127,11 @@ public class CreateResourceCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<CreateResourceCommand> result = createResourceCommandService.partialUpdate(createResourceCommand);
+        Optional<CreateResourceCommandDTO> result = createResourceCommandService.partialUpdate(createResourceCommandDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, createResourceCommand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, createResourceCommandDTO.getId().toString())
         );
     }
 
@@ -140,7 +141,7 @@ public class CreateResourceCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of createResourceCommands in body.
      */
     @GetMapping("/create-resource-commands")
-    public List<CreateResourceCommand> getAllCreateResourceCommands() {
+    public List<CreateResourceCommandDTO> getAllCreateResourceCommands() {
         log.debug("REST request to get all CreateResourceCommands");
         return createResourceCommandService.findAll();
     }
@@ -148,20 +149,20 @@ public class CreateResourceCommandResource {
     /**
      * {@code GET  /create-resource-commands/:id} : get the "id" createResourceCommand.
      *
-     * @param id the id of the createResourceCommand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the createResourceCommand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the createResourceCommandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the createResourceCommandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/create-resource-commands/{id}")
-    public ResponseEntity<CreateResourceCommand> getCreateResourceCommand(@PathVariable Long id) {
+    public ResponseEntity<CreateResourceCommandDTO> getCreateResourceCommand(@PathVariable Long id) {
         log.debug("REST request to get CreateResourceCommand : {}", id);
-        Optional<CreateResourceCommand> createResourceCommand = createResourceCommandService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(createResourceCommand);
+        Optional<CreateResourceCommandDTO> createResourceCommandDTO = createResourceCommandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(createResourceCommandDTO);
     }
 
     /**
      * {@code DELETE  /create-resource-commands/:id} : delete the "id" createResourceCommand.
      *
-     * @param id the id of the createResourceCommand to delete.
+     * @param id the id of the createResourceCommandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/create-resource-commands/{id}")

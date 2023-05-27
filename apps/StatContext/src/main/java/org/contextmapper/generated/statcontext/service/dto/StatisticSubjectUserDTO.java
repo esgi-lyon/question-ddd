@@ -11,7 +11,7 @@ public class StatisticSubjectUserDTO implements Serializable {
 
     private Long id;
 
-    private Long userId;
+    private String mail;
 
     public Long getId() {
         return id;
@@ -21,12 +21,12 @@ public class StatisticSubjectUserDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class StatisticSubjectUserDTO implements Serializable {
     public String toString() {
         return "StatisticSubjectUserDTO{" +
             "id=" + getId() +
-            ", userId=" + getUserId() +
+            ", mail='" + getMail() + "'" +
             "}";
     }
 }

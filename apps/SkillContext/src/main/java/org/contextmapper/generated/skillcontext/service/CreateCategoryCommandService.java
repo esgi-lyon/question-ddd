@@ -1,9 +1,13 @@
 package org.contextmapper.generated.skillcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.skillcontext.domain.CreateCategoryCommand;
 import org.contextmapper.generated.skillcontext.repository.CreateCategoryCommandRepository;
+import org.contextmapper.generated.skillcontext.service.dto.CreateCategoryCommandDTO;
+import org.contextmapper.generated.skillcontext.service.mapper.CreateCategoryCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class CreateCategoryCommandService {
 
     private final CreateCategoryCommandRepository createCategoryCommandRepository;
 
-    public CreateCategoryCommandService(CreateCategoryCommandRepository createCategoryCommandRepository) {
+    private final CreateCategoryCommandMapper createCategoryCommandMapper;
+
+    public CreateCategoryCommandService(
+        CreateCategoryCommandRepository createCategoryCommandRepository,
+        CreateCategoryCommandMapper createCategoryCommandMapper
+    ) {
         this.createCategoryCommandRepository = createCategoryCommandRepository;
+        this.createCategoryCommandMapper = createCategoryCommandMapper;
     }
 
     /**
      * Save a createCategoryCommand.
      *
-     * @param createCategoryCommand the entity to save.
+     * @param createCategoryCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateCategoryCommand save(CreateCategoryCommand createCategoryCommand) {
-        log.debug("Request to save CreateCategoryCommand : {}", createCategoryCommand);
-        return createCategoryCommandRepository.save(createCategoryCommand);
+    public CreateCategoryCommandDTO save(CreateCategoryCommandDTO createCategoryCommandDTO) {
+        log.debug("Request to save CreateCategoryCommand : {}", createCategoryCommandDTO);
+        CreateCategoryCommand createCategoryCommand = createCategoryCommandMapper.toEntity(createCategoryCommandDTO);
+        createCategoryCommand = createCategoryCommandRepository.save(createCategoryCommand);
+        return createCategoryCommandMapper.toDto(createCategoryCommand);
     }
 
     /**
      * Update a createCategoryCommand.
      *
-     * @param createCategoryCommand the entity to save.
+     * @param createCategoryCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateCategoryCommand update(CreateCategoryCommand createCategoryCommand) {
-        log.debug("Request to update CreateCategoryCommand : {}", createCategoryCommand);
-        return createCategoryCommandRepository.save(createCategoryCommand);
+    public CreateCategoryCommandDTO update(CreateCategoryCommandDTO createCategoryCommandDTO) {
+        log.debug("Request to update CreateCategoryCommand : {}", createCategoryCommandDTO);
+        CreateCategoryCommand createCategoryCommand = createCategoryCommandMapper.toEntity(createCategoryCommandDTO);
+        createCategoryCommand = createCategoryCommandRepository.save(createCategoryCommand);
+        return createCategoryCommandMapper.toDto(createCategoryCommand);
     }
 
     /**
      * Partially update a createCategoryCommand.
      *
-     * @param createCategoryCommand the entity to update partially.
+     * @param createCategoryCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<CreateCategoryCommand> partialUpdate(CreateCategoryCommand createCategoryCommand) {
-        log.debug("Request to partially update CreateCategoryCommand : {}", createCategoryCommand);
+    public Optional<CreateCategoryCommandDTO> partialUpdate(CreateCategoryCommandDTO createCategoryCommandDTO) {
+        log.debug("Request to partially update CreateCategoryCommand : {}", createCategoryCommandDTO);
 
         return createCategoryCommandRepository
-            .findById(createCategoryCommand.getId())
+            .findById(createCategoryCommandDTO.getId())
             .map(existingCreateCategoryCommand -> {
+                createCategoryCommandMapper.partialUpdate(existingCreateCategoryCommand, createCategoryCommandDTO);
+
                 return existingCreateCategoryCommand;
             })
-            .map(createCategoryCommandRepository::save);
+            .map(createCategoryCommandRepository::save)
+            .map(createCategoryCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class CreateCategoryCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<CreateCategoryCommand> findAll() {
+    public List<CreateCategoryCommandDTO> findAll() {
         log.debug("Request to get all CreateCategoryCommands");
-        return createCategoryCommandRepository.findAll();
+        return createCategoryCommandRepository
+            .findAll()
+            .stream()
+            .map(createCategoryCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class CreateCategoryCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<CreateCategoryCommand> findOne(Long id) {
+    public Optional<CreateCategoryCommandDTO> findOne(Long id) {
         log.debug("Request to get CreateCategoryCommand : {}", id);
-        return createCategoryCommandRepository.findById(id);
+        return createCategoryCommandRepository.findById(id).map(createCategoryCommandMapper::toDto);
     }
 
     /**

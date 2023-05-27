@@ -13,6 +13,8 @@ import org.contextmapper.generated.usermanagementcontext.IntegrationTest;
 import org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand;
 import org.contextmapper.generated.usermanagementcontext.domain.enumeration.Roles;
 import org.contextmapper.generated.usermanagementcontext.repository.RegisterCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.RegisterCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.RegisterCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,9 @@ class RegisterCommandResourceIT {
 
     @Autowired
     private RegisterCommandRepository registerCommandRepository;
+
+    @Autowired
+    private RegisterCommandMapper registerCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -104,9 +109,10 @@ class RegisterCommandResourceIT {
     void createRegisterCommand() throws Exception {
         int databaseSizeBeforeCreate = registerCommandRepository.findAll().size();
         // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
         restRegisterCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -126,13 +132,14 @@ class RegisterCommandResourceIT {
     void createRegisterCommandWithExistingId() throws Exception {
         // Create the RegisterCommand with an existing ID
         registerCommand.setId(1L);
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
 
         int databaseSizeBeforeCreate = registerCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRegisterCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -204,12 +211,13 @@ class RegisterCommandResourceIT {
             .mail(UPDATED_MAIL)
             .password(UPDATED_PASSWORD)
             .role(UPDATED_ROLE);
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(updatedRegisterCommand);
 
         restRegisterCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedRegisterCommand.getId())
+                put(ENTITY_API_URL_ID, registerCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedRegisterCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -230,12 +238,15 @@ class RegisterCommandResourceIT {
         int databaseSizeBeforeUpdate = registerCommandRepository.findAll().size();
         registerCommand.setId(count.incrementAndGet());
 
+        // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRegisterCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, registerCommand.getId())
+                put(ENTITY_API_URL_ID, registerCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -250,12 +261,15 @@ class RegisterCommandResourceIT {
         int databaseSizeBeforeUpdate = registerCommandRepository.findAll().size();
         registerCommand.setId(count.incrementAndGet());
 
+        // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRegisterCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -270,10 +284,13 @@ class RegisterCommandResourceIT {
         int databaseSizeBeforeUpdate = registerCommandRepository.findAll().size();
         registerCommand.setId(count.incrementAndGet());
 
+        // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRegisterCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -359,12 +376,15 @@ class RegisterCommandResourceIT {
         int databaseSizeBeforeUpdate = registerCommandRepository.findAll().size();
         registerCommand.setId(count.incrementAndGet());
 
+        // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRegisterCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, registerCommand.getId())
+                patch(ENTITY_API_URL_ID, registerCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -379,12 +399,15 @@ class RegisterCommandResourceIT {
         int databaseSizeBeforeUpdate = registerCommandRepository.findAll().size();
         registerCommand.setId(count.incrementAndGet());
 
+        // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRegisterCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -399,12 +422,15 @@ class RegisterCommandResourceIT {
         int databaseSizeBeforeUpdate = registerCommandRepository.findAll().size();
         registerCommand.setId(count.incrementAndGet());
 
+        // Create the RegisterCommand
+        RegisterCommandDTO registerCommandDTO = registerCommandMapper.toDto(registerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRegisterCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(registerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(registerCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

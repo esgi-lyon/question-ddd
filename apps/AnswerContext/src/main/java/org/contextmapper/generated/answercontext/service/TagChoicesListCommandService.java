@@ -1,9 +1,13 @@
 package org.contextmapper.generated.answercontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.answercontext.domain.TagChoicesListCommand;
 import org.contextmapper.generated.answercontext.repository.TagChoicesListCommandRepository;
+import org.contextmapper.generated.answercontext.service.dto.TagChoicesListCommandDTO;
+import org.contextmapper.generated.answercontext.service.mapper.TagChoicesListCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class TagChoicesListCommandService {
 
     private final TagChoicesListCommandRepository tagChoicesListCommandRepository;
 
-    public TagChoicesListCommandService(TagChoicesListCommandRepository tagChoicesListCommandRepository) {
+    private final TagChoicesListCommandMapper tagChoicesListCommandMapper;
+
+    public TagChoicesListCommandService(
+        TagChoicesListCommandRepository tagChoicesListCommandRepository,
+        TagChoicesListCommandMapper tagChoicesListCommandMapper
+    ) {
         this.tagChoicesListCommandRepository = tagChoicesListCommandRepository;
+        this.tagChoicesListCommandMapper = tagChoicesListCommandMapper;
     }
 
     /**
      * Save a tagChoicesListCommand.
      *
-     * @param tagChoicesListCommand the entity to save.
+     * @param tagChoicesListCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public TagChoicesListCommand save(TagChoicesListCommand tagChoicesListCommand) {
-        log.debug("Request to save TagChoicesListCommand : {}", tagChoicesListCommand);
-        return tagChoicesListCommandRepository.save(tagChoicesListCommand);
+    public TagChoicesListCommandDTO save(TagChoicesListCommandDTO tagChoicesListCommandDTO) {
+        log.debug("Request to save TagChoicesListCommand : {}", tagChoicesListCommandDTO);
+        TagChoicesListCommand tagChoicesListCommand = tagChoicesListCommandMapper.toEntity(tagChoicesListCommandDTO);
+        tagChoicesListCommand = tagChoicesListCommandRepository.save(tagChoicesListCommand);
+        return tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
     }
 
     /**
      * Update a tagChoicesListCommand.
      *
-     * @param tagChoicesListCommand the entity to save.
+     * @param tagChoicesListCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public TagChoicesListCommand update(TagChoicesListCommand tagChoicesListCommand) {
-        log.debug("Request to update TagChoicesListCommand : {}", tagChoicesListCommand);
-        return tagChoicesListCommandRepository.save(tagChoicesListCommand);
+    public TagChoicesListCommandDTO update(TagChoicesListCommandDTO tagChoicesListCommandDTO) {
+        log.debug("Request to update TagChoicesListCommand : {}", tagChoicesListCommandDTO);
+        TagChoicesListCommand tagChoicesListCommand = tagChoicesListCommandMapper.toEntity(tagChoicesListCommandDTO);
+        tagChoicesListCommand = tagChoicesListCommandRepository.save(tagChoicesListCommand);
+        return tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
     }
 
     /**
      * Partially update a tagChoicesListCommand.
      *
-     * @param tagChoicesListCommand the entity to update partially.
+     * @param tagChoicesListCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<TagChoicesListCommand> partialUpdate(TagChoicesListCommand tagChoicesListCommand) {
-        log.debug("Request to partially update TagChoicesListCommand : {}", tagChoicesListCommand);
+    public Optional<TagChoicesListCommandDTO> partialUpdate(TagChoicesListCommandDTO tagChoicesListCommandDTO) {
+        log.debug("Request to partially update TagChoicesListCommand : {}", tagChoicesListCommandDTO);
 
         return tagChoicesListCommandRepository
-            .findById(tagChoicesListCommand.getId())
+            .findById(tagChoicesListCommandDTO.getId())
             .map(existingTagChoicesListCommand -> {
+                tagChoicesListCommandMapper.partialUpdate(existingTagChoicesListCommand, tagChoicesListCommandDTO);
+
                 return existingTagChoicesListCommand;
             })
-            .map(tagChoicesListCommandRepository::save);
+            .map(tagChoicesListCommandRepository::save)
+            .map(tagChoicesListCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class TagChoicesListCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<TagChoicesListCommand> findAll() {
+    public List<TagChoicesListCommandDTO> findAll() {
         log.debug("Request to get all TagChoicesListCommands");
-        return tagChoicesListCommandRepository.findAll();
+        return tagChoicesListCommandRepository
+            .findAll()
+            .stream()
+            .map(tagChoicesListCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class TagChoicesListCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<TagChoicesListCommand> findOne(Long id) {
+    public Optional<TagChoicesListCommandDTO> findOne(Long id) {
         log.debug("Request to get TagChoicesListCommand : {}", id);
-        return tagChoicesListCommandRepository.findById(id);
+        return tagChoicesListCommandRepository.findById(id).map(tagChoicesListCommandMapper::toDto);
     }
 
     /**

@@ -1,9 +1,13 @@
 package org.contextmapper.generated.usermanagementcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.ValidateUserCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.ValidateUserCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.ValidateUserCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class ValidateUserCommandService {
 
     private final ValidateUserCommandRepository validateUserCommandRepository;
 
-    public ValidateUserCommandService(ValidateUserCommandRepository validateUserCommandRepository) {
+    private final ValidateUserCommandMapper validateUserCommandMapper;
+
+    public ValidateUserCommandService(
+        ValidateUserCommandRepository validateUserCommandRepository,
+        ValidateUserCommandMapper validateUserCommandMapper
+    ) {
         this.validateUserCommandRepository = validateUserCommandRepository;
+        this.validateUserCommandMapper = validateUserCommandMapper;
     }
 
     /**
      * Save a validateUserCommand.
      *
-     * @param validateUserCommand the entity to save.
+     * @param validateUserCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public ValidateUserCommand save(ValidateUserCommand validateUserCommand) {
-        log.debug("Request to save ValidateUserCommand : {}", validateUserCommand);
-        return validateUserCommandRepository.save(validateUserCommand);
+    public ValidateUserCommandDTO save(ValidateUserCommandDTO validateUserCommandDTO) {
+        log.debug("Request to save ValidateUserCommand : {}", validateUserCommandDTO);
+        ValidateUserCommand validateUserCommand = validateUserCommandMapper.toEntity(validateUserCommandDTO);
+        validateUserCommand = validateUserCommandRepository.save(validateUserCommand);
+        return validateUserCommandMapper.toDto(validateUserCommand);
     }
 
     /**
      * Update a validateUserCommand.
      *
-     * @param validateUserCommand the entity to save.
+     * @param validateUserCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public ValidateUserCommand update(ValidateUserCommand validateUserCommand) {
-        log.debug("Request to update ValidateUserCommand : {}", validateUserCommand);
-        return validateUserCommandRepository.save(validateUserCommand);
+    public ValidateUserCommandDTO update(ValidateUserCommandDTO validateUserCommandDTO) {
+        log.debug("Request to update ValidateUserCommand : {}", validateUserCommandDTO);
+        ValidateUserCommand validateUserCommand = validateUserCommandMapper.toEntity(validateUserCommandDTO);
+        validateUserCommand = validateUserCommandRepository.save(validateUserCommand);
+        return validateUserCommandMapper.toDto(validateUserCommand);
     }
 
     /**
      * Partially update a validateUserCommand.
      *
-     * @param validateUserCommand the entity to update partially.
+     * @param validateUserCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<ValidateUserCommand> partialUpdate(ValidateUserCommand validateUserCommand) {
-        log.debug("Request to partially update ValidateUserCommand : {}", validateUserCommand);
+    public Optional<ValidateUserCommandDTO> partialUpdate(ValidateUserCommandDTO validateUserCommandDTO) {
+        log.debug("Request to partially update ValidateUserCommand : {}", validateUserCommandDTO);
 
         return validateUserCommandRepository
-            .findById(validateUserCommand.getId())
+            .findById(validateUserCommandDTO.getId())
             .map(existingValidateUserCommand -> {
+                validateUserCommandMapper.partialUpdate(existingValidateUserCommand, validateUserCommandDTO);
+
                 return existingValidateUserCommand;
             })
-            .map(validateUserCommandRepository::save);
+            .map(validateUserCommandRepository::save)
+            .map(validateUserCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class ValidateUserCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<ValidateUserCommand> findAll() {
+    public List<ValidateUserCommandDTO> findAll() {
         log.debug("Request to get all ValidateUserCommands");
-        return validateUserCommandRepository.findAll();
+        return validateUserCommandRepository
+            .findAll()
+            .stream()
+            .map(validateUserCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class ValidateUserCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<ValidateUserCommand> findOne(Long id) {
+    public Optional<ValidateUserCommandDTO> findOne(Long id) {
         log.debug("Request to get ValidateUserCommand : {}", id);
-        return validateUserCommandRepository.findById(id);
+        return validateUserCommandRepository.findById(id).map(validateUserCommandMapper::toDto);
     }
 
     /**

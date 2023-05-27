@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.questioncontext.IntegrationTest;
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
+import org.contextmapper.generated.questioncontext.service.dto.CreateResourceCommandDTO;
+import org.contextmapper.generated.questioncontext.service.mapper.CreateResourceCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class CreateResourceCommandResourceIT {
 
     @Autowired
     private CreateResourceCommandRepository createResourceCommandRepository;
+
+    @Autowired
+    private CreateResourceCommandMapper createResourceCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,12 @@ class CreateResourceCommandResourceIT {
     void createCreateResourceCommand() throws Exception {
         int databaseSizeBeforeCreate = createResourceCommandRepository.findAll().size();
         // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
         restCreateResourceCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -97,6 +103,7 @@ class CreateResourceCommandResourceIT {
     void createCreateResourceCommandWithExistingId() throws Exception {
         // Create the CreateResourceCommand with an existing ID
         createResourceCommand.setId(1L);
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
 
         int databaseSizeBeforeCreate = createResourceCommandRepository.findAll().size();
 
@@ -105,7 +112,7 @@ class CreateResourceCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -161,12 +168,13 @@ class CreateResourceCommandResourceIT {
         CreateResourceCommand updatedCreateResourceCommand = createResourceCommandRepository.findById(createResourceCommand.getId()).get();
         // Disconnect from session so that the updates on updatedCreateResourceCommand are not directly saved in db
         em.detach(updatedCreateResourceCommand);
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(updatedCreateResourceCommand);
 
         restCreateResourceCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCreateResourceCommand.getId())
+                put(ENTITY_API_URL_ID, createResourceCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedCreateResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -182,12 +190,15 @@ class CreateResourceCommandResourceIT {
         int databaseSizeBeforeUpdate = createResourceCommandRepository.findAll().size();
         createResourceCommand.setId(count.incrementAndGet());
 
+        // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateResourceCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, createResourceCommand.getId())
+                put(ENTITY_API_URL_ID, createResourceCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -202,12 +213,15 @@ class CreateResourceCommandResourceIT {
         int databaseSizeBeforeUpdate = createResourceCommandRepository.findAll().size();
         createResourceCommand.setId(count.incrementAndGet());
 
+        // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateResourceCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -222,12 +236,15 @@ class CreateResourceCommandResourceIT {
         int databaseSizeBeforeUpdate = createResourceCommandRepository.findAll().size();
         createResourceCommand.setId(count.incrementAndGet());
 
+        // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateResourceCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -294,12 +311,15 @@ class CreateResourceCommandResourceIT {
         int databaseSizeBeforeUpdate = createResourceCommandRepository.findAll().size();
         createResourceCommand.setId(count.incrementAndGet());
 
+        // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateResourceCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, createResourceCommand.getId())
+                patch(ENTITY_API_URL_ID, createResourceCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -314,12 +334,15 @@ class CreateResourceCommandResourceIT {
         int databaseSizeBeforeUpdate = createResourceCommandRepository.findAll().size();
         createResourceCommand.setId(count.incrementAndGet());
 
+        // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateResourceCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -334,12 +357,15 @@ class CreateResourceCommandResourceIT {
         int databaseSizeBeforeUpdate = createResourceCommandRepository.findAll().size();
         createResourceCommand.setId(count.incrementAndGet());
 
+        // Create the CreateResourceCommand
+        CreateResourceCommandDTO createResourceCommandDTO = createResourceCommandMapper.toDto(createResourceCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateResourceCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createResourceCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

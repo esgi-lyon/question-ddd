@@ -43,8 +43,8 @@ class QuestionSentResourceIT {
     private static final LocalDate DEFAULT_ANSWERED_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_ANSWERED_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final QuestionNotificationStatus DEFAULT_STATUS = QuestionNotificationStatus.SENT;
-    private static final QuestionNotificationStatus UPDATED_STATUS = QuestionNotificationStatus.VIEWED;
+    private static final QuestionNotificationStatus DEFAULT_STATUS = QuestionNotificationStatus.PREPARING;
+    private static final QuestionNotificationStatus UPDATED_STATUS = QuestionNotificationStatus.SENT;
 
     private static final String ENTITY_API_URL = "/api/question-sents";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

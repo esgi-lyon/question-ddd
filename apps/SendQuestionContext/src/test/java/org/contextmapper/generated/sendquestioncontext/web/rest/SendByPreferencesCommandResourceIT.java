@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.sendquestioncontext.IntegrationTest;
 import org.contextmapper.generated.sendquestioncontext.domain.SendByPreferencesCommand;
 import org.contextmapper.generated.sendquestioncontext.repository.SendByPreferencesCommandRepository;
+import org.contextmapper.generated.sendquestioncontext.service.dto.SendByPreferencesCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.SendByPreferencesCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class SendByPreferencesCommandResourceIT {
 
     @Autowired
     private SendByPreferencesCommandRepository sendByPreferencesCommandRepository;
+
+    @Autowired
+    private SendByPreferencesCommandMapper sendByPreferencesCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,12 @@ class SendByPreferencesCommandResourceIT {
     void createSendByPreferencesCommand() throws Exception {
         int databaseSizeBeforeCreate = sendByPreferencesCommandRepository.findAll().size();
         // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
         restSendByPreferencesCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -97,6 +103,7 @@ class SendByPreferencesCommandResourceIT {
     void createSendByPreferencesCommandWithExistingId() throws Exception {
         // Create the SendByPreferencesCommand with an existing ID
         sendByPreferencesCommand.setId(1L);
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
 
         int databaseSizeBeforeCreate = sendByPreferencesCommandRepository.findAll().size();
 
@@ -105,7 +112,7 @@ class SendByPreferencesCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -163,12 +170,13 @@ class SendByPreferencesCommandResourceIT {
             .get();
         // Disconnect from session so that the updates on updatedSendByPreferencesCommand are not directly saved in db
         em.detach(updatedSendByPreferencesCommand);
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(updatedSendByPreferencesCommand);
 
         restSendByPreferencesCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedSendByPreferencesCommand.getId())
+                put(ENTITY_API_URL_ID, sendByPreferencesCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedSendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -184,12 +192,15 @@ class SendByPreferencesCommandResourceIT {
         int databaseSizeBeforeUpdate = sendByPreferencesCommandRepository.findAll().size();
         sendByPreferencesCommand.setId(count.incrementAndGet());
 
+        // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSendByPreferencesCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, sendByPreferencesCommand.getId())
+                put(ENTITY_API_URL_ID, sendByPreferencesCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -204,12 +215,15 @@ class SendByPreferencesCommandResourceIT {
         int databaseSizeBeforeUpdate = sendByPreferencesCommandRepository.findAll().size();
         sendByPreferencesCommand.setId(count.incrementAndGet());
 
+        // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSendByPreferencesCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -224,12 +238,15 @@ class SendByPreferencesCommandResourceIT {
         int databaseSizeBeforeUpdate = sendByPreferencesCommandRepository.findAll().size();
         sendByPreferencesCommand.setId(count.incrementAndGet());
 
+        // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSendByPreferencesCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -296,12 +313,15 @@ class SendByPreferencesCommandResourceIT {
         int databaseSizeBeforeUpdate = sendByPreferencesCommandRepository.findAll().size();
         sendByPreferencesCommand.setId(count.incrementAndGet());
 
+        // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restSendByPreferencesCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, sendByPreferencesCommand.getId())
+                patch(ENTITY_API_URL_ID, sendByPreferencesCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -316,12 +336,15 @@ class SendByPreferencesCommandResourceIT {
         int databaseSizeBeforeUpdate = sendByPreferencesCommandRepository.findAll().size();
         sendByPreferencesCommand.setId(count.incrementAndGet());
 
+        // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSendByPreferencesCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -336,12 +359,15 @@ class SendByPreferencesCommandResourceIT {
         int databaseSizeBeforeUpdate = sendByPreferencesCommandRepository.findAll().size();
         sendByPreferencesCommand.setId(count.incrementAndGet());
 
+        // Create the SendByPreferencesCommand
+        SendByPreferencesCommandDTO sendByPreferencesCommandDTO = sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restSendByPreferencesCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(sendByPreferencesCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

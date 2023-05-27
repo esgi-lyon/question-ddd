@@ -1,9 +1,13 @@
 package org.contextmapper.generated.statcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.statcontext.domain.ViewStatsCommand;
 import org.contextmapper.generated.statcontext.repository.ViewStatsCommandRepository;
+import org.contextmapper.generated.statcontext.service.dto.ViewStatsCommandDTO;
+import org.contextmapper.generated.statcontext.service.mapper.ViewStatsCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,57 @@ public class ViewStatsCommandService {
 
     private final ViewStatsCommandRepository viewStatsCommandRepository;
 
-    public ViewStatsCommandService(ViewStatsCommandRepository viewStatsCommandRepository) {
+    private final ViewStatsCommandMapper viewStatsCommandMapper;
+
+    public ViewStatsCommandService(ViewStatsCommandRepository viewStatsCommandRepository, ViewStatsCommandMapper viewStatsCommandMapper) {
         this.viewStatsCommandRepository = viewStatsCommandRepository;
+        this.viewStatsCommandMapper = viewStatsCommandMapper;
     }
 
     /**
      * Save a viewStatsCommand.
      *
-     * @param viewStatsCommand the entity to save.
+     * @param viewStatsCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public ViewStatsCommand save(ViewStatsCommand viewStatsCommand) {
-        log.debug("Request to save ViewStatsCommand : {}", viewStatsCommand);
-        return viewStatsCommandRepository.save(viewStatsCommand);
+    public ViewStatsCommandDTO save(ViewStatsCommandDTO viewStatsCommandDTO) {
+        log.debug("Request to save ViewStatsCommand : {}", viewStatsCommandDTO);
+        ViewStatsCommand viewStatsCommand = viewStatsCommandMapper.toEntity(viewStatsCommandDTO);
+        viewStatsCommand = viewStatsCommandRepository.save(viewStatsCommand);
+        return viewStatsCommandMapper.toDto(viewStatsCommand);
     }
 
     /**
      * Update a viewStatsCommand.
      *
-     * @param viewStatsCommand the entity to save.
+     * @param viewStatsCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public ViewStatsCommand update(ViewStatsCommand viewStatsCommand) {
-        log.debug("Request to update ViewStatsCommand : {}", viewStatsCommand);
-        return viewStatsCommandRepository.save(viewStatsCommand);
+    public ViewStatsCommandDTO update(ViewStatsCommandDTO viewStatsCommandDTO) {
+        log.debug("Request to update ViewStatsCommand : {}", viewStatsCommandDTO);
+        ViewStatsCommand viewStatsCommand = viewStatsCommandMapper.toEntity(viewStatsCommandDTO);
+        viewStatsCommand = viewStatsCommandRepository.save(viewStatsCommand);
+        return viewStatsCommandMapper.toDto(viewStatsCommand);
     }
 
     /**
      * Partially update a viewStatsCommand.
      *
-     * @param viewStatsCommand the entity to update partially.
+     * @param viewStatsCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<ViewStatsCommand> partialUpdate(ViewStatsCommand viewStatsCommand) {
-        log.debug("Request to partially update ViewStatsCommand : {}", viewStatsCommand);
+    public Optional<ViewStatsCommandDTO> partialUpdate(ViewStatsCommandDTO viewStatsCommandDTO) {
+        log.debug("Request to partially update ViewStatsCommand : {}", viewStatsCommandDTO);
 
         return viewStatsCommandRepository
-            .findById(viewStatsCommand.getId())
+            .findById(viewStatsCommandDTO.getId())
             .map(existingViewStatsCommand -> {
+                viewStatsCommandMapper.partialUpdate(existingViewStatsCommand, viewStatsCommandDTO);
+
                 return existingViewStatsCommand;
             })
-            .map(viewStatsCommandRepository::save);
+            .map(viewStatsCommandRepository::save)
+            .map(viewStatsCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +83,13 @@ public class ViewStatsCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<ViewStatsCommand> findAll() {
+    public List<ViewStatsCommandDTO> findAll() {
         log.debug("Request to get all ViewStatsCommands");
-        return viewStatsCommandRepository.findAll();
+        return viewStatsCommandRepository
+            .findAll()
+            .stream()
+            .map(viewStatsCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +99,9 @@ public class ViewStatsCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<ViewStatsCommand> findOne(Long id) {
+    public Optional<ViewStatsCommandDTO> findOne(Long id) {
         log.debug("Request to get ViewStatsCommand : {}", id);
-        return viewStatsCommandRepository.findById(id);
+        return viewStatsCommandRepository.findById(id).map(viewStatsCommandMapper::toDto);
     }
 
     /**

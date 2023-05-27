@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.contextmapper.generated.questioncontext.domain.ValidateResourceTagLinkageCommand;
 import org.contextmapper.generated.questioncontext.repository.ValidateResourceTagLinkageCommandRepository;
 import org.contextmapper.generated.questioncontext.service.ValidateResourceTagLinkageCommandService;
+import org.contextmapper.generated.questioncontext.service.dto.ValidateResourceTagLinkageCommandDTO;
 import org.contextmapper.generated.questioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,23 +46,23 @@ public class ValidateResourceTagLinkageCommandResource {
     /**
      * {@code POST  /validate-resource-tag-linkage-commands} : Create a new validateResourceTagLinkageCommand.
      *
-     * @param validateResourceTagLinkageCommand the validateResourceTagLinkageCommand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new validateResourceTagLinkageCommand, or with status {@code 400 (Bad Request)} if the validateResourceTagLinkageCommand has already an ID.
+     * @param validateResourceTagLinkageCommandDTO the validateResourceTagLinkageCommandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new validateResourceTagLinkageCommandDTO, or with status {@code 400 (Bad Request)} if the validateResourceTagLinkageCommand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/validate-resource-tag-linkage-commands")
-    public ResponseEntity<ValidateResourceTagLinkageCommand> createValidateResourceTagLinkageCommand(
-        @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+    public ResponseEntity<ValidateResourceTagLinkageCommandDTO> createValidateResourceTagLinkageCommand(
+        @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to save ValidateResourceTagLinkageCommand : {}", validateResourceTagLinkageCommand);
-        if (validateResourceTagLinkageCommand.getId() != null) {
+        log.debug("REST request to save ValidateResourceTagLinkageCommand : {}", validateResourceTagLinkageCommandDTO);
+        if (validateResourceTagLinkageCommandDTO.getId() != null) {
             throw new BadRequestAlertException(
                 "A new validateResourceTagLinkageCommand cannot already have an ID",
                 ENTITY_NAME,
                 "idexists"
             );
         }
-        ValidateResourceTagLinkageCommand result = validateResourceTagLinkageCommandService.save(validateResourceTagLinkageCommand);
+        ValidateResourceTagLinkageCommandDTO result = validateResourceTagLinkageCommandService.save(validateResourceTagLinkageCommandDTO);
         return ResponseEntity
             .created(new URI("/api/validate-resource-tag-linkage-commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -72,23 +72,23 @@ public class ValidateResourceTagLinkageCommandResource {
     /**
      * {@code PUT  /validate-resource-tag-linkage-commands/:id} : Updates an existing validateResourceTagLinkageCommand.
      *
-     * @param id the id of the validateResourceTagLinkageCommand to save.
-     * @param validateResourceTagLinkageCommand the validateResourceTagLinkageCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateResourceTagLinkageCommand,
-     * or with status {@code 400 (Bad Request)} if the validateResourceTagLinkageCommand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the validateResourceTagLinkageCommand couldn't be updated.
+     * @param id the id of the validateResourceTagLinkageCommandDTO to save.
+     * @param validateResourceTagLinkageCommandDTO the validateResourceTagLinkageCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateResourceTagLinkageCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the validateResourceTagLinkageCommandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the validateResourceTagLinkageCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/validate-resource-tag-linkage-commands/{id}")
-    public ResponseEntity<ValidateResourceTagLinkageCommand> updateValidateResourceTagLinkageCommand(
+    public ResponseEntity<ValidateResourceTagLinkageCommandDTO> updateValidateResourceTagLinkageCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+        @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update ValidateResourceTagLinkageCommand : {}, {}", id, validateResourceTagLinkageCommand);
-        if (validateResourceTagLinkageCommand.getId() == null) {
+        log.debug("REST request to update ValidateResourceTagLinkageCommand : {}, {}", id, validateResourceTagLinkageCommandDTO);
+        if (validateResourceTagLinkageCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, validateResourceTagLinkageCommand.getId())) {
+        if (!Objects.equals(id, validateResourceTagLinkageCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -96,11 +96,16 @@ public class ValidateResourceTagLinkageCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ValidateResourceTagLinkageCommand result = validateResourceTagLinkageCommandService.update(validateResourceTagLinkageCommand);
+        ValidateResourceTagLinkageCommandDTO result = validateResourceTagLinkageCommandService.update(validateResourceTagLinkageCommandDTO);
         return ResponseEntity
             .ok()
             .headers(
-                HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateResourceTagLinkageCommand.getId().toString())
+                HeaderUtil.createEntityUpdateAlert(
+                    applicationName,
+                    true,
+                    ENTITY_NAME,
+                    validateResourceTagLinkageCommandDTO.getId().toString()
+                )
             )
             .body(result);
     }
@@ -108,28 +113,28 @@ public class ValidateResourceTagLinkageCommandResource {
     /**
      * {@code PATCH  /validate-resource-tag-linkage-commands/:id} : Partial updates given fields of an existing validateResourceTagLinkageCommand, field will ignore if it is null
      *
-     * @param id the id of the validateResourceTagLinkageCommand to save.
-     * @param validateResourceTagLinkageCommand the validateResourceTagLinkageCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateResourceTagLinkageCommand,
-     * or with status {@code 400 (Bad Request)} if the validateResourceTagLinkageCommand is not valid,
-     * or with status {@code 404 (Not Found)} if the validateResourceTagLinkageCommand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the validateResourceTagLinkageCommand couldn't be updated.
+     * @param id the id of the validateResourceTagLinkageCommandDTO to save.
+     * @param validateResourceTagLinkageCommandDTO the validateResourceTagLinkageCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated validateResourceTagLinkageCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the validateResourceTagLinkageCommandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the validateResourceTagLinkageCommandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the validateResourceTagLinkageCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/validate-resource-tag-linkage-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<ValidateResourceTagLinkageCommand> partialUpdateValidateResourceTagLinkageCommand(
+    public ResponseEntity<ValidateResourceTagLinkageCommandDTO> partialUpdateValidateResourceTagLinkageCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+        @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     ) throws URISyntaxException {
         log.debug(
             "REST request to partial update ValidateResourceTagLinkageCommand partially : {}, {}",
             id,
-            validateResourceTagLinkageCommand
+            validateResourceTagLinkageCommandDTO
         );
-        if (validateResourceTagLinkageCommand.getId() == null) {
+        if (validateResourceTagLinkageCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, validateResourceTagLinkageCommand.getId())) {
+        if (!Objects.equals(id, validateResourceTagLinkageCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -137,13 +142,13 @@ public class ValidateResourceTagLinkageCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<ValidateResourceTagLinkageCommand> result = validateResourceTagLinkageCommandService.partialUpdate(
-            validateResourceTagLinkageCommand
+        Optional<ValidateResourceTagLinkageCommandDTO> result = validateResourceTagLinkageCommandService.partialUpdate(
+            validateResourceTagLinkageCommandDTO
         );
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateResourceTagLinkageCommand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, validateResourceTagLinkageCommandDTO.getId().toString())
         );
     }
 
@@ -153,7 +158,7 @@ public class ValidateResourceTagLinkageCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of validateResourceTagLinkageCommands in body.
      */
     @GetMapping("/validate-resource-tag-linkage-commands")
-    public List<ValidateResourceTagLinkageCommand> getAllValidateResourceTagLinkageCommands() {
+    public List<ValidateResourceTagLinkageCommandDTO> getAllValidateResourceTagLinkageCommands() {
         log.debug("REST request to get all ValidateResourceTagLinkageCommands");
         return validateResourceTagLinkageCommandService.findAll();
     }
@@ -161,22 +166,22 @@ public class ValidateResourceTagLinkageCommandResource {
     /**
      * {@code GET  /validate-resource-tag-linkage-commands/:id} : get the "id" validateResourceTagLinkageCommand.
      *
-     * @param id the id of the validateResourceTagLinkageCommand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the validateResourceTagLinkageCommand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the validateResourceTagLinkageCommandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the validateResourceTagLinkageCommandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/validate-resource-tag-linkage-commands/{id}")
-    public ResponseEntity<ValidateResourceTagLinkageCommand> getValidateResourceTagLinkageCommand(@PathVariable Long id) {
+    public ResponseEntity<ValidateResourceTagLinkageCommandDTO> getValidateResourceTagLinkageCommand(@PathVariable Long id) {
         log.debug("REST request to get ValidateResourceTagLinkageCommand : {}", id);
-        Optional<ValidateResourceTagLinkageCommand> validateResourceTagLinkageCommand = validateResourceTagLinkageCommandService.findOne(
+        Optional<ValidateResourceTagLinkageCommandDTO> validateResourceTagLinkageCommandDTO = validateResourceTagLinkageCommandService.findOne(
             id
         );
-        return ResponseUtil.wrapOrNotFound(validateResourceTagLinkageCommand);
+        return ResponseUtil.wrapOrNotFound(validateResourceTagLinkageCommandDTO);
     }
 
     /**
      * {@code DELETE  /validate-resource-tag-linkage-commands/:id} : delete the "id" validateResourceTagLinkageCommand.
      *
-     * @param id the id of the validateResourceTagLinkageCommand to delete.
+     * @param id the id of the validateResourceTagLinkageCommandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/validate-resource-tag-linkage-commands/{id}")

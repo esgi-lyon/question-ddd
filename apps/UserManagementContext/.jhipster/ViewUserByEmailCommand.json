@@ -1,0 +1,23 @@
+{
+  "applications": ["UserManagementContext"],
+  "changelogDate": "20230526114532",
+  "clientRootFolder": "UserManagementContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "view_user_by_email_command",
+  "fields": [
+    {
+      "fieldName": "mail",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "UserManagementContext",
+  "name": "ViewUserByEmailCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

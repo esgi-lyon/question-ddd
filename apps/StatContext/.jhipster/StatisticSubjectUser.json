@@ -8,8 +8,8 @@
   "entityTableName": "statistic_subject_user",
   "fields": [
     {
-      "fieldName": "userId",
-      "fieldType": "Long"
+      "fieldName": "mail",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

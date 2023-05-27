@@ -22,9 +22,6 @@ public class AnsweringUser implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
-
     @Column(name = "name")
     private String name;
 
@@ -41,19 +38,6 @@ public class AnsweringUser implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return this.userId;
-    }
-
-    public AnsweringUser userId(Long userId) {
-        this.setUserId(userId);
-        return this;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getName() {
@@ -93,7 +77,6 @@ public class AnsweringUser implements Serializable {
     public String toString() {
         return "AnsweringUser{" +
             "id=" + getId() +
-            ", userId=" + getUserId() +
             ", name='" + getName() + "'" +
             "}";
     }

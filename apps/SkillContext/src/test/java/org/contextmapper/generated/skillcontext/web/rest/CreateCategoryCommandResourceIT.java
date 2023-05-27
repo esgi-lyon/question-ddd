@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.skillcontext.IntegrationTest;
 import org.contextmapper.generated.skillcontext.domain.CreateCategoryCommand;
 import org.contextmapper.generated.skillcontext.repository.CreateCategoryCommandRepository;
+import org.contextmapper.generated.skillcontext.service.dto.CreateCategoryCommandDTO;
+import org.contextmapper.generated.skillcontext.service.mapper.CreateCategoryCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class CreateCategoryCommandResourceIT {
 
     @Autowired
     private CreateCategoryCommandRepository createCategoryCommandRepository;
+
+    @Autowired
+    private CreateCategoryCommandMapper createCategoryCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,12 @@ class CreateCategoryCommandResourceIT {
     void createCreateCategoryCommand() throws Exception {
         int databaseSizeBeforeCreate = createCategoryCommandRepository.findAll().size();
         // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
         restCreateCategoryCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -97,6 +103,7 @@ class CreateCategoryCommandResourceIT {
     void createCreateCategoryCommandWithExistingId() throws Exception {
         // Create the CreateCategoryCommand with an existing ID
         createCategoryCommand.setId(1L);
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
 
         int databaseSizeBeforeCreate = createCategoryCommandRepository.findAll().size();
 
@@ -105,7 +112,7 @@ class CreateCategoryCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -161,12 +168,13 @@ class CreateCategoryCommandResourceIT {
         CreateCategoryCommand updatedCreateCategoryCommand = createCategoryCommandRepository.findById(createCategoryCommand.getId()).get();
         // Disconnect from session so that the updates on updatedCreateCategoryCommand are not directly saved in db
         em.detach(updatedCreateCategoryCommand);
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(updatedCreateCategoryCommand);
 
         restCreateCategoryCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCreateCategoryCommand.getId())
+                put(ENTITY_API_URL_ID, createCategoryCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedCreateCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -182,12 +190,15 @@ class CreateCategoryCommandResourceIT {
         int databaseSizeBeforeUpdate = createCategoryCommandRepository.findAll().size();
         createCategoryCommand.setId(count.incrementAndGet());
 
+        // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateCategoryCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, createCategoryCommand.getId())
+                put(ENTITY_API_URL_ID, createCategoryCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -202,12 +213,15 @@ class CreateCategoryCommandResourceIT {
         int databaseSizeBeforeUpdate = createCategoryCommandRepository.findAll().size();
         createCategoryCommand.setId(count.incrementAndGet());
 
+        // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateCategoryCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -222,12 +236,15 @@ class CreateCategoryCommandResourceIT {
         int databaseSizeBeforeUpdate = createCategoryCommandRepository.findAll().size();
         createCategoryCommand.setId(count.incrementAndGet());
 
+        // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateCategoryCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -294,12 +311,15 @@ class CreateCategoryCommandResourceIT {
         int databaseSizeBeforeUpdate = createCategoryCommandRepository.findAll().size();
         createCategoryCommand.setId(count.incrementAndGet());
 
+        // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateCategoryCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, createCategoryCommand.getId())
+                patch(ENTITY_API_URL_ID, createCategoryCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -314,12 +334,15 @@ class CreateCategoryCommandResourceIT {
         int databaseSizeBeforeUpdate = createCategoryCommandRepository.findAll().size();
         createCategoryCommand.setId(count.incrementAndGet());
 
+        // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateCategoryCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -334,12 +357,15 @@ class CreateCategoryCommandResourceIT {
         int databaseSizeBeforeUpdate = createCategoryCommandRepository.findAll().size();
         createCategoryCommand.setId(count.incrementAndGet());
 
+        // Create the CreateCategoryCommand
+        CreateCategoryCommandDTO createCategoryCommandDTO = createCategoryCommandMapper.toDto(createCategoryCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateCategoryCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createCategoryCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

@@ -1,11 +1,11 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
-import org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand;
 import org.contextmapper.generated.evaluationcontext.domain.enumeration.Status;
 import org.contextmapper.generated.evaluationcontext.repository.CheckAnswerCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.CheckAnswerCommandDTO;
 import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationDTO;
 import org.contextmapper.generated.evaluationcontext.service.dto.AnswerCheckedEventDTO;
-import org.contextmapper.generated.evaluationcontext.service.mapper.AnswerCheckedMapper;
+import org.contextmapper.generated.evaluationcontext.service.mapper.CheckAnswerCommandMapper;
 import org.contextmapper.generated.evaluationcontext.service.mapper.EvaluatedAnswerMapper;
 import org.contextmapper.generated.evaluationcontext.service.mapper.EvaluationMapper;
 import org.slf4j.LoggerFactory;
@@ -24,25 +24,18 @@ public class CheckAnswerCommandHandler extends CheckAnswerCommandService {
 
     private final AnswerCheckedEventService answerCheckedEventService;
 
-    private final EvaluationMapper evaluationMapper;
-
-    private final EvaluatedAnswerMapper evaluatedAnswerMapper;
-
     public CheckAnswerCommandHandler(
         CheckAnswerCommandRepository checkAnswerCommandRepository,
         EvaluationService evaluationService,
         AnswerCheckedEventService answerCheckedEventService,
-        EvaluationMapper evaluationMapper,
-        EvaluatedAnswerMapper evaluatedAnswerMapper
+        CheckAnswerCommandMapper checkAnswerCommandMapper
     ) {
-        super(checkAnswerCommandRepository);
+        super(checkAnswerCommandRepository, checkAnswerCommandMapper);
         this.evaluationService = evaluationService;
         this.answerCheckedEventService = answerCheckedEventService;
-        this.evaluationMapper = evaluationMapper;
-        this.evaluatedAnswerMapper = evaluatedAnswerMapper;
     }
 
-    public CheckAnswerCommand handleCheckAnswerCommand(CheckAnswerCommand checkAnswerCommand) {
+    public CheckAnswerCommandDTO handleCheckAnswerCommand(CheckAnswerCommandDTO checkAnswerCommand) {
         log.info("Handle command to check answer");
         final var evaluationDTO = new EvaluationDTO();
 
@@ -58,9 +51,8 @@ public class CheckAnswerCommandHandler extends CheckAnswerCommandService {
 
         final var answerCheckedEventDTO = new AnswerCheckedEventDTO();
         evaluationDTO.setId(saved.getId());
-        answerCheckedEventDTO.setAnswer(evaluatedAnswerMapper.toDto(checkAnswerCommand.getAnswer()));
+        answerCheckedEventDTO.setAnswer(checkAnswerCommand.getAnswer());
         answerCheckedEventService.save(answerCheckedEventDTO);
-
 
         return save(checkAnswerCommand);
     }

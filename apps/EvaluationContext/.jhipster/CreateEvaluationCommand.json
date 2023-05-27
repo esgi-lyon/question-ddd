@@ -3,7 +3,7 @@
   "changelogDate": "20230422154002",
   "clientRootFolder": "EvaluationContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "create_evaluation_command",
   "fields": [],

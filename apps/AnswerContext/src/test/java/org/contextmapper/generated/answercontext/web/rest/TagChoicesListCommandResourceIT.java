@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.answercontext.IntegrationTest;
 import org.contextmapper.generated.answercontext.domain.TagChoicesListCommand;
 import org.contextmapper.generated.answercontext.repository.TagChoicesListCommandRepository;
+import org.contextmapper.generated.answercontext.service.dto.TagChoicesListCommandDTO;
+import org.contextmapper.generated.answercontext.service.mapper.TagChoicesListCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class TagChoicesListCommandResourceIT {
 
     @Autowired
     private TagChoicesListCommandRepository tagChoicesListCommandRepository;
+
+    @Autowired
+    private TagChoicesListCommandMapper tagChoicesListCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,12 @@ class TagChoicesListCommandResourceIT {
     void createTagChoicesListCommand() throws Exception {
         int databaseSizeBeforeCreate = tagChoicesListCommandRepository.findAll().size();
         // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
         restTagChoicesListCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -97,6 +103,7 @@ class TagChoicesListCommandResourceIT {
     void createTagChoicesListCommandWithExistingId() throws Exception {
         // Create the TagChoicesListCommand with an existing ID
         tagChoicesListCommand.setId(1L);
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
 
         int databaseSizeBeforeCreate = tagChoicesListCommandRepository.findAll().size();
 
@@ -105,7 +112,7 @@ class TagChoicesListCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -161,12 +168,13 @@ class TagChoicesListCommandResourceIT {
         TagChoicesListCommand updatedTagChoicesListCommand = tagChoicesListCommandRepository.findById(tagChoicesListCommand.getId()).get();
         // Disconnect from session so that the updates on updatedTagChoicesListCommand are not directly saved in db
         em.detach(updatedTagChoicesListCommand);
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(updatedTagChoicesListCommand);
 
         restTagChoicesListCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedTagChoicesListCommand.getId())
+                put(ENTITY_API_URL_ID, tagChoicesListCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedTagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -182,12 +190,15 @@ class TagChoicesListCommandResourceIT {
         int databaseSizeBeforeUpdate = tagChoicesListCommandRepository.findAll().size();
         tagChoicesListCommand.setId(count.incrementAndGet());
 
+        // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restTagChoicesListCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, tagChoicesListCommand.getId())
+                put(ENTITY_API_URL_ID, tagChoicesListCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -202,12 +213,15 @@ class TagChoicesListCommandResourceIT {
         int databaseSizeBeforeUpdate = tagChoicesListCommandRepository.findAll().size();
         tagChoicesListCommand.setId(count.incrementAndGet());
 
+        // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTagChoicesListCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -222,12 +236,15 @@ class TagChoicesListCommandResourceIT {
         int databaseSizeBeforeUpdate = tagChoicesListCommandRepository.findAll().size();
         tagChoicesListCommand.setId(count.incrementAndGet());
 
+        // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTagChoicesListCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -294,12 +311,15 @@ class TagChoicesListCommandResourceIT {
         int databaseSizeBeforeUpdate = tagChoicesListCommandRepository.findAll().size();
         tagChoicesListCommand.setId(count.incrementAndGet());
 
+        // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restTagChoicesListCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, tagChoicesListCommand.getId())
+                patch(ENTITY_API_URL_ID, tagChoicesListCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -314,12 +334,15 @@ class TagChoicesListCommandResourceIT {
         int databaseSizeBeforeUpdate = tagChoicesListCommandRepository.findAll().size();
         tagChoicesListCommand.setId(count.incrementAndGet());
 
+        // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTagChoicesListCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -334,12 +357,15 @@ class TagChoicesListCommandResourceIT {
         int databaseSizeBeforeUpdate = tagChoicesListCommandRepository.findAll().size();
         tagChoicesListCommand.setId(count.incrementAndGet());
 
+        // Create the TagChoicesListCommand
+        TagChoicesListCommandDTO tagChoicesListCommandDTO = tagChoicesListCommandMapper.toDto(tagChoicesListCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restTagChoicesListCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(tagChoicesListCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

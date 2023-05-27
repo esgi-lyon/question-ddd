@@ -23,8 +23,8 @@
             <column name="answered_tag_id" type="bigint">
                 <constraints nullable="true" unique="true" uniqueConstraintName="ux_answer__answered_tag_id" />
             </column>
-            <column name="user_id_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_answer__user_id_id" />
+            <column name="user_email_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_answer__user_email_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>

@@ -8,8 +8,8 @@
   "entityTableName": "user_with_preferences_id",
   "fields": [
     {
-      "fieldName": "userId",
-      "fieldType": "Long"
+      "fieldName": "mail",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

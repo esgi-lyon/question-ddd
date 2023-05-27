@@ -1,9 +1,9 @@
 package org.contextmapper.generated.usermanagementcontext.web.rest;
 
-import org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand;
-import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
 import org.contextmapper.generated.usermanagementcontext.service.RegisterCommandHandlerService;
 import org.contextmapper.generated.usermanagementcontext.service.ValidateUserCommandHandlerService;
+import org.contextmapper.generated.usermanagementcontext.service.dto.RegisterCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.dto.ValidateUserCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +50,12 @@ public class CommandHandlerResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/register-command")
-    public ResponseEntity<RegisterCommand> handleRegisterCommand(@RequestBody RegisterCommand registerCommand) throws URISyntaxException {
+    public ResponseEntity<RegisterCommandDTO> handleRegisterCommand(@RequestBody RegisterCommandDTO registerCommand) throws URISyntaxException {
         log.debug("REST request to save RegisterCommand : {}", registerCommand);
         if (registerCommand.getId() != null) {
             throw new BadRequestAlertException("A new registerCommand cannot already have an ID", REGISTER_ENTITY_NAME, "idexists");
         }
-        RegisterCommand result = registerCommandHandlerService.handleRegister(registerCommand);
+        RegisterCommandDTO result = registerCommandHandlerService.handleRegister(registerCommand);
         return ResponseEntity
             .created(new URI("/api/handlers/register-command/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, REGISTER_ENTITY_NAME, result.getId().toString()))
@@ -63,7 +63,7 @@ public class CommandHandlerResource {
     }
 
     @PostMapping("/validate-user-command")
-    public ResponseEntity<ValidateUserCommand> handleRegisterCommand(@RequestBody ValidateUserCommand userCommand) throws URISyntaxException {
+    public ResponseEntity<ValidateUserCommandDTO> handleRegisterCommand(@RequestBody ValidateUserCommandDTO userCommand) throws URISyntaxException {
         log.debug("REST request to save RegisterCommand : {}", userCommand);
         if (userCommand.getId() != null) {
             throw new BadRequestAlertException("A new registerCommand cannot already have an ID", REGISTER_ENTITY_NAME, "idexists");

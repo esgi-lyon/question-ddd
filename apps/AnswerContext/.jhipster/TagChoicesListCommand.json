@@ -3,7 +3,7 @@
   "changelogDate": "20230422153602",
   "clientRootFolder": "AnswerContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "tag_choices_list_command",
   "fields": [],

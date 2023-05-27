@@ -1,9 +1,13 @@
 package org.contextmapper.generated.sendquestioncontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionCommand;
 import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestionCommandRepository;
+import org.contextmapper.generated.sendquestioncontext.service.dto.PrepareQuestionCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.PrepareQuestionCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,51 +24,60 @@ public class PrepareQuestionCommandService {
 
     private final PrepareQuestionCommandRepository prepareQuestionCommandRepository;
 
-    public PrepareQuestionCommandService(PrepareQuestionCommandRepository prepareQuestionCommandRepository) {
+    private final PrepareQuestionCommandMapper prepareQuestionCommandMapper;
+
+    public PrepareQuestionCommandService(
+        PrepareQuestionCommandRepository prepareQuestionCommandRepository,
+        PrepareQuestionCommandMapper prepareQuestionCommandMapper
+    ) {
         this.prepareQuestionCommandRepository = prepareQuestionCommandRepository;
+        this.prepareQuestionCommandMapper = prepareQuestionCommandMapper;
     }
 
     /**
      * Save a prepareQuestionCommand.
      *
-     * @param prepareQuestionCommand the entity to save.
+     * @param prepareQuestionCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public PrepareQuestionCommand save(PrepareQuestionCommand prepareQuestionCommand) {
-        log.debug("Request to save PrepareQuestionCommand : {}", prepareQuestionCommand);
-        return prepareQuestionCommandRepository.save(prepareQuestionCommand);
+    public PrepareQuestionCommandDTO save(PrepareQuestionCommandDTO prepareQuestionCommandDTO) {
+        log.debug("Request to save PrepareQuestionCommand : {}", prepareQuestionCommandDTO);
+        PrepareQuestionCommand prepareQuestionCommand = prepareQuestionCommandMapper.toEntity(prepareQuestionCommandDTO);
+        prepareQuestionCommand = prepareQuestionCommandRepository.save(prepareQuestionCommand);
+        return prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
     }
 
     /**
      * Update a prepareQuestionCommand.
      *
-     * @param prepareQuestionCommand the entity to save.
+     * @param prepareQuestionCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public PrepareQuestionCommand update(PrepareQuestionCommand prepareQuestionCommand) {
-        log.debug("Request to update PrepareQuestionCommand : {}", prepareQuestionCommand);
-        return prepareQuestionCommandRepository.save(prepareQuestionCommand);
+    public PrepareQuestionCommandDTO update(PrepareQuestionCommandDTO prepareQuestionCommandDTO) {
+        log.debug("Request to update PrepareQuestionCommand : {}", prepareQuestionCommandDTO);
+        PrepareQuestionCommand prepareQuestionCommand = prepareQuestionCommandMapper.toEntity(prepareQuestionCommandDTO);
+        prepareQuestionCommand = prepareQuestionCommandRepository.save(prepareQuestionCommand);
+        return prepareQuestionCommandMapper.toDto(prepareQuestionCommand);
     }
 
     /**
      * Partially update a prepareQuestionCommand.
      *
-     * @param prepareQuestionCommand the entity to update partially.
+     * @param prepareQuestionCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<PrepareQuestionCommand> partialUpdate(PrepareQuestionCommand prepareQuestionCommand) {
-        log.debug("Request to partially update PrepareQuestionCommand : {}", prepareQuestionCommand);
+    public Optional<PrepareQuestionCommandDTO> partialUpdate(PrepareQuestionCommandDTO prepareQuestionCommandDTO) {
+        log.debug("Request to partially update PrepareQuestionCommand : {}", prepareQuestionCommandDTO);
 
         return prepareQuestionCommandRepository
-            .findById(prepareQuestionCommand.getId())
+            .findById(prepareQuestionCommandDTO.getId())
             .map(existingPrepareQuestionCommand -> {
-                if (prepareQuestionCommand.getResourceId() != null) {
-                    existingPrepareQuestionCommand.setResourceId(prepareQuestionCommand.getResourceId());
-                }
+                prepareQuestionCommandMapper.partialUpdate(existingPrepareQuestionCommand, prepareQuestionCommandDTO);
 
                 return existingPrepareQuestionCommand;
             })
-            .map(prepareQuestionCommandRepository::save);
+            .map(prepareQuestionCommandRepository::save)
+            .map(prepareQuestionCommandMapper::toDto);
     }
 
     /**
@@ -73,9 +86,13 @@ public class PrepareQuestionCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<PrepareQuestionCommand> findAll() {
+    public List<PrepareQuestionCommandDTO> findAll() {
         log.debug("Request to get all PrepareQuestionCommands");
-        return prepareQuestionCommandRepository.findAll();
+        return prepareQuestionCommandRepository
+            .findAll()
+            .stream()
+            .map(prepareQuestionCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -85,9 +102,9 @@ public class PrepareQuestionCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<PrepareQuestionCommand> findOne(Long id) {
+    public Optional<PrepareQuestionCommandDTO> findOne(Long id) {
         log.debug("Request to get PrepareQuestionCommand : {}", id);
-        return prepareQuestionCommandRepository.findById(id);
+        return prepareQuestionCommandRepository.findById(id).map(prepareQuestionCommandMapper::toDto);
     }
 
     /**

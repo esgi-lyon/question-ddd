@@ -1,9 +1,13 @@
 package org.contextmapper.generated.questioncontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
+import org.contextmapper.generated.questioncontext.service.dto.CreateResourceCommandDTO;
+import org.contextmapper.generated.questioncontext.service.mapper.CreateResourceCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class CreateResourceCommandService {
 
     private final CreateResourceCommandRepository createResourceCommandRepository;
 
-    public CreateResourceCommandService(CreateResourceCommandRepository createResourceCommandRepository) {
+    private final CreateResourceCommandMapper createResourceCommandMapper;
+
+    public CreateResourceCommandService(
+        CreateResourceCommandRepository createResourceCommandRepository,
+        CreateResourceCommandMapper createResourceCommandMapper
+    ) {
         this.createResourceCommandRepository = createResourceCommandRepository;
+        this.createResourceCommandMapper = createResourceCommandMapper;
     }
 
     /**
      * Save a createResourceCommand.
      *
-     * @param createResourceCommand the entity to save.
+     * @param createResourceCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateResourceCommand save(CreateResourceCommand createResourceCommand) {
-        log.debug("Request to save CreateResourceCommand : {}", createResourceCommand);
-        return createResourceCommandRepository.save(createResourceCommand);
+    public CreateResourceCommandDTO save(CreateResourceCommandDTO createResourceCommandDTO) {
+        log.debug("Request to save CreateResourceCommand : {}", createResourceCommandDTO);
+        CreateResourceCommand createResourceCommand = createResourceCommandMapper.toEntity(createResourceCommandDTO);
+        createResourceCommand = createResourceCommandRepository.save(createResourceCommand);
+        return createResourceCommandMapper.toDto(createResourceCommand);
     }
 
     /**
      * Update a createResourceCommand.
      *
-     * @param createResourceCommand the entity to save.
+     * @param createResourceCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateResourceCommand update(CreateResourceCommand createResourceCommand) {
-        log.debug("Request to update CreateResourceCommand : {}", createResourceCommand);
-        return createResourceCommandRepository.save(createResourceCommand);
+    public CreateResourceCommandDTO update(CreateResourceCommandDTO createResourceCommandDTO) {
+        log.debug("Request to update CreateResourceCommand : {}", createResourceCommandDTO);
+        CreateResourceCommand createResourceCommand = createResourceCommandMapper.toEntity(createResourceCommandDTO);
+        createResourceCommand = createResourceCommandRepository.save(createResourceCommand);
+        return createResourceCommandMapper.toDto(createResourceCommand);
     }
 
     /**
      * Partially update a createResourceCommand.
      *
-     * @param createResourceCommand the entity to update partially.
+     * @param createResourceCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<CreateResourceCommand> partialUpdate(CreateResourceCommand createResourceCommand) {
-        log.debug("Request to partially update CreateResourceCommand : {}", createResourceCommand);
+    public Optional<CreateResourceCommandDTO> partialUpdate(CreateResourceCommandDTO createResourceCommandDTO) {
+        log.debug("Request to partially update CreateResourceCommand : {}", createResourceCommandDTO);
 
         return createResourceCommandRepository
-            .findById(createResourceCommand.getId())
+            .findById(createResourceCommandDTO.getId())
             .map(existingCreateResourceCommand -> {
+                createResourceCommandMapper.partialUpdate(existingCreateResourceCommand, createResourceCommandDTO);
+
                 return existingCreateResourceCommand;
             })
-            .map(createResourceCommandRepository::save);
+            .map(createResourceCommandRepository::save)
+            .map(createResourceCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class CreateResourceCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<CreateResourceCommand> findAll() {
+    public List<CreateResourceCommandDTO> findAll() {
         log.debug("Request to get all CreateResourceCommands");
-        return createResourceCommandRepository.findAll();
+        return createResourceCommandRepository
+            .findAll()
+            .stream()
+            .map(createResourceCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class CreateResourceCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<CreateResourceCommand> findOne(Long id) {
+    public Optional<CreateResourceCommandDTO> findOne(Long id) {
         log.debug("Request to get CreateResourceCommand : {}", id);
-        return createResourceCommandRepository.findById(id);
+        return createResourceCommandRepository.findById(id).map(createResourceCommandMapper::toDto);
     }
 
     /**

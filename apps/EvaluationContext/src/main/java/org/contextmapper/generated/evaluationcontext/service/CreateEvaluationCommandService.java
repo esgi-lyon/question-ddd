@@ -1,9 +1,13 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand;
 import org.contextmapper.generated.evaluationcontext.repository.CreateEvaluationCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.CreateEvaluationCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.CreateEvaluationCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class CreateEvaluationCommandService {
 
     private final CreateEvaluationCommandRepository createEvaluationCommandRepository;
 
-    public CreateEvaluationCommandService(CreateEvaluationCommandRepository createEvaluationCommandRepository) {
+    private final CreateEvaluationCommandMapper createEvaluationCommandMapper;
+
+    public CreateEvaluationCommandService(
+        CreateEvaluationCommandRepository createEvaluationCommandRepository,
+        CreateEvaluationCommandMapper createEvaluationCommandMapper
+    ) {
         this.createEvaluationCommandRepository = createEvaluationCommandRepository;
+        this.createEvaluationCommandMapper = createEvaluationCommandMapper;
     }
 
     /**
      * Save a createEvaluationCommand.
      *
-     * @param createEvaluationCommand the entity to save.
+     * @param createEvaluationCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateEvaluationCommand save(CreateEvaluationCommand createEvaluationCommand) {
-        log.debug("Request to save CreateEvaluationCommand : {}", createEvaluationCommand);
-        return createEvaluationCommandRepository.save(createEvaluationCommand);
+    public CreateEvaluationCommandDTO save(CreateEvaluationCommandDTO createEvaluationCommandDTO) {
+        log.debug("Request to save CreateEvaluationCommand : {}", createEvaluationCommandDTO);
+        CreateEvaluationCommand createEvaluationCommand = createEvaluationCommandMapper.toEntity(createEvaluationCommandDTO);
+        createEvaluationCommand = createEvaluationCommandRepository.save(createEvaluationCommand);
+        return createEvaluationCommandMapper.toDto(createEvaluationCommand);
     }
 
     /**
      * Update a createEvaluationCommand.
      *
-     * @param createEvaluationCommand the entity to save.
+     * @param createEvaluationCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateEvaluationCommand update(CreateEvaluationCommand createEvaluationCommand) {
-        log.debug("Request to update CreateEvaluationCommand : {}", createEvaluationCommand);
-        return createEvaluationCommandRepository.save(createEvaluationCommand);
+    public CreateEvaluationCommandDTO update(CreateEvaluationCommandDTO createEvaluationCommandDTO) {
+        log.debug("Request to update CreateEvaluationCommand : {}", createEvaluationCommandDTO);
+        CreateEvaluationCommand createEvaluationCommand = createEvaluationCommandMapper.toEntity(createEvaluationCommandDTO);
+        createEvaluationCommand = createEvaluationCommandRepository.save(createEvaluationCommand);
+        return createEvaluationCommandMapper.toDto(createEvaluationCommand);
     }
 
     /**
      * Partially update a createEvaluationCommand.
      *
-     * @param createEvaluationCommand the entity to update partially.
+     * @param createEvaluationCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<CreateEvaluationCommand> partialUpdate(CreateEvaluationCommand createEvaluationCommand) {
-        log.debug("Request to partially update CreateEvaluationCommand : {}", createEvaluationCommand);
+    public Optional<CreateEvaluationCommandDTO> partialUpdate(CreateEvaluationCommandDTO createEvaluationCommandDTO) {
+        log.debug("Request to partially update CreateEvaluationCommand : {}", createEvaluationCommandDTO);
 
         return createEvaluationCommandRepository
-            .findById(createEvaluationCommand.getId())
+            .findById(createEvaluationCommandDTO.getId())
             .map(existingCreateEvaluationCommand -> {
+                createEvaluationCommandMapper.partialUpdate(existingCreateEvaluationCommand, createEvaluationCommandDTO);
+
                 return existingCreateEvaluationCommand;
             })
-            .map(createEvaluationCommandRepository::save);
+            .map(createEvaluationCommandRepository::save)
+            .map(createEvaluationCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class CreateEvaluationCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<CreateEvaluationCommand> findAll() {
+    public List<CreateEvaluationCommandDTO> findAll() {
         log.debug("Request to get all CreateEvaluationCommands");
-        return createEvaluationCommandRepository.findAll();
+        return createEvaluationCommandRepository
+            .findAll()
+            .stream()
+            .map(createEvaluationCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class CreateEvaluationCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<CreateEvaluationCommand> findOne(Long id) {
+    public Optional<CreateEvaluationCommandDTO> findOne(Long id) {
         log.debug("Request to get CreateEvaluationCommand : {}", id);
-        return createEvaluationCommandRepository.findById(id);
+        return createEvaluationCommandRepository.findById(id).map(createEvaluationCommandMapper::toDto);
     }
 
     /**

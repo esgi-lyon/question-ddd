@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluationCommand;
 import org.contextmapper.generated.evaluationcontext.repository.AwardPointForEvaluationCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.AwardPointForEvaluationCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.AwardPointForEvaluationCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class AwardPointForEvaluationCommandResourceIT {
 
     @Autowired
     private AwardPointForEvaluationCommandRepository awardPointForEvaluationCommandRepository;
+
+    @Autowired
+    private AwardPointForEvaluationCommandMapper awardPointForEvaluationCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,14 @@ class AwardPointForEvaluationCommandResourceIT {
     void createAwardPointForEvaluationCommand() throws Exception {
         int databaseSizeBeforeCreate = awardPointForEvaluationCommandRepository.findAll().size();
         // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
         restAwardPointForEvaluationCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -99,6 +107,9 @@ class AwardPointForEvaluationCommandResourceIT {
     void createAwardPointForEvaluationCommandWithExistingId() throws Exception {
         // Create the AwardPointForEvaluationCommand with an existing ID
         awardPointForEvaluationCommand.setId(1L);
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
 
         int databaseSizeBeforeCreate = awardPointForEvaluationCommandRepository.findAll().size();
 
@@ -107,7 +118,7 @@ class AwardPointForEvaluationCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -165,12 +176,15 @@ class AwardPointForEvaluationCommandResourceIT {
             .get();
         // Disconnect from session so that the updates on updatedAwardPointForEvaluationCommand are not directly saved in db
         em.detach(updatedAwardPointForEvaluationCommand);
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            updatedAwardPointForEvaluationCommand
+        );
 
         restAwardPointForEvaluationCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedAwardPointForEvaluationCommand.getId())
+                put(ENTITY_API_URL_ID, awardPointForEvaluationCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedAwardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -188,12 +202,17 @@ class AwardPointForEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = awardPointForEvaluationCommandRepository.findAll().size();
         awardPointForEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAwardPointForEvaluationCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, awardPointForEvaluationCommand.getId())
+                put(ENTITY_API_URL_ID, awardPointForEvaluationCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -208,12 +227,17 @@ class AwardPointForEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = awardPointForEvaluationCommandRepository.findAll().size();
         awardPointForEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAwardPointForEvaluationCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -228,12 +252,17 @@ class AwardPointForEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = awardPointForEvaluationCommandRepository.findAll().size();
         awardPointForEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAwardPointForEvaluationCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -304,12 +333,17 @@ class AwardPointForEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = awardPointForEvaluationCommandRepository.findAll().size();
         awardPointForEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAwardPointForEvaluationCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, awardPointForEvaluationCommand.getId())
+                patch(ENTITY_API_URL_ID, awardPointForEvaluationCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -324,12 +358,17 @@ class AwardPointForEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = awardPointForEvaluationCommandRepository.findAll().size();
         awardPointForEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAwardPointForEvaluationCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -344,12 +383,17 @@ class AwardPointForEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = awardPointForEvaluationCommandRepository.findAll().size();
         awardPointForEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the AwardPointForEvaluationCommand
+        AwardPointForEvaluationCommandDTO awardPointForEvaluationCommandDTO = awardPointForEvaluationCommandMapper.toDto(
+            awardPointForEvaluationCommand
+        );
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restAwardPointForEvaluationCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(awardPointForEvaluationCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

@@ -1,9 +1,10 @@
 package org.contextmapper.generated.sendquestioncontext.service;
 
-import org.contextmapper.generated.sendquestioncontext.domain.SendByPreferencesCommand;
 import org.contextmapper.generated.sendquestioncontext.repository.SendByPreferencesCommandRepository;
 import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.SendByPreferencesCommandDTO;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.SendByPreferencesCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -29,18 +30,19 @@ public class SendByPreferencesCommandHandler extends SendByPreferencesCommandSer
             QuestionSentService questionSentService,
             NotifiedQuestionEventService notifiedQuestionEventService,
             QuestionSentMapper questionSentMapper,
-            UserPreferencesService userPreferencesService
+            UserPreferencesService userPreferencesService,
+            SendByPreferencesCommandMapper sendByPreferencesCommandMapper
     ) {
-        super(sendQuestionByTagsPreferencesCommandRepository);
+        super(sendQuestionByTagsPreferencesCommandRepository, sendByPreferencesCommandMapper);
         this.questionSentService = questionSentService;
         this.notifiedQuestionEventService = notifiedQuestionEventService;
         this.questionSentMapper = questionSentMapper;
         this.userPreferencesService = userPreferencesService;
     }
 
-    public SendByPreferencesCommand handleSendQuestionByTagsPreferencesCommand(QuestionSentDTO questionSentDTO) {
+    public SendByPreferencesCommandDTO handleSendQuestionByTagsPreferencesCommand(QuestionSentDTO questionSentDTO) {
         log.info("Handle command to send question by tags preferences");
-
+        final var commandDTO = new SendByPreferencesCommandDTO();
         /*
         UserPreferencesDTO userPreferences = userPreferencesService.getUserPreferences(questionSentDTO.getUser().getUserId());  // Get user preferences
 
@@ -60,7 +62,8 @@ public class SendByPreferencesCommandHandler extends SendByPreferencesCommandSer
         }
         */
 
+        commandDTO.setQuestionToSend(questionSentDTO);
 
-        return save(new SendByPreferencesCommand().questionToSend(questionSentMapper.toEntity(questionSentDTO)));
+        return save(new SendByPreferencesCommandDTO());
     }
 }

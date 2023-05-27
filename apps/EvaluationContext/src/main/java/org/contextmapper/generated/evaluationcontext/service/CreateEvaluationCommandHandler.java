@@ -1,15 +1,16 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
-import org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.api.AnswerResourceApi;
 import org.contextmapper.generated.evaluationcontext.repository.CreateEvaluationCommandRepository;
-import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationDTO;
-import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationCreatedEventDTO;
-import org.contextmapper.generated.evaluationcontext.service.mapper.EvaluationMapper;
+import org.contextmapper.generated.evaluationcontext.service.dto.*;
+import org.contextmapper.generated.evaluationcontext.service.mapper.CreateEvaluationCommandMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
+
+import java.util.Optional;
 
 @Primary
 @Service
@@ -21,33 +22,54 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
 
     private final EvaluationCreatedEventService evaluationCreatedEventService;
 
-    private final EvaluationMapper evaluationMapper;
+    private final AnsweringUserService answeringUserService;
+
+    private final AnswerResourceApi answerResourceApi;
+    private final EvaluationQuestionService evaluationQuestionService;
 
     public CreateEvaluationCommandHandler(
         CreateEvaluationCommandRepository createEvaluationCommandRepository,
         EvaluationService evaluationService,
         EvaluationCreatedEventService evaluationCreatedEventService,
-        EvaluationMapper evaluationMapper
-    ) {
-        super(createEvaluationCommandRepository);
+        CreateEvaluationCommandMapper createEvaluationCommandMapper,
+        AnsweringUserService answeringUserService,
+        AnswerResourceApi answerResourceApi,
+        EvaluationQuestionService evaluationQuestionService) {
+        super(createEvaluationCommandRepository, createEvaluationCommandMapper);
         this.evaluationService = evaluationService;
         this.evaluationCreatedEventService = evaluationCreatedEventService;
-        this.evaluationMapper = evaluationMapper;
+        this.answeringUserService = answeringUserService;
+        this.answerResourceApi = answerResourceApi;
+        this.evaluationQuestionService = evaluationQuestionService;
     }
 
-    public CreateEvaluationCommand handleCreateEvaluationCommand(EvaluationDTO evaluationDTO) {
+    public EvaluationCreatedEventDTO handleCreateEvaluationCommand(CreateEvaluationCommandDTO evaluationCommandDTO) {
         log.info("Handle command to create evaluation");
-        CreateEvaluationCommand createEvaluationCommand = new CreateEvaluationCommand();
+        final var createEvaluation = new EvaluationDTO();
 
-        final var saved = evaluationService.save(evaluationDTO);
+        final var answerId = evaluationCommandDTO.getAnswer().getAnswerId();
+
+        final var answer = Optional.ofNullable(answerResourceApi.getAnswer(answerId).getBody()).orElseThrow();
+
+        final var user =  new AnsweringUserDTO();
+        user.setName(String.valueOf(answer.getUserId().getId()));
+
+        final var savedEvaluationUser = answeringUserService.save(user);
+        createEvaluation.setUser(savedEvaluationUser);
+
+        final var evaluationQuestion = new EvaluationQuestionDTO();
+        evaluationQuestion.setQuestionId(answer.getQuestion().getQuestionId());
+        final var savedEvaluationQuestion = evaluationQuestionService.save(evaluationQuestion);
+
+        createEvaluation.setQuestion(savedEvaluationQuestion);
+
+        // createEvaluation.setAnsweredQuestionDifficultyLevel(evaluationCommandDTO.getDifficultyLevel());
+
+        final var saved = evaluationService.save(createEvaluation);
 
         final var evaluationCreatedEventDTO = new EvaluationCreatedEventDTO();
-        evaluationDTO.setId(saved.getId());
-        evaluationCreatedEventDTO.setEvaluation(evaluationDTO);
-        evaluationCreatedEventService.save(evaluationCreatedEventDTO);
-
-        return save(
-            createEvaluationCommand//.answer(evaluationMapper.toEntity(saved.get))
-        );
+        evaluationCommandDTO.setId(saved.getId());
+        evaluationCreatedEventDTO.setEvaluation(createEvaluation);
+        return evaluationCreatedEventService.save(evaluationCreatedEventDTO);
     }
 }

@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.usermanagementcontext.IntegrationTest;
 import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.ValidateUserCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.ValidateUserCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.ValidateUserCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class ValidateUserCommandResourceIT {
 
     @Autowired
     private ValidateUserCommandRepository validateUserCommandRepository;
+
+    @Autowired
+    private ValidateUserCommandMapper validateUserCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,9 +83,12 @@ class ValidateUserCommandResourceIT {
     void createValidateUserCommand() throws Exception {
         int databaseSizeBeforeCreate = validateUserCommandRepository.findAll().size();
         // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
         restValidateUserCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -95,13 +103,16 @@ class ValidateUserCommandResourceIT {
     void createValidateUserCommandWithExistingId() throws Exception {
         // Create the ValidateUserCommand with an existing ID
         validateUserCommand.setId(1L);
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
 
         int databaseSizeBeforeCreate = validateUserCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restValidateUserCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -157,12 +168,13 @@ class ValidateUserCommandResourceIT {
         ValidateUserCommand updatedValidateUserCommand = validateUserCommandRepository.findById(validateUserCommand.getId()).get();
         // Disconnect from session so that the updates on updatedValidateUserCommand are not directly saved in db
         em.detach(updatedValidateUserCommand);
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(updatedValidateUserCommand);
 
         restValidateUserCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedValidateUserCommand.getId())
+                put(ENTITY_API_URL_ID, validateUserCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedValidateUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -178,12 +190,15 @@ class ValidateUserCommandResourceIT {
         int databaseSizeBeforeUpdate = validateUserCommandRepository.findAll().size();
         validateUserCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restValidateUserCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, validateUserCommand.getId())
+                put(ENTITY_API_URL_ID, validateUserCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -198,12 +213,15 @@ class ValidateUserCommandResourceIT {
         int databaseSizeBeforeUpdate = validateUserCommandRepository.findAll().size();
         validateUserCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateUserCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -218,10 +236,15 @@ class ValidateUserCommandResourceIT {
         int databaseSizeBeforeUpdate = validateUserCommandRepository.findAll().size();
         validateUserCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateUserCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                put(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -288,12 +311,15 @@ class ValidateUserCommandResourceIT {
         int databaseSizeBeforeUpdate = validateUserCommandRepository.findAll().size();
         validateUserCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restValidateUserCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, validateUserCommand.getId())
+                patch(ENTITY_API_URL_ID, validateUserCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -308,12 +334,15 @@ class ValidateUserCommandResourceIT {
         int databaseSizeBeforeUpdate = validateUserCommandRepository.findAll().size();
         validateUserCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateUserCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -328,12 +357,15 @@ class ValidateUserCommandResourceIT {
         int databaseSizeBeforeUpdate = validateUserCommandRepository.findAll().size();
         validateUserCommand.setId(count.incrementAndGet());
 
+        // Create the ValidateUserCommand
+        ValidateUserCommandDTO validateUserCommandDTO = validateUserCommandMapper.toDto(validateUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restValidateUserCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(validateUserCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

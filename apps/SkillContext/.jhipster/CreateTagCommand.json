@@ -3,7 +3,7 @@
   "changelogDate": "20230522214036",
   "clientRootFolder": "SkillContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "create_tag_command",
   "fields": [],

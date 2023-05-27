@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand;
 import org.contextmapper.generated.evaluationcontext.repository.CreateEvaluationCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.CreateEvaluationCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.CreateEvaluationCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class CreateEvaluationCommandResourceIT {
 
     @Autowired
     private CreateEvaluationCommandRepository createEvaluationCommandRepository;
+
+    @Autowired
+    private CreateEvaluationCommandMapper createEvaluationCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,12 @@ class CreateEvaluationCommandResourceIT {
     void createCreateEvaluationCommand() throws Exception {
         int databaseSizeBeforeCreate = createEvaluationCommandRepository.findAll().size();
         // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
         restCreateEvaluationCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -97,6 +103,7 @@ class CreateEvaluationCommandResourceIT {
     void createCreateEvaluationCommandWithExistingId() throws Exception {
         // Create the CreateEvaluationCommand with an existing ID
         createEvaluationCommand.setId(1L);
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
 
         int databaseSizeBeforeCreate = createEvaluationCommandRepository.findAll().size();
 
@@ -105,7 +112,7 @@ class CreateEvaluationCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -163,12 +170,13 @@ class CreateEvaluationCommandResourceIT {
             .get();
         // Disconnect from session so that the updates on updatedCreateEvaluationCommand are not directly saved in db
         em.detach(updatedCreateEvaluationCommand);
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(updatedCreateEvaluationCommand);
 
         restCreateEvaluationCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedCreateEvaluationCommand.getId())
+                put(ENTITY_API_URL_ID, createEvaluationCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedCreateEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -184,12 +192,15 @@ class CreateEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = createEvaluationCommandRepository.findAll().size();
         createEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateEvaluationCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, createEvaluationCommand.getId())
+                put(ENTITY_API_URL_ID, createEvaluationCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -204,12 +215,15 @@ class CreateEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = createEvaluationCommandRepository.findAll().size();
         createEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateEvaluationCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -224,12 +238,15 @@ class CreateEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = createEvaluationCommandRepository.findAll().size();
         createEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateEvaluationCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -296,12 +313,15 @@ class CreateEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = createEvaluationCommandRepository.findAll().size();
         createEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCreateEvaluationCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, createEvaluationCommand.getId())
+                patch(ENTITY_API_URL_ID, createEvaluationCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -316,12 +336,15 @@ class CreateEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = createEvaluationCommandRepository.findAll().size();
         createEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateEvaluationCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -336,12 +359,15 @@ class CreateEvaluationCommandResourceIT {
         int databaseSizeBeforeUpdate = createEvaluationCommandRepository.findAll().size();
         createEvaluationCommand.setId(count.incrementAndGet());
 
+        // Create the CreateEvaluationCommand
+        CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(createEvaluationCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restCreateEvaluationCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(createEvaluationCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.NotifyNewAnswerCommand;
 import org.contextmapper.generated.evaluationcontext.repository.NotifyNewAnswerCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.NotifyNewAnswerCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.NotifyNewAnswerCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class NotifyNewAnswerCommandResourceIT {
 
     @Autowired
     private NotifyNewAnswerCommandRepository notifyNewAnswerCommandRepository;
+
+    @Autowired
+    private NotifyNewAnswerCommandMapper notifyNewAnswerCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,11 +83,12 @@ class NotifyNewAnswerCommandResourceIT {
     void createNotifyNewAnswerCommand() throws Exception {
         int databaseSizeBeforeCreate = notifyNewAnswerCommandRepository.findAll().size();
         // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
         restNotifyNewAnswerCommandMockMvc
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -97,6 +103,7 @@ class NotifyNewAnswerCommandResourceIT {
     void createNotifyNewAnswerCommandWithExistingId() throws Exception {
         // Create the NotifyNewAnswerCommand with an existing ID
         notifyNewAnswerCommand.setId(1L);
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
 
         int databaseSizeBeforeCreate = notifyNewAnswerCommandRepository.findAll().size();
 
@@ -105,7 +112,7 @@ class NotifyNewAnswerCommandResourceIT {
             .perform(
                 post(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -163,12 +170,13 @@ class NotifyNewAnswerCommandResourceIT {
             .get();
         // Disconnect from session so that the updates on updatedNotifyNewAnswerCommand are not directly saved in db
         em.detach(updatedNotifyNewAnswerCommand);
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(updatedNotifyNewAnswerCommand);
 
         restNotifyNewAnswerCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedNotifyNewAnswerCommand.getId())
+                put(ENTITY_API_URL_ID, notifyNewAnswerCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedNotifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -184,12 +192,15 @@ class NotifyNewAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = notifyNewAnswerCommandRepository.findAll().size();
         notifyNewAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restNotifyNewAnswerCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, notifyNewAnswerCommand.getId())
+                put(ENTITY_API_URL_ID, notifyNewAnswerCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -204,12 +215,15 @@ class NotifyNewAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = notifyNewAnswerCommandRepository.findAll().size();
         notifyNewAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restNotifyNewAnswerCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -224,12 +238,15 @@ class NotifyNewAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = notifyNewAnswerCommandRepository.findAll().size();
         notifyNewAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restNotifyNewAnswerCommandMockMvc
             .perform(
                 put(ENTITY_API_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -296,12 +313,15 @@ class NotifyNewAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = notifyNewAnswerCommandRepository.findAll().size();
         notifyNewAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restNotifyNewAnswerCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, notifyNewAnswerCommand.getId())
+                patch(ENTITY_API_URL_ID, notifyNewAnswerCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -316,12 +336,15 @@ class NotifyNewAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = notifyNewAnswerCommandRepository.findAll().size();
         notifyNewAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restNotifyNewAnswerCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -336,12 +359,15 @@ class NotifyNewAnswerCommandResourceIT {
         int databaseSizeBeforeUpdate = notifyNewAnswerCommandRepository.findAll().size();
         notifyNewAnswerCommand.setId(count.incrementAndGet());
 
+        // Create the NotifyNewAnswerCommand
+        NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO = notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restNotifyNewAnswerCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(notifyNewAnswerCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

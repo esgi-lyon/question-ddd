@@ -33,9 +33,9 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityName": "userId",
+      "otherEntityName": "userEmail",
       "ownerSide": true,
-      "relationshipName": "userId",
+      "relationshipName": "userEmail",
       "relationshipType": "one-to-one"
     }
   ],

@@ -22,8 +22,8 @@ public class StatisticSubjectUser implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "mail")
+    private String mail;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -40,17 +40,17 @@ public class StatisticSubjectUser implements Serializable {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return this.userId;
+    public String getMail() {
+        return this.mail;
     }
 
-    public StatisticSubjectUser userId(Long userId) {
-        this.setUserId(userId);
+    public StatisticSubjectUser mail(String mail) {
+        this.setMail(mail);
         return this;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -77,7 +77,7 @@ public class StatisticSubjectUser implements Serializable {
     public String toString() {
         return "StatisticSubjectUser{" +
             "id=" + getId() +
-            ", userId=" + getUserId() +
+            ", mail='" + getMail() + "'" +
             "}";
     }
 }

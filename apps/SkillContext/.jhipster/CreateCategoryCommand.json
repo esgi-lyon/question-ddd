@@ -3,7 +3,7 @@
   "changelogDate": "20230522214037",
   "clientRootFolder": "SkillContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "create_category_command",
   "fields": [],

@@ -37,7 +37,7 @@ public class Answer implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
-    private UserId userId;
+    private UserEmail userEmail;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -93,16 +93,16 @@ public class Answer implements Serializable {
         return this;
     }
 
-    public UserId getUserId() {
-        return this.userId;
+    public UserEmail getUserEmail() {
+        return this.userEmail;
     }
 
-    public void setUserId(UserId userId) {
-        this.userId = userId;
+    public void setUserEmail(UserEmail userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public Answer userId(UserId userId) {
-        this.setUserId(userId);
+    public Answer userEmail(UserEmail userEmail) {
+        this.setUserEmail(userEmail);
         return this;
     }
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity AddPreferencesCommand.
+    -->
+    <changeSet id="20230526103603-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="preferences_id"
+                                 baseTableName="add_preferences_command"
+                                 constraintName="fk_add_preferences_command__preferences_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_preferences_tag_infos"/>
+    </changeSet>
+</databaseChangeLog>

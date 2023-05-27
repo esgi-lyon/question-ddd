@@ -27,7 +27,9 @@
       "CreatedQuestionEvent",
       "NotifiedQuestionEvent",
       "PrepareQuestionCommand",
-      "SendByPreferencesCommand"
+      "SendByPreferencesCommand",
+      "PreferencesAddedEvent",
+      "AddPreferencesCommand"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": "",
@@ -35,7 +37,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "MTRhMDAwOWVjYjFkYmVkY2I4ZWQ5NWIyMGYzZGNhYzdkOWNkODJlNDRhMDMwYTk1YzIyNjQwNWJhOTcxODBmNTEyZjQwYjZjMGQ0OWI3YzRjOTI1MDcwNDY2ZjM1ZjRlNWM1MmExNjRjNzhhM2EyODk0MzdlZjNiMmNhMWY1NmE=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1685085334000,
+    "lastLiquibaseTimestamp": 1685097363000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

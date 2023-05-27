@@ -1,8 +1,9 @@
 package org.contextmapper.generated.usermanagementcontext.service;
 
-import org.contextmapper.generated.usermanagementcontext.domain.ValidateUserCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.ValidateUserCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.ValidateUserCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.service.mapper.UserInfosMapper;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.ValidateUserCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -23,9 +24,10 @@ public class ValidateUserCommandHandlerService extends ValidateUserCommandServic
     public ValidateUserCommandHandlerService(
         ValidateUserCommandRepository validateUserCommandRepository,
         UserInfosService userInfosService,
-        UserInfosMapper userInfosMapper
+        UserInfosMapper userInfosMapper,
+        ValidateUserCommandMapper validateUserCommandMapper
     ) {
-        super(validateUserCommandRepository);
+        super(validateUserCommandRepository, validateUserCommandMapper);
         this.validateUserCommandRepository = validateUserCommandRepository;
         this.userInfosService = userInfosService;
         this.userInfosMapper = userInfosMapper;
@@ -37,7 +39,7 @@ public class ValidateUserCommandHandlerService extends ValidateUserCommandServic
      * @param validateUserCommand the entity to handle.
      * @return the persisted entity.
      */
-    public ValidateUserCommand handleValidateUser(ValidateUserCommand validateUserCommand) {
+    public ValidateUserCommandDTO handleValidateUser(ValidateUserCommandDTO validateUserCommand) {
         log.debug("Request to handle ValidateUserCommand : {}", validateUserCommand);
 
         final var userId = validateUserCommand.getUserInfos().getId();
@@ -49,11 +51,9 @@ public class ValidateUserCommandHandlerService extends ValidateUserCommandServic
         });
 
         validateUserCommand.setUserInfos(
-            userInfosMapper.toEntity(
-                userInfos.orElseThrow(() -> new RuntimeException("User not found"))
-            )
+            userInfos.orElseThrow(() -> new RuntimeException("User not found"))
         );
 
-        return validateUserCommand;
+        return save(validateUserCommand);
     }
 }

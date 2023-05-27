@@ -3,7 +3,7 @@
   "changelogDate": "20230524212026",
   "clientRootFolder": "EvaluationContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "notify_new_answer_command",
   "fields": [],

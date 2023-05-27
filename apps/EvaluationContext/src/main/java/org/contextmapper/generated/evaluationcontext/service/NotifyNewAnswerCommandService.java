@@ -1,9 +1,13 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.evaluationcontext.domain.NotifyNewAnswerCommand;
 import org.contextmapper.generated.evaluationcontext.repository.NotifyNewAnswerCommandRepository;
+import org.contextmapper.generated.evaluationcontext.service.dto.NotifyNewAnswerCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.mapper.NotifyNewAnswerCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class NotifyNewAnswerCommandService {
 
     private final NotifyNewAnswerCommandRepository notifyNewAnswerCommandRepository;
 
-    public NotifyNewAnswerCommandService(NotifyNewAnswerCommandRepository notifyNewAnswerCommandRepository) {
+    private final NotifyNewAnswerCommandMapper notifyNewAnswerCommandMapper;
+
+    public NotifyNewAnswerCommandService(
+        NotifyNewAnswerCommandRepository notifyNewAnswerCommandRepository,
+        NotifyNewAnswerCommandMapper notifyNewAnswerCommandMapper
+    ) {
         this.notifyNewAnswerCommandRepository = notifyNewAnswerCommandRepository;
+        this.notifyNewAnswerCommandMapper = notifyNewAnswerCommandMapper;
     }
 
     /**
      * Save a notifyNewAnswerCommand.
      *
-     * @param notifyNewAnswerCommand the entity to save.
+     * @param notifyNewAnswerCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public NotifyNewAnswerCommand save(NotifyNewAnswerCommand notifyNewAnswerCommand) {
-        log.debug("Request to save NotifyNewAnswerCommand : {}", notifyNewAnswerCommand);
-        return notifyNewAnswerCommandRepository.save(notifyNewAnswerCommand);
+    public NotifyNewAnswerCommandDTO save(NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO) {
+        log.debug("Request to save NotifyNewAnswerCommand : {}", notifyNewAnswerCommandDTO);
+        NotifyNewAnswerCommand notifyNewAnswerCommand = notifyNewAnswerCommandMapper.toEntity(notifyNewAnswerCommandDTO);
+        notifyNewAnswerCommand = notifyNewAnswerCommandRepository.save(notifyNewAnswerCommand);
+        return notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
     }
 
     /**
      * Update a notifyNewAnswerCommand.
      *
-     * @param notifyNewAnswerCommand the entity to save.
+     * @param notifyNewAnswerCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public NotifyNewAnswerCommand update(NotifyNewAnswerCommand notifyNewAnswerCommand) {
-        log.debug("Request to update NotifyNewAnswerCommand : {}", notifyNewAnswerCommand);
-        return notifyNewAnswerCommandRepository.save(notifyNewAnswerCommand);
+    public NotifyNewAnswerCommandDTO update(NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO) {
+        log.debug("Request to update NotifyNewAnswerCommand : {}", notifyNewAnswerCommandDTO);
+        NotifyNewAnswerCommand notifyNewAnswerCommand = notifyNewAnswerCommandMapper.toEntity(notifyNewAnswerCommandDTO);
+        notifyNewAnswerCommand = notifyNewAnswerCommandRepository.save(notifyNewAnswerCommand);
+        return notifyNewAnswerCommandMapper.toDto(notifyNewAnswerCommand);
     }
 
     /**
      * Partially update a notifyNewAnswerCommand.
      *
-     * @param notifyNewAnswerCommand the entity to update partially.
+     * @param notifyNewAnswerCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<NotifyNewAnswerCommand> partialUpdate(NotifyNewAnswerCommand notifyNewAnswerCommand) {
-        log.debug("Request to partially update NotifyNewAnswerCommand : {}", notifyNewAnswerCommand);
+    public Optional<NotifyNewAnswerCommandDTO> partialUpdate(NotifyNewAnswerCommandDTO notifyNewAnswerCommandDTO) {
+        log.debug("Request to partially update NotifyNewAnswerCommand : {}", notifyNewAnswerCommandDTO);
 
         return notifyNewAnswerCommandRepository
-            .findById(notifyNewAnswerCommand.getId())
+            .findById(notifyNewAnswerCommandDTO.getId())
             .map(existingNotifyNewAnswerCommand -> {
+                notifyNewAnswerCommandMapper.partialUpdate(existingNotifyNewAnswerCommand, notifyNewAnswerCommandDTO);
+
                 return existingNotifyNewAnswerCommand;
             })
-            .map(notifyNewAnswerCommandRepository::save);
+            .map(notifyNewAnswerCommandRepository::save)
+            .map(notifyNewAnswerCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class NotifyNewAnswerCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<NotifyNewAnswerCommand> findAll() {
+    public List<NotifyNewAnswerCommandDTO> findAll() {
         log.debug("Request to get all NotifyNewAnswerCommands");
-        return notifyNewAnswerCommandRepository.findAll();
+        return notifyNewAnswerCommandRepository
+            .findAll()
+            .stream()
+            .map(notifyNewAnswerCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class NotifyNewAnswerCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<NotifyNewAnswerCommand> findOne(Long id) {
+    public Optional<NotifyNewAnswerCommandDTO> findOne(Long id) {
         log.debug("Request to get NotifyNewAnswerCommand : {}", id);
-        return notifyNewAnswerCommandRepository.findById(id);
+        return notifyNewAnswerCommandRepository.findById(id).map(notifyNewAnswerCommandMapper::toDto);
     }
 
     /**

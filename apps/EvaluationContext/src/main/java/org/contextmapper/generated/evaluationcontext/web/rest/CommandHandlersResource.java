@@ -1,11 +1,11 @@
 package org.contextmapper.generated.evaluationcontext.web.rest;
 
-import org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluationCommand;
-import org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand;
 import org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand;
 import org.contextmapper.generated.evaluationcontext.service.CheckAnswerCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.CreateEvaluationCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.PointAwardRuleCommandHandler;
+import org.contextmapper.generated.evaluationcontext.service.dto.AwardPointForEvaluationCommandDTO;
+import org.contextmapper.generated.evaluationcontext.service.dto.CheckAnswerCommandDTO;
 import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationDTO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,18 +57,18 @@ public class CommandHandlersResource {
     }
 
     @PostMapping("/check-answer-command")
-    public ResponseEntity<CheckAnswerCommand> handleCheckAnswerCommand(@RequestBody CheckAnswerCommand checkAnswerCommand)
+    public ResponseEntity<CheckAnswerCommandDTO> handleCheckAnswerCommand(@RequestBody CheckAnswerCommandDTO checkAnswerCommand)
         throws URISyntaxException {
-        CheckAnswerCommand result = checkAnswerCommandHandler.handleCheckAnswerCommand(checkAnswerCommand);
+        CheckAnswerCommandDTO result = checkAnswerCommandHandler.handleCheckAnswerCommand(checkAnswerCommand);
         return ResponseEntity
             .created(new URI("/api/handlers/check-answer-command/" + result.getId()))
             .body(result);
     }
 
     @PostMapping("/award-point-for-evaluation")
-    public ResponseEntity<AwardPointForEvaluationCommand> handleAwardPointForEvaluationCommand(@RequestBody EvaluationDTO evaluationDTO)
+    public ResponseEntity<AwardPointForEvaluationCommandDTO> handleAwardPointForEvaluationCommand(@RequestBody EvaluationDTO evaluationDTO)
         throws URISyntaxException {
-        AwardPointForEvaluationCommand result = pointAwardRuleCommandHandler.handleAwardPointForEvaluationCommand(evaluationDTO);
+        AwardPointForEvaluationCommandDTO result = pointAwardRuleCommandHandler.handleAwardPointForEvaluationCommand(evaluationDTO);
         return ResponseEntity
             .created(new URI("/api/handlers/award-point-for-evaluation/" + result.getId()))
             .body(result);

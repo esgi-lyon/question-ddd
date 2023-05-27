@@ -112,6 +112,7 @@ entity ${event.name}Event {
 
 <#list commands as command>
 @service(serviceClass)
+@dto(mapstruct)
 entity ${command.name}Command {
 	<#list command.attributes as attribute>
 	${attribute.name} ${mapAttributeType(attribute.type)}

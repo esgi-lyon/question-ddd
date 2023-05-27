@@ -4,8 +4,10 @@ import org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand;
 import org.contextmapper.generated.usermanagementcontext.domain.enumeration.UserStatus;
 import org.contextmapper.generated.usermanagementcontext.repository.CustomUserInfosRepository;
 import org.contextmapper.generated.usermanagementcontext.repository.RegisterCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.RegisterCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.UserInfosDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.UserWaitingForValidationEventDTO;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.RegisterCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -38,9 +40,10 @@ public class RegisterCommandHandlerService extends RegisterCommandService {
         UserInfosService userInfosService,
         PasswordEncoder passwordEncoder,
         CustomUserInfosRepository userInfosRepository,
-        UserWaitingForValidationEventService userWaitingForValidationEventService
+        UserWaitingForValidationEventService userWaitingForValidationEventService,
+        RegisterCommandMapper registerCommandMapper
     ) {
-        super(registerCommandRepository);
+        super(registerCommandRepository, registerCommandMapper);
         this.userInfosService = userInfosService;
         this.passwordEncoder = passwordEncoder;
         this.userInfosRepository = userInfosRepository;
@@ -53,7 +56,7 @@ public class RegisterCommandHandlerService extends RegisterCommandService {
      * @param registerCommand the entity to handle.
      * @return the persisted entity.
      */
-    public RegisterCommand handleRegister(RegisterCommand registerCommand) {
+    public RegisterCommandDTO handleRegister(RegisterCommandDTO registerCommand) {
         log.debug("Request to handle RegisterCommand : {}", registerCommand);
 
         if (Objects.isNull(registerCommand.getMail()) || Objects.isNull(registerCommand.getPassword())) {

@@ -31,6 +31,8 @@
 
 ![src-gen/gamedev_BC_AnswerContext_Answer.puml](./dist/src-gen/gamedev_BC_AnswerContext_Answer.png)
 
+![src-gen/gamedev_BC_AnswerContext_ChoiceSubmitFlow_StateDiagram.puml](./dist/src-gen/gamedev_BC_AnswerContext_ChoiceSubmitFlow_StateDiagram.png)
+
 ![src-gen/gamedev_BC_AnswerContext_ChoiceSubmitFlow.sketch_miner.png](./dist/src-gen/gamedev_BC_AnswerContext_ChoiceSubmitFlow.sketch_miner.png)
 
 ![src-gen/gamedev_BC_EvaluationContext.puml](./dist/src-gen/gamedev_BC_EvaluationContext.png)

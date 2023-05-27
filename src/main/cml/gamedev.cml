@@ -78,6 +78,7 @@ BoundedContext UserManagementContext {
 		Flow Authentication {
 			command Register delegates to User [WAITING_VALIDATION -> WAITING_VALIDATION] emits event UserWaitingForValidation
 			command ValidateUser delegates to User [WAITING_VALIDATION -> VALIDATED X REJECTED] emits event UserValidated X UserRejected
+			command ViewUserByEmail delegates to User emits event UserViewed
 		}
 	}
 	Aggregate User {
@@ -113,6 +114,9 @@ BoundedContext UserManagementContext {
 		Command RejectUser {
 			- UserInfos userInfos
 		}
+		Command ViewUserByEmail {
+			String mail email
+		}
 		DomainEvent UserWaitingForValidation {
 			- UserInfos userInfos
 		}
@@ -120,6 +124,9 @@ BoundedContext UserManagementContext {
 			- UserInfos userInfos
 		}
 		DomainEvent UserRejected {
+			- UserInfos userInfos
+		}
+		DomainEvent UserViewed {
 			- UserInfos userInfos
 		}
 	}
@@ -241,6 +248,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 	Application {
 		Flow CreateChoiceFlow {
 			// Randomized choice creation
+			command AddPreferences delegates to UserPreferences emits event PreferencesAdded 
 			command PrepareQuestion delegates to QuestionNotification emits event CreatedQuestion
 			event CreatedQuestion triggers command SendByPreferences
 			command SendByPreferences delegates to QuestionNotification emits event NotifiedQuestion
@@ -254,11 +262,17 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			def UserPreferences addPreference(@TagInfos tagId);
 		}
 		ValueObject UserWithPreferencesId {
-			Long userId
+			String mail email
 		}
 		ValueObject UserPreferencesTagInfos {
 			Long tagId
 			String name
+		}
+		Command AddPreferences {
+			- UserPreferencesTagInfos preferences
+		}
+		DomainEvent PreferencesAdded {
+			- UserPreferences preferences
 		}
 	}
 	Aggregate QuestionNotification {
@@ -266,9 +280,9 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			aggregateRoot
 			- QuestionNotificationStatus status
 			- List<QuestionSentTagInfos> tags
-			Date sentDate
-			Date viewedDate
-			Date answeredDate
+			Date sentDate nullable
+			Date viewedDate nullable
+			Date answeredDate nullable
 			def QuestionSent send();
 			def QuestionSent view();
 			def QuestionSent answer();
@@ -283,7 +297,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		}
 		enum QuestionNotificationStatus {
 			aggregateLifecycle
-				SENT, VIEWED, ANSWERED
+				PREPARING, SENT, VIEWED, ANSWERED
 		}
 		DomainEvent CreatedQuestion {
 			- QuestionSent questionAndTag
@@ -314,7 +328,7 @@ BoundedContext AnswerContext implements QuestionDomain {
 			aggregateRoot
 			- QuestionSentId question
 			- AnsweredTag answeredTag
-			- UserId userId
+			- UserEmail userEmail
 			- AnswerState answerState
 		}
 		enum AnswerState {
@@ -331,8 +345,8 @@ BoundedContext AnswerContext implements QuestionDomain {
 		ValueObject AnsweredTag {
 			Long tagId
 		}
-		ValueObject UserId {
-			Long id
+		ValueObject UserEmail {
+			String mail email
 		}
 		DomainEvent TagChoicesListed {
 			- List<AvailableAnswer> tags
@@ -358,9 +372,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 	implementationTechnology = "Java, Spring App"
 	Application {
 		Flow EvaluationFlow {
-			command CheckAnswer delegates to Exercice [OPENED -> VALID X INVALID] emits event AnswerChecked
-			event AnswerChecked triggers command CreateEvaluation
-			command CreateEvaluation delegates to Exercice emits event EvaluationCreated
+			command CreateEvaluation delegates to Exercice [OPENED -> VALID X INVALID] emits event EvaluationCreated
 			command AwardPointForEvaluation delegates to PointAwardRule emits event AwardedPoint
 		}
 	}
@@ -382,7 +394,6 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			EASY, MEDIUM, HARD
 		}
 		ValueObject AnsweringUser {
-			Long userId
 			String name
 		}
 		// Valid tag of question resource
@@ -396,20 +407,15 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		ValueObject EvaluatedAnswer {
 			Long answerId
 		}
-		DomainEvent AnswerChecked {
-			- @EvaluatedAnswer answer
-		}
 		DomainEvent EvaluationCreated {
 			- @Evaluation evaluation
 		}
 		DomainEvent NewAnswerNotified {
 			- @EvaluatedAnswer answer
 		}
-		Command CheckAnswer {
-			- @EvaluatedAnswer answer
-		}
 		Command CreateEvaluation {
 			- @EvaluatedAnswer answer
+			- @DifficultyLevel difficultyLevel
 		}
 		Command NotifyNewAnswer {
 			- @EvaluatedAnswer answer
@@ -458,7 +464,7 @@ BoundedContext StatContext implements StatDomain {
 			Long tagId
 		}
 		ValueObject StatisticSubjectUser {
-			Long userId
+			String mail
 		}
 		ValueObject StatisticSubjectQuestion {
 			Long questionId

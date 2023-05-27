@@ -1,9 +1,13 @@
 package org.contextmapper.generated.skillcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.skillcontext.domain.CreateTagCommand;
 import org.contextmapper.generated.skillcontext.repository.CreateTagCommandRepository;
+import org.contextmapper.generated.skillcontext.service.dto.CreateTagCommandDTO;
+import org.contextmapper.generated.skillcontext.service.mapper.CreateTagCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,57 @@ public class CreateTagCommandService {
 
     private final CreateTagCommandRepository createTagCommandRepository;
 
-    public CreateTagCommandService(CreateTagCommandRepository createTagCommandRepository) {
+    private final CreateTagCommandMapper createTagCommandMapper;
+
+    public CreateTagCommandService(CreateTagCommandRepository createTagCommandRepository, CreateTagCommandMapper createTagCommandMapper) {
         this.createTagCommandRepository = createTagCommandRepository;
+        this.createTagCommandMapper = createTagCommandMapper;
     }
 
     /**
      * Save a createTagCommand.
      *
-     * @param createTagCommand the entity to save.
+     * @param createTagCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateTagCommand save(CreateTagCommand createTagCommand) {
-        log.debug("Request to save CreateTagCommand : {}", createTagCommand);
-        return createTagCommandRepository.save(createTagCommand);
+    public CreateTagCommandDTO save(CreateTagCommandDTO createTagCommandDTO) {
+        log.debug("Request to save CreateTagCommand : {}", createTagCommandDTO);
+        CreateTagCommand createTagCommand = createTagCommandMapper.toEntity(createTagCommandDTO);
+        createTagCommand = createTagCommandRepository.save(createTagCommand);
+        return createTagCommandMapper.toDto(createTagCommand);
     }
 
     /**
      * Update a createTagCommand.
      *
-     * @param createTagCommand the entity to save.
+     * @param createTagCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public CreateTagCommand update(CreateTagCommand createTagCommand) {
-        log.debug("Request to update CreateTagCommand : {}", createTagCommand);
-        return createTagCommandRepository.save(createTagCommand);
+    public CreateTagCommandDTO update(CreateTagCommandDTO createTagCommandDTO) {
+        log.debug("Request to update CreateTagCommand : {}", createTagCommandDTO);
+        CreateTagCommand createTagCommand = createTagCommandMapper.toEntity(createTagCommandDTO);
+        createTagCommand = createTagCommandRepository.save(createTagCommand);
+        return createTagCommandMapper.toDto(createTagCommand);
     }
 
     /**
      * Partially update a createTagCommand.
      *
-     * @param createTagCommand the entity to update partially.
+     * @param createTagCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<CreateTagCommand> partialUpdate(CreateTagCommand createTagCommand) {
-        log.debug("Request to partially update CreateTagCommand : {}", createTagCommand);
+    public Optional<CreateTagCommandDTO> partialUpdate(CreateTagCommandDTO createTagCommandDTO) {
+        log.debug("Request to partially update CreateTagCommand : {}", createTagCommandDTO);
 
         return createTagCommandRepository
-            .findById(createTagCommand.getId())
+            .findById(createTagCommandDTO.getId())
             .map(existingCreateTagCommand -> {
+                createTagCommandMapper.partialUpdate(existingCreateTagCommand, createTagCommandDTO);
+
                 return existingCreateTagCommand;
             })
-            .map(createTagCommandRepository::save);
+            .map(createTagCommandRepository::save)
+            .map(createTagCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +83,13 @@ public class CreateTagCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<CreateTagCommand> findAll() {
+    public List<CreateTagCommandDTO> findAll() {
         log.debug("Request to get all CreateTagCommands");
-        return createTagCommandRepository.findAll();
+        return createTagCommandRepository
+            .findAll()
+            .stream()
+            .map(createTagCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +99,9 @@ public class CreateTagCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<CreateTagCommand> findOne(Long id) {
+    public Optional<CreateTagCommandDTO> findOne(Long id) {
         log.debug("Request to get CreateTagCommand : {}", id);
-        return createTagCommandRepository.findById(id);
+        return createTagCommandRepository.findById(id).map(createTagCommandMapper::toDto);
     }
 
     /**

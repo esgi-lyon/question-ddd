@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.statcontext.IntegrationTest;
 import org.contextmapper.generated.statcontext.domain.ViewStatsCommand;
 import org.contextmapper.generated.statcontext.repository.ViewStatsCommandRepository;
+import org.contextmapper.generated.statcontext.service.dto.ViewStatsCommandDTO;
+import org.contextmapper.generated.statcontext.service.mapper.ViewStatsCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class ViewStatsCommandResourceIT {
 
     @Autowired
     private ViewStatsCommandRepository viewStatsCommandRepository;
+
+    @Autowired
+    private ViewStatsCommandMapper viewStatsCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,9 +83,10 @@ class ViewStatsCommandResourceIT {
     void createViewStatsCommand() throws Exception {
         int databaseSizeBeforeCreate = viewStatsCommandRepository.findAll().size();
         // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
         restViewStatsCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -95,13 +101,14 @@ class ViewStatsCommandResourceIT {
     void createViewStatsCommandWithExistingId() throws Exception {
         // Create the ViewStatsCommand with an existing ID
         viewStatsCommand.setId(1L);
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
 
         int databaseSizeBeforeCreate = viewStatsCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restViewStatsCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -157,12 +164,13 @@ class ViewStatsCommandResourceIT {
         ViewStatsCommand updatedViewStatsCommand = viewStatsCommandRepository.findById(viewStatsCommand.getId()).get();
         // Disconnect from session so that the updates on updatedViewStatsCommand are not directly saved in db
         em.detach(updatedViewStatsCommand);
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(updatedViewStatsCommand);
 
         restViewStatsCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedViewStatsCommand.getId())
+                put(ENTITY_API_URL_ID, viewStatsCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedViewStatsCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -178,12 +186,15 @@ class ViewStatsCommandResourceIT {
         int databaseSizeBeforeUpdate = viewStatsCommandRepository.findAll().size();
         viewStatsCommand.setId(count.incrementAndGet());
 
+        // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restViewStatsCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, viewStatsCommand.getId())
+                put(ENTITY_API_URL_ID, viewStatsCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -198,12 +209,15 @@ class ViewStatsCommandResourceIT {
         int databaseSizeBeforeUpdate = viewStatsCommandRepository.findAll().size();
         viewStatsCommand.setId(count.incrementAndGet());
 
+        // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restViewStatsCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -218,10 +232,13 @@ class ViewStatsCommandResourceIT {
         int databaseSizeBeforeUpdate = viewStatsCommandRepository.findAll().size();
         viewStatsCommand.setId(count.incrementAndGet());
 
+        // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restViewStatsCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -288,12 +305,15 @@ class ViewStatsCommandResourceIT {
         int databaseSizeBeforeUpdate = viewStatsCommandRepository.findAll().size();
         viewStatsCommand.setId(count.incrementAndGet());
 
+        // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restViewStatsCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, viewStatsCommand.getId())
+                patch(ENTITY_API_URL_ID, viewStatsCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -308,12 +328,15 @@ class ViewStatsCommandResourceIT {
         int databaseSizeBeforeUpdate = viewStatsCommandRepository.findAll().size();
         viewStatsCommand.setId(count.incrementAndGet());
 
+        // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restViewStatsCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -328,12 +351,15 @@ class ViewStatsCommandResourceIT {
         int databaseSizeBeforeUpdate = viewStatsCommandRepository.findAll().size();
         viewStatsCommand.setId(count.incrementAndGet());
 
+        // Create the ViewStatsCommand
+        ViewStatsCommandDTO viewStatsCommandDTO = viewStatsCommandMapper.toDto(viewStatsCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restViewStatsCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(viewStatsCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

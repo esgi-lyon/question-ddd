@@ -24,7 +24,9 @@
       "UserRejectedEvent",
       "RegisterCommand",
       "ValidateUserCommand",
-      "RejectUserCommand"
+      "RejectUserCommand",
+      "UserViewedEvent",
+      "ViewUserByEmailCommand"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": "",
@@ -32,7 +34,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "MjA1YjlkNGZhMGVmMjM5NTZkNGNiODVkNDNmYzcwMjI5Mzg0YWU4ZTVlOWI0OTdlNmFjMjEyZGIwMWYxZGZjZDAxNzg3ZDA1MWUxNWVjY2Y1NjVkYjlkYmRmNzUyN2IyODgyYzNhMTc4ZTU3MjE3OGJiYmI0NGI2YWFjODQ4Y2M=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1684871928000,
+    "lastLiquibaseTimestamp": 1685101532000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

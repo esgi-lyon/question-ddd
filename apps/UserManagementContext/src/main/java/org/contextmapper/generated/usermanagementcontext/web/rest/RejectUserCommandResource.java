@@ -5,9 +5,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import org.contextmapper.generated.usermanagementcontext.domain.RejectUserCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.RejectUserCommandRepository;
 import org.contextmapper.generated.usermanagementcontext.service.RejectUserCommandService;
+import org.contextmapper.generated.usermanagementcontext.service.dto.RejectUserCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +46,18 @@ public class RejectUserCommandResource {
     /**
      * {@code POST  /reject-user-commands} : Create a new rejectUserCommand.
      *
-     * @param rejectUserCommand the rejectUserCommand to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new rejectUserCommand, or with status {@code 400 (Bad Request)} if the rejectUserCommand has already an ID.
+     * @param rejectUserCommandDTO the rejectUserCommandDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new rejectUserCommandDTO, or with status {@code 400 (Bad Request)} if the rejectUserCommand has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/reject-user-commands")
-    public ResponseEntity<RejectUserCommand> createRejectUserCommand(@RequestBody RejectUserCommand rejectUserCommand)
+    public ResponseEntity<RejectUserCommandDTO> createRejectUserCommand(@RequestBody RejectUserCommandDTO rejectUserCommandDTO)
         throws URISyntaxException {
-        log.debug("REST request to save RejectUserCommand : {}", rejectUserCommand);
-        if (rejectUserCommand.getId() != null) {
+        log.debug("REST request to save RejectUserCommand : {}", rejectUserCommandDTO);
+        if (rejectUserCommandDTO.getId() != null) {
             throw new BadRequestAlertException("A new rejectUserCommand cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        RejectUserCommand result = rejectUserCommandService.save(rejectUserCommand);
+        RejectUserCommandDTO result = rejectUserCommandService.save(rejectUserCommandDTO);
         return ResponseEntity
             .created(new URI("/api/reject-user-commands/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -67,23 +67,23 @@ public class RejectUserCommandResource {
     /**
      * {@code PUT  /reject-user-commands/:id} : Updates an existing rejectUserCommand.
      *
-     * @param id the id of the rejectUserCommand to save.
-     * @param rejectUserCommand the rejectUserCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated rejectUserCommand,
-     * or with status {@code 400 (Bad Request)} if the rejectUserCommand is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the rejectUserCommand couldn't be updated.
+     * @param id the id of the rejectUserCommandDTO to save.
+     * @param rejectUserCommandDTO the rejectUserCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated rejectUserCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the rejectUserCommandDTO is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the rejectUserCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/reject-user-commands/{id}")
-    public ResponseEntity<RejectUserCommand> updateRejectUserCommand(
+    public ResponseEntity<RejectUserCommandDTO> updateRejectUserCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody RejectUserCommand rejectUserCommand
+        @RequestBody RejectUserCommandDTO rejectUserCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update RejectUserCommand : {}, {}", id, rejectUserCommand);
-        if (rejectUserCommand.getId() == null) {
+        log.debug("REST request to update RejectUserCommand : {}, {}", id, rejectUserCommandDTO);
+        if (rejectUserCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, rejectUserCommand.getId())) {
+        if (!Objects.equals(id, rejectUserCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -91,34 +91,34 @@ public class RejectUserCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        RejectUserCommand result = rejectUserCommandService.update(rejectUserCommand);
+        RejectUserCommandDTO result = rejectUserCommandService.update(rejectUserCommandDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, rejectUserCommand.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, rejectUserCommandDTO.getId().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /reject-user-commands/:id} : Partial updates given fields of an existing rejectUserCommand, field will ignore if it is null
      *
-     * @param id the id of the rejectUserCommand to save.
-     * @param rejectUserCommand the rejectUserCommand to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated rejectUserCommand,
-     * or with status {@code 400 (Bad Request)} if the rejectUserCommand is not valid,
-     * or with status {@code 404 (Not Found)} if the rejectUserCommand is not found,
-     * or with status {@code 500 (Internal Server Error)} if the rejectUserCommand couldn't be updated.
+     * @param id the id of the rejectUserCommandDTO to save.
+     * @param rejectUserCommandDTO the rejectUserCommandDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated rejectUserCommandDTO,
+     * or with status {@code 400 (Bad Request)} if the rejectUserCommandDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the rejectUserCommandDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the rejectUserCommandDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PatchMapping(value = "/reject-user-commands/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<RejectUserCommand> partialUpdateRejectUserCommand(
+    public ResponseEntity<RejectUserCommandDTO> partialUpdateRejectUserCommand(
         @PathVariable(value = "id", required = false) final Long id,
-        @RequestBody RejectUserCommand rejectUserCommand
+        @RequestBody RejectUserCommandDTO rejectUserCommandDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update RejectUserCommand partially : {}, {}", id, rejectUserCommand);
-        if (rejectUserCommand.getId() == null) {
+        log.debug("REST request to partial update RejectUserCommand partially : {}, {}", id, rejectUserCommandDTO);
+        if (rejectUserCommandDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, rejectUserCommand.getId())) {
+        if (!Objects.equals(id, rejectUserCommandDTO.getId())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
@@ -126,11 +126,11 @@ public class RejectUserCommandResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<RejectUserCommand> result = rejectUserCommandService.partialUpdate(rejectUserCommand);
+        Optional<RejectUserCommandDTO> result = rejectUserCommandService.partialUpdate(rejectUserCommandDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, rejectUserCommand.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, rejectUserCommandDTO.getId().toString())
         );
     }
 
@@ -140,7 +140,7 @@ public class RejectUserCommandResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of rejectUserCommands in body.
      */
     @GetMapping("/reject-user-commands")
-    public List<RejectUserCommand> getAllRejectUserCommands() {
+    public List<RejectUserCommandDTO> getAllRejectUserCommands() {
         log.debug("REST request to get all RejectUserCommands");
         return rejectUserCommandService.findAll();
     }
@@ -148,20 +148,20 @@ public class RejectUserCommandResource {
     /**
      * {@code GET  /reject-user-commands/:id} : get the "id" rejectUserCommand.
      *
-     * @param id the id of the rejectUserCommand to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the rejectUserCommand, or with status {@code 404 (Not Found)}.
+     * @param id the id of the rejectUserCommandDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the rejectUserCommandDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/reject-user-commands/{id}")
-    public ResponseEntity<RejectUserCommand> getRejectUserCommand(@PathVariable Long id) {
+    public ResponseEntity<RejectUserCommandDTO> getRejectUserCommand(@PathVariable Long id) {
         log.debug("REST request to get RejectUserCommand : {}", id);
-        Optional<RejectUserCommand> rejectUserCommand = rejectUserCommandService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(rejectUserCommand);
+        Optional<RejectUserCommandDTO> rejectUserCommandDTO = rejectUserCommandService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(rejectUserCommandDTO);
     }
 
     /**
      * {@code DELETE  /reject-user-commands/:id} : delete the "id" rejectUserCommand.
      *
-     * @param id the id of the rejectUserCommand to delete.
+     * @param id the id of the rejectUserCommandDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/reject-user-commands/{id}")

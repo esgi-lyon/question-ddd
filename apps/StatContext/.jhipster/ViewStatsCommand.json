@@ -3,7 +3,7 @@
   "changelogDate": "20230422153402",
   "clientRootFolder": "StatContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "view_stats_command",
   "fields": [],

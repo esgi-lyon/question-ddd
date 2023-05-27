@@ -1,9 +1,13 @@
 package org.contextmapper.generated.sendquestioncontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.sendquestioncontext.domain.SendByPreferencesCommand;
 import org.contextmapper.generated.sendquestioncontext.repository.SendByPreferencesCommandRepository;
+import org.contextmapper.generated.sendquestioncontext.service.dto.SendByPreferencesCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.SendByPreferencesCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,47 +24,60 @@ public class SendByPreferencesCommandService {
 
     private final SendByPreferencesCommandRepository sendByPreferencesCommandRepository;
 
-    public SendByPreferencesCommandService(SendByPreferencesCommandRepository sendByPreferencesCommandRepository) {
+    private final SendByPreferencesCommandMapper sendByPreferencesCommandMapper;
+
+    public SendByPreferencesCommandService(
+        SendByPreferencesCommandRepository sendByPreferencesCommandRepository,
+        SendByPreferencesCommandMapper sendByPreferencesCommandMapper
+    ) {
         this.sendByPreferencesCommandRepository = sendByPreferencesCommandRepository;
+        this.sendByPreferencesCommandMapper = sendByPreferencesCommandMapper;
     }
 
     /**
      * Save a sendByPreferencesCommand.
      *
-     * @param sendByPreferencesCommand the entity to save.
+     * @param sendByPreferencesCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public SendByPreferencesCommand save(SendByPreferencesCommand sendByPreferencesCommand) {
-        log.debug("Request to save SendByPreferencesCommand : {}", sendByPreferencesCommand);
-        return sendByPreferencesCommandRepository.save(sendByPreferencesCommand);
+    public SendByPreferencesCommandDTO save(SendByPreferencesCommandDTO sendByPreferencesCommandDTO) {
+        log.debug("Request to save SendByPreferencesCommand : {}", sendByPreferencesCommandDTO);
+        SendByPreferencesCommand sendByPreferencesCommand = sendByPreferencesCommandMapper.toEntity(sendByPreferencesCommandDTO);
+        sendByPreferencesCommand = sendByPreferencesCommandRepository.save(sendByPreferencesCommand);
+        return sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
     }
 
     /**
      * Update a sendByPreferencesCommand.
      *
-     * @param sendByPreferencesCommand the entity to save.
+     * @param sendByPreferencesCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public SendByPreferencesCommand update(SendByPreferencesCommand sendByPreferencesCommand) {
-        log.debug("Request to update SendByPreferencesCommand : {}", sendByPreferencesCommand);
-        return sendByPreferencesCommandRepository.save(sendByPreferencesCommand);
+    public SendByPreferencesCommandDTO update(SendByPreferencesCommandDTO sendByPreferencesCommandDTO) {
+        log.debug("Request to update SendByPreferencesCommand : {}", sendByPreferencesCommandDTO);
+        SendByPreferencesCommand sendByPreferencesCommand = sendByPreferencesCommandMapper.toEntity(sendByPreferencesCommandDTO);
+        sendByPreferencesCommand = sendByPreferencesCommandRepository.save(sendByPreferencesCommand);
+        return sendByPreferencesCommandMapper.toDto(sendByPreferencesCommand);
     }
 
     /**
      * Partially update a sendByPreferencesCommand.
      *
-     * @param sendByPreferencesCommand the entity to update partially.
+     * @param sendByPreferencesCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<SendByPreferencesCommand> partialUpdate(SendByPreferencesCommand sendByPreferencesCommand) {
-        log.debug("Request to partially update SendByPreferencesCommand : {}", sendByPreferencesCommand);
+    public Optional<SendByPreferencesCommandDTO> partialUpdate(SendByPreferencesCommandDTO sendByPreferencesCommandDTO) {
+        log.debug("Request to partially update SendByPreferencesCommand : {}", sendByPreferencesCommandDTO);
 
         return sendByPreferencesCommandRepository
-            .findById(sendByPreferencesCommand.getId())
+            .findById(sendByPreferencesCommandDTO.getId())
             .map(existingSendByPreferencesCommand -> {
+                sendByPreferencesCommandMapper.partialUpdate(existingSendByPreferencesCommand, sendByPreferencesCommandDTO);
+
                 return existingSendByPreferencesCommand;
             })
-            .map(sendByPreferencesCommandRepository::save);
+            .map(sendByPreferencesCommandRepository::save)
+            .map(sendByPreferencesCommandMapper::toDto);
     }
 
     /**
@@ -69,9 +86,13 @@ public class SendByPreferencesCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<SendByPreferencesCommand> findAll() {
+    public List<SendByPreferencesCommandDTO> findAll() {
         log.debug("Request to get all SendByPreferencesCommands");
-        return sendByPreferencesCommandRepository.findAll();
+        return sendByPreferencesCommandRepository
+            .findAll()
+            .stream()
+            .map(sendByPreferencesCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -81,9 +102,9 @@ public class SendByPreferencesCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<SendByPreferencesCommand> findOne(Long id) {
+    public Optional<SendByPreferencesCommandDTO> findOne(Long id) {
         log.debug("Request to get SendByPreferencesCommand : {}", id);
-        return sendByPreferencesCommandRepository.findById(id);
+        return sendByPreferencesCommandRepository.findById(id).map(sendByPreferencesCommandMapper::toDto);
     }
 
     /**

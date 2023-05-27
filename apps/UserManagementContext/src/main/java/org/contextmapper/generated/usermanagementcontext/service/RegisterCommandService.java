@@ -1,9 +1,13 @@
 package org.contextmapper.generated.usermanagementcontext.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.contextmapper.generated.usermanagementcontext.domain.RegisterCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.RegisterCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.RegisterCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.RegisterCommandMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,63 +24,57 @@ public class RegisterCommandService {
 
     private final RegisterCommandRepository registerCommandRepository;
 
-    public RegisterCommandService(RegisterCommandRepository registerCommandRepository) {
+    private final RegisterCommandMapper registerCommandMapper;
+
+    public RegisterCommandService(RegisterCommandRepository registerCommandRepository, RegisterCommandMapper registerCommandMapper) {
         this.registerCommandRepository = registerCommandRepository;
+        this.registerCommandMapper = registerCommandMapper;
     }
 
     /**
      * Save a registerCommand.
      *
-     * @param registerCommand the entity to save.
+     * @param registerCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public RegisterCommand save(RegisterCommand registerCommand) {
-        log.debug("Request to save RegisterCommand : {}", registerCommand);
-        return registerCommandRepository.save(registerCommand);
+    public RegisterCommandDTO save(RegisterCommandDTO registerCommandDTO) {
+        log.debug("Request to save RegisterCommand : {}", registerCommandDTO);
+        RegisterCommand registerCommand = registerCommandMapper.toEntity(registerCommandDTO);
+        registerCommand = registerCommandRepository.save(registerCommand);
+        return registerCommandMapper.toDto(registerCommand);
     }
 
     /**
      * Update a registerCommand.
      *
-     * @param registerCommand the entity to save.
+     * @param registerCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public RegisterCommand update(RegisterCommand registerCommand) {
-        log.debug("Request to update RegisterCommand : {}", registerCommand);
-        return registerCommandRepository.save(registerCommand);
+    public RegisterCommandDTO update(RegisterCommandDTO registerCommandDTO) {
+        log.debug("Request to update RegisterCommand : {}", registerCommandDTO);
+        RegisterCommand registerCommand = registerCommandMapper.toEntity(registerCommandDTO);
+        registerCommand = registerCommandRepository.save(registerCommand);
+        return registerCommandMapper.toDto(registerCommand);
     }
 
     /**
      * Partially update a registerCommand.
      *
-     * @param registerCommand the entity to update partially.
+     * @param registerCommandDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public Optional<RegisterCommand> partialUpdate(RegisterCommand registerCommand) {
-        log.debug("Request to partially update RegisterCommand : {}", registerCommand);
+    public Optional<RegisterCommandDTO> partialUpdate(RegisterCommandDTO registerCommandDTO) {
+        log.debug("Request to partially update RegisterCommand : {}", registerCommandDTO);
 
         return registerCommandRepository
-            .findById(registerCommand.getId())
+            .findById(registerCommandDTO.getId())
             .map(existingRegisterCommand -> {
-                if (registerCommand.getFirstname() != null) {
-                    existingRegisterCommand.setFirstname(registerCommand.getFirstname());
-                }
-                if (registerCommand.getLastname() != null) {
-                    existingRegisterCommand.setLastname(registerCommand.getLastname());
-                }
-                if (registerCommand.getMail() != null) {
-                    existingRegisterCommand.setMail(registerCommand.getMail());
-                }
-                if (registerCommand.getPassword() != null) {
-                    existingRegisterCommand.setPassword(registerCommand.getPassword());
-                }
-                if (registerCommand.getRole() != null) {
-                    existingRegisterCommand.setRole(registerCommand.getRole());
-                }
+                registerCommandMapper.partialUpdate(existingRegisterCommand, registerCommandDTO);
 
                 return existingRegisterCommand;
             })
-            .map(registerCommandRepository::save);
+            .map(registerCommandRepository::save)
+            .map(registerCommandMapper::toDto);
     }
 
     /**
@@ -85,9 +83,13 @@ public class RegisterCommandService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<RegisterCommand> findAll() {
+    public List<RegisterCommandDTO> findAll() {
         log.debug("Request to get all RegisterCommands");
-        return registerCommandRepository.findAll();
+        return registerCommandRepository
+            .findAll()
+            .stream()
+            .map(registerCommandMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -97,9 +99,9 @@ public class RegisterCommandService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<RegisterCommand> findOne(Long id) {
+    public Optional<RegisterCommandDTO> findOne(Long id) {
         log.debug("Request to get RegisterCommand : {}", id);
-        return registerCommandRepository.findById(id);
+        return registerCommandRepository.findById(id).map(registerCommandMapper::toDto);
     }
 
     /**

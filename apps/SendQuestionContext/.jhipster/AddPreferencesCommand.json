@@ -1,0 +1,25 @@
+{
+  "applications": ["SendQuestionContext"],
+  "changelogDate": "20230526103603",
+  "clientRootFolder": "SendQuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "add_preferences_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SendQuestionContext",
+  "name": "AddPreferencesCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userPreferencesTagInfos",
+      "ownerSide": true,
+      "relationshipName": "preferences",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

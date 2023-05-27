@@ -22,7 +22,7 @@
     {
       "fieldName": "status",
       "fieldType": "QuestionNotificationStatus",
-      "fieldValues": "SENT,VIEWED,ANSWERED"
+      "fieldValues": "PREPARING,SENT,VIEWED,ANSWERED"
     }
   ],
   "fluentMethods": true,

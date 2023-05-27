@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import org.contextmapper.generated.usermanagementcontext.IntegrationTest;
 import org.contextmapper.generated.usermanagementcontext.domain.RejectUserCommand;
 import org.contextmapper.generated.usermanagementcontext.repository.RejectUserCommandRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.RejectUserCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.mapper.RejectUserCommandMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ class RejectUserCommandResourceIT {
 
     @Autowired
     private RejectUserCommandRepository rejectUserCommandRepository;
+
+    @Autowired
+    private RejectUserCommandMapper rejectUserCommandMapper;
 
     @Autowired
     private EntityManager em;
@@ -78,9 +83,12 @@ class RejectUserCommandResourceIT {
     void createRejectUserCommand() throws Exception {
         int databaseSizeBeforeCreate = rejectUserCommandRepository.findAll().size();
         // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
         restRejectUserCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isCreated());
 
@@ -95,13 +103,16 @@ class RejectUserCommandResourceIT {
     void createRejectUserCommandWithExistingId() throws Exception {
         // Create the RejectUserCommand with an existing ID
         rejectUserCommand.setId(1L);
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
 
         int databaseSizeBeforeCreate = rejectUserCommandRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRejectUserCommandMockMvc
             .perform(
-                post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                post(ENTITY_API_URL)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -157,12 +168,13 @@ class RejectUserCommandResourceIT {
         RejectUserCommand updatedRejectUserCommand = rejectUserCommandRepository.findById(rejectUserCommand.getId()).get();
         // Disconnect from session so that the updates on updatedRejectUserCommand are not directly saved in db
         em.detach(updatedRejectUserCommand);
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(updatedRejectUserCommand);
 
         restRejectUserCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, updatedRejectUserCommand.getId())
+                put(ENTITY_API_URL_ID, rejectUserCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(updatedRejectUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isOk());
 
@@ -178,12 +190,15 @@ class RejectUserCommandResourceIT {
         int databaseSizeBeforeUpdate = rejectUserCommandRepository.findAll().size();
         rejectUserCommand.setId(count.incrementAndGet());
 
+        // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRejectUserCommandMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, rejectUserCommand.getId())
+                put(ENTITY_API_URL_ID, rejectUserCommandDTO.getId())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -198,12 +213,15 @@ class RejectUserCommandResourceIT {
         int databaseSizeBeforeUpdate = rejectUserCommandRepository.findAll().size();
         rejectUserCommand.setId(count.incrementAndGet());
 
+        // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRejectUserCommandMockMvc
             .perform(
                 put(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -218,10 +236,13 @@ class RejectUserCommandResourceIT {
         int databaseSizeBeforeUpdate = rejectUserCommandRepository.findAll().size();
         rejectUserCommand.setId(count.incrementAndGet());
 
+        // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRejectUserCommandMockMvc
             .perform(
-                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                put(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 
@@ -288,12 +309,15 @@ class RejectUserCommandResourceIT {
         int databaseSizeBeforeUpdate = rejectUserCommandRepository.findAll().size();
         rejectUserCommand.setId(count.incrementAndGet());
 
+        // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
+
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRejectUserCommandMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, rejectUserCommand.getId())
+                patch(ENTITY_API_URL_ID, rejectUserCommandDTO.getId())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -308,12 +332,15 @@ class RejectUserCommandResourceIT {
         int databaseSizeBeforeUpdate = rejectUserCommandRepository.findAll().size();
         rejectUserCommand.setId(count.incrementAndGet());
 
+        // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRejectUserCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, count.incrementAndGet())
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isBadRequest());
 
@@ -328,12 +355,15 @@ class RejectUserCommandResourceIT {
         int databaseSizeBeforeUpdate = rejectUserCommandRepository.findAll().size();
         rejectUserCommand.setId(count.incrementAndGet());
 
+        // Create the RejectUserCommand
+        RejectUserCommandDTO rejectUserCommandDTO = rejectUserCommandMapper.toDto(rejectUserCommand);
+
         // If url ID doesn't match entity ID, it will throw BadRequestAlertException
         restRejectUserCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL)
                     .contentType("application/merge-patch+json")
-                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommand))
+                    .content(TestUtil.convertObjectToJsonBytes(rejectUserCommandDTO))
             )
             .andExpect(status().isMethodNotAllowed());
 

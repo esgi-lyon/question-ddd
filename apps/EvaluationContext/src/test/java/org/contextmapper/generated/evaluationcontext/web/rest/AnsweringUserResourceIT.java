@@ -31,9 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class AnsweringUserResourceIT {
 
-    private static final Long DEFAULT_USER_ID = 1L;
-    private static final Long UPDATED_USER_ID = 2L;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -64,7 +61,7 @@ class AnsweringUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AnsweringUser createEntity(EntityManager em) {
-        AnsweringUser answeringUser = new AnsweringUser().userId(DEFAULT_USER_ID).name(DEFAULT_NAME);
+        AnsweringUser answeringUser = new AnsweringUser().name(DEFAULT_NAME);
         return answeringUser;
     }
 
@@ -75,7 +72,7 @@ class AnsweringUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AnsweringUser createUpdatedEntity(EntityManager em) {
-        AnsweringUser answeringUser = new AnsweringUser().userId(UPDATED_USER_ID).name(UPDATED_NAME);
+        AnsweringUser answeringUser = new AnsweringUser().name(UPDATED_NAME);
         return answeringUser;
     }
 
@@ -96,7 +93,6 @@ class AnsweringUserResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(answeringUser.getId().intValue())))
-            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID.intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
 
@@ -112,7 +108,6 @@ class AnsweringUserResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(answeringUser.getId().intValue()))
-            .andExpect(jsonPath("$.userId").value(DEFAULT_USER_ID.intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 

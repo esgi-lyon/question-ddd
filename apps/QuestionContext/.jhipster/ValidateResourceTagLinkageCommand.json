@@ -3,7 +3,7 @@
   "changelogDate": "20230522214011",
   "clientRootFolder": "QuestionContext",
   "databaseType": "sql",
-  "dto": "no",
+  "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "validate_resource_tag_linkage_command",
   "fields": [],
