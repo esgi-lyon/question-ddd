@@ -5,9 +5,9 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.questioncontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.CreateResourceCommand;
+import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.CreateResourceCommandDTO;
 import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.QuestionResourceDTO;
-import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.ValidateResourceTagLinkageCommand;
+import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.ValidateResourceTagLinkageCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:00.127213+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:17:37.306479+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "resource-command-handler-resource", description = "the resource-command-handler-resource API")
 public interface ResourceCommandHandlerResourceApi {
@@ -50,7 +50,7 @@ public interface ResourceCommandHandlerResourceApi {
         tags = { "resource-command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommandDTO.class))
             })
         }
     )
@@ -60,7 +60,7 @@ public interface ResourceCommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateResourceCommand> handle(
+    ResponseEntity<CreateResourceCommandDTO> handle(
         @Parameter(name = "QuestionResourceDTO", description = "", required = true) @Valid @RequestBody QuestionResourceDTO questionResourceDTO
     );
 
@@ -68,7 +68,7 @@ public interface ResourceCommandHandlerResourceApi {
     /**
      * POST /api/handlers/validate-resource-command
      *
-     * @param validateResourceTagLinkageCommand  (required)
+     * @param validateResourceTagLinkageCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -76,7 +76,7 @@ public interface ResourceCommandHandlerResourceApi {
         tags = { "resource-command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommandDTO.class))
             })
         }
     )
@@ -86,8 +86,8 @@ public interface ResourceCommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateResourceTagLinkageCommand> handleValidateResource(
-        @Parameter(name = "ValidateResourceTagLinkageCommand", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+    ResponseEntity<ValidateResourceTagLinkageCommandDTO> handleValidateResource(
+        @Parameter(name = "ValidateResourceTagLinkageCommandDTO", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     );
 
 }

@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.answercontext.client.sendquestioncontext.api;
 
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.PrepareQuestionCommand;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.PrepareQuestionCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:39:32.961922+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "prepare-question-command-resource", description = "the prepare-question-command-resource API")
 public interface PrepareQuestionCommandResourceApi {
@@ -40,7 +40,7 @@ public interface PrepareQuestionCommandResourceApi {
     /**
      * POST /api/prepare-question-commands
      *
-     * @param prepareQuestionCommand  (required)
+     * @param prepareQuestionCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface PrepareQuestionCommandResourceApi {
         tags = { "prepare-question-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface PrepareQuestionCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<PrepareQuestionCommand> createPrepareQuestionCommand(
-        @Parameter(name = "PrepareQuestionCommand", description = "", required = true) @Valid @RequestBody PrepareQuestionCommand prepareQuestionCommand
+    ResponseEntity<PrepareQuestionCommandDTO> createPrepareQuestionCommand(
+        @Parameter(name = "PrepareQuestionCommandDTO", description = "", required = true) @Valid @RequestBody PrepareQuestionCommandDTO prepareQuestionCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface PrepareQuestionCommandResourceApi {
         tags = { "prepare-question-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = PrepareQuestionCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = PrepareQuestionCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface PrepareQuestionCommandResourceApi {
         value = "/api/prepare-question-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<PrepareQuestionCommand>> getAllPrepareQuestionCommands(
+    ResponseEntity<List<PrepareQuestionCommandDTO>> getAllPrepareQuestionCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface PrepareQuestionCommandResourceApi {
         tags = { "prepare-question-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface PrepareQuestionCommandResourceApi {
         value = "/api/prepare-question-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<PrepareQuestionCommand> getPrepareQuestionCommand(
+    ResponseEntity<PrepareQuestionCommandDTO> getPrepareQuestionCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface PrepareQuestionCommandResourceApi {
      * PATCH /api/prepare-question-commands/{id}
      *
      * @param id  (required)
-     * @param prepareQuestionCommand  (required)
+     * @param prepareQuestionCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface PrepareQuestionCommandResourceApi {
         tags = { "prepare-question-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface PrepareQuestionCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<PrepareQuestionCommand> partialUpdatePrepareQuestionCommand(
+    ResponseEntity<PrepareQuestionCommandDTO> partialUpdatePrepareQuestionCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "PrepareQuestionCommand", description = "", required = true) @Valid @RequestBody PrepareQuestionCommand prepareQuestionCommand
+        @Parameter(name = "PrepareQuestionCommandDTO", description = "", required = true) @Valid @RequestBody PrepareQuestionCommandDTO prepareQuestionCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface PrepareQuestionCommandResourceApi {
      * PUT /api/prepare-question-commands/{id}
      *
      * @param id  (required)
-     * @param prepareQuestionCommand  (required)
+     * @param prepareQuestionCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface PrepareQuestionCommandResourceApi {
         tags = { "prepare-question-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface PrepareQuestionCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<PrepareQuestionCommand> updatePrepareQuestionCommand(
+    ResponseEntity<PrepareQuestionCommandDTO> updatePrepareQuestionCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "PrepareQuestionCommand", description = "", required = true) @Valid @RequestBody PrepareQuestionCommand prepareQuestionCommand
+        @Parameter(name = "PrepareQuestionCommandDTO", description = "", required = true) @Valid @RequestBody PrepareQuestionCommandDTO prepareQuestionCommandDTO
     );
 
 }

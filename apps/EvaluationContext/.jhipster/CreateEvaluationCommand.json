@@ -6,7 +6,13 @@
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "create_evaluation_command",
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "difficultyLevel",
+      "fieldType": "DifficultyLevel",
+      "fieldValues": "EASY,MEDIUM,HARD"
+    }
+  ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "EvaluationContext",

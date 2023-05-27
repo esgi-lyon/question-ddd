@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.ValidateUserCommand;
+import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.ValidateUserCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:24:08.668735+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:16:56.437474+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "validate-user-command-resource", description = "the validate-user-command-resource API")
 public interface ValidateUserCommandResourceApi {
@@ -40,7 +40,7 @@ public interface ValidateUserCommandResourceApi {
     /**
      * POST /api/validate-user-commands
      *
-     * @param validateUserCommand  (required)
+     * @param validateUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface ValidateUserCommandResourceApi {
         tags = { "validate-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface ValidateUserCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> createValidateUserCommand(
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+    ResponseEntity<ValidateUserCommandDTO> createValidateUserCommand(
+        @Parameter(name = "ValidateUserCommandDTO", description = "", required = true) @Valid @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface ValidateUserCommandResourceApi {
         tags = { "validate-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = ValidateUserCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = ValidateUserCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface ValidateUserCommandResourceApi {
         value = "/api/validate-user-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<ValidateUserCommand>> getAllValidateUserCommands(
+    ResponseEntity<List<ValidateUserCommandDTO>> getAllValidateUserCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface ValidateUserCommandResourceApi {
         tags = { "validate-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface ValidateUserCommandResourceApi {
         value = "/api/validate-user-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<ValidateUserCommand> getValidateUserCommand(
+    ResponseEntity<ValidateUserCommandDTO> getValidateUserCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface ValidateUserCommandResourceApi {
      * PATCH /api/validate-user-commands/{id}
      *
      * @param id  (required)
-     * @param validateUserCommand  (required)
+     * @param validateUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface ValidateUserCommandResourceApi {
         tags = { "validate-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface ValidateUserCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> partialUpdateValidateUserCommand(
+    ResponseEntity<ValidateUserCommandDTO> partialUpdateValidateUserCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+        @Parameter(name = "ValidateUserCommandDTO", description = "", required = true) @Valid @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface ValidateUserCommandResourceApi {
      * PUT /api/validate-user-commands/{id}
      *
      * @param id  (required)
-     * @param validateUserCommand  (required)
+     * @param validateUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface ValidateUserCommandResourceApi {
         tags = { "validate-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface ValidateUserCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> updateValidateUserCommand(
+    ResponseEntity<ValidateUserCommandDTO> updateValidateUserCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+        @Parameter(name = "ValidateUserCommandDTO", description = "", required = true) @Valid @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     );
 
 }

@@ -1,10 +1,10 @@
 package org.contextmapper.generated.questioncontext.web.rest;
 
-import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
-import org.contextmapper.generated.questioncontext.domain.ValidateResourceTagLinkageCommand;
 import org.contextmapper.generated.questioncontext.service.CreateResourceCommandHandler;
 import org.contextmapper.generated.questioncontext.service.ValidateResourceTagLinkageCommandHandler;
+import org.contextmapper.generated.questioncontext.service.dto.CreateResourceCommandDTO;
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceDTO;
+import org.contextmapper.generated.questioncontext.service.dto.ValidateResourceTagLinkageCommandDTO;
 import org.contextmapper.generated.questioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +44,7 @@ public class ResourceCommandHandlerResource {
     }
 
     @PostMapping("/resource-command")
-    public ResponseEntity<CreateResourceCommand> handle(@RequestBody QuestionResourceDTO createResource)
+    public ResponseEntity<CreateResourceCommandDTO> handle(@RequestBody QuestionResourceDTO createResource)
         throws URISyntaxException {
         log.debug("REST request to handle create resource command : {}", createResource);
         if (createResource.getId() != null) {
@@ -58,8 +58,8 @@ public class ResourceCommandHandlerResource {
     }
 
     @PostMapping("/validate-resource-command")
-    public ResponseEntity<ValidateResourceTagLinkageCommand> handleValidateResource(
-        @RequestBody ValidateResourceTagLinkageCommand command
+    public ResponseEntity<ValidateResourceTagLinkageCommandDTO> handleValidateResource(
+        @RequestBody ValidateResourceTagLinkageCommandDTO command
     ) throws URISyntaxException {
         log.debug("REST request to handle validate resource command : {}", command);
         if (command.getId() != null) {

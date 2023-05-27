@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.RejectUserCommand;
+import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.RejectUserCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:24:08.668735+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:16:56.437474+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "reject-user-command-resource", description = "the reject-user-command-resource API")
 public interface RejectUserCommandResourceApi {
@@ -40,7 +40,7 @@ public interface RejectUserCommandResourceApi {
     /**
      * POST /api/reject-user-commands
      *
-     * @param rejectUserCommand  (required)
+     * @param rejectUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface RejectUserCommandResourceApi {
         tags = { "reject-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface RejectUserCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RejectUserCommand> createRejectUserCommand(
-        @Parameter(name = "RejectUserCommand", description = "", required = true) @Valid @RequestBody RejectUserCommand rejectUserCommand
+    ResponseEntity<RejectUserCommandDTO> createRejectUserCommand(
+        @Parameter(name = "RejectUserCommandDTO", description = "", required = true) @Valid @RequestBody RejectUserCommandDTO rejectUserCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface RejectUserCommandResourceApi {
         tags = { "reject-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = RejectUserCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = RejectUserCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface RejectUserCommandResourceApi {
         value = "/api/reject-user-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<RejectUserCommand>> getAllRejectUserCommands(
+    ResponseEntity<List<RejectUserCommandDTO>> getAllRejectUserCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface RejectUserCommandResourceApi {
         tags = { "reject-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface RejectUserCommandResourceApi {
         value = "/api/reject-user-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<RejectUserCommand> getRejectUserCommand(
+    ResponseEntity<RejectUserCommandDTO> getRejectUserCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface RejectUserCommandResourceApi {
      * PATCH /api/reject-user-commands/{id}
      *
      * @param id  (required)
-     * @param rejectUserCommand  (required)
+     * @param rejectUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface RejectUserCommandResourceApi {
         tags = { "reject-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface RejectUserCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RejectUserCommand> partialUpdateRejectUserCommand(
+    ResponseEntity<RejectUserCommandDTO> partialUpdateRejectUserCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "RejectUserCommand", description = "", required = true) @Valid @RequestBody RejectUserCommand rejectUserCommand
+        @Parameter(name = "RejectUserCommandDTO", description = "", required = true) @Valid @RequestBody RejectUserCommandDTO rejectUserCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface RejectUserCommandResourceApi {
      * PUT /api/reject-user-commands/{id}
      *
      * @param id  (required)
-     * @param rejectUserCommand  (required)
+     * @param rejectUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface RejectUserCommandResourceApi {
         tags = { "reject-user-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RejectUserCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface RejectUserCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RejectUserCommand> updateRejectUserCommand(
+    ResponseEntity<RejectUserCommandDTO> updateRejectUserCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "RejectUserCommand", description = "", required = true) @Valid @RequestBody RejectUserCommand rejectUserCommand
+        @Parameter(name = "RejectUserCommandDTO", description = "", required = true) @Valid @RequestBody RejectUserCommandDTO rejectUserCommandDTO
     );
 
 }

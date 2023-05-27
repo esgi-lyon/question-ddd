@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.skillcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateTagCommand;
+import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateTagCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:33.252958+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:07.940493+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "create-tag-command-resource", description = "the create-tag-command-resource API")
 public interface CreateTagCommandResourceApi {
@@ -40,7 +40,7 @@ public interface CreateTagCommandResourceApi {
     /**
      * POST /api/create-tag-commands
      *
-     * @param createTagCommand  (required)
+     * @param createTagCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface CreateTagCommandResourceApi {
         tags = { "create-tag-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface CreateTagCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateTagCommand> createCreateTagCommand1(
-        @Parameter(name = "CreateTagCommand", description = "", required = true) @Valid @RequestBody CreateTagCommand createTagCommand
+    ResponseEntity<CreateTagCommandDTO> createCreateTagCommand1(
+        @Parameter(name = "CreateTagCommandDTO", description = "", required = true) @Valid @RequestBody CreateTagCommandDTO createTagCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface CreateTagCommandResourceApi {
         tags = { "create-tag-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = CreateTagCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = CreateTagCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface CreateTagCommandResourceApi {
         value = "/api/create-tag-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<CreateTagCommand>> getAllCreateTagCommands(
+    ResponseEntity<List<CreateTagCommandDTO>> getAllCreateTagCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface CreateTagCommandResourceApi {
         tags = { "create-tag-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface CreateTagCommandResourceApi {
         value = "/api/create-tag-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<CreateTagCommand> getCreateTagCommand(
+    ResponseEntity<CreateTagCommandDTO> getCreateTagCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface CreateTagCommandResourceApi {
      * PATCH /api/create-tag-commands/{id}
      *
      * @param id  (required)
-     * @param createTagCommand  (required)
+     * @param createTagCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface CreateTagCommandResourceApi {
         tags = { "create-tag-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface CreateTagCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateTagCommand> partialUpdateCreateTagCommand(
+    ResponseEntity<CreateTagCommandDTO> partialUpdateCreateTagCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "CreateTagCommand", description = "", required = true) @Valid @RequestBody CreateTagCommand createTagCommand
+        @Parameter(name = "CreateTagCommandDTO", description = "", required = true) @Valid @RequestBody CreateTagCommandDTO createTagCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface CreateTagCommandResourceApi {
      * PUT /api/create-tag-commands/{id}
      *
      * @param id  (required)
-     * @param createTagCommand  (required)
+     * @param createTagCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface CreateTagCommandResourceApi {
         tags = { "create-tag-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface CreateTagCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateTagCommand> updateCreateTagCommand(
+    ResponseEntity<CreateTagCommandDTO> updateCreateTagCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "CreateTagCommand", description = "", required = true) @Valid @RequestBody CreateTagCommand createTagCommand
+        @Parameter(name = "CreateTagCommandDTO", description = "", required = true) @Valid @RequestBody CreateTagCommandDTO createTagCommandDTO
     );
 
 }

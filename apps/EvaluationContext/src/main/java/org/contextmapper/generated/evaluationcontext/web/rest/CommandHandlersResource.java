@@ -1,12 +1,9 @@
 package org.contextmapper.generated.evaluationcontext.web.rest;
 
-import org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand;
 import org.contextmapper.generated.evaluationcontext.service.CheckAnswerCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.CreateEvaluationCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.PointAwardRuleCommandHandler;
-import org.contextmapper.generated.evaluationcontext.service.dto.AwardPointForEvaluationCommandDTO;
-import org.contextmapper.generated.evaluationcontext.service.dto.CheckAnswerCommandDTO;
-import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationDTO;
+import org.contextmapper.generated.evaluationcontext.service.dto.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +44,7 @@ public class CommandHandlersResource {
 }
 
     @PostMapping("/create-evaluation-command")
-    public ResponseEntity<CreateEvaluationCommand> handleCreateEvaluationCommand(@RequestBody EvaluationDTO evaluationDTO) throws URISyntaxException {
+    public ResponseEntity<EvaluationCreatedEventDTO> handleCreateEvaluationCommand(@RequestBody CreateEvaluationCommandDTO evaluationDTO) throws URISyntaxException {
         log.debug("REST request to handle CreateEvaluationCommand : {}", evaluationDTO);
         final var result = createEvaluationCommandHandler.handleCreateEvaluationCommand(evaluationDTO);
         return ResponseEntity

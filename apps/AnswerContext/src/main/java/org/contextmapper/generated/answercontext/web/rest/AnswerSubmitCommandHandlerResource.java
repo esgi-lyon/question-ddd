@@ -1,10 +1,11 @@
 package org.contextmapper.generated.answercontext.web.rest;
 
-import org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand;
-import org.contextmapper.generated.answercontext.domain.TagChoicesListCommand;
 import org.contextmapper.generated.answercontext.service.AnswerSubmitCommandHandler;
-import org.contextmapper.generated.answercontext.service.TagChoicesListQueryHandler;
-import org.contextmapper.generated.answercontext.service.dto.AnswerDTO;
+import org.contextmapper.generated.answercontext.service.TagChoicesListCommandHandler;
+import org.contextmapper.generated.answercontext.service.dto.AnswerSubmitCommandDTO;
+import org.contextmapper.generated.answercontext.service.dto.AnswerSubmittedEventDTO;
+import org.contextmapper.generated.answercontext.service.dto.TagChoicesListCommandDTO;
+import org.contextmapper.generated.answercontext.service.dto.TagChoicesListedEventDTO;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AnswerSubmitCommandHandlerResource {
 
     private static final String ENTITY_NAME_TAG_CHOICE = "answerContextTagChoicesListCommand";
 
-    private final TagChoicesListQueryHandler tagChoicesListQueryHandler;
+    private final TagChoicesListCommandHandler tagChoicesListCommandHandler;
 
     private final AnswerSubmitCommandHandler answerSubmitCommandHandler;
 
@@ -34,14 +35,14 @@ public class AnswerSubmitCommandHandlerResource {
 
     public AnswerSubmitCommandHandlerResource(
         AnswerSubmitCommandHandler answerSubmitCommandHandler,
-        TagChoicesListQueryHandler tagChoicesListQueryHandler
+        TagChoicesListCommandHandler tagChoicesListCommandHandler
     ) {
         this.answerSubmitCommandHandler = answerSubmitCommandHandler;
-        this.tagChoicesListQueryHandler = tagChoicesListQueryHandler;
+        this.tagChoicesListCommandHandler = tagChoicesListCommandHandler;
     }
 
     @PostMapping("/answer-submit-command")
-    public ResponseEntity<AnswerSubmitCommand> handleAnswerSubmitCommand(@RequestBody AnswerDTO answerDTO)
+    public ResponseEntity<AnswerSubmittedEventDTO> handleAnswerSubmitCommand(@RequestBody AnswerSubmitCommandDTO answerDTO)
         throws URISyntaxException {
         log.debug("REST request to handle AnswerSubmitCommand : {}", answerDTO);
 
@@ -54,9 +55,9 @@ public class AnswerSubmitCommandHandlerResource {
 
 
     @GetMapping("/tags-choices-list-query")
-    public ResponseEntity<TagChoicesListCommand> handleTagChoicesListCommand(@RequestParam("questionId") Long questionId) throws URISyntaxException {
+    public ResponseEntity<TagChoicesListedEventDTO> handleTagChoicesListCommand(TagChoicesListCommandDTO question) throws URISyntaxException {
         log.debug("REST request to handle TagChoicesListCommand");
-        final var result = tagChoicesListQueryHandler.handleTagChoicesListCommand(questionId);
+        final var result = tagChoicesListCommandHandler.handleTagChoicesListCommand(question);
         return ResponseEntity
             .created(new URI("/api/handlers/tags-choices-list-query/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME_TAG_CHOICE, result.getId().toString()))

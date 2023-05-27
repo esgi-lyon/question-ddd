@@ -18,12 +18,12 @@ import javax.annotation.Generated;
  * UserWithPreferencesIdDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:39:32.961922+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
 public class UserWithPreferencesIdDTO {
 
   private Long id;
 
-  private Long userId;
+  private String mail;
 
   public UserWithPreferencesIdDTO id(Long id) {
     this.id = id;
@@ -45,24 +45,24 @@ public class UserWithPreferencesIdDTO {
     this.id = id;
   }
 
-  public UserWithPreferencesIdDTO userId(Long userId) {
-    this.userId = userId;
+  public UserWithPreferencesIdDTO mail(String mail) {
+    this.mail = mail;
     return this;
   }
 
   /**
-   * Get userId
-   * @return userId
+   * Get mail
+   * @return mail
   */
   
-  @Schema(name = "userId", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("userId")
-  public Long getUserId() {
-    return userId;
+  @Schema(name = "mail", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("mail")
+  public String getMail() {
+    return mail;
   }
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
+  public void setMail(String mail) {
+    this.mail = mail;
   }
 
   @Override
@@ -75,12 +75,12 @@ public class UserWithPreferencesIdDTO {
     }
     UserWithPreferencesIdDTO userWithPreferencesIdDTO = (UserWithPreferencesIdDTO) o;
     return Objects.equals(this.id, userWithPreferencesIdDTO.id) &&
-        Objects.equals(this.userId, userWithPreferencesIdDTO.userId);
+        Objects.equals(this.mail, userWithPreferencesIdDTO.mail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userId);
+    return Objects.hash(id, mail);
   }
 
   @Override
@@ -88,7 +88,7 @@ public class UserWithPreferencesIdDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserWithPreferencesIdDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    mail: ").append(toIndentedString(mail)).append("\n");
     sb.append("}");
     return sb.toString();
   }

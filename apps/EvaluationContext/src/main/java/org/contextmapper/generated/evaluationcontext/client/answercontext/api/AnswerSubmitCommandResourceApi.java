@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmitCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmitCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:58.391007+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "answer-submit-command-resource", description = "the answer-submit-command-resource API")
 public interface AnswerSubmitCommandResourceApi {
@@ -40,7 +40,7 @@ public interface AnswerSubmitCommandResourceApi {
     /**
      * POST /api/answer-submit-commands
      *
-     * @param answerSubmitCommand  (required)
+     * @param answerSubmitCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface AnswerSubmitCommandResourceApi {
         tags = { "answer-submit-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface AnswerSubmitCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<AnswerSubmitCommand> createAnswerSubmitCommand(
-        @Parameter(name = "AnswerSubmitCommand", description = "", required = true) @Valid @RequestBody AnswerSubmitCommand answerSubmitCommand
+    ResponseEntity<AnswerSubmitCommandDTO> createAnswerSubmitCommand(
+        @Parameter(name = "AnswerSubmitCommandDTO", description = "", required = true) @Valid @RequestBody AnswerSubmitCommandDTO answerSubmitCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface AnswerSubmitCommandResourceApi {
         tags = { "answer-submit-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = AnswerSubmitCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = AnswerSubmitCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface AnswerSubmitCommandResourceApi {
         value = "/api/answer-submit-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<AnswerSubmitCommand>> getAllAnswerSubmitCommands(
+    ResponseEntity<List<AnswerSubmitCommandDTO>> getAllAnswerSubmitCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface AnswerSubmitCommandResourceApi {
         tags = { "answer-submit-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface AnswerSubmitCommandResourceApi {
         value = "/api/answer-submit-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<AnswerSubmitCommand> getAnswerSubmitCommand(
+    ResponseEntity<AnswerSubmitCommandDTO> getAnswerSubmitCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface AnswerSubmitCommandResourceApi {
      * PATCH /api/answer-submit-commands/{id}
      *
      * @param id  (required)
-     * @param answerSubmitCommand  (required)
+     * @param answerSubmitCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface AnswerSubmitCommandResourceApi {
         tags = { "answer-submit-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface AnswerSubmitCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<AnswerSubmitCommand> partialUpdateAnswerSubmitCommand(
+    ResponseEntity<AnswerSubmitCommandDTO> partialUpdateAnswerSubmitCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "AnswerSubmitCommand", description = "", required = true) @Valid @RequestBody AnswerSubmitCommand answerSubmitCommand
+        @Parameter(name = "AnswerSubmitCommandDTO", description = "", required = true) @Valid @RequestBody AnswerSubmitCommandDTO answerSubmitCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface AnswerSubmitCommandResourceApi {
      * PUT /api/answer-submit-commands/{id}
      *
      * @param id  (required)
-     * @param answerSubmitCommand  (required)
+     * @param answerSubmitCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface AnswerSubmitCommandResourceApi {
         tags = { "answer-submit-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface AnswerSubmitCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<AnswerSubmitCommand> updateAnswerSubmitCommand(
+    ResponseEntity<AnswerSubmitCommandDTO> updateAnswerSubmitCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "AnswerSubmitCommand", description = "", required = true) @Valid @RequestBody AnswerSubmitCommand answerSubmitCommand
+        @Parameter(name = "AnswerSubmitCommandDTO", description = "", required = true) @Valid @RequestBody AnswerSubmitCommandDTO answerSubmitCommandDTO
     );
 
 }

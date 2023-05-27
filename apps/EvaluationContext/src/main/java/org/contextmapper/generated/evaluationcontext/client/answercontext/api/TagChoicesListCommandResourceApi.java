@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:58.391007+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "tag-choices-list-command-resource", description = "the tag-choices-list-command-resource API")
 public interface TagChoicesListCommandResourceApi {
@@ -40,7 +40,7 @@ public interface TagChoicesListCommandResourceApi {
     /**
      * POST /api/tag-choices-list-commands
      *
-     * @param tagChoicesListCommand  (required)
+     * @param tagChoicesListCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface TagChoicesListCommandResourceApi {
         tags = { "tag-choices-list-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface TagChoicesListCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<TagChoicesListCommand> createTagChoicesListCommand(
-        @Parameter(name = "TagChoicesListCommand", description = "", required = true) @Valid @RequestBody TagChoicesListCommand tagChoicesListCommand
+    ResponseEntity<TagChoicesListCommandDTO> createTagChoicesListCommand(
+        @Parameter(name = "TagChoicesListCommandDTO", description = "", required = true) @Valid @RequestBody TagChoicesListCommandDTO tagChoicesListCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface TagChoicesListCommandResourceApi {
         tags = { "tag-choices-list-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = TagChoicesListCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = TagChoicesListCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface TagChoicesListCommandResourceApi {
         value = "/api/tag-choices-list-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<TagChoicesListCommand>> getAllTagChoicesListCommands(
+    ResponseEntity<List<TagChoicesListCommandDTO>> getAllTagChoicesListCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface TagChoicesListCommandResourceApi {
         tags = { "tag-choices-list-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface TagChoicesListCommandResourceApi {
         value = "/api/tag-choices-list-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<TagChoicesListCommand> getTagChoicesListCommand(
+    ResponseEntity<TagChoicesListCommandDTO> getTagChoicesListCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface TagChoicesListCommandResourceApi {
      * PATCH /api/tag-choices-list-commands/{id}
      *
      * @param id  (required)
-     * @param tagChoicesListCommand  (required)
+     * @param tagChoicesListCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface TagChoicesListCommandResourceApi {
         tags = { "tag-choices-list-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface TagChoicesListCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<TagChoicesListCommand> partialUpdateTagChoicesListCommand(
+    ResponseEntity<TagChoicesListCommandDTO> partialUpdateTagChoicesListCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "TagChoicesListCommand", description = "", required = true) @Valid @RequestBody TagChoicesListCommand tagChoicesListCommand
+        @Parameter(name = "TagChoicesListCommandDTO", description = "", required = true) @Valid @RequestBody TagChoicesListCommandDTO tagChoicesListCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface TagChoicesListCommandResourceApi {
      * PUT /api/tag-choices-list-commands/{id}
      *
      * @param id  (required)
-     * @param tagChoicesListCommand  (required)
+     * @param tagChoicesListCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface TagChoicesListCommandResourceApi {
         tags = { "tag-choices-list-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface TagChoicesListCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<TagChoicesListCommand> updateTagChoicesListCommand(
+    ResponseEntity<TagChoicesListCommandDTO> updateTagChoicesListCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "TagChoicesListCommand", description = "", required = true) @Valid @RequestBody TagChoicesListCommand tagChoicesListCommand
+        @Parameter(name = "TagChoicesListCommandDTO", description = "", required = true) @Valid @RequestBody TagChoicesListCommandDTO tagChoicesListCommandDTO
     );
 
 }

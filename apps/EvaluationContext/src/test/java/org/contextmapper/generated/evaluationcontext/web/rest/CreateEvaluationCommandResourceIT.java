@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.evaluationcontext.IntegrationTest;
 import org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
 import org.contextmapper.generated.evaluationcontext.repository.CreateEvaluationCommandRepository;
 import org.contextmapper.generated.evaluationcontext.service.dto.CreateEvaluationCommandDTO;
 import org.contextmapper.generated.evaluationcontext.service.mapper.CreateEvaluationCommandMapper;
@@ -30,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class CreateEvaluationCommandResourceIT {
+
+    private static final DifficultyLevel DEFAULT_DIFFICULTY_LEVEL = DifficultyLevel.EASY;
+    private static final DifficultyLevel UPDATED_DIFFICULTY_LEVEL = DifficultyLevel.MEDIUM;
 
     private static final String ENTITY_API_URL = "/api/create-evaluation-commands";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -58,7 +62,7 @@ class CreateEvaluationCommandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CreateEvaluationCommand createEntity(EntityManager em) {
-        CreateEvaluationCommand createEvaluationCommand = new CreateEvaluationCommand();
+        CreateEvaluationCommand createEvaluationCommand = new CreateEvaluationCommand().difficultyLevel(DEFAULT_DIFFICULTY_LEVEL);
         return createEvaluationCommand;
     }
 
@@ -69,7 +73,7 @@ class CreateEvaluationCommandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static CreateEvaluationCommand createUpdatedEntity(EntityManager em) {
-        CreateEvaluationCommand createEvaluationCommand = new CreateEvaluationCommand();
+        CreateEvaluationCommand createEvaluationCommand = new CreateEvaluationCommand().difficultyLevel(UPDATED_DIFFICULTY_LEVEL);
         return createEvaluationCommand;
     }
 
@@ -96,6 +100,7 @@ class CreateEvaluationCommandResourceIT {
         List<CreateEvaluationCommand> createEvaluationCommandList = createEvaluationCommandRepository.findAll();
         assertThat(createEvaluationCommandList).hasSize(databaseSizeBeforeCreate + 1);
         CreateEvaluationCommand testCreateEvaluationCommand = createEvaluationCommandList.get(createEvaluationCommandList.size() - 1);
+        assertThat(testCreateEvaluationCommand.getDifficultyLevel()).isEqualTo(DEFAULT_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -132,7 +137,8 @@ class CreateEvaluationCommandResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(createEvaluationCommand.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(createEvaluationCommand.getId().intValue())))
+            .andExpect(jsonPath("$.[*].difficultyLevel").value(hasItem(DEFAULT_DIFFICULTY_LEVEL.toString())));
     }
 
     @Test
@@ -146,7 +152,8 @@ class CreateEvaluationCommandResourceIT {
             .perform(get(ENTITY_API_URL_ID, createEvaluationCommand.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(createEvaluationCommand.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(createEvaluationCommand.getId().intValue()))
+            .andExpect(jsonPath("$.difficultyLevel").value(DEFAULT_DIFFICULTY_LEVEL.toString()));
     }
 
     @Test
@@ -170,6 +177,7 @@ class CreateEvaluationCommandResourceIT {
             .get();
         // Disconnect from session so that the updates on updatedCreateEvaluationCommand are not directly saved in db
         em.detach(updatedCreateEvaluationCommand);
+        updatedCreateEvaluationCommand.difficultyLevel(UPDATED_DIFFICULTY_LEVEL);
         CreateEvaluationCommandDTO createEvaluationCommandDTO = createEvaluationCommandMapper.toDto(updatedCreateEvaluationCommand);
 
         restCreateEvaluationCommandMockMvc
@@ -184,6 +192,7 @@ class CreateEvaluationCommandResourceIT {
         List<CreateEvaluationCommand> createEvaluationCommandList = createEvaluationCommandRepository.findAll();
         assertThat(createEvaluationCommandList).hasSize(databaseSizeBeforeUpdate);
         CreateEvaluationCommand testCreateEvaluationCommand = createEvaluationCommandList.get(createEvaluationCommandList.size() - 1);
+        assertThat(testCreateEvaluationCommand.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -279,6 +288,7 @@ class CreateEvaluationCommandResourceIT {
         List<CreateEvaluationCommand> createEvaluationCommandList = createEvaluationCommandRepository.findAll();
         assertThat(createEvaluationCommandList).hasSize(databaseSizeBeforeUpdate);
         CreateEvaluationCommand testCreateEvaluationCommand = createEvaluationCommandList.get(createEvaluationCommandList.size() - 1);
+        assertThat(testCreateEvaluationCommand.getDifficultyLevel()).isEqualTo(DEFAULT_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -293,6 +303,8 @@ class CreateEvaluationCommandResourceIT {
         CreateEvaluationCommand partialUpdatedCreateEvaluationCommand = new CreateEvaluationCommand();
         partialUpdatedCreateEvaluationCommand.setId(createEvaluationCommand.getId());
 
+        partialUpdatedCreateEvaluationCommand.difficultyLevel(UPDATED_DIFFICULTY_LEVEL);
+
         restCreateEvaluationCommandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCreateEvaluationCommand.getId())
@@ -305,6 +317,7 @@ class CreateEvaluationCommandResourceIT {
         List<CreateEvaluationCommand> createEvaluationCommandList = createEvaluationCommandRepository.findAll();
         assertThat(createEvaluationCommandList).hasSize(databaseSizeBeforeUpdate);
         CreateEvaluationCommand testCreateEvaluationCommand = createEvaluationCommandList.get(createEvaluationCommandList.size() - 1);
+        assertThat(testCreateEvaluationCommand.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
     }
 
     @Test

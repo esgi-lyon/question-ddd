@@ -5,9 +5,10 @@
  */
 package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerDTO;
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmitCommand;
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmitCommandDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmittedEventDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListCommandDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListedEventDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:58.391007+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "answer-submit-command-handler-resource", description = "the answer-submit-command-handler-resource API")
 public interface AnswerSubmitCommandHandlerResourceApi {
@@ -42,7 +43,7 @@ public interface AnswerSubmitCommandHandlerResourceApi {
     /**
      * POST /api/handlers/answer-submit-command
      *
-     * @param answerDTO  (required)
+     * @param answerSubmitCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -50,7 +51,7 @@ public interface AnswerSubmitCommandHandlerResourceApi {
         tags = { "answer-submit-command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmitCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerSubmittedEventDTO.class))
             })
         }
     )
@@ -60,15 +61,15 @@ public interface AnswerSubmitCommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<AnswerSubmitCommand> handleAnswerSubmitCommand(
-        @Parameter(name = "AnswerDTO", description = "", required = true) @Valid @RequestBody AnswerDTO answerDTO
+    ResponseEntity<AnswerSubmittedEventDTO> handleAnswerSubmitCommand(
+        @Parameter(name = "AnswerSubmitCommandDTO", description = "", required = true) @Valid @RequestBody AnswerSubmitCommandDTO answerSubmitCommandDTO
     );
 
 
     /**
      * GET /api/handlers/tags-choices-list-query
      *
-     * @param questionId  (required)
+     * @param question  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -76,7 +77,7 @@ public interface AnswerSubmitCommandHandlerResourceApi {
         tags = { "answer-submit-command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListedEventDTO.class))
             })
         }
     )
@@ -85,8 +86,8 @@ public interface AnswerSubmitCommandHandlerResourceApi {
         value = "/api/handlers/tags-choices-list-query",
         produces = "*/*"
     )
-    ResponseEntity<TagChoicesListCommand> handleTagChoicesListCommand(
-        @NotNull @Parameter(name = "questionId", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "questionId", required = true) Long questionId
+    ResponseEntity<TagChoicesListedEventDTO> handleTagChoicesListCommand(
+        @NotNull @Parameter(name = "question", description = "", required = true, in = ParameterIn.QUERY) @Valid TagChoicesListCommandDTO question
     );
 
 }

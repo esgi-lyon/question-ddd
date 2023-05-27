@@ -18,7 +18,7 @@ import javax.annotation.Generated;
  * TagInfosDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:33.252958+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:07.940493+02:00[Europe/Paris]")
 public class TagInfosDTO {
 
   private Long id;

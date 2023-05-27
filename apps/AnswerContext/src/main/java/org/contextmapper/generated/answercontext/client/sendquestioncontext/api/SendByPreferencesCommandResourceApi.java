@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.answercontext.client.sendquestioncontext.api;
 
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.SendByPreferencesCommand;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.SendByPreferencesCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:39:32.961922+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "send-by-preferences-command-resource", description = "the send-by-preferences-command-resource API")
 public interface SendByPreferencesCommandResourceApi {
@@ -40,7 +40,7 @@ public interface SendByPreferencesCommandResourceApi {
     /**
      * POST /api/send-by-preferences-commands
      *
-     * @param sendByPreferencesCommand  (required)
+     * @param sendByPreferencesCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface SendByPreferencesCommandResourceApi {
         tags = { "send-by-preferences-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface SendByPreferencesCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<SendByPreferencesCommand> createSendByPreferencesCommand(
-        @Parameter(name = "SendByPreferencesCommand", description = "", required = true) @Valid @RequestBody SendByPreferencesCommand sendByPreferencesCommand
+    ResponseEntity<SendByPreferencesCommandDTO> createSendByPreferencesCommand(
+        @Parameter(name = "SendByPreferencesCommandDTO", description = "", required = true) @Valid @RequestBody SendByPreferencesCommandDTO sendByPreferencesCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface SendByPreferencesCommandResourceApi {
         tags = { "send-by-preferences-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = SendByPreferencesCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = SendByPreferencesCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface SendByPreferencesCommandResourceApi {
         value = "/api/send-by-preferences-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<SendByPreferencesCommand>> getAllSendByPreferencesCommands(
+    ResponseEntity<List<SendByPreferencesCommandDTO>> getAllSendByPreferencesCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface SendByPreferencesCommandResourceApi {
         tags = { "send-by-preferences-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface SendByPreferencesCommandResourceApi {
         value = "/api/send-by-preferences-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<SendByPreferencesCommand> getSendByPreferencesCommand(
+    ResponseEntity<SendByPreferencesCommandDTO> getSendByPreferencesCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface SendByPreferencesCommandResourceApi {
      * PATCH /api/send-by-preferences-commands/{id}
      *
      * @param id  (required)
-     * @param sendByPreferencesCommand  (required)
+     * @param sendByPreferencesCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface SendByPreferencesCommandResourceApi {
         tags = { "send-by-preferences-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface SendByPreferencesCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<SendByPreferencesCommand> partialUpdateSendByPreferencesCommand(
+    ResponseEntity<SendByPreferencesCommandDTO> partialUpdateSendByPreferencesCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "SendByPreferencesCommand", description = "", required = true) @Valid @RequestBody SendByPreferencesCommand sendByPreferencesCommand
+        @Parameter(name = "SendByPreferencesCommandDTO", description = "", required = true) @Valid @RequestBody SendByPreferencesCommandDTO sendByPreferencesCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface SendByPreferencesCommandResourceApi {
      * PUT /api/send-by-preferences-commands/{id}
      *
      * @param id  (required)
-     * @param sendByPreferencesCommand  (required)
+     * @param sendByPreferencesCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface SendByPreferencesCommandResourceApi {
         tags = { "send-by-preferences-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface SendByPreferencesCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<SendByPreferencesCommand> updateSendByPreferencesCommand(
+    ResponseEntity<SendByPreferencesCommandDTO> updateSendByPreferencesCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "SendByPreferencesCommand", description = "", required = true) @Valid @RequestBody SendByPreferencesCommand sendByPreferencesCommand
+        @Parameter(name = "SendByPreferencesCommandDTO", description = "", required = true) @Valid @RequestBody SendByPreferencesCommandDTO sendByPreferencesCommandDTO
     );
 
 }

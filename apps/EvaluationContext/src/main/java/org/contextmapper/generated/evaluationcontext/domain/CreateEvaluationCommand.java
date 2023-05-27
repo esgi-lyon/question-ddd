@@ -2,6 +2,7 @@ package org.contextmapper.generated.evaluationcontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.DifficultyLevel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -22,6 +23,10 @@ public class CreateEvaluationCommand implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "difficulty_level")
+    private DifficultyLevel difficultyLevel;
+
     @OneToOne
     @JoinColumn(unique = true)
     private EvaluatedAnswer answer;
@@ -39,6 +44,19 @@ public class CreateEvaluationCommand implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public DifficultyLevel getDifficultyLevel() {
+        return this.difficultyLevel;
+    }
+
+    public CreateEvaluationCommand difficultyLevel(DifficultyLevel difficultyLevel) {
+        this.setDifficultyLevel(difficultyLevel);
+        return this;
+    }
+
+    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
     }
 
     public EvaluatedAnswer getAnswer() {
@@ -78,6 +96,7 @@ public class CreateEvaluationCommand implements Serializable {
     public String toString() {
         return "CreateEvaluationCommand{" +
             "id=" + getId() +
+            ", difficultyLevel='" + getDifficultyLevel() + "'" +
             "}";
     }
 }

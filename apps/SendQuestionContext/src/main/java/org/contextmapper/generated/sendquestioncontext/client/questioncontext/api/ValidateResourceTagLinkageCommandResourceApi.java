@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.questioncontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.ValidateResourceTagLinkageCommand;
+import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.ValidateResourceTagLinkageCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:00.127213+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:17:37.306479+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "validate-resource-tag-linkage-command-resource", description = "the validate-resource-tag-linkage-command-resource API")
 public interface ValidateResourceTagLinkageCommandResourceApi {
@@ -40,7 +40,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
     /**
      * POST /api/validate-resource-tag-linkage-commands
      *
-     * @param validateResourceTagLinkageCommand  (required)
+     * @param validateResourceTagLinkageCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         tags = { "validate-resource-tag-linkage-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateResourceTagLinkageCommand> createValidateResourceTagLinkageCommand(
-        @Parameter(name = "ValidateResourceTagLinkageCommand", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+    ResponseEntity<ValidateResourceTagLinkageCommandDTO> createValidateResourceTagLinkageCommand(
+        @Parameter(name = "ValidateResourceTagLinkageCommandDTO", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         tags = { "validate-resource-tag-linkage-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = ValidateResourceTagLinkageCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = ValidateResourceTagLinkageCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         value = "/api/validate-resource-tag-linkage-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<ValidateResourceTagLinkageCommand>> getAllValidateResourceTagLinkageCommands(
+    ResponseEntity<List<ValidateResourceTagLinkageCommandDTO>> getAllValidateResourceTagLinkageCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         tags = { "validate-resource-tag-linkage-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         value = "/api/validate-resource-tag-linkage-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<ValidateResourceTagLinkageCommand> getValidateResourceTagLinkageCommand(
+    ResponseEntity<ValidateResourceTagLinkageCommandDTO> getValidateResourceTagLinkageCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
      * PATCH /api/validate-resource-tag-linkage-commands/{id}
      *
      * @param id  (required)
-     * @param validateResourceTagLinkageCommand  (required)
+     * @param validateResourceTagLinkageCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         tags = { "validate-resource-tag-linkage-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateResourceTagLinkageCommand> partialUpdateValidateResourceTagLinkageCommand(
+    ResponseEntity<ValidateResourceTagLinkageCommandDTO> partialUpdateValidateResourceTagLinkageCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "ValidateResourceTagLinkageCommand", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+        @Parameter(name = "ValidateResourceTagLinkageCommandDTO", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
      * PUT /api/validate-resource-tag-linkage-commands/{id}
      *
      * @param id  (required)
-     * @param validateResourceTagLinkageCommand  (required)
+     * @param validateResourceTagLinkageCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         tags = { "validate-resource-tag-linkage-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateResourceTagLinkageCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface ValidateResourceTagLinkageCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateResourceTagLinkageCommand> updateValidateResourceTagLinkageCommand(
+    ResponseEntity<ValidateResourceTagLinkageCommandDTO> updateValidateResourceTagLinkageCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "ValidateResourceTagLinkageCommand", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommand validateResourceTagLinkageCommand
+        @Parameter(name = "ValidateResourceTagLinkageCommandDTO", description = "", required = true) @Valid @RequestBody ValidateResourceTagLinkageCommandDTO validateResourceTagLinkageCommandDTO
     );
 
 }

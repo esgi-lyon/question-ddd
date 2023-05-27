@@ -5,9 +5,9 @@
  */
 package org.contextmapper.generated.answercontext.client.sendquestioncontext.api;
 
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.PrepareQuestionCommand;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.PrepareQuestionCommandDTO;
 import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionSentDTO;
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.SendByPreferencesCommand;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.SendByPreferencesCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:39:32.961922+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "command-handlers", description = "the command-handlers API")
 public interface CommandHandlersApi {
@@ -42,7 +42,7 @@ public interface CommandHandlersApi {
     /**
      * POST /api/handlers/prepare-question-command
      *
-     * @param prepareQuestionCommand  (required)
+     * @param prepareQuestionCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -50,7 +50,7 @@ public interface CommandHandlersApi {
         tags = { "command-handlers" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommandDTO.class))
             })
         }
     )
@@ -60,8 +60,8 @@ public interface CommandHandlersApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<PrepareQuestionCommand> handlePrepareQuestionsCommand(
-        @Parameter(name = "PrepareQuestionCommand", description = "", required = true) @Valid @RequestBody PrepareQuestionCommand prepareQuestionCommand
+    ResponseEntity<PrepareQuestionCommandDTO> handlePrepareQuestionsCommand(
+        @Parameter(name = "PrepareQuestionCommandDTO", description = "", required = true) @Valid @RequestBody PrepareQuestionCommandDTO prepareQuestionCommandDTO
     );
 
 
@@ -76,7 +76,7 @@ public interface CommandHandlersApi {
         tags = { "command-handlers" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommandDTO.class))
             })
         }
     )
@@ -86,7 +86,7 @@ public interface CommandHandlersApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<SendByPreferencesCommand> handleSendQuestionByTagsPreferencesCommand(
+    ResponseEntity<SendByPreferencesCommandDTO> handleSendQuestionByTagsPreferencesCommand(
         @Parameter(name = "QuestionSentDTO", description = "", required = true) @Valid @RequestBody QuestionSentDTO questionSentDTO
     );
 

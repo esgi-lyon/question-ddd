@@ -5,8 +5,8 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.RegisterCommand;
-import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.ValidateUserCommand;
+import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.RegisterCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.ValidateUserCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:24:08.668735+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:16:56.437474+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "command-handler-resource", description = "the command-handler-resource API")
 public interface CommandHandlerResourceApi {
@@ -41,7 +41,7 @@ public interface CommandHandlerResourceApi {
     /**
      * POST /api/handlers/validate-user-command
      *
-     * @param validateUserCommand  (required)
+     * @param validateUserCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -49,7 +49,7 @@ public interface CommandHandlerResourceApi {
         tags = { "command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommandDTO.class))
             })
         }
     )
@@ -59,15 +59,15 @@ public interface CommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> handleRegisterCommand(
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+    ResponseEntity<ValidateUserCommandDTO> handleRegisterCommand(
+        @Parameter(name = "ValidateUserCommandDTO", description = "", required = true) @Valid @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     );
 
 
     /**
      * POST /api/handlers/register-command
      *
-     * @param registerCommand  (required)
+     * @param registerCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -75,7 +75,7 @@ public interface CommandHandlerResourceApi {
         tags = { "command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommandDTO.class))
             })
         }
     )
@@ -85,8 +85,8 @@ public interface CommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RegisterCommand> handleRegisterCommand1(
-        @Parameter(name = "RegisterCommand", description = "", required = true) @Valid @RequestBody RegisterCommand registerCommand
+    ResponseEntity<RegisterCommandDTO> handleRegisterCommand1(
+        @Parameter(name = "RegisterCommandDTO", description = "", required = true) @Valid @RequestBody RegisterCommandDTO registerCommandDTO
     );
 
 }

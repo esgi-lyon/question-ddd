@@ -55,6 +55,10 @@
       "usermanagement": {
         "generatorName": "spring",
         "spec": "http://127.0.0.1:8081/v3/api-docs"
+      },
+      "usermanagementcontext": {
+        "generatorName": "spring",
+        "spec": "http://localhost:8081/v3/api-docs.yaml"
       }
     },
     "otherModules": [],

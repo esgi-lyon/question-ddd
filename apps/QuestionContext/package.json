@@ -41,6 +41,7 @@
     "java:war:dev": "npm run java:war -- -Pdev,webapp",
     "java:war:prod": "npm run java:war -- -Pprod",
     "openapi-client:skillcontext": "openapi-generator-cli generate -g spring -i http://localhost:8083/v3/api-docs.yaml -p library=spring-cloud -p apiPackage=org.contextmapper.generated.questioncontext.client.skillcontext.api -p modelPackage=org.contextmapper.generated.questioncontext.client.skillcontext.model -p basePackage=org.contextmapper.generated.questioncontext.client -p configPackage=org.contextmapper.generated.questioncontext.client.skillcontext -p title=skillcontext -p artifactId=skillcontext -p supportingFiles=ApiKeyRequestInterceptor.java --skip-validate-spec",
+    "openapi-client:usermanagementcontext": "openapi-generator-cli generate -g spring -i http://localhost:8081/v3/api-docs.yaml -p library=spring-cloud -p apiPackage=org.contextmapper.generated.questioncontext.client.usermanagementcontext.api -p modelPackage=org.contextmapper.generated.questioncontext.client.usermanagementcontext.model -p basePackage=org.contextmapper.generated.questioncontext.client -p configPackage=org.contextmapper.generated.questioncontext.client.usermanagementcontext -p title=usermanagementcontext -p artifactId=usermanagementcontext -p supportingFiles=ApiKeyRequestInterceptor.java --skip-validate-spec",
     "prettier:check": "prettier --check \"{,src/**/,.blueprint/**/}*.{md,json,yml,html,java}\"",
     "prettier:format": "prettier --write \"{,src/**/,.blueprint/**/}*.{md,json,yml,html,java}\""
   },

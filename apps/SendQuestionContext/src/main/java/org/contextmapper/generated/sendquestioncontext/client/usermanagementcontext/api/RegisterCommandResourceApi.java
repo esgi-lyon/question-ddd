@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.RegisterCommand;
+import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.RegisterCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:24:08.668735+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:16:56.437474+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "register-command-resource", description = "the register-command-resource API")
 public interface RegisterCommandResourceApi {
@@ -40,7 +40,7 @@ public interface RegisterCommandResourceApi {
     /**
      * POST /api/register-commands
      *
-     * @param registerCommand  (required)
+     * @param registerCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface RegisterCommandResourceApi {
         tags = { "register-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface RegisterCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RegisterCommand> createRegisterCommand(
-        @Parameter(name = "RegisterCommand", description = "", required = true) @Valid @RequestBody RegisterCommand registerCommand
+    ResponseEntity<RegisterCommandDTO> createRegisterCommand(
+        @Parameter(name = "RegisterCommandDTO", description = "", required = true) @Valid @RequestBody RegisterCommandDTO registerCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface RegisterCommandResourceApi {
         tags = { "register-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = RegisterCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = RegisterCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface RegisterCommandResourceApi {
         value = "/api/register-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<RegisterCommand>> getAllRegisterCommands(
+    ResponseEntity<List<RegisterCommandDTO>> getAllRegisterCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface RegisterCommandResourceApi {
         tags = { "register-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface RegisterCommandResourceApi {
         value = "/api/register-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<RegisterCommand> getRegisterCommand(
+    ResponseEntity<RegisterCommandDTO> getRegisterCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface RegisterCommandResourceApi {
      * PATCH /api/register-commands/{id}
      *
      * @param id  (required)
-     * @param registerCommand  (required)
+     * @param registerCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface RegisterCommandResourceApi {
         tags = { "register-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface RegisterCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RegisterCommand> partialUpdateRegisterCommand(
+    ResponseEntity<RegisterCommandDTO> partialUpdateRegisterCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "RegisterCommand", description = "", required = true) @Valid @RequestBody RegisterCommand registerCommand
+        @Parameter(name = "RegisterCommandDTO", description = "", required = true) @Valid @RequestBody RegisterCommandDTO registerCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface RegisterCommandResourceApi {
      * PUT /api/register-commands/{id}
      *
      * @param id  (required)
-     * @param registerCommand  (required)
+     * @param registerCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface RegisterCommandResourceApi {
         tags = { "register-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface RegisterCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<RegisterCommand> updateRegisterCommand(
+    ResponseEntity<RegisterCommandDTO> updateRegisterCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "RegisterCommand", description = "", required = true) @Valid @RequestBody RegisterCommand registerCommand
+        @Parameter(name = "RegisterCommandDTO", description = "", required = true) @Valid @RequestBody RegisterCommandDTO registerCommandDTO
     );
 
 }

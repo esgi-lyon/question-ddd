@@ -18,13 +18,11 @@ src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontex
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/api/TagInfosResourceApiClient.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/api/TagResourceApi.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/api/TagResourceApiClient.java
-src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/Category.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CategoryCreatedEventDTO.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CategoryDTO.java
-src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CreateCategoryCommand.java
-src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CreateTagCommand.java
+src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CreateCategoryCommandDTO.java
+src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CreateTagCommandDTO.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/CreatedByIdDTO.java
-src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/Tag.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/TagCreatedEventDTO.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/TagDTO.java
 src/main/java/org/contextmapper/generated/sendquestioncontext/client/skillcontext/model/TagInfosDTO.java

@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.skillcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateCategoryCommand;
+import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateCategoryCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:33.252958+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:07.940493+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "create-category-command-resource", description = "the create-category-command-resource API")
 public interface CreateCategoryCommandResourceApi {
@@ -40,7 +40,7 @@ public interface CreateCategoryCommandResourceApi {
     /**
      * POST /api/create-category-commands
      *
-     * @param createCategoryCommand  (required)
+     * @param createCategoryCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface CreateCategoryCommandResourceApi {
         tags = { "create-category-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface CreateCategoryCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateCategoryCommand> createCreateCategoryCommand1(
-        @Parameter(name = "CreateCategoryCommand", description = "", required = true) @Valid @RequestBody CreateCategoryCommand createCategoryCommand
+    ResponseEntity<CreateCategoryCommandDTO> createCreateCategoryCommand1(
+        @Parameter(name = "CreateCategoryCommandDTO", description = "", required = true) @Valid @RequestBody CreateCategoryCommandDTO createCategoryCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface CreateCategoryCommandResourceApi {
         tags = { "create-category-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = CreateCategoryCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = CreateCategoryCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface CreateCategoryCommandResourceApi {
         value = "/api/create-category-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<CreateCategoryCommand>> getAllCreateCategoryCommands(
+    ResponseEntity<List<CreateCategoryCommandDTO>> getAllCreateCategoryCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface CreateCategoryCommandResourceApi {
         tags = { "create-category-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface CreateCategoryCommandResourceApi {
         value = "/api/create-category-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<CreateCategoryCommand> getCreateCategoryCommand(
+    ResponseEntity<CreateCategoryCommandDTO> getCreateCategoryCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface CreateCategoryCommandResourceApi {
      * PATCH /api/create-category-commands/{id}
      *
      * @param id  (required)
-     * @param createCategoryCommand  (required)
+     * @param createCategoryCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface CreateCategoryCommandResourceApi {
         tags = { "create-category-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface CreateCategoryCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateCategoryCommand> partialUpdateCreateCategoryCommand(
+    ResponseEntity<CreateCategoryCommandDTO> partialUpdateCreateCategoryCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "CreateCategoryCommand", description = "", required = true) @Valid @RequestBody CreateCategoryCommand createCategoryCommand
+        @Parameter(name = "CreateCategoryCommandDTO", description = "", required = true) @Valid @RequestBody CreateCategoryCommandDTO createCategoryCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface CreateCategoryCommandResourceApi {
      * PUT /api/create-category-commands/{id}
      *
      * @param id  (required)
-     * @param createCategoryCommand  (required)
+     * @param createCategoryCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface CreateCategoryCommandResourceApi {
         tags = { "create-category-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface CreateCategoryCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateCategoryCommand> updateCreateCategoryCommand(
+    ResponseEntity<CreateCategoryCommandDTO> updateCreateCategoryCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "CreateCategoryCommand", description = "", required = true) @Valid @RequestBody CreateCategoryCommand createCategoryCommand
+        @Parameter(name = "CreateCategoryCommandDTO", description = "", required = true) @Valid @RequestBody CreateCategoryCommandDTO createCategoryCommandDTO
     );
 
 }

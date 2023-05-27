@@ -6,8 +6,8 @@
 package org.contextmapper.generated.sendquestioncontext.client.skillcontext.api;
 
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CategoryDTO;
-import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateCategoryCommand;
-import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateTagCommand;
+import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateCategoryCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.CreateTagCommandDTO;
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.TagDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:33.252958+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:07.940493+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "command-handler-resource", description = "the command-handler-resource API")
 public interface CommandHandlerResourceApi {
@@ -51,7 +51,7 @@ public interface CommandHandlerResourceApi {
         tags = { "command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateCategoryCommandDTO.class))
             })
         }
     )
@@ -61,7 +61,7 @@ public interface CommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateCategoryCommand> createCreateCategoryCommand(
+    ResponseEntity<CreateCategoryCommandDTO> createCreateCategoryCommand(
         @Parameter(name = "CategoryDTO", description = "", required = true) @Valid @RequestBody CategoryDTO categoryDTO
     );
 
@@ -77,7 +77,7 @@ public interface CommandHandlerResourceApi {
         tags = { "command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateTagCommandDTO.class))
             })
         }
     )
@@ -87,7 +87,7 @@ public interface CommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateTagCommand> createCreateTagCommand(
+    ResponseEntity<CreateTagCommandDTO> createCreateTagCommand(
         @Parameter(name = "TagDTO", description = "", required = true) @Valid @RequestBody TagDTO tagDTO
     );
 

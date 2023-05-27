@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.questioncontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.CreateResourceCommand;
+import org.contextmapper.generated.sendquestioncontext.client.questioncontext.model.CreateResourceCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:28:00.127213+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:17:37.306479+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "create-resource-command-resource", description = "the create-resource-command-resource API")
 public interface CreateResourceCommandResourceApi {
@@ -40,7 +40,7 @@ public interface CreateResourceCommandResourceApi {
     /**
      * POST /api/create-resource-commands
      *
-     * @param createResourceCommand  (required)
+     * @param createResourceCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -48,7 +48,7 @@ public interface CreateResourceCommandResourceApi {
         tags = { "create-resource-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommandDTO.class))
             })
         }
     )
@@ -58,8 +58,8 @@ public interface CreateResourceCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateResourceCommand> createCreateResourceCommand(
-        @Parameter(name = "CreateResourceCommand", description = "", required = true) @Valid @RequestBody CreateResourceCommand createResourceCommand
+    ResponseEntity<CreateResourceCommandDTO> createCreateResourceCommand(
+        @Parameter(name = "CreateResourceCommandDTO", description = "", required = true) @Valid @RequestBody CreateResourceCommandDTO createResourceCommandDTO
     );
 
 
@@ -95,7 +95,7 @@ public interface CreateResourceCommandResourceApi {
         tags = { "create-resource-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = CreateResourceCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = CreateResourceCommandDTO.class)))
             })
         }
     )
@@ -104,7 +104,7 @@ public interface CreateResourceCommandResourceApi {
         value = "/api/create-resource-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<CreateResourceCommand>> getAllCreateResourceCommands(
+    ResponseEntity<List<CreateResourceCommandDTO>> getAllCreateResourceCommands(
         
     );
 
@@ -120,7 +120,7 @@ public interface CreateResourceCommandResourceApi {
         tags = { "create-resource-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommandDTO.class))
             })
         }
     )
@@ -129,7 +129,7 @@ public interface CreateResourceCommandResourceApi {
         value = "/api/create-resource-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<CreateResourceCommand> getCreateResourceCommand(
+    ResponseEntity<CreateResourceCommandDTO> getCreateResourceCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
@@ -138,7 +138,7 @@ public interface CreateResourceCommandResourceApi {
      * PATCH /api/create-resource-commands/{id}
      *
      * @param id  (required)
-     * @param createResourceCommand  (required)
+     * @param createResourceCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -146,7 +146,7 @@ public interface CreateResourceCommandResourceApi {
         tags = { "create-resource-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommandDTO.class))
             })
         }
     )
@@ -156,9 +156,9 @@ public interface CreateResourceCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateResourceCommand> partialUpdateCreateResourceCommand(
+    ResponseEntity<CreateResourceCommandDTO> partialUpdateCreateResourceCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "CreateResourceCommand", description = "", required = true) @Valid @RequestBody CreateResourceCommand createResourceCommand
+        @Parameter(name = "CreateResourceCommandDTO", description = "", required = true) @Valid @RequestBody CreateResourceCommandDTO createResourceCommandDTO
     );
 
 
@@ -166,7 +166,7 @@ public interface CreateResourceCommandResourceApi {
      * PUT /api/create-resource-commands/{id}
      *
      * @param id  (required)
-     * @param createResourceCommand  (required)
+     * @param createResourceCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -174,7 +174,7 @@ public interface CreateResourceCommandResourceApi {
         tags = { "create-resource-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreateResourceCommandDTO.class))
             })
         }
     )
@@ -184,9 +184,9 @@ public interface CreateResourceCommandResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<CreateResourceCommand> updateCreateResourceCommand(
+    ResponseEntity<CreateResourceCommandDTO> updateCreateResourceCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "CreateResourceCommand", description = "", required = true) @Valid @RequestBody CreateResourceCommand createResourceCommand
+        @Parameter(name = "CreateResourceCommandDTO", description = "", required = true) @Valid @RequestBody CreateResourceCommandDTO createResourceCommandDTO
     );
 
 }

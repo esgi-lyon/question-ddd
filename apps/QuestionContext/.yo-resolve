@@ -1,5 +1,4 @@
 src/main/resources/swagger/api.yml skip
 src/main/java/org/contextmapper/generated/questioncontext/config/SecurityConfiguration.java skip
 pom.xml skip
-package.json skip
 src/main/java/org/contextmapper/generated/questioncontext/QuestionContextApp.java skip

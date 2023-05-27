@@ -1,4 +1,3 @@
 pom.xml skip
 src/main/resources/swagger/api.yml skip
 src/main/java/org/contextmapper/generated/evaluationcontext/EvaluationContextApp.java skip
-package.json skip

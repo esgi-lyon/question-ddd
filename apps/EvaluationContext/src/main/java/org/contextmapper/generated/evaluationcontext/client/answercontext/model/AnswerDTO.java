@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnsweredTagDTO;
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.QuestionSentIdDTO;
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.UserIdDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.UserEmailDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -22,7 +22,7 @@ import javax.annotation.Generated;
  * AnswerDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-26T09:42:18.133357+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:58.391007+02:00[Europe/Paris]")
 public class AnswerDTO {
 
   private Long id;
@@ -68,7 +68,7 @@ public class AnswerDTO {
 
   private AnsweredTagDTO answeredTag;
 
-  private UserIdDTO userId;
+  private UserEmailDTO userEmail;
 
   public AnswerDTO id(Long id) {
     this.id = id;
@@ -150,24 +150,24 @@ public class AnswerDTO {
     this.answeredTag = answeredTag;
   }
 
-  public AnswerDTO userId(UserIdDTO userId) {
-    this.userId = userId;
+  public AnswerDTO userEmail(UserEmailDTO userEmail) {
+    this.userEmail = userEmail;
     return this;
   }
 
   /**
-   * Get userId
-   * @return userId
+   * Get userEmail
+   * @return userEmail
   */
   @Valid 
-  @Schema(name = "userId", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("userId")
-  public UserIdDTO getUserId() {
-    return userId;
+  @Schema(name = "userEmail", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("userEmail")
+  public UserEmailDTO getUserEmail() {
+    return userEmail;
   }
 
-  public void setUserId(UserIdDTO userId) {
-    this.userId = userId;
+  public void setUserEmail(UserEmailDTO userEmail) {
+    this.userEmail = userEmail;
   }
 
   @Override
@@ -183,12 +183,12 @@ public class AnswerDTO {
         Objects.equals(this.answerState, answerDTO.answerState) &&
         Objects.equals(this.question, answerDTO.question) &&
         Objects.equals(this.answeredTag, answerDTO.answeredTag) &&
-        Objects.equals(this.userId, answerDTO.userId);
+        Objects.equals(this.userEmail, answerDTO.userEmail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, answerState, question, answeredTag, userId);
+    return Objects.hash(id, answerState, question, answeredTag, userEmail);
   }
 
   @Override
@@ -199,7 +199,7 @@ public class AnswerDTO {
     sb.append("    answerState: ").append(toIndentedString(answerState)).append("\n");
     sb.append("    question: ").append(toIndentedString(question)).append("\n");
     sb.append("    answeredTag: ").append(toIndentedString(answeredTag)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+    sb.append("    userEmail: ").append(toIndentedString(userEmail)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,10 +1,15 @@
 package org.contextmapper.generated.answercontext.service;
 
 import org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand;
+import org.contextmapper.generated.answercontext.domain.AnswerSubmittedEvent;
+import org.contextmapper.generated.answercontext.domain.enumeration.AnswerState;
 import org.contextmapper.generated.answercontext.repository.AnswerSubmitCommandRepository;
+import org.contextmapper.generated.answercontext.repository.AnswerSubmittedEventRepository;
 import org.contextmapper.generated.answercontext.service.dto.AnswerDTO;
+import org.contextmapper.generated.answercontext.service.dto.AnswerSubmitCommandDTO;
 import org.contextmapper.generated.answercontext.service.dto.AnswerSubmittedEventDTO;
 import org.contextmapper.generated.answercontext.service.mapper.AnswerMapper;
+import org.contextmapper.generated.answercontext.service.mapper.AnswerSubmittedEventMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -14,40 +19,37 @@ import org.slf4j.Logger;
 @Primary
 @Service
 @Transactional
-public class AnswerSubmitCommandHandler extends AnswerSubmitCommandService {
+public class AnswerSubmitCommandHandler extends AnswerSubmittedEventService {
     private final Logger log = LoggerFactory.getLogger(AnswerSubmitCommandHandler.class);
 
     private final AnswerService answerService;
 
     private final AnswerSubmittedEventService answerSubmittedEventService;
 
-    private final AnswerMapper answerMapper;
-
     public AnswerSubmitCommandHandler(
-        AnswerSubmitCommandRepository answerSubmitCommandRepository,
+        AnswerSubmittedEventRepository answerSubmitCommandRepository,
         AnswerService answerService,
         AnswerSubmittedEventService answerSubmittedEventService,
-        AnswerMapper answerMapper
+        AnswerSubmittedEventMapper answerSubmittedEventMapper
     ) {
-        super(answerSubmitCommandRepository);
+        super(answerSubmitCommandRepository, answerSubmittedEventMapper);
         this.answerService = answerService;
         this.answerSubmittedEventService = answerSubmittedEventService;
-        this.answerMapper = answerMapper;
     }
 
-    public AnswerSubmitCommand handleAnswerSubmitCommand(AnswerDTO answerDTO) {
+    public AnswerSubmittedEventDTO handleAnswerSubmitCommand(AnswerSubmitCommandDTO answerCmd) {
         log.info("Handle command to submit answer");
-        AnswerSubmitCommand answerSubmitCommand = new AnswerSubmitCommand();
 
-        final var saved = answerService.save(answerDTO);
+        final var answer = answerService.findOne(answerCmd.getAnswer().getId()).orElseThrow();
+
+        answer.setAnswerState(AnswerState.DONE);
 
         final var answerSubmittedEventDTO = new AnswerSubmittedEventDTO();
-        answerDTO.setId(saved.getId());
-        answerSubmittedEventDTO.setAnswer(answerDTO);
+        answerSubmittedEventDTO.setAnswer(answerCmd.getAnswer());
         answerSubmittedEventService.save(answerSubmittedEventDTO);
 
         return save(
-            answerSubmitCommand.answer(answerMapper.toEntity(saved))
+            answerSubmittedEventService.save(answerSubmittedEventDTO)
         );
     }
 }
