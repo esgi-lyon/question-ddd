@@ -40,7 +40,6 @@
     "java:war": "./mvnw -ntp verify -DskipTests --batch-mode -Pwar",
     "java:war:dev": "npm run java:war -- -Pdev,webapp",
     "java:war:prod": "npm run java:war -- -Pprod",
-    "openapi-client:usermanagementcontext": "openapi-generator-cli generate -g spring -i http://localhost:8081/v3/api-docs.yaml -p library=spring-cloud -p apiPackage=org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api -p modelPackage=org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model -p basePackage=org.contextmapper.generated.sendquestioncontext.client -p configPackage=org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext -p title=usermanagementcontext -p artifactId=usermanagementcontext -p supportingFiles=ApiKeyRequestInterceptor.java --skip-validate-spec",
     "prettier:check": "prettier --check \"{,src/**/,.blueprint/**/}*.{md,json,yml,html,java}\"",
     "prettier:format": "prettier --write \"{,src/**/,.blueprint/**/}*.{md,json,yml,html,java}\""
   },
@@ -48,9 +47,6 @@
     "backend_port": "8084",
     "default_environment": "prod",
     "packaging": "jar"
-  },
-  "dependencies": {
-    "@openapitools/openapi-generator-cli": "2.5.1"
   },
   "devDependencies": {
     "generator-jhipster": "7.9.3",

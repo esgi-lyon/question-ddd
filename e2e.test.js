@@ -215,18 +215,18 @@ const addUserPreferencesCommand = async (token, tagId) => {
 
 const sendByPreferences = async (token, questionSent) => {
   var options = {
-    method: "POST",
-    url: "http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "*/*",
-      Authorization: `Bearer ${token}`,
+    'method': 'POST',
+    'url': 'http://localhost:8084/api/handlers/send-question-by-preferences-command',
+    'headers': {
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
     },
     body: JSON.stringify({
-      resourceId: {
-        id: questionSent,
-      },
-    }),
+      "status": "ANSWERED",
+      "resourceId": {
+        "id": "<long>"
+      }
+    })
   };
 
   console.log("Sending question to interested users " + questionSent);

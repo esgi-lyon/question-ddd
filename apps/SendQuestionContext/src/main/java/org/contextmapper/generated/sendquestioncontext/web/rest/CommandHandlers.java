@@ -75,10 +75,10 @@ public class CommandHandlers {
     }
 
     @PostMapping("/send-question-by-preferences-command")
-    public ResponseEntity<SendByPreferencesCommandDTO> handleSendQuestionByTagsPreferencesCommand(@RequestBody QuestionSentDTO questionSentDTO)
+    public ResponseEntity<SendByPreferencesCommandDTO> handleSendQuestionByTagsPreferencesCommand(@RequestBody SendByPreferencesCommandDTO cmd)
             throws URISyntaxException {
-        log.debug("REST request to handle SendQuestionByTagsPreferencesCommand : {}", questionSentDTO);
-        final var result = sendByPreferencesCommandHandler.handleSendQuestionByTagsPreferencesCommand(questionSentDTO);
+        log.debug("REST request to handle SendQuestionByTagsPreferencesCommand : {}", cmd);
+        final var result = sendByPreferencesCommandHandler.handleSendQuestionByTagsPreferencesCommand(cmd);
         return ResponseEntity
                 .created(new URI("/api/handlers/send-question-by-preferences-command/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME_PREFS, result.getId().toString()))
