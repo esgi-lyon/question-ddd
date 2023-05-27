@@ -3,6 +3,7 @@ package org.contextmapper.generated.usermanagementcontext.service;
 import org.contextmapper.generated.usermanagementcontext.domain.UserViewedEvent;
 import org.contextmapper.generated.usermanagementcontext.repository.CustomUserInfosRepository;
 import org.contextmapper.generated.usermanagementcontext.repository.UserViewedEventRepository;
+import org.contextmapper.generated.usermanagementcontext.service.dto.UserInfosDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.UserViewedEventDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.ViewUserByEmailCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.service.mapper.UserInfosMapper;
@@ -42,16 +43,11 @@ public class ViewUserByEmailQueryHandler extends UserViewedEventService {
      * @param viewUserByEmailCommandDTO the entity to save.
      * @return the persisted entity.
      */
-    public UserViewedEventDTO handle(ViewUserByEmailCommandDTO viewUserByEmailCommandDTO) {
+    public UserInfosDTO handle(ViewUserByEmailCommandDTO viewUserByEmailCommandDTO) {
         log.debug("Request to view user by email : {}", viewUserByEmailCommandDTO);
 
-        final var event = new UserViewedEventDTO();
-        event.setUserInfos(
-            userInfosMapper.toDto(
-                userInfosRepository.findByMail(viewUserByEmailCommandDTO.getMail()).orElseThrow()
-            )
+        return userInfosMapper.toDto(
+            userInfosRepository.findByMail(viewUserByEmailCommandDTO.getMail()).orElseThrow()
         );
-
-        return save(event);
     }
 }

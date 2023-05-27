@@ -10,7 +10,7 @@ const register = async (role, mail) => {
     body: JSON.stringify({
       password: "password",
       mail: mail,
-      fistname: "Zinedine",
+      firstname: "Zinedine",
       lastname: "Zidane",
       role: role,
     }),
@@ -30,7 +30,7 @@ const register = async (role, mail) => {
   }
 };
 
-const findLastUser = async (token) => {
+const findLastUser = async (token, shift = 1) => {
   var fallbackOptions = {
     method: "GET",
     url: `http://127.0.0.1:8081/api/user-infos`,
@@ -42,7 +42,7 @@ const findLastUser = async (token) => {
   console.log(`finding Last User`);
   const response = JSON.parse(await request(fallbackOptions));
   console.log(response);
-  return response[response.length - 1].id;
+  return response[response.length - shift].id;
 };
 
 const validateUser = async (token, id) => {
@@ -57,6 +57,7 @@ const validateUser = async (token, id) => {
     body: JSON.stringify({
       userInfos: {
         id: id,
+        status: "VALIDATED"
       },
     }),
   };
@@ -189,25 +190,27 @@ const prepareQuestionCommand = async (token, resourceId) => {
   return response;
 };
 
-const userPreferencesCommand = async (token, userId, tagId) => {
+const addUserPreferencesCommand = async (token, tagId) => {
   var options = {
     'method': 'POST',
-    'url': 'http://127.0.0.1:8084/api/user-preferences',
+    'url': 'http://localhost:8084/api/handlers/add-preferences-command',
     'headers': {
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      "id": -73629986,
-      "user": {
-        "id": -14847874,
-        "userId": -40372427
+      "preferences": {
+        "tagId": tagId,
+        "userPreferences": {}
       }
     })
   
   };
-  await request(options);
+  const response = await request(options);
+  console.log(response)
   
+  return response
 }
 
 const sendByPreferences = async (token, questionSent) => {
@@ -339,7 +342,7 @@ const createEvaluation = async (token, answerId) => {
   let evaluatorId = await register("EVALUATOR", "evaluator@example.com");
 
   if (!evaluatorId) {
-    evaluatorId = await findLastUser(existingEvaluatorToken);
+    evaluatorId = await findLastUser(existingEvaluatorToken, 3);
   }
 
   await validateUser(existingEvaluatorToken, evaluatorId);
@@ -347,8 +350,10 @@ const createEvaluation = async (token, answerId) => {
   let studentId = await register("STUDENT", "student@example.com");
 
   if (!studentId) {
-    studentId = await findLastUser(existingEvaluatorToken);
+    studentId = await findLastUser(existingEvaluatorToken, 2);
   }
+
+  await validateUser(existingEvaluatorToken, studentId);
 
   let inquisitorId = await register("INQUISITOR", "inquisitor@example.com");
 
@@ -356,7 +361,7 @@ const createEvaluation = async (token, answerId) => {
     inquisitorId = await findLastUser(existingEvaluatorToken);
   }
 
-  await validateUser(existingEvaluatorToken, studentId);
+  await validateUser(existingEvaluatorToken, inquisitorId);
 
   setTimeout(() => {}, 1000);
 
@@ -379,6 +384,8 @@ const createEvaluation = async (token, answerId) => {
   await validateLinkageResource(evaluatorToken, createResourceId);
 
   await validateLinkageResource(evaluatorToken, createResourceId2, "REFUSED");
+
+  await addUserPreferencesCommand(studentToken, tagId)
 
   const questionToSendId = await prepareQuestionCommand(
     inquisitorToken,

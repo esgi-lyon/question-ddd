@@ -26,9 +26,6 @@ public class UserPreferencesTagInfos implements Serializable {
     @Column(name = "tag_id")
     private Long tagId;
 
-    @Column(name = "name")
-    private String name;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "user", "preferences" }, allowSetters = true)
     private UserPreferences userPreferences;
@@ -59,19 +56,6 @@ public class UserPreferencesTagInfos implements Serializable {
 
     public void setTagId(Long tagId) {
         this.tagId = tagId;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public UserPreferencesTagInfos name(String name) {
-        this.setName(name);
-        return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public UserPreferences getUserPreferences() {
@@ -112,7 +96,6 @@ public class UserPreferencesTagInfos implements Serializable {
         return "UserPreferencesTagInfos{" +
             "id=" + getId() +
             ", tagId=" + getTagId() +
-            ", name='" + getName() + "'" +
             "}";
     }
 }

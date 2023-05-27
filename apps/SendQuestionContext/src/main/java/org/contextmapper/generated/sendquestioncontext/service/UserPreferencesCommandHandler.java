@@ -65,7 +65,6 @@ public class UserPreferencesCommandHandler extends AddPreferencesCommandService 
 
         final var tagInfosDto = new UserPreferencesTagInfosDTO();
         tagInfosDto.setTagId(tagFromApi.getId());
-        tagInfosDto.setName(tagFromApi.getName());
         tagInfosDto.setUserPreferences(savedUserPrefs);
 
         final var savedTagInfos = userPreferencesTagInfosService.save(tagInfosDto);

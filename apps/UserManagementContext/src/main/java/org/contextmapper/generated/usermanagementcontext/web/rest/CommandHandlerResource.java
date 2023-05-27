@@ -3,6 +3,8 @@ package org.contextmapper.generated.usermanagementcontext.web.rest;
 import org.contextmapper.generated.usermanagementcontext.service.RegisterCommandHandlerService;
 import org.contextmapper.generated.usermanagementcontext.service.ValidateUserCommandHandlerService;
 import org.contextmapper.generated.usermanagementcontext.service.dto.RegisterCommandDTO;
+import org.contextmapper.generated.usermanagementcontext.service.dto.UserInfosDTO;
+import org.contextmapper.generated.usermanagementcontext.service.dto.UserValidatedEventDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.ValidateUserCommandDTO;
 import org.contextmapper.generated.usermanagementcontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import tech.jhipster.web.util.HeaderUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
+import java.util.Optional;
 
 
 /**
@@ -63,15 +67,16 @@ public class CommandHandlerResource {
     }
 
     @PostMapping("/validate-user-command")
-    public ResponseEntity<ValidateUserCommandDTO> handleRegisterCommand(@RequestBody ValidateUserCommandDTO userCommand) throws URISyntaxException {
+    public ResponseEntity<UserInfosDTO> handleRegisterCommand(@RequestBody ValidateUserCommandDTO userCommand) throws URISyntaxException {
         log.debug("REST request to save RegisterCommand : {}", userCommand);
         if (userCommand.getId() != null) {
             throw new BadRequestAlertException("A new registerCommand cannot already have an ID", REGISTER_ENTITY_NAME, "idexists");
         }
         final var result = validateUserCommandHandler.handleValidateUser(userCommand);
+
         return ResponseEntity
-            .created(new URI("/api/handlers/validate-user-command" + result.getUserInfos().getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, "ValidateUserCommand", result.getUserInfos().getId().toString()))
+            .created(new URI("/api/handlers/validate-user-command" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, "ValidateUserCommand", result.getId().toString()))
             .body(result);
     }
 }

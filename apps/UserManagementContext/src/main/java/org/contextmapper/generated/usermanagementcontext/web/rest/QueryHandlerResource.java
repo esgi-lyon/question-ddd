@@ -1,6 +1,7 @@
 package org.contextmapper.generated.usermanagementcontext.web.rest;
 
 import org.contextmapper.generated.usermanagementcontext.service.ViewUserByEmailQueryHandler;
+import org.contextmapper.generated.usermanagementcontext.service.dto.UserInfosDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.UserViewedEventDTO;
 import org.contextmapper.generated.usermanagementcontext.service.dto.ViewUserByEmailCommandDTO;
 import org.slf4j.Logger;
@@ -37,14 +38,14 @@ public class QueryHandlerResource {
     }
 
     @GetMapping("/view-user-query")
-    public ResponseEntity<UserViewedEventDTO> handleRegisterCommand(@RequestParam("mail") String mail) throws URISyntaxException {
+    public ResponseEntity<UserInfosDTO> handleViewUserByMail(@RequestParam("mail") String mail) throws URISyntaxException {
         log.debug("REST request to view user : {}", mail);
         final var userCommand = new ViewUserByEmailCommandDTO();
         userCommand.setMail(mail);
         final var result = viewUserByEmailQueryHandler.handle(userCommand);
         return ResponseEntity
-            .created(new URI("/api/handlers/view-user-query" + result.getUserInfos().getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, USER_ENTITY_NAME, result.getUserInfos().getId().toString()))
+            .created(new URI("/api/handlers/view-user-query" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, USER_ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 }

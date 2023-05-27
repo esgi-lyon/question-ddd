@@ -1,10 +1,9 @@
 package org.contextmapper.generated.sendquestioncontext.web.rest;
 
+import org.contextmapper.generated.sendquestioncontext.service.AddPreferenceCommandHandler;
 import org.contextmapper.generated.sendquestioncontext.service.PrepareQuestionCommandHandler;
 import org.contextmapper.generated.sendquestioncontext.service.SendByPreferencesCommandHandler;
-import org.contextmapper.generated.sendquestioncontext.service.dto.PrepareQuestionCommandDTO;
-import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
-import org.contextmapper.generated.sendquestioncontext.service.dto.SendByPreferencesCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.*;
 import org.contextmapper.generated.sendquestioncontext.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,17 +32,32 @@ public class CommandHandlers {
 
     private final SendByPreferencesCommandHandler sendByPreferencesCommandHandler;
 
+    private final AddPreferenceCommandHandler addPreferenceCommandHandler;
+
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     public CommandHandlers(
             PrepareQuestionCommandHandler prepareQuestionCommandHandler,
-            SendByPreferencesCommandHandler sendByPreferencesCommandHandler
+            SendByPreferencesCommandHandler sendByPreferencesCommandHandler,
+            AddPreferenceCommandHandler addPreferenceCommandHandler
 
     ) {
         this.sendByPreferencesCommandHandler = sendByPreferencesCommandHandler;
         this.prepareQuestionCommandHandler = prepareQuestionCommandHandler;
+        this.addPreferenceCommandHandler = addPreferenceCommandHandler;
+    }
+
+    @PostMapping("/add-preferences-command")
+    public ResponseEntity<PreferencesAddedEventDTO> handleAddPreference(@RequestBody AddPreferencesCommandDTO addPreferencesCommandDTO)
+        throws URISyntaxException {
+        log.debug("REST request to handle SendQuestionByTagsPreferencesCommand : {}", addPreferencesCommandDTO);
+        final var result = addPreferenceCommandHandler.handle(addPreferencesCommandDTO);
+        return ResponseEntity
+            .created(new URI("/api/handlers/add-preferences-command/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME_PREFS, result.getId().toString()))
+            .body(result);
     }
 
     @PostMapping("/prepare-question-command")

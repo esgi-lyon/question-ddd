@@ -266,7 +266,6 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		}
 		ValueObject UserPreferencesTagInfos {
 			Long tagId
-			String name
 		}
 		Command AddPreferences {
 			- UserPreferencesTagInfos preferences

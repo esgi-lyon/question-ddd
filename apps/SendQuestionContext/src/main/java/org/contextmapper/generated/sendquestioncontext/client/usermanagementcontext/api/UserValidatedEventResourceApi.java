@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:33.942720+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T16:47:18.111395+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "user-validated-event-resource", description = "the user-validated-event-resource API")
 public interface UserValidatedEventResourceApi {

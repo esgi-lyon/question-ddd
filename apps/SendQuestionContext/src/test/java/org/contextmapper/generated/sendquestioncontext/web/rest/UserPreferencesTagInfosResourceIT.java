@@ -34,9 +34,6 @@ class UserPreferencesTagInfosResourceIT {
     private static final Long DEFAULT_TAG_ID = 1L;
     private static final Long UPDATED_TAG_ID = 2L;
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
-
     private static final String ENTITY_API_URL = "/api/user-preferences-tag-infos";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -64,7 +61,7 @@ class UserPreferencesTagInfosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserPreferencesTagInfos createEntity(EntityManager em) {
-        UserPreferencesTagInfos userPreferencesTagInfos = new UserPreferencesTagInfos().tagId(DEFAULT_TAG_ID).name(DEFAULT_NAME);
+        UserPreferencesTagInfos userPreferencesTagInfos = new UserPreferencesTagInfos().tagId(DEFAULT_TAG_ID);
         return userPreferencesTagInfos;
     }
 
@@ -75,7 +72,7 @@ class UserPreferencesTagInfosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static UserPreferencesTagInfos createUpdatedEntity(EntityManager em) {
-        UserPreferencesTagInfos userPreferencesTagInfos = new UserPreferencesTagInfos().tagId(UPDATED_TAG_ID).name(UPDATED_NAME);
+        UserPreferencesTagInfos userPreferencesTagInfos = new UserPreferencesTagInfos().tagId(UPDATED_TAG_ID);
         return userPreferencesTagInfos;
     }
 
@@ -96,8 +93,7 @@ class UserPreferencesTagInfosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userPreferencesTagInfos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].tagId").value(hasItem(DEFAULT_TAG_ID.intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].tagId").value(hasItem(DEFAULT_TAG_ID.intValue())));
     }
 
     @Test
@@ -112,8 +108,7 @@ class UserPreferencesTagInfosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userPreferencesTagInfos.getId().intValue()))
-            .andExpect(jsonPath("$.tagId").value(DEFAULT_TAG_ID.intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.tagId").value(DEFAULT_TAG_ID.intValue()));
     }
 
     @Test

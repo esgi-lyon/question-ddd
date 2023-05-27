@@ -13,8 +13,6 @@ public class UserPreferencesTagInfosDTO implements Serializable {
 
     private Long tagId;
 
-    private String name;
-
     private UserPreferencesDTO userPreferences;
 
     public Long getId() {
@@ -31,14 +29,6 @@ public class UserPreferencesTagInfosDTO implements Serializable {
 
     public void setTagId(Long tagId) {
         this.tagId = tagId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public UserPreferencesDTO getUserPreferences() {
@@ -76,7 +66,6 @@ public class UserPreferencesTagInfosDTO implements Serializable {
         return "UserPreferencesTagInfosDTO{" +
             "id=" + getId() +
             ", tagId=" + getTagId() +
-            ", name='" + getName() + "'" +
             ", userPreferences=" + getUserPreferences() +
             "}";
     }
