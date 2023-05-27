@@ -4,6 +4,8 @@ src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementc
 src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/AuthenticateResourceApiClient.java
 src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/CommandHandlerResourceApi.java
 src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/CommandHandlerResourceApiClient.java
+src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/QueryHandlerResourceApi.java
+src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/QueryHandlerResourceApiClient.java
 src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/RegisterCommandResourceApi.java
 src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/RegisterCommandResourceApiClient.java
 src/main/java/org/contextmapper/generated/questioncontext/client/usermanagementcontext/api/RejectUserCommandResourceApi.java

@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api;
 
-import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.UserWaitingForValidationEventDTO;
+import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.model.UserViewedEventDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,55 +34,31 @@ import javax.annotation.Generated;
 
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:33.942720+02:00[Europe/Paris]")
 @Validated
-@Tag(name = "user-waiting-for-validation-event-resource", description = "the user-waiting-for-validation-event-resource API")
-public interface UserWaitingForValidationEventResourceApi {
+@Tag(name = "query-handler-resource", description = "the query-handler-resource API")
+public interface QueryHandlerResourceApi {
 
     /**
-     * GET /api/user-waiting-for-validation-events
+     * GET /api/handlers/view-user-query
      *
+     * @param mail  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "getAllUserWaitingForValidationEvents",
-        tags = { "user-waiting-for-validation-event-resource" },
+        operationId = "handleRegisterCommand2",
+        tags = { "query-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = UserWaitingForValidationEventDTO.class)))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = UserViewedEventDTO.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/user-waiting-for-validation-events",
+        value = "/api/handlers/view-user-query",
         produces = "*/*"
     )
-    ResponseEntity<List<UserWaitingForValidationEventDTO>> getAllUserWaitingForValidationEvents(
-        
-    );
-
-
-    /**
-     * GET /api/user-waiting-for-validation-events/{id}
-     *
-     * @param id  (required)
-     * @return OK (status code 200)
-     */
-    @Operation(
-        operationId = "getUserWaitingForValidationEvent",
-        tags = { "user-waiting-for-validation-event-resource" },
-        responses = {
-            @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = UserWaitingForValidationEventDTO.class))
-            })
-        }
-    )
-    @RequestMapping(
-        method = RequestMethod.GET,
-        value = "/api/user-waiting-for-validation-events/{id}",
-        produces = "*/*"
-    )
-    ResponseEntity<UserWaitingForValidationEventDTO> getUserWaitingForValidationEvent(
-        @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
+    ResponseEntity<UserViewedEventDTO> handleRegisterCommand2(
+        @NotNull @Parameter(name = "mail", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "mail", required = true) String mail
     );
 
 }

@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * UserRejectedEventDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:16:56.437474+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:33.942720+02:00[Europe/Paris]")
 public class UserRejectedEventDTO {
 
   private Long id;
