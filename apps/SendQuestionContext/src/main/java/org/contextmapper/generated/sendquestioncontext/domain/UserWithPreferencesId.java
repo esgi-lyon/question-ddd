@@ -1,5 +1,6 @@
 package org.contextmapper.generated.sendquestioncontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -24,6 +25,10 @@ public class UserWithPreferencesId implements Serializable {
 
     @Column(name = "mail")
     private String mail;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "question", "users" }, allowSetters = true)
+    private NotifiedUsers notifiedUsers;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -51,6 +56,19 @@ public class UserWithPreferencesId implements Serializable {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public NotifiedUsers getNotifiedUsers() {
+        return this.notifiedUsers;
+    }
+
+    public void setNotifiedUsers(NotifiedUsers notifiedUsers) {
+        this.notifiedUsers = notifiedUsers;
+    }
+
+    public UserWithPreferencesId notifiedUsers(NotifiedUsers notifiedUsers) {
+        this.setNotifiedUsers(notifiedUsers);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

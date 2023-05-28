@@ -60,6 +60,8 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.SendByPreferencesCommand.class.getName());
             createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.PreferencesAddedEvent.class.getName());
             createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.AddPreferencesCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.NotifiedUsers.class.getName());
+            createCache(cm, org.contextmapper.generated.sendquestioncontext.domain.NotifiedUsers.class.getName() + ".users");
             // jhipster-needle-ehcache-add-entry
         };
     }

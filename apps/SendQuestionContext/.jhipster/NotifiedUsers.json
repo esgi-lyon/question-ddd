@@ -1,24 +1,30 @@
 {
   "applications": ["SendQuestionContext"],
-  "changelogDate": "20230526071532",
+  "changelogDate": "20230527174726",
   "clientRootFolder": "SendQuestionContext",
   "databaseType": "sql",
   "dto": "mapstruct",
   "embedded": false,
-  "entityTableName": "notified_question_event",
+  "entityTableName": "notified_users",
   "fields": [],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "SendQuestionContext",
-  "name": "NotifiedQuestionEvent",
+  "name": "NotifiedUsers",
   "pagination": "no",
-  "readOnly": true,
+  "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "notifiedUsers",
+      "otherEntityName": "questionSent",
       "ownerSide": true,
-      "relationshipName": "questionResource",
+      "relationshipName": "question",
       "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "userWithPreferencesId",
+      "otherEntityRelationshipName": "notifiedUsers",
+      "relationshipName": "user",
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "serviceClass"

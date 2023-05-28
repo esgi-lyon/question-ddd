@@ -1,11 +1,11 @@
 package org.contextmapper.generated.sendquestioncontext.service;
 
+import org.contextmapper.generated.sendquestioncontext.domain.NotifiedUsers;
 import org.contextmapper.generated.sendquestioncontext.domain.QuestionSentTagInfos;
+import org.contextmapper.generated.sendquestioncontext.domain.UserWithPreferencesId;
 import org.contextmapper.generated.sendquestioncontext.domain.enumeration.QuestionNotificationStatus;
 import org.contextmapper.generated.sendquestioncontext.repository.*;
-import org.contextmapper.generated.sendquestioncontext.service.dto.NotifiedQuestionEventDTO;
-import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
-import org.contextmapper.generated.sendquestioncontext.service.dto.SendByPreferencesCommandDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.*;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.SendByPreferencesCommandMapper;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 @Primary
@@ -37,7 +37,9 @@ public class SendByPreferencesCommandHandler extends SendByPreferencesCommandSer
 
     private final UserPreferencesService userPreferencesService;  // Assuming a service to fetch user preferences
 
-    private final
+    private final NotifiedUsersService notifiedUsersService;
+
+    private final UserWithPreferencesIdService userWithPreferencesIdService;
 
     public SendByPreferencesCommandHandler(
         SendByPreferencesCommandRepository sendQuestionByTagsPreferencesCommandRepository,
@@ -48,7 +50,9 @@ public class SendByPreferencesCommandHandler extends SendByPreferencesCommandSer
         SendByPreferencesCommandMapper sendByPreferencesCommandMapper,
         CustomQuestionSentRepository customQuestionSentRepository,
         CustomUserPreferencesRepository customUserPreferencesRepository,
-        UserPreferencesTagInfosRepository customUserPreferencesTagInfosRepository
+        UserPreferencesTagInfosRepository customUserPreferencesTagInfosRepository,
+        NotifiedUsersService notifiedUsersService,
+        UserWithPreferencesIdService userWithPreferencesIdService
     ) {
         super(sendQuestionByTagsPreferencesCommandRepository, sendByPreferencesCommandMapper);
         this.questionSentService = questionSentService;
@@ -58,28 +62,39 @@ public class SendByPreferencesCommandHandler extends SendByPreferencesCommandSer
         this.questionSentMapper = questionSentMapper;
         this.customUserPreferencesRepository = customUserPreferencesRepository;
         this.customUserPreferencesTagInfosRepository = customUserPreferencesTagInfosRepository;
+        this.notifiedUsersService = notifiedUsersService;
+        this.userWithPreferencesIdService = userWithPreferencesIdService;
     }
 
-    public SendByPreferencesCommandDTO handleSendQuestionByTagsPreferencesCommand(SendByPreferencesCommandDTO questionSentDTO) {
+    public NotifiedUsersDTO handleSendQuestionByTagsPreferencesCommand(SendByPreferencesCommandDTO questiontoSendDTO) {
         log.info("Handle command to send question by tags preferences");
 
-        if (!questionSentDTO.getQuestionToSend().getStatus().equals(QuestionNotificationStatus.PREPARING)) {
+        final var questionSent = customQuestionSentRepository.findById(questiontoSendDTO.getQuestionToSend().getId()).orElseThrow();
+
+        if (!questionSent.getStatus().equals(QuestionNotificationStatus.PREPARING)) {
             throw new RuntimeException("Question is not ready or already sent");
         }
 
-        customQuestionSentRepository.findById(questionSentDTO.getId())
-            .ifPresent(questionSent -> {
-                final var interestedUsers = customUserPreferencesRepository.findAllByPreferencesContaining(
-                    customUserPreferencesTagInfosRepository.findAllById(
-                        questionSent.getTags().stream().map(QuestionSentTagInfos::getTagId).collect(Collectors.toUnmodifiableSet())
-                    ).stream().collect(Collectors.toUnmodifiableSet())
-                );
-                final var notified = new NotifiedQuestionEventDTO();
-                notified.setQuestionResource(questionSentMapper.toDto(questionSent));
-                
-                notifiedQuestionEventService.save(notified);
-            });
+        questionSent.setStatus(QuestionNotificationStatus.SENT);
+        questionSent.setSentDate(LocalDate.now());
 
-        return save(new SendByPreferencesCommandDTO());
+        final var questionSentSaved = questionSentService.save(questionSentMapper.toDto(questionSent));
+
+        final var notified = new NotifiedUsersDTO();
+        notified.setQuestion(questionSentSaved);
+
+        customUserPreferencesRepository.findAllByPreferencesIn(
+            customUserPreferencesTagInfosRepository.findAllById(
+                questionSent.getTags().stream().map(QuestionSentTagInfos::getTagId).collect(Collectors.toUnmodifiableSet())
+            ).stream().collect(Collectors.toUnmodifiableSet())
+        ).forEach(e -> {
+            final var u = new UserWithPreferencesIdDTO();
+            u.setId(e.getUser().getId());
+            u.setMail(e.getUser().getMail());
+            u.setNotifiedUsers(notified);
+            userWithPreferencesIdService.save(u);
+        });
+
+        return notifiedUsersService.save(notified);
     }
 }

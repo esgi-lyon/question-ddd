@@ -2,10 +2,11 @@ package org.contextmapper.generated.sendquestioncontext.service;
 
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.api.TagResourceApi;
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.TagDTO;
-import org.contextmapper.generated.sendquestioncontext.domain.PrepareQuestionCommand;
 import org.contextmapper.generated.sendquestioncontext.domain.enumeration.QuestionNotificationStatus;
+import org.contextmapper.generated.sendquestioncontext.repository.CreatedQuestionEventRepository;
 import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestionCommandRepository;
 import org.contextmapper.generated.sendquestioncontext.service.dto.*;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.CreatedQuestionEventMapper;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.PrepareQuestionCommandMapper;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
 import org.slf4j.Logger;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,14 +22,10 @@ import java.util.stream.Collectors;
 @Primary
 @Service
 @Transactional
-public class PrepareQuestionCommandHandler extends PrepareQuestionCommandService {
+public class PrepareQuestionCommandHandler extends CreatedQuestionEventService {
     private final Logger log = LoggerFactory.getLogger(PrepareQuestionCommandHandler.class);
 
     private final QuestionSentService questionSentService;
-
-    private final CreatedQuestionEventService createdQuestionEventService;
-
-    private final QuestionSentMapper questionSentMapper;
 
     private final TagResourceApi tagResourceApi;  // Assuming an external API to fetch questions based on tag
 
@@ -37,25 +33,21 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionCommandService
     private final ResourceIdService resourceIdService;
 
     public PrepareQuestionCommandHandler(
-            PrepareQuestionCommandRepository prepareQuestionsCommandRepository,
             QuestionSentService questionSentService,
-            CreatedQuestionEventService createdQuestionEventService,
-            QuestionSentMapper questionSentMapper,
+            CreatedQuestionEventRepository eventRepository,
             TagResourceApi tagResourceApi,
             QuestionSentTagInfosService questionSentTagIdService,
             ResourceIdService resourceIdService,
-            PrepareQuestionCommandMapper prepareQuestionCommandMapper
+            CreatedQuestionEventMapper createdQuestionEventMapper
     ) {
-        super(prepareQuestionsCommandRepository, prepareQuestionCommandMapper);
+        super(eventRepository, createdQuestionEventMapper);
         this.questionSentService = questionSentService;
-        this.createdQuestionEventService = createdQuestionEventService;
-        this.questionSentMapper = questionSentMapper;
         this.tagResourceApi = tagResourceApi;
         this.questionSentTagIdService = questionSentTagIdService;
         this.resourceIdService = resourceIdService;
     }
 
-    public PrepareQuestionCommandDTO handlePrepareQuestionsCommand(PrepareQuestionCommandDTO prepareQuestionsCommand) {
+    public CreatedQuestionEventDTO handlePrepareQuestionsCommand(PrepareQuestionCommandDTO prepareQuestionsCommand) {
         log.info("Handle command to prepare questions for tag: {}", prepareQuestionsCommand);
 
         QuestionSentDTO questionSentDTO = new QuestionSentDTO();
@@ -63,8 +55,7 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionCommandService
         resourceIdDTO.setId(prepareQuestionsCommand.getResourceId());
         final var savedResourceId = resourceIdService.save(resourceIdDTO);
         questionSentDTO.setResourceId(savedResourceId);
-        questionSentDTO.setStatus(QuestionNotificationStatus.SENT);
-        questionSentDTO.setSentDate(LocalDate.now());
+        questionSentDTO.setStatus(QuestionNotificationStatus.PREPARING);
 
         QuestionSentDTO saved = questionSentService.save(questionSentDTO);
 
@@ -83,8 +74,7 @@ public class PrepareQuestionCommandHandler extends PrepareQuestionCommandService
 
         CreatedQuestionEventDTO eventDTO = new CreatedQuestionEventDTO();
         eventDTO.setQuestionAndTag(saved);
-        createdQuestionEventService.save(eventDTO);
 
-        return save(prepareQuestionsCommand);
+        return save(eventDTO);
     }
 }

@@ -287,7 +287,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			def QuestionSent answer();
 			- ResourceId resourceId
 		}
-		Entity Notification {
+		Entity NotifiedUsers {
 			- QuestionSent question
 			- List<UserWithPreferencesId> user
 		}
@@ -306,7 +306,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			- QuestionSent questionAndTag
 		}
 		DomainEvent NotifiedQuestion {
-			- Notification questionResource
+			- NotifiedUsers questionResource
 		}
 		Command PrepareQuestion {
 			Long resourceId

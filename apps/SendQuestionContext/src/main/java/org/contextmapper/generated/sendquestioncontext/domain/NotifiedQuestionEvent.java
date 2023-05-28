@@ -23,10 +23,10 @@ public class NotifiedQuestionEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnoreProperties(value = { "resourceId", "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "question", "users" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private QuestionSent questionResource;
+    private NotifiedUsers questionResource;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -43,16 +43,16 @@ public class NotifiedQuestionEvent implements Serializable {
         this.id = id;
     }
 
-    public QuestionSent getQuestionResource() {
+    public NotifiedUsers getQuestionResource() {
         return this.questionResource;
     }
 
-    public void setQuestionResource(QuestionSent questionSent) {
-        this.questionResource = questionSent;
+    public void setQuestionResource(NotifiedUsers notifiedUsers) {
+        this.questionResource = notifiedUsers;
     }
 
-    public NotifiedQuestionEvent questionResource(QuestionSent questionSent) {
-        this.setQuestionResource(questionSent);
+    public NotifiedQuestionEvent questionResource(NotifiedUsers notifiedUsers) {
+        this.setQuestionResource(notifiedUsers);
         return this;
     }
 

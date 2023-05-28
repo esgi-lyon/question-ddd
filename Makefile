@@ -41,8 +41,6 @@ diagrams:
 
 build:
 	cd apps && \
-	mkdir gateway || true && \
-	javac --version && \
 	jhipster $(args) import-jdl ./../src-gen/output.jdl && \
 	cd ..
 

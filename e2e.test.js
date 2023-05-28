@@ -187,7 +187,7 @@ const prepareQuestionCommand = async (token, resourceId) => {
   const response = JSON.parse(await request(options));
   console.log(response);
 
-  return response;
+  return response.questionAndTag.id;
 };
 
 const addUserPreferencesCommand = async (token, tagId) => {
@@ -216,17 +216,18 @@ const addUserPreferencesCommand = async (token, tagId) => {
 const sendByPreferences = async (token, questionSent) => {
   var options = {
     'method': 'POST',
-    'url': 'http://localhost:8084/api/handlers/send-question-by-preferences-command',
+    'url': 'http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command',
     'headers': {
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      "status": "ANSWERED",
-      "resourceId": {
-        "id": "<long>"
+      "questionToSend": {
+        "id": questionSent
       }
     })
+  
   };
 
   console.log("Sending question to interested users " + questionSent);

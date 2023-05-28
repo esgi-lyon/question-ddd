@@ -61,7 +61,7 @@ public class CommandHandlers {
     }
 
     @PostMapping("/prepare-question-command")
-    public ResponseEntity<PrepareQuestionCommandDTO> handlePrepareQuestionsCommand(@RequestBody PrepareQuestionCommandDTO command)
+    public ResponseEntity<CreatedQuestionEventDTO> handlePrepareQuestionsCommand(@RequestBody PrepareQuestionCommandDTO command)
             throws URISyntaxException {
         log.debug("REST request to handle PrepareQuestionsCommand : {}", command);
         if (command.getId() != null) {
@@ -75,7 +75,7 @@ public class CommandHandlers {
     }
 
     @PostMapping("/send-question-by-preferences-command")
-    public ResponseEntity<SendByPreferencesCommandDTO> handleSendQuestionByTagsPreferencesCommand(@RequestBody SendByPreferencesCommandDTO cmd)
+    public ResponseEntity<NotifiedUsersDTO> handleSendQuestionByTagsPreferencesCommand(@RequestBody SendByPreferencesCommandDTO cmd)
             throws URISyntaxException {
         log.debug("REST request to handle SendQuestionByTagsPreferencesCommand : {}", cmd);
         final var result = sendByPreferencesCommandHandler.handleSendQuestionByTagsPreferencesCommand(cmd);

@@ -4,13 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
     <!--
-        Added the constraints for entity NotifiedQuestionEvent.
+        Added the constraints for entity UserWithPreferencesId.
     -->
-    <changeSet id="20230526071532-2" author="jhipster">
+    <changeSet id="20230526071527-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="question_resource_id"
-                                 baseTableName="notified_question_event"
-                                 constraintName="fk_notified_question_event__question_resource_id"
+        <addForeignKeyConstraint baseColumnNames="notified_users_id"
+                                 baseTableName="user_with_preferences_id"
+                                 constraintName="fk_user_with_preferences_id__notified_users_id"
                                  referencedColumnNames="id"
                                  referencedTableName="notified_users"/>
     </changeSet>

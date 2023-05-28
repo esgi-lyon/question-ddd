@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A DTO for the {@link org.contextmapper.generated.sendquestioncontext.domain.NotifiedQuestionEvent} entity.
+ * A DTO for the {@link org.contextmapper.generated.sendquestioncontext.domain.NotifiedUsers} entity.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class NotifiedQuestionEventDTO implements Serializable {
+public class NotifiedUsersDTO implements Serializable {
 
     private Long id;
 
-    private NotifiedUsersDTO questionResource;
+    private QuestionSentDTO question;
 
     public Long getId() {
         return id;
@@ -21,12 +21,12 @@ public class NotifiedQuestionEventDTO implements Serializable {
         this.id = id;
     }
 
-    public NotifiedUsersDTO getQuestionResource() {
-        return questionResource;
+    public QuestionSentDTO getQuestion() {
+        return question;
     }
 
-    public void setQuestionResource(NotifiedUsersDTO questionResource) {
-        this.questionResource = questionResource;
+    public void setQuestion(QuestionSentDTO question) {
+        this.question = question;
     }
 
     @Override
@@ -34,15 +34,15 @@ public class NotifiedQuestionEventDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof NotifiedQuestionEventDTO)) {
+        if (!(o instanceof NotifiedUsersDTO)) {
             return false;
         }
 
-        NotifiedQuestionEventDTO notifiedQuestionEventDTO = (NotifiedQuestionEventDTO) o;
+        NotifiedUsersDTO notifiedUsersDTO = (NotifiedUsersDTO) o;
         if (this.id == null) {
             return false;
         }
-        return Objects.equals(this.id, notifiedQuestionEventDTO.id);
+        return Objects.equals(this.id, notifiedUsersDTO.id);
     }
 
     @Override
@@ -53,9 +53,9 @@ public class NotifiedQuestionEventDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "NotifiedQuestionEventDTO{" +
+        return "NotifiedUsersDTO{" +
             "id=" + getId() +
-            ", questionResource=" + getQuestionResource() +
+            ", question=" + getQuestion() +
             "}";
     }
 }

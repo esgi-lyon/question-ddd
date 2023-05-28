@@ -13,6 +13,8 @@ public class UserWithPreferencesIdDTO implements Serializable {
 
     private String mail;
 
+    private NotifiedUsersDTO notifiedUsers;
+
     public Long getId() {
         return id;
     }
@@ -27,6 +29,14 @@ public class UserWithPreferencesIdDTO implements Serializable {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public NotifiedUsersDTO getNotifiedUsers() {
+        return notifiedUsers;
+    }
+
+    public void setNotifiedUsers(NotifiedUsersDTO notifiedUsers) {
+        this.notifiedUsers = notifiedUsers;
     }
 
     @Override
@@ -56,6 +66,7 @@ public class UserWithPreferencesIdDTO implements Serializable {
         return "UserWithPreferencesIdDTO{" +
             "id=" + getId() +
             ", mail='" + getMail() + "'" +
+            ", notifiedUsers=" + getNotifiedUsers() +
             "}";
     }
 }

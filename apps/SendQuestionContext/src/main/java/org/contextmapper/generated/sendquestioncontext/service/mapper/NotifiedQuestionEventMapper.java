@@ -1,9 +1,9 @@
 package org.contextmapper.generated.sendquestioncontext.service.mapper;
 
 import org.contextmapper.generated.sendquestioncontext.domain.NotifiedQuestionEvent;
-import org.contextmapper.generated.sendquestioncontext.domain.QuestionSent;
+import org.contextmapper.generated.sendquestioncontext.domain.NotifiedUsers;
 import org.contextmapper.generated.sendquestioncontext.service.dto.NotifiedQuestionEventDTO;
-import org.contextmapper.generated.sendquestioncontext.service.dto.QuestionSentDTO;
+import org.contextmapper.generated.sendquestioncontext.service.dto.NotifiedUsersDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,11 +11,11 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface NotifiedQuestionEventMapper extends EntityMapper<NotifiedQuestionEventDTO, NotifiedQuestionEvent> {
-    @Mapping(target = "questionResource", source = "questionResource", qualifiedByName = "questionSentId")
+    @Mapping(target = "questionResource", source = "questionResource", qualifiedByName = "notifiedUsersId")
     NotifiedQuestionEventDTO toDto(NotifiedQuestionEvent s);
 
-    @Named("questionSentId")
+    @Named("notifiedUsersId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    QuestionSentDTO toDtoQuestionSentId(QuestionSent questionSent);
+    NotifiedUsersDTO toDtoNotifiedUsersId(NotifiedUsers notifiedUsers);
 }

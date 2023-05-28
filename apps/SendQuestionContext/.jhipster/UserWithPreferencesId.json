@@ -18,6 +18,13 @@
   "name": "UserWithPreferencesId",
   "pagination": "no",
   "readOnly": true,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "notifiedUsers",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "notifiedUsers",
+      "relationshipType": "many-to-one"
+    }
+  ],
   "service": "serviceClass"
 }

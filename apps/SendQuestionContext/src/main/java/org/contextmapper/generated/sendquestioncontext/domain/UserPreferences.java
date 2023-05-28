@@ -25,6 +25,7 @@ public class UserPreferences implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "notifiedUsers" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
     private UserWithPreferencesId user;
