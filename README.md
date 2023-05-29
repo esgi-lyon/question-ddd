@@ -45,10 +45,9 @@ Example :
 make SkillContext.client APP=QuestionContext
 ```
 
-## Start full docker stack
+### Start spring services
 
 ```bash
-
 make start
 ```
 
