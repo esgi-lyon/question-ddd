@@ -31,8 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class AnsweringUserResourceIT {
 
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
+    private static final String DEFAULT_MAIL = "AAAAAAAAAA";
+    private static final String UPDATED_MAIL = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/answering-users";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -61,7 +61,7 @@ class AnsweringUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AnsweringUser createEntity(EntityManager em) {
-        AnsweringUser answeringUser = new AnsweringUser().name(DEFAULT_NAME);
+        AnsweringUser answeringUser = new AnsweringUser().mail(DEFAULT_MAIL);
         return answeringUser;
     }
 
@@ -72,7 +72,7 @@ class AnsweringUserResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static AnsweringUser createUpdatedEntity(EntityManager em) {
-        AnsweringUser answeringUser = new AnsweringUser().name(UPDATED_NAME);
+        AnsweringUser answeringUser = new AnsweringUser().mail(UPDATED_MAIL);
         return answeringUser;
     }
 
@@ -93,7 +93,7 @@ class AnsweringUserResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(answeringUser.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL)));
     }
 
     @Test
@@ -108,7 +108,7 @@ class AnsweringUserResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(answeringUser.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.mail").value(DEFAULT_MAIL));
     }
 
     @Test

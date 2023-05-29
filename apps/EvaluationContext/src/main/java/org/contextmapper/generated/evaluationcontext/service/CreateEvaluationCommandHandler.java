@@ -1,11 +1,13 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
 import org.contextmapper.generated.evaluationcontext.client.answercontext.api.AnswerResourceApi;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.Status;
 import org.contextmapper.generated.evaluationcontext.repository.CreateEvaluationCommandRepository;
 import org.contextmapper.generated.evaluationcontext.service.dto.*;
 import org.contextmapper.generated.evaluationcontext.service.mapper.CreateEvaluationCommandMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
@@ -48,7 +50,7 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         final var createEvaluation = new EvaluationDTO();
 
         final var answerId = evaluationCommandDTO.getAnswer().getAnswerId();
-
+        final var evaluatorEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         final var answer = Optional.ofNullable(answerResourceApi.getAnswer(answerId).getBody()).orElseThrow();
 
         final var user =  new AnsweringUserDTO();
@@ -62,14 +64,16 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         final var savedEvaluationQuestion = evaluationQuestionService.save(evaluationQuestion);
 
         createEvaluation.setQuestion(savedEvaluationQuestion);
+        createEvaluation.setStatus(Status.OPENED);
+        createEvaluation.setAnsweredQuestionDifficultyLevel(evaluationCommandDTO.getDifficultyLevel());
 
-        // createEvaluation.setAnsweredQuestionDifficultyLevel(evaluationCommandDTO.getDifficultyLevel());
 
         final var saved = evaluationService.save(createEvaluation);
 
         final var evaluationCreatedEventDTO = new EvaluationCreatedEventDTO();
         evaluationCommandDTO.setId(saved.getId());
-        evaluationCreatedEventDTO.setEvaluation(createEvaluation);
+        evaluationCreatedEventDTO.setEvaluation(saved);
         return evaluationCreatedEventService.save(evaluationCreatedEventDTO);
     }
+
 }

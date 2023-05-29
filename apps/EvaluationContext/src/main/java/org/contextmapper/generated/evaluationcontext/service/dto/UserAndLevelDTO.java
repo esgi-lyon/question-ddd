@@ -2,16 +2,19 @@ package org.contextmapper.generated.evaluationcontext.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.UserLevel;
 
 /**
- * A DTO for the {@link org.contextmapper.generated.evaluationcontext.domain.AnsweringUser} entity.
+ * A DTO for the {@link org.contextmapper.generated.evaluationcontext.domain.UserAndLevel} entity.
  */
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class AnsweringUserDTO implements Serializable {
+public class UserAndLevelDTO implements Serializable {
 
     private Long id;
 
     private String mail;
+
+    private UserLevel userLevel;
 
     public Long getId() {
         return id;
@@ -29,20 +32,28 @@ public class AnsweringUserDTO implements Serializable {
         this.mail = mail;
     }
 
+    public UserLevel getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AnsweringUserDTO)) {
+        if (!(o instanceof UserAndLevelDTO)) {
             return false;
         }
 
-        AnsweringUserDTO answeringUserDTO = (AnsweringUserDTO) o;
+        UserAndLevelDTO userAndLevelDTO = (UserAndLevelDTO) o;
         if (this.id == null) {
             return false;
         }
-        return Objects.equals(this.id, answeringUserDTO.id);
+        return Objects.equals(this.id, userAndLevelDTO.id);
     }
 
     @Override
@@ -53,9 +64,10 @@ public class AnsweringUserDTO implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "AnsweringUserDTO{" +
+        return "UserAndLevelDTO{" +
             "id=" + getId() +
             ", mail='" + getMail() + "'" +
+            ", userLevel='" + getUserLevel() + "'" +
             "}";
     }
 }

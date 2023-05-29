@@ -15,6 +15,8 @@ public class EvaluationDTO implements Serializable {
 
     private Integer score;
 
+    private String evaluatorMail;
+
     private Status status;
 
     private DifficultyLevel answeredQuestionDifficultyLevel;
@@ -39,6 +41,14 @@ public class EvaluationDTO implements Serializable {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getEvaluatorMail() {
+        return evaluatorMail;
+    }
+
+    public void setEvaluatorMail(String evaluatorMail) {
+        this.evaluatorMail = evaluatorMail;
     }
 
     public Status getStatus() {
@@ -108,6 +118,7 @@ public class EvaluationDTO implements Serializable {
         return "EvaluationDTO{" +
             "id=" + getId() +
             ", score=" + getScore() +
+            ", evaluatorMail='" + getEvaluatorMail() + "'" +
             ", status='" + getStatus() + "'" +
             ", answeredQuestionDifficultyLevel='" + getAnsweredQuestionDifficultyLevel() + "'" +
             ", tag=" + getTag() +

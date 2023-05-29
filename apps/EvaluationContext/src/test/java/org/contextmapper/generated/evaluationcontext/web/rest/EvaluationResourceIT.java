@@ -36,6 +36,9 @@ class EvaluationResourceIT {
     private static final Integer DEFAULT_SCORE = 1;
     private static final Integer UPDATED_SCORE = 2;
 
+    private static final String DEFAULT_EVALUATOR_MAIL = "AAAAAAAAAA";
+    private static final String UPDATED_EVALUATOR_MAIL = "BBBBBBBBBB";
+
     private static final Status DEFAULT_STATUS = Status.VALID;
     private static final Status UPDATED_STATUS = Status.INVALID;
 
@@ -71,6 +74,7 @@ class EvaluationResourceIT {
     public static Evaluation createEntity(EntityManager em) {
         Evaluation evaluation = new Evaluation()
             .score(DEFAULT_SCORE)
+            .evaluatorMail(DEFAULT_EVALUATOR_MAIL)
             .status(DEFAULT_STATUS)
             .answeredQuestionDifficultyLevel(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
         return evaluation;
@@ -85,6 +89,7 @@ class EvaluationResourceIT {
     public static Evaluation createUpdatedEntity(EntityManager em) {
         Evaluation evaluation = new Evaluation()
             .score(UPDATED_SCORE)
+            .evaluatorMail(UPDATED_EVALUATOR_MAIL)
             .status(UPDATED_STATUS)
             .answeredQuestionDifficultyLevel(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
         return evaluation;
@@ -110,6 +115,7 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeCreate + 1);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(DEFAULT_SCORE);
+        assertThat(testEvaluation.getEvaluatorMail()).isEqualTo(DEFAULT_EVALUATOR_MAIL);
         assertThat(testEvaluation.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
@@ -146,6 +152,7 @@ class EvaluationResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(evaluation.getId().intValue())))
             .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
+            .andExpect(jsonPath("$.[*].evaluatorMail").value(hasItem(DEFAULT_EVALUATOR_MAIL)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(
                 jsonPath("$.[*].answeredQuestionDifficultyLevel").value(hasItem(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL.toString()))
@@ -165,6 +172,7 @@ class EvaluationResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(evaluation.getId().intValue()))
             .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
+            .andExpect(jsonPath("$.evaluatorMail").value(DEFAULT_EVALUATOR_MAIL))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.answeredQuestionDifficultyLevel").value(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL.toString()));
     }
@@ -190,6 +198,7 @@ class EvaluationResourceIT {
         em.detach(updatedEvaluation);
         updatedEvaluation
             .score(UPDATED_SCORE)
+            .evaluatorMail(UPDATED_EVALUATOR_MAIL)
             .status(UPDATED_STATUS)
             .answeredQuestionDifficultyLevel(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
         EvaluationDTO evaluationDTO = evaluationMapper.toDto(updatedEvaluation);
@@ -207,6 +216,7 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeUpdate);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testEvaluation.getEvaluatorMail()).isEqualTo(UPDATED_EVALUATOR_MAIL);
         assertThat(testEvaluation.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
@@ -288,7 +298,7 @@ class EvaluationResourceIT {
         Evaluation partialUpdatedEvaluation = new Evaluation();
         partialUpdatedEvaluation.setId(evaluation.getId());
 
-        partialUpdatedEvaluation.score(UPDATED_SCORE).status(UPDATED_STATUS);
+        partialUpdatedEvaluation.score(UPDATED_SCORE).evaluatorMail(UPDATED_EVALUATOR_MAIL);
 
         restEvaluationMockMvc
             .perform(
@@ -303,7 +313,8 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeUpdate);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(UPDATED_SCORE);
-        assertThat(testEvaluation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testEvaluation.getEvaluatorMail()).isEqualTo(UPDATED_EVALUATOR_MAIL);
+        assertThat(testEvaluation.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(DEFAULT_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }
 
@@ -321,6 +332,7 @@ class EvaluationResourceIT {
 
         partialUpdatedEvaluation
             .score(UPDATED_SCORE)
+            .evaluatorMail(UPDATED_EVALUATOR_MAIL)
             .status(UPDATED_STATUS)
             .answeredQuestionDifficultyLevel(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
 
@@ -337,6 +349,7 @@ class EvaluationResourceIT {
         assertThat(evaluationList).hasSize(databaseSizeBeforeUpdate);
         Evaluation testEvaluation = evaluationList.get(evaluationList.size() - 1);
         assertThat(testEvaluation.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testEvaluation.getEvaluatorMail()).isEqualTo(UPDATED_EVALUATOR_MAIL);
         assertThat(testEvaluation.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testEvaluation.getAnsweredQuestionDifficultyLevel()).isEqualTo(UPDATED_ANSWERED_QUESTION_DIFFICULTY_LEVEL);
     }

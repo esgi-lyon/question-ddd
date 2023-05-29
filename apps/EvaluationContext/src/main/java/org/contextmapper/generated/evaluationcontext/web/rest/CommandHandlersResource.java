@@ -1,12 +1,12 @@
 package org.contextmapper.generated.evaluationcontext.web.rest;
 
-import org.contextmapper.generated.evaluationcontext.service.CheckAnswerCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.CreateEvaluationCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.PointAwardRuleCommandHandler;
 import org.contextmapper.generated.evaluationcontext.service.dto.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,22 +28,19 @@ public class CommandHandlersResource {
     private final CreateEvaluationCommandHandler createEvaluationCommandHandler;
     private final PointAwardRuleCommandHandler pointAwardRuleCommandHandler;
 
-    private final CheckAnswerCommandHandler checkAnswerCommandHandler;
-
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     public CommandHandlersResource(
         CreateEvaluationCommandHandler createEvaluationCommandHandler,
-        PointAwardRuleCommandHandler pointAwardRuleCommandHandler,
-        CheckAnswerCommandHandler checkAnswerCommandHandler
+        PointAwardRuleCommandHandler pointAwardRuleCommandHandler
     ) {
-        this.checkAnswerCommandHandler = checkAnswerCommandHandler;
-        this.createEvaluationCommandHandler =createEvaluationCommandHandler;
-        this.pointAwardRuleCommandHandler =pointAwardRuleCommandHandler;
-}
+        this.createEvaluationCommandHandler = createEvaluationCommandHandler;
+        this.pointAwardRuleCommandHandler = pointAwardRuleCommandHandler;
+    }
 
     @PostMapping("/create-evaluation-command")
+    @PreAuthorize("hasAuthority(\"EVALUATOR\")")
     public ResponseEntity<EvaluationCreatedEventDTO> handleCreateEvaluationCommand(@RequestBody CreateEvaluationCommandDTO evaluationDTO) throws URISyntaxException {
         log.debug("REST request to handle CreateEvaluationCommand : {}", evaluationDTO);
         final var result = createEvaluationCommandHandler.handleCreateEvaluationCommand(evaluationDTO);
@@ -53,16 +50,8 @@ public class CommandHandlersResource {
             .body(result);
     }
 
-    @PostMapping("/check-answer-command")
-    public ResponseEntity<CheckAnswerCommandDTO> handleCheckAnswerCommand(@RequestBody CheckAnswerCommandDTO checkAnswerCommand)
-        throws URISyntaxException {
-        CheckAnswerCommandDTO result = checkAnswerCommandHandler.handleCheckAnswerCommand(checkAnswerCommand);
-        return ResponseEntity
-            .created(new URI("/api/handlers/check-answer-command/" + result.getId()))
-            .body(result);
-    }
-
     @PostMapping("/award-point-for-evaluation")
+    @PreAuthorize("hasAuthority(\"EVALUATOR\")")
     public ResponseEntity<AwardPointForEvaluationCommandDTO> handleAwardPointForEvaluationCommand(@RequestBody EvaluationDTO evaluationDTO)
         throws URISyntaxException {
         AwardPointForEvaluationCommandDTO result = pointAwardRuleCommandHandler.handleAwardPointForEvaluationCommand(evaluationDTO);

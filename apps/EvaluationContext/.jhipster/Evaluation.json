@@ -12,6 +12,10 @@
       "fieldType": "Integer"
     },
     {
+      "fieldName": "evaluatorMail",
+      "fieldType": "String"
+    },
+    {
       "fieldName": "status",
       "fieldType": "Status",
       "fieldValues": "VALID,INVALID,OPENED"

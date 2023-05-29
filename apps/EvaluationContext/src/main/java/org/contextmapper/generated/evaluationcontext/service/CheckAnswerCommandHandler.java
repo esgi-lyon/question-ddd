@@ -10,6 +10,7 @@ import org.contextmapper.generated.evaluationcontext.service.mapper.EvaluatedAns
 import org.contextmapper.generated.evaluationcontext.service.mapper.EvaluationMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
@@ -39,8 +40,9 @@ public class CheckAnswerCommandHandler extends CheckAnswerCommandService {
         log.info("Handle command to check answer");
         final var evaluationDTO = new EvaluationDTO();
 
+        final var userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         // Api clients call to recover question from send question context
-        //evaluationDTO.setUser();
+        // evaluationDTO.setUser();
         // evaluationDTO.setQuestion();
 
         // here you might need to add business logic to determine the status (VALID or INVALID) of the answer

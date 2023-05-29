@@ -396,6 +396,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- EvaluationQuestion question
 			- AnsweringUser user
 			- @DifficultyLevel answeredQuestionDifficultyLevel
+			String evaluatorMail email
 		}
 		enum Status {
 			aggregateLifecycle
@@ -405,7 +406,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			EASY, MEDIUM, HARD
 		}
 		ValueObject AnsweringUser {
-			String name
+			String mail email
 		}
 		// Valid tag of question resource
 		ValueObject EvaluationTag {
@@ -428,9 +429,6 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- @EvaluatedAnswer answer
 			- @DifficultyLevel difficultyLevel
 		}
-		Command NotifyNewAnswer {
-			- @EvaluatedAnswer answer
-		}
 	}
 	Aggregate PointAwardRule {
 		Entity PointAwardRule {
@@ -439,6 +437,10 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- @DifficultyLevel difficultyLevel
 			- @UserLevel userLevel
 			def int pointsForRefusedOrValidated();
+		}
+		Entity UserAndLevel {
+			String mail email
+			- @UserLevel userLevel
 		}
 		enum UserLevel {
 			aggregateLifecycle

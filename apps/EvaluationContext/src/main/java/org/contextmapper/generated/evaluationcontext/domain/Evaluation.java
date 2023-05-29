@@ -27,6 +27,9 @@ public class Evaluation implements Serializable {
     @Column(name = "score")
     private Integer score;
 
+    @Column(name = "evaluator_mail")
+    private String evaluatorMail;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
@@ -73,6 +76,19 @@ public class Evaluation implements Serializable {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getEvaluatorMail() {
+        return this.evaluatorMail;
+    }
+
+    public Evaluation evaluatorMail(String evaluatorMail) {
+        this.setEvaluatorMail(evaluatorMail);
+        return this;
+    }
+
+    public void setEvaluatorMail(String evaluatorMail) {
+        this.evaluatorMail = evaluatorMail;
     }
 
     public Status getStatus() {
@@ -165,6 +181,7 @@ public class Evaluation implements Serializable {
         return "Evaluation{" +
             "id=" + getId() +
             ", score=" + getScore() +
+            ", evaluatorMail='" + getEvaluatorMail() + "'" +
             ", status='" + getStatus() + "'" +
             ", answeredQuestionDifficultyLevel='" + getAnsweredQuestionDifficultyLevel() + "'" +
             "}";

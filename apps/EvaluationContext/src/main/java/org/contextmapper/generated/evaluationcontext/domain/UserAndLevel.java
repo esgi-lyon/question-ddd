@@ -2,17 +2,18 @@ package org.contextmapper.generated.evaluationcontext.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import org.contextmapper.generated.evaluationcontext.domain.enumeration.UserLevel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * A AnsweringUser.
+ * A UserAndLevel.
  */
 @Entity
-@Table(name = "answering_user")
+@Table(name = "user_and_level")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class AnsweringUser implements Serializable {
+public class UserAndLevel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,13 +26,17 @@ public class AnsweringUser implements Serializable {
     @Column(name = "mail")
     private String mail;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_level")
+    private UserLevel userLevel;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
         return this.id;
     }
 
-    public AnsweringUser id(Long id) {
+    public UserAndLevel id(Long id) {
         this.setId(id);
         return this;
     }
@@ -44,13 +49,26 @@ public class AnsweringUser implements Serializable {
         return this.mail;
     }
 
-    public AnsweringUser mail(String mail) {
+    public UserAndLevel mail(String mail) {
         this.setMail(mail);
         return this;
     }
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public UserLevel getUserLevel() {
+        return this.userLevel;
+    }
+
+    public UserAndLevel userLevel(UserLevel userLevel) {
+        this.setUserLevel(userLevel);
+        return this;
+    }
+
+    public void setUserLevel(UserLevel userLevel) {
+        this.userLevel = userLevel;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -60,10 +78,10 @@ public class AnsweringUser implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AnsweringUser)) {
+        if (!(o instanceof UserAndLevel)) {
             return false;
         }
-        return id != null && id.equals(((AnsweringUser) o).id);
+        return id != null && id.equals(((UserAndLevel) o).id);
     }
 
     @Override
@@ -75,9 +93,10 @@ public class AnsweringUser implements Serializable {
     // prettier-ignore
     @Override
     public String toString() {
-        return "AnsweringUser{" +
+        return "UserAndLevel{" +
             "id=" + getId() +
             ", mail='" + getMail() + "'" +
+            ", userLevel='" + getUserLevel() + "'" +
             "}";
     }
 }

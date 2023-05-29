@@ -1,7 +1,7 @@
-var request = require("request-promise");
+const request = require("request-promise");
 
 const register = async (role, mail) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://127.0.0.1:8081/api/handlers/register-command",
     headers: {
@@ -31,7 +31,7 @@ const register = async (role, mail) => {
 };
 
 const findLastUser = async (token, shift = 1) => {
-  var fallbackOptions = {
+  const fallbackOptions = {
     method: "GET",
     url: `http://127.0.0.1:8081/api/user-infos`,
     headers: {
@@ -46,7 +46,7 @@ const findLastUser = async (token, shift = 1) => {
 };
 
 const validateUser = async (token, id) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://127.0.0.1:8081/api/handlers/validate-user-command",
     headers: {
@@ -68,7 +68,7 @@ const validateUser = async (token, id) => {
 };
 
 const login = async (email, password = "password") => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://127.0.0.1:8081/api/authenticate",
     headers: {
@@ -85,7 +85,7 @@ const login = async (email, password = "password") => {
 };
 
 const createCategory = async (token) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://localhost:8083/api/handlers/create-category-command",
     headers: {
@@ -104,7 +104,7 @@ const createCategory = async (token) => {
 };
 
 const createTag = async (token, categoryId, name) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://localhost:8083/api/handlers/create-tag-command",
     headers: {
@@ -119,14 +119,14 @@ const createTag = async (token, categoryId, name) => {
       },
     }),
   };
-  console.log("Create tag " + name)
+  console.log("Create tag " + name);
   const response = JSON.parse(await request(options));
   console.log(response);
   return response.tag.id;
 };
 
 const createResource = async (token, tagId, content) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://127.0.0.1:8082/api/handlers/resource-command",
     headers: {
@@ -153,7 +153,7 @@ const validateLinkageResource = async (
   resourceId,
   state = "ASSOCIATED"
 ) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://localhost:8082/api/handlers/validate-resource-command",
     headers: {
@@ -172,7 +172,7 @@ const validateLinkageResource = async (
 };
 
 const prepareQuestionCommand = async (token, resourceId) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://127.0.0.1:8084/api/handlers/prepare-question-command",
     headers: {
@@ -192,7 +192,7 @@ const prepareQuestionCommand = async (token, resourceId) => {
 };
 
 const addUserPreferencesCommand = async (token, tagId) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://localhost:8084/api/handlers/add-preferences-command",
     headers: {
@@ -214,7 +214,7 @@ const addUserPreferencesCommand = async (token, tagId) => {
 };
 
 const sendByPreferences = async (token, questionSent) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command",
     headers: {
@@ -237,7 +237,7 @@ const sendByPreferences = async (token, questionSent) => {
 };
 
 const tagChoicesListCommand = async (token, questionId) => {
-  var options = {
+  const options = {
     method: "GET",
     url: `http://127.0.0.1:8085/api/handlers/tags-choices-list-query?questionId=${questionId}`,
     headers: {
@@ -253,7 +253,7 @@ const tagChoicesListCommand = async (token, questionId) => {
 };
 
 const answerSubmit = async (token, answerId, tag) => {
-  var options = {
+  const options = {
     method: "POST",
     url: "http://localhost:8085/api/handlers/answer-submit-command",
     headers: {
@@ -264,7 +264,7 @@ const answerSubmit = async (token, answerId, tag) => {
     body: JSON.stringify({
       answer: {
         id: answerId,
-        answeredTag: {tagId: tag},
+        answeredTag: { tagId: tag },
       },
     }),
   };
@@ -275,57 +275,25 @@ const answerSubmit = async (token, answerId, tag) => {
   return response;
 };
 
-const checkAnswer = async (token, answerId) => {
-  var options = {
+const createEvaluation = async (token, answerId) => {
+  const options = {
     method: "POST",
-    url: "http://localhost:8086/api/handlers/check-answer-command",
+    url: "http://127.0.0.1:8086/api/handlers/create-evaluation-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
+      difficultyLevel: "MEDIUM",
       answer: {
         answerId: answerId,
       },
     }),
   };
-
-  console.log(`checking answer ${answerId}`);
-  const response = await request(options);
-
-  return response;
-};
-
-const createEvaluation = async (token, answerId) => {
-  var options = {
-    method: "POST",
-    url: "http://localhost:8086/api/handlers/create-evaluation-command",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "*/*",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      score: 8818721,
-      status: "VALID",
-      answeredQuestionDifficultyLevel: "HARD",
-      tag: {
-        tagId: 87059766,
-        name: "sint cupidatat eiusmod",
-      },
-      question: {
-        questionId: -70662870,
-      },
-      user: {
-        userId: 61879722,
-        name: "ipsum elit dolore",
-      },
-    }),
-  };
   console.log("starting evaluation of answer for " + answerId);
   const response = JSON.parse(await request(options));
-
+  console.log(response);
   return response;
 };
 
@@ -369,7 +337,7 @@ const createEvaluation = async (token, answerId) => {
   const createResourceId = await createResource(
     studentToken,
     tagId,
-    "final var"
+    "final const"
   );
   const createResourceId2 = await createResource(studentToken, tagId, "<div>");
 
@@ -389,8 +357,6 @@ const createEvaluation = async (token, answerId) => {
   const answerId = await tagChoicesListCommand(studentToken, questionToSendId);
 
   await answerSubmit(studentToken, answerId, tagId);
-
-  const evaluationId = await checkAnswer(evaluatorToken, answerId);
 
   await createEvaluation(evaluatorToken, answerId);
 })();

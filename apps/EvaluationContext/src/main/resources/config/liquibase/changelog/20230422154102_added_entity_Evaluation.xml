@@ -17,6 +17,9 @@
             <column name="score" type="integer">
                 <constraints nullable="true" />
             </column>
+            <column name="evaluator_mail" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="status" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -54,6 +57,7 @@
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
             <column name="score" type="numeric"/>
+            <column name="evaluator_mail" type="string"/>
             <column name="status" type="string"/>
             <column name="answered_question_difficulty_level" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

@@ -1,14 +1,9 @@
 package org.contextmapper.generated.answercontext.service;
 
-import org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand;
-import org.contextmapper.generated.answercontext.domain.AnswerSubmittedEvent;
 import org.contextmapper.generated.answercontext.domain.enumeration.AnswerState;
-import org.contextmapper.generated.answercontext.repository.AnswerSubmitCommandRepository;
 import org.contextmapper.generated.answercontext.repository.AnswerSubmittedEventRepository;
-import org.contextmapper.generated.answercontext.service.dto.AnswerDTO;
 import org.contextmapper.generated.answercontext.service.dto.AnswerSubmitCommandDTO;
 import org.contextmapper.generated.answercontext.service.dto.AnswerSubmittedEventDTO;
-import org.contextmapper.generated.answercontext.service.mapper.AnswerMapper;
 import org.contextmapper.generated.answercontext.service.mapper.AnswerSubmittedEventMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;

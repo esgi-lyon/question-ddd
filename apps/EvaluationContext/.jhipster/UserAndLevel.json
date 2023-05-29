@@ -1,23 +1,28 @@
 {
   "applications": ["EvaluationContext"],
-  "changelogDate": "20230518163046",
+  "changelogDate": "20230529160048",
   "clientRootFolder": "EvaluationContext",
   "databaseType": "sql",
   "dto": "mapstruct",
   "embedded": false,
-  "entityTableName": "answering_user",
+  "entityTableName": "user_and_level",
   "fields": [
     {
       "fieldName": "mail",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "userLevel",
+      "fieldType": "UserLevel",
+      "fieldValues": "NEW,REGULAR,EXPERT"
     }
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "EvaluationContext",
-  "name": "AnsweringUser",
+  "name": "UserAndLevel",
   "pagination": "no",
-  "readOnly": true,
+  "readOnly": false,
   "relationships": [],
   "service": "serviceClass"
 }

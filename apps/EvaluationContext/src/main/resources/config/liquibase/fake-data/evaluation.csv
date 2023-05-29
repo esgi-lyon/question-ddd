@@ -1,11 +1,11 @@
-id;score;status;answered_question_difficulty_level
-1;2784;INVALID;MEDIUM
-2;2216;VALID;EASY
-3;39863;VALID;HARD
-4;50856;INVALID;HARD
-5;48576;INVALID;MEDIUM
-6;79470;INVALID;MEDIUM
-7;69537;VALID;MEDIUM
-8;20414;VALID;EASY
-9;63314;VALID;HARD
-10;17456;VALID;HARD
+id;score;evaluator_mail;status;answered_question_difficulty_level
+1;2784;Avon maroon;OPENED;MEDIUM
+2;49787;Berkshire cross-platform Franc;VALID;EASY
+3;22975;Frozen Fresh;OPENED;HARD
+4;20504;Security;VALID;MEDIUM
+5;64266;Grass-roots strategy e-tailers;VALID;MEDIUM
+6;46227;strategy;OPENED;MEDIUM
+7;72713;Consultant transition deliverables;VALID;MEDIUM
+8;57163;circuit;OPENED;EASY
+9;53151;regional capability;INVALID;EASY
+10;44387;Gloves Money Fresh;OPENED;HARD
