@@ -1,7 +1,6 @@
 package org.contextmapper.generated.questioncontext.service;
 
 import org.contextmapper.generated.questioncontext.client.skillcontext.api.TagResourceApiClient;
-import org.contextmapper.generated.questioncontext.domain.CreateResourceCommand;
 import org.contextmapper.generated.questioncontext.domain.enumeration.States;
 import org.contextmapper.generated.questioncontext.repository.CreateResourceCommandRepository;
 import org.contextmapper.generated.questioncontext.service.dto.CreateResourceCommandDTO;
@@ -9,7 +8,6 @@ import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceD
 import org.contextmapper.generated.questioncontext.service.dto.QuestionResourceTagInfosDTO;
 import org.contextmapper.generated.questioncontext.service.dto.ResourceWaitingForAssociationEventDTO;
 import org.contextmapper.generated.questioncontext.service.mapper.CreateResourceCommandMapper;
-import org.contextmapper.generated.questioncontext.service.mapper.QuestionResourceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;

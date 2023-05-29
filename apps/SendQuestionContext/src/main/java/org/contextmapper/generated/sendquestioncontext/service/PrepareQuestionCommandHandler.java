@@ -1,14 +1,15 @@
 package org.contextmapper.generated.sendquestioncontext.service;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.contextmapper.generated.sendquestioncontext.client.questioncontext.api.QuestionResourceResourceApi;
+import org.contextmapper.generated.sendquestioncontext.client.questioncontext.api.QuestionResourceTagInfosResourceApi;
+import org.contextmapper.generated.sendquestioncontext.client.skillcontext.api.TagInfosResourceApi;
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.api.TagResourceApi;
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.model.TagDTO;
 import org.contextmapper.generated.sendquestioncontext.domain.enumeration.QuestionNotificationStatus;
 import org.contextmapper.generated.sendquestioncontext.repository.CreatedQuestionEventRepository;
-import org.contextmapper.generated.sendquestioncontext.repository.PrepareQuestionCommandRepository;
 import org.contextmapper.generated.sendquestioncontext.service.dto.*;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.CreatedQuestionEventMapper;
-import org.contextmapper.generated.sendquestioncontext.service.mapper.PrepareQuestionCommandMapper;
-import org.contextmapper.generated.sendquestioncontext.service.mapper.QuestionSentMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,22 +31,30 @@ public class PrepareQuestionCommandHandler extends CreatedQuestionEventService {
 
     private final TagResourceApi tagResourceApi;  // Assuming an external API to fetch questions based on tag
 
+    private final QuestionResourceResourceApi resourceResourceApi;
+
     private final QuestionSentTagInfosService questionSentTagIdService;
     private final ResourceIdService resourceIdService;
 
+    private final QuestionResourceTagInfosResourceApi tagInfosResourceApi;
+
     public PrepareQuestionCommandHandler(
-            QuestionSentService questionSentService,
-            CreatedQuestionEventRepository eventRepository,
-            TagResourceApi tagResourceApi,
-            QuestionSentTagInfosService questionSentTagIdService,
-            ResourceIdService resourceIdService,
-            CreatedQuestionEventMapper createdQuestionEventMapper
+        QuestionSentService questionSentService,
+        CreatedQuestionEventRepository eventRepository,
+        TagResourceApi tagResourceApi,
+        QuestionSentTagInfosService questionSentTagIdService,
+        ResourceIdService resourceIdService,
+        CreatedQuestionEventMapper createdQuestionEventMapper,
+        QuestionResourceResourceApi resourceResourceApi,
+        QuestionResourceTagInfosResourceApi tagInfosResourceApi
     ) {
         super(eventRepository, createdQuestionEventMapper);
         this.questionSentService = questionSentService;
         this.tagResourceApi = tagResourceApi;
         this.questionSentTagIdService = questionSentTagIdService;
         this.resourceIdService = resourceIdService;
+        this.resourceResourceApi = resourceResourceApi;
+        this.tagInfosResourceApi = tagInfosResourceApi;
     }
 
     public CreatedQuestionEventDTO handlePrepareQuestionsCommand(PrepareQuestionCommandDTO prepareQuestionsCommand) {
@@ -57,12 +67,23 @@ public class PrepareQuestionCommandHandler extends CreatedQuestionEventService {
         questionSentDTO.setResourceId(savedResourceId);
         questionSentDTO.setStatus(QuestionNotificationStatus.PREPARING);
 
-        QuestionSentDTO saved = questionSentService.save(questionSentDTO);
+        final var saved = questionSentService.save(questionSentDTO);
 
-        Set<TagDTO> randomTags = Objects.requireNonNull(tagResourceApi.getAllTags().getBody())
-            .stream()
-            .limit(3)
-            .collect(Collectors.toUnmodifiableSet());
+        final var tagCorrect = new TagDTO();
+        final var questionResource = Optional.ofNullable(
+                resourceResourceApi.getQuestionResource(prepareQuestionsCommand.getResourceId())
+                    .getBody()
+            )
+            .orElseThrow();
+        final var tagInfos = Optional.ofNullable(tagInfosResourceApi.getQuestionResourceTagInfos(questionResource.getTagInfos().getId()).getBody())
+            .orElseThrow();
+        tagCorrect.setId(tagInfos.getTagId());
+        tagCorrect.setName(tagInfos.getName());
+
+        final var randomTags = CollectionUtils.union(
+            Objects.requireNonNull(tagResourceApi.getAllTags().getBody())
+                .stream()
+                .limit(2).collect(Collectors.toUnmodifiableSet()), Set.of(tagCorrect));
 
         randomTags.forEach(tag -> {
             final var questionSentTagId = new QuestionSentTagInfosDTO();

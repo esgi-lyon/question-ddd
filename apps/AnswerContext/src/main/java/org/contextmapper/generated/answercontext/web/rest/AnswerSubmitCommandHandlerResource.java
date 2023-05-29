@@ -12,6 +12,8 @@ import tech.jhipster.web.util.HeaderUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/handlers")
@@ -52,13 +54,13 @@ public class AnswerSubmitCommandHandlerResource {
 
 
     @GetMapping("/tags-choices-list-query")
-    public ResponseEntity<AnswerDTO> handleTagChoicesListCommand(@RequestParam("questionId") Long question) throws URISyntaxException {
+    public ResponseEntity<TagChoicesListCommandHandler.NewAnswerDto> handleTagChoicesListCommand(@RequestParam("questionId") Long question) throws URISyntaxException {
         log.debug("REST request to handle TagChoicesListCommand");
 
         final var result = tagChoicesListCommandHandler.handleTagChoicesListCommand(question);
         return ResponseEntity
-            .created(new URI("/api/handlers/tags-choices-list-query/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME_TAG_CHOICE, result.getId().toString()))
+            .created(new URI("/api/handlers/tags-choices-list-query/" + result.answer().getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME_TAG_CHOICE, String.valueOf(result.answer().getId())))
             .body(result);
     }
 }

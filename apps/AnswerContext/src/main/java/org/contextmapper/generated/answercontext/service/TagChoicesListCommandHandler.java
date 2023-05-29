@@ -1,7 +1,6 @@
 package org.contextmapper.generated.answercontext.service;
 
 import org.contextmapper.generated.answercontext.client.sendquestioncontext.api.QueryHandlersApi;
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.api.QuestionSentTagInfosResourceApi;
 import org.contextmapper.generated.answercontext.domain.enumeration.AnswerState;
 import org.contextmapper.generated.answercontext.repository.TagChoicesListedEventRepository;
 import org.contextmapper.generated.answercontext.service.dto.*;
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Primary
@@ -21,49 +22,43 @@ import java.util.Optional;
 public class TagChoicesListCommandHandler extends TagChoicesListedEventService {
     private final Logger log = LoggerFactory.getLogger(TagChoicesListCommandHandler.class);
 
-    private final TagChoicesListedEventService tagChoicesListedEventService;
-
-    private final TagChoicesListedService tagChoicesListedService;
-
     private final AvailableAnswerService availableAnswerService;
 
     private final QueryHandlersApi queryHandler;
-
-    private final QuestionSentTagInfosResourceApi questionSentTagInfosResourceApi;
 
     private final QuestionSentIdService questionSentIdService;
     private final UserEmailService userEmailService;
     private final AnswerService answerService;
 
+    public record NewAnswerDto(AnswerDTO answer, List<AvailableAnswerDTO> availableAnswerDTOS) {
+    }
+
     public TagChoicesListCommandHandler(
         TagChoicesListedEventRepository tagChoicesListEventRepository,
-        TagChoicesListedEventService tagChoicesListedEventService,
         TagChoicesListedEventMapper tagChoicesListedEventMapper,
-        TagChoicesListedService tagChoicesListedService,
         AvailableAnswerService availableAnswerService,
         QueryHandlersApi queryHandlersApi,
-        QuestionSentTagInfosResourceApi questionSentTagInfosResourceApi,
         QuestionSentIdService questionSentIdService,
-        UserEmailService userEmailService, AnswerService answerService) {
+        UserEmailService userEmailService,
+        AnswerService answerService
+    ) {
         super(tagChoicesListEventRepository, tagChoicesListedEventMapper);
-        this.tagChoicesListedEventService = tagChoicesListedEventService;
-        this.tagChoicesListedService = tagChoicesListedService;
         this.availableAnswerService = availableAnswerService;
         this.queryHandler = queryHandlersApi;
-        this.questionSentTagInfosResourceApi = questionSentTagInfosResourceApi;
         this.questionSentIdService = questionSentIdService;
         this.userEmailService = userEmailService;
         this.answerService = answerService;
     }
 
-    public AnswerDTO handleTagChoicesListCommand(Long question) {
-        log.info("Handle command to list tag choices");
+    public NewAnswerDto handleTagChoicesListCommand(Long question) {
+        log.info("Handle command to list tag choices for question : {}", question);
         final var cmd = new TagChoicesListCommandDTO();
         final var questionSendDTO = new QuestionSentIdDTO();
         questionSendDTO.setQuestionId(question);
         cmd.setQuestionSent(questionSendDTO);
+        // TODO not urgent save
 
-        final var questionId = cmd.getQuestionSent().getId();
+        final var questionId = cmd.getQuestionSent().getQuestionId();
         final var tagInfosDTOList = Optional.ofNullable(queryHandler.handleListTagInfos(questionId).getBody())
             .orElseThrow(() -> new RuntimeException("No question to view" + questionId));
 
@@ -83,18 +78,12 @@ public class TagChoicesListCommandHandler extends TagChoicesListedEventService {
 
         final var savedAnswer = answerService.save(answer);
 
-        final var tagChoicesListedEventDTO = new TagChoicesListedEventDTO();
-        tagChoicesListedEventDTO.setAnswerCreated(savedAnswer);
-
-        tagInfosDTOList.forEach(e-> {
+        final var available = tagInfosDTOList.stream().map(e -> {
             final var answersAvailable = new AvailableAnswerDTO();
             answersAvailable.setTagId(e.getTagId());
-            answersAvailable.setTagChoicesListedEvent(tagChoicesListedEventDTO);
-            availableAnswerService.save(answersAvailable);
-        });
+            return availableAnswerService.save(answersAvailable);
+        }).toList();
 
-        save(tagChoicesListedEventDTO);
-
-        return savedAnswer;
+        return new NewAnswerDto(savedAnswer, available);
     }
 }

@@ -24,17 +24,13 @@ public class AnswerSubmitCommandHandler extends AnswerSubmittedEventService {
 
     private final AnswerService answerService;
 
-    private final AnswerSubmittedEventService answerSubmittedEventService;
-
     public AnswerSubmitCommandHandler(
         AnswerSubmittedEventRepository answerSubmitCommandRepository,
         AnswerService answerService,
-        AnswerSubmittedEventService answerSubmittedEventService,
         AnswerSubmittedEventMapper answerSubmittedEventMapper
     ) {
         super(answerSubmitCommandRepository, answerSubmittedEventMapper);
         this.answerService = answerService;
-        this.answerSubmittedEventService = answerSubmittedEventService;
     }
 
     public AnswerSubmittedEventDTO handleAnswerSubmitCommand(AnswerSubmitCommandDTO answerCmd) {
@@ -44,12 +40,11 @@ public class AnswerSubmitCommandHandler extends AnswerSubmittedEventService {
 
         answer.setAnswerState(AnswerState.DONE);
 
-        final var answerSubmittedEventDTO = new AnswerSubmittedEventDTO();
-        answerSubmittedEventDTO.setAnswer(answerCmd.getAnswer());
-        answerSubmittedEventService.save(answerSubmittedEventDTO);
+        final var savedAnswer = answerService.save(answer);
 
-        return save(
-            answerSubmittedEventService.save(answerSubmittedEventDTO)
-        );
+        final var answerSubmittedEventDTO = new AnswerSubmittedEventDTO();
+        answerSubmittedEventDTO.setAnswer(savedAnswer);
+
+        return save(answerSubmittedEventDTO);
     }
 }

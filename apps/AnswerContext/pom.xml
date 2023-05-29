@@ -364,6 +364,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -795,7 +799,7 @@
                                 <modelPackage>org.contextmapper.generated.answercontext.service.api.dto</modelPackage>
                                 <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                                 <importMappings>Problem=org.zalando.problem.Problem</importMappings>
-                                <skipValidateSpec>false</skipValidateSpec>
+                                <skipValidateSpec>true</skipValidateSpec>
                                 <configOptions>
                                     <delegatePattern>true</delegatePattern>
                                     <title>answer-context</title>

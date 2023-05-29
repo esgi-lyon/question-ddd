@@ -19,7 +19,7 @@ const register = async (role, mail) => {
   try {
     console.log(`register ${mail} with role ${role}`);
     const response = JSON.parse(await request(options));
-    console.log(response)
+    console.log(response);
     return response.id;
   } catch (e) {
     const errRes = JSON.parse(e.response?.body || '{"details": null}');
@@ -57,7 +57,7 @@ const validateUser = async (token, id) => {
     body: JSON.stringify({
       userInfos: {
         id: id,
-        status: "VALIDATED"
+        status: "VALIDATED",
       },
     }),
   };
@@ -119,6 +119,7 @@ const createTag = async (token, categoryId, name) => {
       },
     }),
   };
+  console.log("Create tag " + name)
   const response = JSON.parse(await request(options));
   console.log(response);
   return response.tag.id;
@@ -142,8 +143,8 @@ const createResource = async (token, tagId, content) => {
     }),
   };
   console.log("create resource for tag : " + tagId);
-  const response = JSON.parse(await request(options))
-  console.log(response)
+  const response = JSON.parse(await request(options));
+  console.log(response);
   return response.questionId.id;
 };
 
@@ -192,47 +193,45 @@ const prepareQuestionCommand = async (token, resourceId) => {
 
 const addUserPreferencesCommand = async (token, tagId) => {
   var options = {
-    'method': 'POST',
-    'url': 'http://localhost:8084/api/handlers/add-preferences-command',
-    'headers': {
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
+    method: "POST",
+    url: "http://localhost:8084/api/handlers/add-preferences-command",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      "preferences": {
-        "tagId": tagId,
-        "userPreferences": {}
-      }
-    })
-  
+      preferences: {
+        tagId: tagId,
+        userPreferences: {},
+      },
+    }),
   };
   const response = await request(options);
-  console.log(response)
-  
-  return response
-}
+  console.log(response);
+
+  return response;
+};
 
 const sendByPreferences = async (token, questionSent) => {
   var options = {
-    'method': 'POST',
-    'url': 'http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command',
-    'headers': {
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
+    method: "POST",
+    url: "http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      "questionToSend": {
-        "id": questionSent
-      }
-    })
-  
+      questionToSend: {
+        id: questionSent,
+      },
+    }),
   };
 
   console.log("Sending question to interested users " + questionSent);
   const response = JSON.parse(await request(options));
-  console.log(response)
+  console.log(response);
 
   return response;
 };
@@ -250,54 +249,53 @@ const tagChoicesListCommand = async (token, questionId) => {
   const response = JSON.parse(await request(options));
   console.log(response);
 
-  return response.id;
+  return response.answer.id;
 };
 
-const answerSubmit = async (token, answerId) => {
+const answerSubmit = async (token, answerId, tag) => {
   var options = {
-    'method': 'POST',
-    'url': 'http://localhost:8085/api/handlers/answer-submit-command',
-    'headers': {
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
+    method: "POST",
+    url: "http://localhost:8085/api/handlers/answer-submit-command",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      "answer": {
-        "id": answerId
-      }
-    })
-
+      answer: {
+        id: answerId,
+        answeredTag: {tagId: tag},
+      },
+    }),
   };
-  console.log("submitting answer for " + answerId);
+  console.log(tag + " submitted for answer " + answerId);
   const response = JSON.parse(await request(options));
-  console.log(response)
+  console.log(response);
 
   return response;
 };
 
 const checkAnswer = async (token, answerId) => {
   var options = {
-    'method': 'POST',
-    'url': 'http://localhost:8086/api/handlers/check-answer-command',
-    'headers': {
-      'Content-Type': 'application/json',
-      'Accept': '*/*',
+    method: "POST",
+    url: "http://localhost:8086/api/handlers/check-answer-command",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      "answer": {
-        "answerId": answerId
-      }
-    })
+      answer: {
+        answerId: answerId,
+      },
+    }),
   };
 
-  console.log(`checking answer ${answerId}`)
+  console.log(`checking answer ${answerId}`);
   const response = await request(options);
 
-  return response
-  
-}
+  return response;
+};
 
 const createEvaluation = async (token, answerId) => {
   var options = {
@@ -379,7 +377,7 @@ const createEvaluation = async (token, answerId) => {
 
   await validateLinkageResource(evaluatorToken, createResourceId2, "REFUSED");
 
-  await addUserPreferencesCommand(studentToken, tagId)
+  await addUserPreferencesCommand(studentToken, tagId);
 
   const questionToSendId = await prepareQuestionCommand(
     inquisitorToken,
@@ -390,9 +388,9 @@ const createEvaluation = async (token, answerId) => {
 
   const answerId = await tagChoicesListCommand(studentToken, questionToSendId);
 
-  await answerSubmit(studentToken, answerId);
+  await answerSubmit(studentToken, answerId, tagId);
 
-  const evaluationId = await checkAnswer(evaluatorToken, answerId)
+  const evaluationId = await checkAnswer(evaluatorToken, answerId);
 
-  await createEvaluation(evaluatorToken, answerId)
+  await createEvaluation(evaluatorToken, answerId);
 })();
