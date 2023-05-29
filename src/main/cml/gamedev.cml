@@ -331,7 +331,6 @@ BoundedContext AnswerContext implements QuestionDomain {
 		Flow ChoiceSubmitFlow {
 			command TagChoicesList delegates to Answer [OPEN -> OPEN] emits event TagChoicesListed + AnswerCreated
 			command AnswerSubmit delegates to Answer emits event AnswerSubmitted
-			command ViewUserEvaluation delegates to Answer emits event UserEvaluationViewed
 		}
 	}
 	Aggregate Answer {
@@ -369,18 +368,12 @@ BoundedContext AnswerContext implements QuestionDomain {
 		DomainEvent AnswerCreated {
 			- @Answer answer
 		}
-		DomainEvent UserEvaluationViewed {
-			- @Answer answer
-		}
 		// Query
 		Command TagChoicesList {
 			- QuestionSentId questionSent
 		}
 		Command AnswerSubmit {
 			- @Answer answer
-		}
-		Command ViewUserEvaluation {
-			- UserEmail user
 		}
 	}
 }
@@ -392,6 +385,9 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		Flow EvaluationFlow {
 			command CreateEvaluation delegates to Exercice [OPENED -> VALID X INVALID] emits event EvaluationCreated
 			command AwardPointForEvaluation delegates to PointAwardRule emits event AwardedPoint
+			command ViewUserEvaluation delegates to Exercice emits event UserEvaluationViewed
+			command ViewTagEvaluation delegates to Exercice emits event TagEvaluationViewed
+			command ViewQuestionEvaluation delegates to Exercice emits event QuestionEvaluationViewed
 		}
 	}
 	Aggregate Exercice {
@@ -432,9 +428,27 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 		DomainEvent NewAnswerNotified {
 			- @EvaluatedAnswer answer
 		}
+		DomainEvent UserEvaluationViewed {
+			- @Evaluation evaluation
+		}
+		DomainEvent TagEvaluationViewed {
+			- @Evaluation evaluation
+		}
+		DomainEvent QuestionEvaluationViewed {
+			- @Evaluation evaluation
+		}
+		Command ViewTagEvaluation {
+			- EvaluationTag tag
+		}
 		Command CreateEvaluation {
 			- @EvaluatedAnswer answer
 			- @DifficultyLevel difficultyLevel
+		}
+		Command ViewUserEvaluation {
+			- UserEmail user
+		}
+		Command ViewQuestionEvaluation {
+			- EvaluationQuestion question
 		}
 	}
 	Aggregate PointAwardRule {
