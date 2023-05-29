@@ -45,32 +45,31 @@ public class PointAwardRuleCommandHandler extends AwardPointForEvaluationCommand
         log.info("Handle command to award points for evaluation");
         final var awardPointForEvaluationCommand = new AwardPointForEvaluationCommandDTO();
 
-        final var saved = evaluationService.save(evaluationDTO);
+        final var evaluation = evaluationService.findOne(evaluationDTO.getId()).orElseThrow();
+
         final var userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
         var nastyFindUser = userAndLevelService.findAll()
             .stream()
             .filter(e -> Objects.equals(e.getMail(), userEmail))
-            .findFirst().orElseThrow();
+            .findFirst().orElseGet(() -> {
+                final var newUserLvl = new UserAndLevelDTO();
+                newUserLvl.setUserLevel(UserLevel.NEW);
+                newUserLvl.setMail(userEmail);
+                return userAndLevelService.save(newUserLvl);
+            });
 
-        final var userDto = new UserAndLevelDTO();
-        userDto.setMail(userEmail);
-
-        if (nastyFindUser.getUserLevel() == null) {
-            userDto.setUserLevel(UserLevel.NEW);
-            userAndLevelService.save(userDto);
+        if (evaluationDTO.getScore() > 1) {
+            throw new RuntimeException("Evaluation score can't be > 1");
         }
 
         var scoreMultiplier = getScoreMultiplier(nastyFindUser.getUserLevel());
-
-        evaluationDTO.setScore(evaluationDTO.getScore() * scoreMultiplier);
+        evaluation.setScore(evaluationDTO.getScore() * scoreMultiplier);
 
         final var awardedPointEventDTO = new AwardedPointEventDTO();
-        evaluationDTO.setId(saved.getId());
-        evaluationDTO.setScore(evaluationDTO.getScore() * scoreMultiplier);
-
         awardedPointEventService.save(awardedPointEventDTO);
 
+        final var saved = evaluationService.save(evaluation);
         awardPointForEvaluationCommand.setEvaluation(saved);
 
         return save(awardPointForEvaluationCommand);

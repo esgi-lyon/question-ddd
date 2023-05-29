@@ -297,6 +297,26 @@ async function createEvaluationCmd(token, answerId) {
   return response.evaluation.id;
 }
 
+const awardPointForEvaluation = async (token, evaluationId) => {
+  var options = {
+    method: "POST",
+    url: "http://localhost:8087/api/handlers/award-point-for-evaluation",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      id: evaluationId,
+      score: 1,
+    }),
+  };
+  console.log("awarding point for evaluation " + evaluationId);
+  const response = await request(options);
+  console.log(response)
+  return response;
+};
+
 (async () => {
   const existingEvaluatorToken = await login("admin@admin.fr", "admin");
   let evaluatorId = await register("EVALUATOR", "evaluator@example.com");
@@ -357,9 +377,11 @@ async function createEvaluationCmd(token, answerId) {
   setTimeout(() => {}, 1000);
 
   const evaluationId = await createEvaluationCmd(
-    existingEvaluatorToken,
+    evaluatorToken,
     answerId
   );
+
+  await awardPointForEvaluation(evaluatorToken, evaluationId)
 
   console.log("Done");
 })();
