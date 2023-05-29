@@ -45,7 +45,7 @@
     "prodDatabaseType": "postgresql",
     "reactive": false,
     "searchEngine": false,
-    "serverPort": "8083",
+    "serverPort": "8093",
     "serviceDiscoveryType": "consul",
     "skipCheckLengthOfIdentifier": false,
     "skipClient": true,

@@ -30,10 +30,6 @@ public class ViewStatsCommand implements Serializable {
     @JoinColumn(unique = true)
     private StatisticSubjectQuestion question;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private StatisticSubjectTag tag;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -72,19 +68,6 @@ public class ViewStatsCommand implements Serializable {
 
     public ViewStatsCommand question(StatisticSubjectQuestion statisticSubjectQuestion) {
         this.setQuestion(statisticSubjectQuestion);
-        return this;
-    }
-
-    public StatisticSubjectTag getTag() {
-        return this.tag;
-    }
-
-    public void setTag(StatisticSubjectTag statisticSubjectTag) {
-        this.tag = statisticSubjectTag;
-    }
-
-    public ViewStatsCommand tag(StatisticSubjectTag statisticSubjectTag) {
-        this.setTag(statisticSubjectTag);
         return this;
     }
 

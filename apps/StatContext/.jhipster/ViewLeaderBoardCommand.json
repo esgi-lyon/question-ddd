@@ -1,0 +1,25 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230529220234",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "view_leader_board_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "ViewLeaderBoardCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectTag",
+      "ownerSide": true,
+      "relationshipName": "tag",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

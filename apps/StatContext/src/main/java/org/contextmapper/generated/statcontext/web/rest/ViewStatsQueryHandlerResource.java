@@ -1,7 +1,7 @@
 package org.contextmapper.generated.statcontext.web.rest;
 
-import org.contextmapper.generated.statcontext.domain.ViewStatsCommand;
-import org.contextmapper.generated.statcontext.service.ViewStatsCommandHandler;
+import org.contextmapper.generated.statcontext.service.ViewLeaderBoardQueryHandler;
+import org.contextmapper.generated.statcontext.service.dto.ViewStatsCommandDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,16 +15,16 @@ import java.net.URISyntaxException;
 @RequestMapping("/api/handlers")
 public class ViewStatsQueryHandlerResource {
 
-    private final ViewStatsCommandHandler viewStatsCommandHandler;
+    private final ViewLeaderBoardQueryHandler viewLeaderBoardQueryHandler;
 
-    public ViewStatsQueryHandlerResource(ViewStatsCommandHandler viewStatsCommandHandler) {
-        this.viewStatsCommandHandler = viewStatsCommandHandler;
+    public ViewStatsQueryHandlerResource(ViewLeaderBoardQueryHandler viewLeaderBoardQueryHandler) {
+        this.viewLeaderBoardQueryHandler = viewLeaderBoardQueryHandler;
     }
 
     @PostMapping("/view-stats-query")
-    public ResponseEntity<ViewStatsCommand> handleViewStatsCommand(@RequestBody ViewStatsCommand viewStatsCommand)
+    public ResponseEntity<ViewStatsCommandDTO> handleViewStatsCommand(@RequestBody ViewStatsCommandDTO viewStatsCommand)
         throws URISyntaxException {
-        ViewStatsCommand result = viewStatsCommandHandler.handleViewStatsQuery(viewStatsCommand);
+        final var result = viewLeaderBoardQueryHandler.handleViewStatsQuery(viewStatsCommand);
         return ResponseEntity
             .created(new URI("/api/handlers/view-stats-query/" + result.getId()))
             .body(result);

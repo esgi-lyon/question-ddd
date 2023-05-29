@@ -15,8 +15,6 @@ public class ViewStatsCommandDTO implements Serializable {
 
     private StatisticSubjectQuestionDTO question;
 
-    private StatisticSubjectTagDTO tag;
-
     public Long getId() {
         return id;
     }
@@ -39,14 +37,6 @@ public class ViewStatsCommandDTO implements Serializable {
 
     public void setQuestion(StatisticSubjectQuestionDTO question) {
         this.question = question;
-    }
-
-    public StatisticSubjectTagDTO getTag() {
-        return tag;
-    }
-
-    public void setTag(StatisticSubjectTagDTO tag) {
-        this.tag = tag;
     }
 
     @Override
@@ -77,7 +67,6 @@ public class ViewStatsCommandDTO implements Serializable {
             "id=" + getId() +
             ", user=" + getUser() +
             ", question=" + getQuestion() +
-            ", tag=" + getTag() +
             "}";
     }
 }

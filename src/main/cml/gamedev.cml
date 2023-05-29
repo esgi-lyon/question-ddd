@@ -248,7 +248,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 	Application {
 		Flow CreateChoiceFlow {
 			// Randomized choice creation
-			command AddPreferences delegates to UserPreferences emits event PreferencesAdded 
+			command AddPreferences delegates to UserPreferences emits event PreferencesAdded
 			command PrepareQuestion delegates to QuestionNotification emits event CreatedQuestion
 			event CreatedQuestion triggers command SendByPreferences
 			command SendByPreferences delegates to QuestionNotification emits event NotifiedQuestion
@@ -331,6 +331,7 @@ BoundedContext AnswerContext implements QuestionDomain {
 		Flow ChoiceSubmitFlow {
 			command TagChoicesList delegates to Answer [OPEN -> OPEN] emits event TagChoicesListed + AnswerCreated
 			command AnswerSubmit delegates to Answer emits event AnswerSubmitted
+			command ViewUserEvaluation delegates to Answer emits event UserEvaluationViewed
 		}
 	}
 	Aggregate Answer {
@@ -368,12 +369,18 @@ BoundedContext AnswerContext implements QuestionDomain {
 		DomainEvent AnswerCreated {
 			- @Answer answer
 		}
+		DomainEvent UserEvaluationViewed {
+			- @Answer answer
+		}
 		// Query
 		Command TagChoicesList {
 			- QuestionSentId questionSent
 		}
 		Command AnswerSubmit {
 			- @Answer answer
+		}
+		Command ViewUserEvaluation {
+			- UserEmail user
 		}
 	}
 }
@@ -460,21 +467,38 @@ BoundedContext StatContext implements StatDomain {
 	implementationTechnology = "Java, Spring App"
 	Application {
 		Flow ViewStatsFlow {
-			command ViewStats delegates to QuestionResource emits event UserStatsViewed X QuestionStatsViewed X TagStatsViewed
+			command ViewLeaderBoard delegates to LeaderBoard emits event LeaderBoardViewed
+			command ViewStats delegates to QuestionResource emits event UserStatsViewed X QuestionStatsViewed X LeaderBoardViewed
 		}
 	}
-	Aggregate Statistic {
-		Entity LeaderBoard {
-			aggregateRoot
-			- List<EvaluationId> evaluation
-			- DifficultyLevel difficultyLevel
-			- StatisticSubjectTag tagId
+	Aggregate LeaderBoard {
+		Entity LeaderBoardEntry {
+			String userLevel // "Expert", "Regular", "New
+			Integer score
+			- StatisticSubjectUser users
 		}
-		ValueObject EvaluationId {
-			Long evaluationId
+		Entity LeaderBoard {
+			- List<LeaderBoardEntry> entries
+			def LeaderBoard addEntry(@LeaderBoardEntry entry);
 		}
 		ValueObject StatisticSubjectTag {
 			Long tagId
+		}
+		Command ViewLeaderBoard {
+			- StatisticSubjectTag tag
+		}
+		DomainEvent LeaderBoardViewed {
+			- StatisticSubjectTag tag
+			- LeaderBoard newUserLeaderboard
+		}
+	}
+	Aggregate Statistic {
+		Entity EvaluationStats {
+			aggregateRoot
+			- List<EvaluationId> evaluation
+		}
+		ValueObject EvaluationId {
+			Long evaluationId
 		}
 		ValueObject StatisticSubjectUser {
 			String mail
@@ -488,13 +512,9 @@ BoundedContext StatContext implements StatDomain {
 		DomainEvent QuestionStatsViewed {
 			- StatisticSubjectQuestion question
 		}
-		DomainEvent TagStatsViewed {
-			- StatisticSubjectTag tag
-		}
 		Command ViewStats {
 			- @StatisticSubjectUser user nullable
 			- @StatisticSubjectQuestion question nullable
-			- @StatisticSubjectTag tag nullable
 		}
 	}
 }

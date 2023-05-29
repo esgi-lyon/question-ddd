@@ -25,12 +25,6 @@
       "ownerSide": true,
       "relationshipName": "question",
       "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "statisticSubjectTag",
-      "ownerSide": true,
-      "relationshipName": "tag",
-      "relationshipType": "one-to-one"
     }
   ],
   "service": "serviceClass"

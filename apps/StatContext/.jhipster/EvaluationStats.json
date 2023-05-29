@@ -1,0 +1,25 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230529220232",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "evaluation_stats",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "EvaluationStats",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "evaluationId",
+      "otherEntityRelationshipName": "evaluationStats",
+      "relationshipName": "evaluation",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

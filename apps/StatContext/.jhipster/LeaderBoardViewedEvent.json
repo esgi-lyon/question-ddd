@@ -1,0 +1,31 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230529220233",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "leader_board_viewed_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "LeaderBoardViewedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectTag",
+      "ownerSide": true,
+      "relationshipName": "tag",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "leaderBoard",
+      "ownerSide": true,
+      "relationshipName": "newUserLeaderboard",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

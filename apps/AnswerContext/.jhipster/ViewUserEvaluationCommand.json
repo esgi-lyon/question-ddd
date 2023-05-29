@@ -1,0 +1,25 @@
+{
+  "applications": ["AnswerContext"],
+  "changelogDate": "20230529220224",
+  "clientRootFolder": "AnswerContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "view_user_evaluation_command",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "AnswerContext",
+  "name": "ViewUserEvaluationCommand",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "userEmail",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

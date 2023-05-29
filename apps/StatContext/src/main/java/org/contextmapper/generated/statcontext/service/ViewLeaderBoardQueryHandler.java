@@ -1,13 +1,12 @@
 package org.contextmapper.generated.statcontext.service;
 
-import org.contextmapper.generated.statcontext.domain.ViewStatsCommand;
 import org.contextmapper.generated.statcontext.repository.ViewStatsCommandRepository;
 import org.contextmapper.generated.statcontext.service.dto.UserStatsViewedEventDTO;
-import org.contextmapper.generated.statcontext.service.dto.QuestionStatsViewedEventDTO;
-import org.contextmapper.generated.statcontext.service.dto.TagStatsViewedEventDTO;
+import org.contextmapper.generated.statcontext.service.dto.ViewStatsCommandDTO;
 import org.contextmapper.generated.statcontext.service.mapper.StatisticSubjectUserMapper;
 import org.contextmapper.generated.statcontext.service.mapper.StatisticSubjectQuestionMapper;
 import org.contextmapper.generated.statcontext.service.mapper.StatisticSubjectTagMapper;
+import org.contextmapper.generated.statcontext.service.mapper.ViewStatsCommandMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,8 @@ import org.slf4j.Logger;
 @Primary
 @Service
 @Transactional
-public class ViewStatsCommandHandler extends ViewStatsCommandService {
-    private final Logger log = LoggerFactory.getLogger(ViewStatsCommandHandler.class);
+public class ViewLeaderBoardQueryHandler extends ViewStatsCommandService {
+    private final Logger log = LoggerFactory.getLogger(ViewLeaderBoardQueryHandler.class);
 
     private final UserStatsViewedEventService userStatsViewedEventService;
     private final QuestionStatsViewedEventService questionStatsViewedEventService;
@@ -28,16 +27,17 @@ public class ViewStatsCommandHandler extends ViewStatsCommandService {
     private final StatisticSubjectQuestionMapper statisticSubjectQuestionMapper;
     private final StatisticSubjectTagMapper statisticSubjectTagMapper;
 
-    public ViewStatsCommandHandler(
+    public ViewLeaderBoardQueryHandler(
         ViewStatsCommandRepository viewStatsCommandRepository,
         UserStatsViewedEventService userStatsViewedEventService,
         QuestionStatsViewedEventService questionStatsViewedEventService,
         TagStatsViewedEventService tagStatsViewedEventService,
         StatisticSubjectUserMapper statisticSubjectUserMapper,
         StatisticSubjectQuestionMapper statisticSubjectQuestionMapper,
-        StatisticSubjectTagMapper statisticSubjectTagMapper
+        StatisticSubjectTagMapper statisticSubjectTagMapper,
+        ViewStatsCommandMapper viewStatsCommandMapper
     ) {
-        super(viewStatsCommandRepository);
+        super(viewStatsCommandRepository, viewStatsCommandMapper);
         this.userStatsViewedEventService = userStatsViewedEventService;
         this.questionStatsViewedEventService = questionStatsViewedEventService;
         this.tagStatsViewedEventService = tagStatsViewedEventService;
@@ -46,33 +46,34 @@ public class ViewStatsCommandHandler extends ViewStatsCommandService {
         this.statisticSubjectTagMapper = statisticSubjectTagMapper;
     }
 
-    public ViewStatsCommand handleViewStatsQuery(ViewStatsCommand viewStatsCommand) {
-        final var userDTO = statisticSubjectUserMapper.toDto(viewStatsCommand.getUser());
-        final var questionDTO = statisticSubjectQuestionMapper.toDto(viewStatsCommand.getQuestion());
-        final var tagDTO = statisticSubjectTagMapper.toDto(viewStatsCommand.getTag());
+    public ViewStatsCommandDTO handleViewStatsQuery(ViewStatsCommandDTO viewStatsCommand) {
+        final var userDTO = viewStatsCommand.getUser();
+        // final var questionDTO = viewStatsCommand.getQuestion();
+        // final var tagDTO = viewStatsCommand.getTag();
         log.info("Handle command to view stats");
 
-        // TODO Api calls
-        if(userDTO != null){
+        if (userDTO != null) {
             final var userStatsViewedEventDTO = new UserStatsViewedEventDTO();
             userStatsViewedEventDTO.setUser(userDTO);
             userStatsViewedEventService.save(userStatsViewedEventDTO);
-            viewStatsCommand.setUser(statisticSubjectUserMapper.toEntity(userDTO));
+            viewStatsCommand.setUser(userDTO);
         }
 
-        if(questionDTO != null){
+        /* Not implemented
+        if (questionDTO != null) {
             final var questionStatsViewedEventDTO = new QuestionStatsViewedEventDTO();
             questionStatsViewedEventDTO.setQuestion(questionDTO);
             questionStatsViewedEventService.save(questionStatsViewedEventDTO);
-            viewStatsCommand.setQuestion(statisticSubjectQuestionMapper.toEntity(questionDTO));
+            viewStatsCommand.setQuestion(questionDTO);
         }
 
-        if(tagDTO != null){
+        if (tagDTO != null) {
             final var tagStatsViewedEventDTO = new TagStatsViewedEventDTO();
             tagStatsViewedEventDTO.setTag(tagDTO);
             tagStatsViewedEventService.save(tagStatsViewedEventDTO);
-            viewStatsCommand.setTag(statisticSubjectTagMapper.toEntity(tagDTO));
+            viewStatsCommand.setTag(tagDTO);
         }
+        */
 
         return save(viewStatsCommand);
     }

@@ -1,0 +1,40 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230529220231",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "leader_board_entry",
+  "fields": [
+    {
+      "fieldName": "userLevel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "LeaderBoardEntry",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectUser",
+      "ownerSide": true,
+      "relationshipName": "users",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "leaderBoard",
+      "otherEntityRelationshipName": "entries",
+      "relationshipName": "leaderBoard",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

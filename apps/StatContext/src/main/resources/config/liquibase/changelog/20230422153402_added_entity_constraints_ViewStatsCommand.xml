@@ -19,11 +19,5 @@
                                  constraintName="fk_view_stats_command__question_id"
                                  referencedColumnNames="id"
                                  referencedTableName="statistic_subject_question"/>
-
-        <addForeignKeyConstraint baseColumnNames="tag_id"
-                                 baseTableName="view_stats_command"
-                                 constraintName="fk_view_stats_command__tag_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="statistic_subject_tag"/>
     </changeSet>
 </databaseChangeLog>

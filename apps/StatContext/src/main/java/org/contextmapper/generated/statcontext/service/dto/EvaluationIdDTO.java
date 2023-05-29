@@ -13,7 +13,7 @@ public class EvaluationIdDTO implements Serializable {
 
     private Long evaluationId;
 
-    private LeaderBoardDTO leaderBoard;
+    private EvaluationStatsDTO evaluationStats;
 
     public Long getId() {
         return id;
@@ -31,12 +31,12 @@ public class EvaluationIdDTO implements Serializable {
         this.evaluationId = evaluationId;
     }
 
-    public LeaderBoardDTO getLeaderBoard() {
-        return leaderBoard;
+    public EvaluationStatsDTO getEvaluationStats() {
+        return evaluationStats;
     }
 
-    public void setLeaderBoard(LeaderBoardDTO leaderBoard) {
-        this.leaderBoard = leaderBoard;
+    public void setEvaluationStats(EvaluationStatsDTO evaluationStats) {
+        this.evaluationStats = evaluationStats;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class EvaluationIdDTO implements Serializable {
         return "EvaluationIdDTO{" +
             "id=" + getId() +
             ", evaluationId=" + getEvaluationId() +
-            ", leaderBoard=" + getLeaderBoard() +
+            ", evaluationStats=" + getEvaluationStats() +
             "}";
     }
 }

@@ -3,7 +3,7 @@ const request = require("request-promise");
 const register = async (role, mail) => {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8081/api/handlers/register-command",
+    url: "http://127.0.0.1:8091/api/handlers/register-command",
     headers: {
       "Content-Type": "application/json",
     },
@@ -33,7 +33,7 @@ const register = async (role, mail) => {
 const findLastUser = async (token, shift = 1) => {
   const fallbackOptions = {
     method: "GET",
-    url: `http://127.0.0.1:8081/api/user-infos`,
+    url: `http://127.0.0.1:8091/api/user-infos`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const findLastUser = async (token, shift = 1) => {
 const validateUser = async (token, id) => {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8081/api/handlers/validate-user-command",
+    url: "http://127.0.0.1:8091/api/handlers/validate-user-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -70,7 +70,7 @@ const validateUser = async (token, id) => {
 const login = async (email, password = "password") => {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8081/api/authenticate",
+    url: "http://127.0.0.1:8091/api/authenticate",
     headers: {
       "Content-Type": "application/json",
     },
@@ -87,7 +87,7 @@ const login = async (email, password = "password") => {
 const createCategory = async (token) => {
   const options = {
     method: "POST",
-    url: "http://localhost:8083/api/handlers/create-category-command",
+    url: "http://localhost:8093/api/handlers/create-category-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -106,7 +106,7 @@ const createCategory = async (token) => {
 const createTag = async (token, categoryId, name) => {
   const options = {
     method: "POST",
-    url: "http://localhost:8083/api/handlers/create-tag-command",
+    url: "http://localhost:8093/api/handlers/create-tag-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -128,7 +128,7 @@ const createTag = async (token, categoryId, name) => {
 const createResource = async (token, tagId, content) => {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8082/api/handlers/resource-command",
+    url: "http://127.0.0.1:8092/api/handlers/resource-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -155,7 +155,7 @@ const validateLinkageResource = async (
 ) => {
   const options = {
     method: "POST",
-    url: "http://localhost:8082/api/handlers/validate-resource-command",
+    url: "http://localhost:8092/api/handlers/validate-resource-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -174,7 +174,7 @@ const validateLinkageResource = async (
 const prepareQuestionCommand = async (token, resourceId) => {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8084/api/handlers/prepare-question-command",
+    url: "http://127.0.0.1:8094/api/handlers/prepare-question-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -194,7 +194,7 @@ const prepareQuestionCommand = async (token, resourceId) => {
 const addUserPreferencesCommand = async (token, tagId) => {
   const options = {
     method: "POST",
-    url: "http://localhost:8084/api/handlers/add-preferences-command",
+    url: "http://localhost:8094/api/handlers/add-preferences-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -216,7 +216,7 @@ const addUserPreferencesCommand = async (token, tagId) => {
 const sendByPreferences = async (token, questionSent) => {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8084/api/handlers/send-question-by-preferences-command",
+    url: "http://127.0.0.1:8094/api/handlers/send-question-by-preferences-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -239,7 +239,7 @@ const sendByPreferences = async (token, questionSent) => {
 const tagChoicesListCommand = async (token, questionId) => {
   const options = {
     method: "GET",
-    url: `http://127.0.0.1:8085/api/handlers/tags-choices-list-query?questionId=${questionId}`,
+    url: `http://127.0.0.1:8095/api/handlers/tags-choices-list-query?questionId=${questionId}`,
     headers: {
       Accept: "*/*",
       Authorization: `Bearer ${token}`,
@@ -255,7 +255,7 @@ const tagChoicesListCommand = async (token, questionId) => {
 const answerSubmit = async (token, answerId, tag) => {
   const options = {
     method: "POST",
-    url: "http://localhost:8085/api/handlers/answer-submit-command",
+    url: "http://localhost:8095/api/handlers/answer-submit-command",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -278,7 +278,7 @@ const answerSubmit = async (token, answerId, tag) => {
 async function createEvaluationCmd(token, answerId) {
   const options = {
     method: "POST",
-    url: `http://127.0.0.1:8087/api/handlers/create-evaluation-command`,
+    url: `http://127.0.0.1:8097/api/handlers/create-evaluation-command`,
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -300,7 +300,7 @@ async function createEvaluationCmd(token, answerId) {
 const awardPointForEvaluation = async (token, evaluationId) => {
   var options = {
     method: "POST",
-    url: "http://localhost:8087/api/handlers/award-point-for-evaluation",
+    url: "http://localhost:8097/api/handlers/award-point-for-evaluation",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",

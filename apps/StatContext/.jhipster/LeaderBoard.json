@@ -6,13 +6,7 @@
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "leader_board",
-  "fields": [
-    {
-      "fieldName": "difficultyLevel",
-      "fieldType": "DifficultyLevel",
-      "fieldValues": "EASY,MEDIUM,HARD"
-    }
-  ],
+  "fields": [],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "StatContext",
@@ -21,15 +15,9 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "statisticSubjectTag",
-      "ownerSide": true,
-      "relationshipName": "tagId",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "evaluationId",
+      "otherEntityName": "leaderBoardEntry",
       "otherEntityRelationshipName": "leaderBoard",
-      "relationshipName": "evaluation",
+      "relationshipName": "entries",
       "relationshipType": "one-to-many"
     }
   ],

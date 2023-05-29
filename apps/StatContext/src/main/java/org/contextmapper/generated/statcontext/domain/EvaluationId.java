@@ -27,8 +27,8 @@ public class EvaluationId implements Serializable {
     private Long evaluationId;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "tagId", "evaluations" }, allowSetters = true)
-    private LeaderBoard leaderBoard;
+    @JsonIgnoreProperties(value = { "evaluations" }, allowSetters = true)
+    private EvaluationStats evaluationStats;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -58,16 +58,16 @@ public class EvaluationId implements Serializable {
         this.evaluationId = evaluationId;
     }
 
-    public LeaderBoard getLeaderBoard() {
-        return this.leaderBoard;
+    public EvaluationStats getEvaluationStats() {
+        return this.evaluationStats;
     }
 
-    public void setLeaderBoard(LeaderBoard leaderBoard) {
-        this.leaderBoard = leaderBoard;
+    public void setEvaluationStats(EvaluationStats evaluationStats) {
+        this.evaluationStats = evaluationStats;
     }
 
-    public EvaluationId leaderBoard(LeaderBoard leaderBoard) {
-        this.setLeaderBoard(leaderBoard);
+    public EvaluationId evaluationStats(EvaluationStats evaluationStats) {
+        this.setEvaluationStats(evaluationStats);
         return this;
     }
 

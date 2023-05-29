@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
-import org.contextmapper.generated.statcontext.domain.enumeration.DifficultyLevel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,18 +25,10 @@ public class LeaderBoard implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "difficulty_level")
-    private DifficultyLevel difficultyLevel;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private StatisticSubjectTag tagId;
-
     @OneToMany(mappedBy = "leaderBoard")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "leaderBoard" }, allowSetters = true)
-    private Set<EvaluationId> evaluations = new HashSet<>();
+    @JsonIgnoreProperties(value = { "users", "leaderBoard" }, allowSetters = true)
+    private Set<LeaderBoardEntry> entries = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -54,60 +45,34 @@ public class LeaderBoard implements Serializable {
         this.id = id;
     }
 
-    public DifficultyLevel getDifficultyLevel() {
-        return this.difficultyLevel;
+    public Set<LeaderBoardEntry> getEntries() {
+        return this.entries;
     }
 
-    public LeaderBoard difficultyLevel(DifficultyLevel difficultyLevel) {
-        this.setDifficultyLevel(difficultyLevel);
-        return this;
-    }
-
-    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
-    }
-
-    public StatisticSubjectTag getTagId() {
-        return this.tagId;
-    }
-
-    public void setTagId(StatisticSubjectTag statisticSubjectTag) {
-        this.tagId = statisticSubjectTag;
-    }
-
-    public LeaderBoard tagId(StatisticSubjectTag statisticSubjectTag) {
-        this.setTagId(statisticSubjectTag);
-        return this;
-    }
-
-    public Set<EvaluationId> getEvaluations() {
-        return this.evaluations;
-    }
-
-    public void setEvaluations(Set<EvaluationId> evaluationIds) {
-        if (this.evaluations != null) {
-            this.evaluations.forEach(i -> i.setLeaderBoard(null));
+    public void setEntries(Set<LeaderBoardEntry> leaderBoardEntries) {
+        if (this.entries != null) {
+            this.entries.forEach(i -> i.setLeaderBoard(null));
         }
-        if (evaluationIds != null) {
-            evaluationIds.forEach(i -> i.setLeaderBoard(this));
+        if (leaderBoardEntries != null) {
+            leaderBoardEntries.forEach(i -> i.setLeaderBoard(this));
         }
-        this.evaluations = evaluationIds;
+        this.entries = leaderBoardEntries;
     }
 
-    public LeaderBoard evaluations(Set<EvaluationId> evaluationIds) {
-        this.setEvaluations(evaluationIds);
+    public LeaderBoard entries(Set<LeaderBoardEntry> leaderBoardEntries) {
+        this.setEntries(leaderBoardEntries);
         return this;
     }
 
-    public LeaderBoard addEvaluation(EvaluationId evaluationId) {
-        this.evaluations.add(evaluationId);
-        evaluationId.setLeaderBoard(this);
+    public LeaderBoard addEntries(LeaderBoardEntry leaderBoardEntry) {
+        this.entries.add(leaderBoardEntry);
+        leaderBoardEntry.setLeaderBoard(this);
         return this;
     }
 
-    public LeaderBoard removeEvaluation(EvaluationId evaluationId) {
-        this.evaluations.remove(evaluationId);
-        evaluationId.setLeaderBoard(null);
+    public LeaderBoard removeEntries(LeaderBoardEntry leaderBoardEntry) {
+        this.entries.remove(leaderBoardEntry);
+        leaderBoardEntry.setLeaderBoard(null);
         return this;
     }
 
@@ -135,7 +100,6 @@ public class LeaderBoard implements Serializable {
     public String toString() {
         return "LeaderBoard{" +
             "id=" + getId() +
-            ", difficultyLevel='" + getDifficultyLevel() + "'" +
             "}";
     }
 }

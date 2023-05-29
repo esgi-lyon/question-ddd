@@ -20,9 +20,9 @@
   "readOnly": true,
   "relationships": [
     {
-      "otherEntityName": "leaderBoard",
+      "otherEntityName": "evaluationStats",
       "otherEntityRelationshipName": "evaluation",
-      "relationshipName": "leaderBoard",
+      "relationshipName": "evaluationStats",
       "relationshipType": "many-to-one"
     }
   ],

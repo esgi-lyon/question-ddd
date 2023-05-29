@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity LeaderBoardViewedEvent.
+    -->
+    <changeSet id="20230529220233-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="leader_board_viewed_event"
+                                 constraintName="fk_leader_board_viewed_event__tag_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="statistic_subject_tag"/>
+
+        <addForeignKeyConstraint baseColumnNames="new_user_leaderboard_id"
+                                 baseTableName="leader_board_viewed_event"
+                                 constraintName="fk_leader_board_viewed_event__new_user_leaderboard_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="leader_board"/>
+    </changeSet>
+</databaseChangeLog>

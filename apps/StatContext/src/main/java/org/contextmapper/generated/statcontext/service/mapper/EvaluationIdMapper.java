@@ -1,9 +1,9 @@
 package org.contextmapper.generated.statcontext.service.mapper;
 
 import org.contextmapper.generated.statcontext.domain.EvaluationId;
-import org.contextmapper.generated.statcontext.domain.LeaderBoard;
+import org.contextmapper.generated.statcontext.domain.EvaluationStats;
 import org.contextmapper.generated.statcontext.service.dto.EvaluationIdDTO;
-import org.contextmapper.generated.statcontext.service.dto.LeaderBoardDTO;
+import org.contextmapper.generated.statcontext.service.dto.EvaluationStatsDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,11 +11,11 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface EvaluationIdMapper extends EntityMapper<EvaluationIdDTO, EvaluationId> {
-    @Mapping(target = "leaderBoard", source = "leaderBoard", qualifiedByName = "leaderBoardId")
+    @Mapping(target = "evaluationStats", source = "evaluationStats", qualifiedByName = "evaluationStatsId")
     EvaluationIdDTO toDto(EvaluationId s);
 
-    @Named("leaderBoardId")
+    @Named("evaluationStatsId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    LeaderBoardDTO toDtoLeaderBoardId(LeaderBoard leaderBoard);
+    EvaluationStatsDTO toDtoEvaluationStatsId(EvaluationStats evaluationStats);
 }

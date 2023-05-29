@@ -1,0 +1,25 @@
+{
+  "applications": ["AnswerContext"],
+  "changelogDate": "20230529220223",
+  "clientRootFolder": "AnswerContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "user_evaluation_viewed_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "AnswerContext",
+  "name": "UserEvaluationViewedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "answer",
+      "ownerSide": true,
+      "relationshipName": "answer",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

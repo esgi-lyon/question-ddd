@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.contextmapper.generated.statcontext.IntegrationTest;
 import org.contextmapper.generated.statcontext.domain.LeaderBoard;
-import org.contextmapper.generated.statcontext.domain.enumeration.DifficultyLevel;
 import org.contextmapper.generated.statcontext.repository.LeaderBoardRepository;
 import org.contextmapper.generated.statcontext.service.dto.LeaderBoardDTO;
 import org.contextmapper.generated.statcontext.service.mapper.LeaderBoardMapper;
@@ -31,9 +30,6 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureMockMvc
 @WithMockUser
 class LeaderBoardResourceIT {
-
-    private static final DifficultyLevel DEFAULT_DIFFICULTY_LEVEL = DifficultyLevel.EASY;
-    private static final DifficultyLevel UPDATED_DIFFICULTY_LEVEL = DifficultyLevel.MEDIUM;
 
     private static final String ENTITY_API_URL = "/api/leader-boards";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -62,7 +58,7 @@ class LeaderBoardResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static LeaderBoard createEntity(EntityManager em) {
-        LeaderBoard leaderBoard = new LeaderBoard().difficultyLevel(DEFAULT_DIFFICULTY_LEVEL);
+        LeaderBoard leaderBoard = new LeaderBoard();
         return leaderBoard;
     }
 
@@ -73,7 +69,7 @@ class LeaderBoardResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static LeaderBoard createUpdatedEntity(EntityManager em) {
-        LeaderBoard leaderBoard = new LeaderBoard().difficultyLevel(UPDATED_DIFFICULTY_LEVEL);
+        LeaderBoard leaderBoard = new LeaderBoard();
         return leaderBoard;
     }
 
@@ -98,7 +94,6 @@ class LeaderBoardResourceIT {
         List<LeaderBoard> leaderBoardList = leaderBoardRepository.findAll();
         assertThat(leaderBoardList).hasSize(databaseSizeBeforeCreate + 1);
         LeaderBoard testLeaderBoard = leaderBoardList.get(leaderBoardList.size() - 1);
-        assertThat(testLeaderBoard.getDifficultyLevel()).isEqualTo(DEFAULT_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -133,8 +128,7 @@ class LeaderBoardResourceIT {
             .perform(get(ENTITY_API_URL + "?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(leaderBoard.getId().intValue())))
-            .andExpect(jsonPath("$.[*].difficultyLevel").value(hasItem(DEFAULT_DIFFICULTY_LEVEL.toString())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(leaderBoard.getId().intValue())));
     }
 
     @Test
@@ -148,8 +142,7 @@ class LeaderBoardResourceIT {
             .perform(get(ENTITY_API_URL_ID, leaderBoard.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(leaderBoard.getId().intValue()))
-            .andExpect(jsonPath("$.difficultyLevel").value(DEFAULT_DIFFICULTY_LEVEL.toString()));
+            .andExpect(jsonPath("$.id").value(leaderBoard.getId().intValue()));
     }
 
     @Test
@@ -171,7 +164,6 @@ class LeaderBoardResourceIT {
         LeaderBoard updatedLeaderBoard = leaderBoardRepository.findById(leaderBoard.getId()).get();
         // Disconnect from session so that the updates on updatedLeaderBoard are not directly saved in db
         em.detach(updatedLeaderBoard);
-        updatedLeaderBoard.difficultyLevel(UPDATED_DIFFICULTY_LEVEL);
         LeaderBoardDTO leaderBoardDTO = leaderBoardMapper.toDto(updatedLeaderBoard);
 
         restLeaderBoardMockMvc
@@ -186,7 +178,6 @@ class LeaderBoardResourceIT {
         List<LeaderBoard> leaderBoardList = leaderBoardRepository.findAll();
         assertThat(leaderBoardList).hasSize(databaseSizeBeforeUpdate);
         LeaderBoard testLeaderBoard = leaderBoardList.get(leaderBoardList.size() - 1);
-        assertThat(testLeaderBoard.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -278,7 +269,6 @@ class LeaderBoardResourceIT {
         List<LeaderBoard> leaderBoardList = leaderBoardRepository.findAll();
         assertThat(leaderBoardList).hasSize(databaseSizeBeforeUpdate);
         LeaderBoard testLeaderBoard = leaderBoardList.get(leaderBoardList.size() - 1);
-        assertThat(testLeaderBoard.getDifficultyLevel()).isEqualTo(DEFAULT_DIFFICULTY_LEVEL);
     }
 
     @Test
@@ -293,8 +283,6 @@ class LeaderBoardResourceIT {
         LeaderBoard partialUpdatedLeaderBoard = new LeaderBoard();
         partialUpdatedLeaderBoard.setId(leaderBoard.getId());
 
-        partialUpdatedLeaderBoard.difficultyLevel(UPDATED_DIFFICULTY_LEVEL);
-
         restLeaderBoardMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedLeaderBoard.getId())
@@ -307,7 +295,6 @@ class LeaderBoardResourceIT {
         List<LeaderBoard> leaderBoardList = leaderBoardRepository.findAll();
         assertThat(leaderBoardList).hasSize(databaseSizeBeforeUpdate);
         LeaderBoard testLeaderBoard = leaderBoardList.get(leaderBoardList.size() - 1);
-        assertThat(testLeaderBoard.getDifficultyLevel()).isEqualTo(UPDATED_DIFFICULTY_LEVEL);
     }
 
     @Test

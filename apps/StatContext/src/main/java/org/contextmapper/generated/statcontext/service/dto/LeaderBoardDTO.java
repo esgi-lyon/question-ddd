@@ -2,7 +2,6 @@ package org.contextmapper.generated.statcontext.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import org.contextmapper.generated.statcontext.domain.enumeration.DifficultyLevel;
 
 /**
  * A DTO for the {@link org.contextmapper.generated.statcontext.domain.LeaderBoard} entity.
@@ -12,32 +11,12 @@ public class LeaderBoardDTO implements Serializable {
 
     private Long id;
 
-    private DifficultyLevel difficultyLevel;
-
-    private StatisticSubjectTagDTO tagId;
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public DifficultyLevel getDifficultyLevel() {
-        return difficultyLevel;
-    }
-
-    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
-    }
-
-    public StatisticSubjectTagDTO getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(StatisticSubjectTagDTO tagId) {
-        this.tagId = tagId;
     }
 
     @Override
@@ -66,8 +45,6 @@ public class LeaderBoardDTO implements Serializable {
     public String toString() {
         return "LeaderBoardDTO{" +
             "id=" + getId() +
-            ", difficultyLevel='" + getDifficultyLevel() + "'" +
-            ", tagId=" + getTagId() +
             "}";
     }
 }
