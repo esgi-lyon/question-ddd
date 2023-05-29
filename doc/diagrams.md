@@ -47,6 +47,8 @@
 
 ![src-gen/gamedev_BC_StatContext.puml](./dist/src-gen/gamedev_BC_StatContext.png)
 
+![src-gen/gamedev_BC_StatContext_LeaderBoard.puml](./dist/src-gen/gamedev_BC_StatContext_LeaderBoard.png)
+
 ![src-gen/gamedev_BC_StatContext_Statistic.puml](./dist/src-gen/gamedev_BC_StatContext_Statistic.png)
 
 ![src-gen/gamedev_BC_StatContext_ViewStatsFlow.sketch_miner.png](./dist/src-gen/gamedev_BC_StatContext_ViewStatsFlow.sketch_miner.png)
