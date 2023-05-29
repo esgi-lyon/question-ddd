@@ -17,4 +17,6 @@ import java.util.List;
 @Primary
 public interface CustomEvaluationRepository extends JpaRepository<Evaluation, Long> {
     List<Evaluation> findAllByUserMail(String mail);
+
+    List<Evaluation> findAllByTagTagId(Long id);
 }
