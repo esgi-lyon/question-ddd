@@ -19,27 +19,23 @@ import java.util.Objects;
  */
 @Service
 @Transactional
-public class ViewUserEvaluationQueryHandler {
+public class ViewLeaderBoardQueryHandler {
 
-    private final Logger log = LoggerFactory.getLogger(ViewUserEvaluationQueryHandler.class);
+    private final Logger log = LoggerFactory.getLogger(ViewLeaderBoardQueryHandler.class);
 
     private final CustomEvaluationRepository evaluationRepository;
 
     private final EvaluationMapper evaluationMapper;
 
-    public ViewUserEvaluationQueryHandler(CustomEvaluationRepository evaluationRepository, EvaluationMapper evaluationMapper) {
+    public ViewLeaderBoardQueryHandler(CustomEvaluationRepository evaluationRepository, EvaluationMapper evaluationMapper) {
         this.evaluationRepository = evaluationRepository;
         this.evaluationMapper = evaluationMapper;
     }
 
-    public List<EvaluationDTO> handle(@Nullable String userMail) {
-        final var userToViewEvals = Objects.isNull(userMail)
-            ? SecurityContextHolder.getContext().getAuthentication().getName()
-            : userMail;
+    public List<EvaluationDTO> handle(@Nullable Long tagId) {
 
-        log.info("Checking user {}", userToViewEvals);
+        log.info("Get evaluation for tag :{}", tagId);
 
-        return evaluationMapper.toDto(evaluationRepository.findAllByUserMail(userToViewEvals));
+        return evaluationMapper.toDto(evaluationRepository.findAllByTagTagId(tagId));
     }
-
 }

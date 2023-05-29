@@ -468,7 +468,7 @@ BoundedContext StatContext implements StatDomain {
 	Application {
 		Flow ViewStatsFlow {
 			command ViewLeaderBoard delegates to LeaderBoard emits event LeaderBoardViewed
-			command ViewStats delegates to QuestionResource emits event UserStatsViewed X QuestionStatsViewed
+			command ViewStats delegates to QuestionResource emits event UserStatsViewed X QuestionStatsViewed X LoggedUserStatsViewed
 		}
 	}
 	Aggregate LeaderBoard {
@@ -507,6 +507,9 @@ BoundedContext StatContext implements StatDomain {
 			Long questionId
 		}
 		DomainEvent UserStatsViewed {
+			- StatisticSubjectUser user
+		}
+		DomainEvent LoggedUserStatsViewed {
 			- StatisticSubjectUser user
 		}
 		DomainEvent QuestionStatsViewed {
