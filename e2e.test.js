@@ -275,17 +275,17 @@ const answerSubmit = async (token, answerId, tag) => {
   return response;
 };
 
-const createEvaluation = async (token, answerId) => {
+async function createEvaluationCmd(token, answerId) {
   const options = {
     method: "POST",
-    url: "http://127.0.0.1:8086/api/handlers/create-evaluation-command",
+    url: `http://127.0.0.1:8087/api/handlers/create-evaluation-command`,
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
-      Authorization: `Bearer ${token}`,
+      Authorization: "Bearer " + token,
     },
     body: JSON.stringify({
-      difficultyLevel: "MEDIUM",
+      difficultyLevel: "HARD",
       answer: {
         answerId: answerId,
       },
@@ -294,8 +294,8 @@ const createEvaluation = async (token, answerId) => {
   console.log("starting evaluation of answer for " + answerId);
   const response = JSON.parse(await request(options));
   console.log(response);
-  return response;
-};
+  return response.evaluation.id;
+}
 
 (async () => {
   const existingEvaluatorToken = await login("admin@admin.fr", "admin");
@@ -323,13 +323,9 @@ const createEvaluation = async (token, answerId) => {
 
   await validateUser(existingEvaluatorToken, inquisitorId);
 
-  setTimeout(() => {}, 1000);
-
   const evaluatorToken = await login("evaluator@example.com");
   const studentToken = await login("student@example.com");
   const inquisitorToken = await login("inquisitor@example.com");
-
-  setTimeout(() => {}, 1000);
 
   const categoryId = await createCategory(evaluatorToken);
   const tagId = await createTag(evaluatorToken, categoryId, "java");
@@ -358,5 +354,12 @@ const createEvaluation = async (token, answerId) => {
 
   await answerSubmit(studentToken, answerId, tagId);
 
-  await createEvaluation(evaluatorToken, answerId);
+  setTimeout(() => {}, 1000);
+
+  const evaluationId = await createEvaluationCmd(
+    existingEvaluatorToken,
+    answerId
+  );
+
+  console.log("Done");
 })();

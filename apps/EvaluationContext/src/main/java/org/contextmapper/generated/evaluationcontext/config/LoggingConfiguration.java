@@ -25,7 +25,7 @@ public class LoggingConfiguration {
 
     public LoggingConfiguration(
         @Value("${spring.application.name}") String appName,
-        @Value("${server.port}") String serverPort,
+        @Value("${server.port:8087}") String serverPort,
         JHipsterProperties jHipsterProperties,
         ObjectProvider<ConsulRegistration> consulRegistration,
         ObjectProvider<BuildProperties> buildProperties,

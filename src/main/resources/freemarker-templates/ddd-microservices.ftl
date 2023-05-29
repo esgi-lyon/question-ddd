@@ -16,7 +16,7 @@
 <#-- 
  counter to give microservices different ports: (8081, 8082, 8083, ...) 
 -->
-<#assign portCounter = 8080 />
+<#assign portCounter = 8090 />
 <#assign contexts = filterStructuralBoundedContexts(boundedContexts) />
 <#-- 
  loop to collect entity data per Bounded Context (BC) and create application plus microservice for each BC

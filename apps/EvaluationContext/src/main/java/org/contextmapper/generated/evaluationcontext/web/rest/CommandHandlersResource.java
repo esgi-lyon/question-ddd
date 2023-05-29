@@ -45,8 +45,8 @@ public class CommandHandlersResource {
         log.debug("REST request to handle CreateEvaluationCommand : {}", evaluationDTO);
         final var result = createEvaluationCommandHandler.handleCreateEvaluationCommand(evaluationDTO);
         return ResponseEntity
-            .created(new URI("/api/handlers/create-evaluation-command/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .created(new URI("/api/handlers/create-evaluation-command/" + result.getEvaluation().getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getEvaluation().getId().toString()))
             .body(result);
     }
 
@@ -54,7 +54,7 @@ public class CommandHandlersResource {
     @PreAuthorize("hasAuthority(\"EVALUATOR\")")
     public ResponseEntity<AwardPointForEvaluationCommandDTO> handleAwardPointForEvaluationCommand(@RequestBody EvaluationDTO evaluationDTO)
         throws URISyntaxException {
-        AwardPointForEvaluationCommandDTO result = pointAwardRuleCommandHandler.handleAwardPointForEvaluationCommand(evaluationDTO);
+        final var result = pointAwardRuleCommandHandler.handleAwardPointForEvaluationCommand(evaluationDTO);
         return ResponseEntity
             .created(new URI("/api/handlers/award-point-for-evaluation/" + result.getId()))
             .body(result);

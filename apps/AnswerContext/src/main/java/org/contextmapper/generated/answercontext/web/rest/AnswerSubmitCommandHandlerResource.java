@@ -12,8 +12,6 @@ import tech.jhipster.web.util.HeaderUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/handlers")
@@ -51,7 +49,6 @@ public class AnswerSubmitCommandHandlerResource {
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
 
     @GetMapping("/tags-choices-list-query")
     public ResponseEntity<TagChoicesListCommandHandler.NewAnswerDto> handleTagChoicesListCommand(@RequestParam("questionId") Long question) throws URISyntaxException {

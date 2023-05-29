@@ -11,9 +11,6 @@ import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.annotation.*;
 import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.config.cache.PrefixedKeyGenerator;
@@ -46,10 +43,8 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnswerCheckedEvent.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationCreatedEvent.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardedPointEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CheckAnswerCommand.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluationCommand.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.PointAwardRule.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CreateEvaluationCommand.class.getName());
@@ -58,10 +53,8 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationTag.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationQuestion.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluatedAnswer.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AnswerChecked.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.EvaluationCreated.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardedPoint.class.getName());
-            createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CheckAnswer.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.CreateEvaluation.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.AwardPointForEvaluation.class.getName());
             createCache(cm, org.contextmapper.generated.evaluationcontext.domain.NewAnswerNotifiedEvent.class.getName());

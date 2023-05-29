@@ -54,7 +54,7 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         final var answer = Optional.ofNullable(answerResourceApi.getAnswer(answerId).getBody()).orElseThrow();
 
         final var user =  new AnsweringUserDTO();
-        user.setName(answer.getUserEmail().getMail());
+        user.setMail(answer.getUserEmail().getMail());
 
         final var savedEvaluationUser = answeringUserService.save(user);
         createEvaluation.setUser(savedEvaluationUser);
@@ -66,7 +66,7 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         createEvaluation.setQuestion(savedEvaluationQuestion);
         createEvaluation.setStatus(Status.OPENED);
         createEvaluation.setAnsweredQuestionDifficultyLevel(evaluationCommandDTO.getDifficultyLevel());
-
+        createEvaluation.setEvaluatorMail(evaluatorEmail);
 
         final var saved = evaluationService.save(createEvaluation);
 
