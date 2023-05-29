@@ -2,10 +2,7 @@ package org.contextmapper.generated.answercontext.web.rest;
 
 import org.contextmapper.generated.answercontext.service.AnswerSubmitCommandHandler;
 import org.contextmapper.generated.answercontext.service.TagChoicesListCommandHandler;
-import org.contextmapper.generated.answercontext.service.dto.AnswerSubmitCommandDTO;
-import org.contextmapper.generated.answercontext.service.dto.AnswerSubmittedEventDTO;
-import org.contextmapper.generated.answercontext.service.dto.TagChoicesListCommandDTO;
-import org.contextmapper.generated.answercontext.service.dto.TagChoicesListedEventDTO;
+import org.contextmapper.generated.answercontext.service.dto.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -55,8 +52,9 @@ public class AnswerSubmitCommandHandlerResource {
 
 
     @GetMapping("/tags-choices-list-query")
-    public ResponseEntity<TagChoicesListedEventDTO> handleTagChoicesListCommand(TagChoicesListCommandDTO question) throws URISyntaxException {
+    public ResponseEntity<AnswerDTO> handleTagChoicesListCommand(@RequestParam("questionId") Long question) throws URISyntaxException {
         log.debug("REST request to handle TagChoicesListCommand");
+
         final var result = tagChoicesListCommandHandler.handleTagChoicesListCommand(question);
         return ResponseEntity
             .created(new URI("/api/handlers/tags-choices-list-query/" + result.getId()))

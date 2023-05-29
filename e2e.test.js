@@ -250,36 +250,28 @@ const tagChoicesListCommand = async (token, questionId) => {
   const response = JSON.parse(await request(options));
   console.log(response);
 
-  return response;
+  return response.id;
 };
 
 const answerSubmit = async (token, answerId) => {
   var options = {
-    method: "POST",
-    url: "http://127.0.0.1:8085/api/handlers/answer-submit-command",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "*/*",
+    'method': 'POST',
+    'url': 'http://localhost:8085/api/handlers/answer-submit-command',
+    'headers': {
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      id: 12366737,
-      question: {
-        id: 32320150,
-        questionId: -16551556,
-      },
-      answeredTag: {
-        id: 5686644,
-        tagId: 5933549,
-        name: "commodo amet sit non",
-      },
-      userId: {
-        id: 89940512,
-      },
-    }),
+      "answer": {
+        "id": answerId
+      }
+    })
+
   };
   console.log("submitting answer for " + answerId);
   const response = JSON.parse(await request(options));
+  console.log(response)
 
   return response;
 };

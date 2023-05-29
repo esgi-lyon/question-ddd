@@ -56,8 +56,12 @@ public class TagChoicesListCommandHandler extends TagChoicesListedEventService {
         this.answerService = answerService;
     }
 
-    public TagChoicesListedEventDTO handleTagChoicesListCommand(TagChoicesListCommandDTO cmd) {
+    public AnswerDTO handleTagChoicesListCommand(Long question) {
         log.info("Handle command to list tag choices");
+        final var cmd = new TagChoicesListCommandDTO();
+        final var questionSendDTO = new QuestionSentIdDTO();
+        questionSendDTO.setQuestionId(question);
+        cmd.setQuestionSent(questionSendDTO);
 
         final var questionId = cmd.getQuestionSent().getId();
         final var tagInfosDTOList = Optional.ofNullable(queryHandler.handleListTagInfos(questionId).getBody())
@@ -89,7 +93,8 @@ public class TagChoicesListCommandHandler extends TagChoicesListedEventService {
             availableAnswerService.save(answersAvailable);
         });
 
+        save(tagChoicesListedEventDTO);
 
-        return save(tagChoicesListedEventDTO);
+        return savedAnswer;
     }
 }
