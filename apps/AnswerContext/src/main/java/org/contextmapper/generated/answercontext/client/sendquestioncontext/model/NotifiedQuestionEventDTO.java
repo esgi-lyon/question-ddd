@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionSentDTO;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.NotifiedUsersDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -19,12 +19,12 @@ import javax.annotation.Generated;
  * NotifiedQuestionEventDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T11:22:11.558807+02:00[Europe/Paris]")
 public class NotifiedQuestionEventDTO {
 
   private Long id;
 
-  private QuestionSentDTO questionResource;
+  private NotifiedUsersDTO questionResource;
 
   public NotifiedQuestionEventDTO id(Long id) {
     this.id = id;
@@ -46,7 +46,7 @@ public class NotifiedQuestionEventDTO {
     this.id = id;
   }
 
-  public NotifiedQuestionEventDTO questionResource(QuestionSentDTO questionResource) {
+  public NotifiedQuestionEventDTO questionResource(NotifiedUsersDTO questionResource) {
     this.questionResource = questionResource;
     return this;
   }
@@ -58,11 +58,11 @@ public class NotifiedQuestionEventDTO {
   @Valid 
   @Schema(name = "questionResource", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("questionResource")
-  public QuestionSentDTO getQuestionResource() {
+  public NotifiedUsersDTO getQuestionResource() {
     return questionResource;
   }
 
-  public void setQuestionResource(QuestionSentDTO questionResource) {
+  public void setQuestionResource(NotifiedUsersDTO questionResource) {
     this.questionResource = questionResource;
   }
 

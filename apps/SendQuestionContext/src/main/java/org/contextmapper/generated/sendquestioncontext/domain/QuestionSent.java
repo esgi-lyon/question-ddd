@@ -46,7 +46,7 @@ public class QuestionSent implements Serializable {
 
     @OneToMany(mappedBy = "questionSent")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "questionSent" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "questionSent", "questionSentTagInfosViewedEvent" }, allowSetters = true)
     private Set<QuestionSentTagInfos> tags = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -17,6 +17,8 @@ public class QuestionSentTagInfosDTO implements Serializable {
 
     private QuestionSentDTO questionSent;
 
+    private QuestionSentTagInfosViewedEventDTO questionSentTagInfosViewedEvent;
+
     public Long getId() {
         return id;
     }
@@ -49,6 +51,14 @@ public class QuestionSentTagInfosDTO implements Serializable {
         this.questionSent = questionSent;
     }
 
+    public QuestionSentTagInfosViewedEventDTO getQuestionSentTagInfosViewedEvent() {
+        return questionSentTagInfosViewedEvent;
+    }
+
+    public void setQuestionSentTagInfosViewedEvent(QuestionSentTagInfosViewedEventDTO questionSentTagInfosViewedEvent) {
+        this.questionSentTagInfosViewedEvent = questionSentTagInfosViewedEvent;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,6 +88,7 @@ public class QuestionSentTagInfosDTO implements Serializable {
             ", tagId=" + getTagId() +
             ", tagName='" + getTagName() + "'" +
             ", questionSent=" + getQuestionSent() +
+            ", questionSentTagInfosViewedEvent=" + getQuestionSentTagInfosViewedEvent() +
             "}";
     }
 }

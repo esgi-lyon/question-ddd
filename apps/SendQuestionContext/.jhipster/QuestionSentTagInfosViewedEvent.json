@@ -1,0 +1,25 @@
+{
+  "applications": ["SendQuestionContext"],
+  "changelogDate": "20230528171041",
+  "clientRootFolder": "SendQuestionContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "question_sent_tag_infos_viewed_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "SendQuestionContext",
+  "name": "QuestionSentTagInfosViewedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "questionSentTagInfos",
+      "otherEntityRelationshipName": "questionSentTagInfosViewedEvent",
+      "relationshipName": "tagInfos",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

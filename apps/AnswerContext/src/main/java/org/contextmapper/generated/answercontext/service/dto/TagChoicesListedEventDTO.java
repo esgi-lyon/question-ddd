@@ -11,12 +11,22 @@ public class TagChoicesListedEventDTO implements Serializable {
 
     private Long id;
 
+    private AnswerDTO answerCreated;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public AnswerDTO getAnswerCreated() {
+        return answerCreated;
+    }
+
+    public void setAnswerCreated(AnswerDTO answerCreated) {
+        this.answerCreated = answerCreated;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class TagChoicesListedEventDTO implements Serializable {
     public String toString() {
         return "TagChoicesListedEventDTO{" +
             "id=" + getId() +
+            ", answerCreated=" + getAnswerCreated() +
             "}";
     }
 }

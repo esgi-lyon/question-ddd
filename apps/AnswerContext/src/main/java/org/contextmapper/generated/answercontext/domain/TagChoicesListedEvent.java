@@ -25,6 +25,11 @@ public class TagChoicesListedEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "question", "answeredTag", "userEmail" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Answer answerCreated;
+
     @OneToMany(mappedBy = "tagChoicesListedEvent")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "tagChoicesListedEvent" }, allowSetters = true)
@@ -43,6 +48,19 @@ public class TagChoicesListedEvent implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Answer getAnswerCreated() {
+        return this.answerCreated;
+    }
+
+    public void setAnswerCreated(Answer answer) {
+        this.answerCreated = answer;
+    }
+
+    public TagChoicesListedEvent answerCreated(Answer answer) {
+        this.setAnswerCreated(answer);
+        return this;
     }
 
     public Set<AvailableAnswer> getTags() {

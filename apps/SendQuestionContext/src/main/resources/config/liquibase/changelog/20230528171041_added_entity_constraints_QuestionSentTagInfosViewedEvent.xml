@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity QuestionSentTagInfosViewedEvent.
+    -->
+    <changeSet id="20230528171041-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="tag_infos_id"
+                                 baseTableName="question_sent_tag_infos_viewed_event"
+                                 constraintName="fk_question_sent_tag_infos_viewed_event__tag_infos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_sent_tag_infos"/>
+    </changeSet>
+</databaseChangeLog>

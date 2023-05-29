@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.NotifiedUsersDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -18,12 +19,14 @@ import javax.annotation.Generated;
  * UserWithPreferencesIdDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T11:22:11.558807+02:00[Europe/Paris]")
 public class UserWithPreferencesIdDTO {
 
   private Long id;
 
   private String mail;
+
+  private NotifiedUsersDTO notifiedUsers;
 
   public UserWithPreferencesIdDTO id(Long id) {
     this.id = id;
@@ -65,6 +68,26 @@ public class UserWithPreferencesIdDTO {
     this.mail = mail;
   }
 
+  public UserWithPreferencesIdDTO notifiedUsers(NotifiedUsersDTO notifiedUsers) {
+    this.notifiedUsers = notifiedUsers;
+    return this;
+  }
+
+  /**
+   * Get notifiedUsers
+   * @return notifiedUsers
+  */
+  @Valid 
+  @Schema(name = "notifiedUsers", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("notifiedUsers")
+  public NotifiedUsersDTO getNotifiedUsers() {
+    return notifiedUsers;
+  }
+
+  public void setNotifiedUsers(NotifiedUsersDTO notifiedUsers) {
+    this.notifiedUsers = notifiedUsers;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -75,12 +98,13 @@ public class UserWithPreferencesIdDTO {
     }
     UserWithPreferencesIdDTO userWithPreferencesIdDTO = (UserWithPreferencesIdDTO) o;
     return Objects.equals(this.id, userWithPreferencesIdDTO.id) &&
-        Objects.equals(this.mail, userWithPreferencesIdDTO.mail);
+        Objects.equals(this.mail, userWithPreferencesIdDTO.mail) &&
+        Objects.equals(this.notifiedUsers, userWithPreferencesIdDTO.notifiedUsers);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, mail);
+    return Objects.hash(id, mail, notifiedUsers);
   }
 
   @Override
@@ -89,6 +113,7 @@ public class UserWithPreferencesIdDTO {
     sb.append("class UserWithPreferencesIdDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    mail: ").append(toIndentedString(mail)).append("\n");
+    sb.append("    notifiedUsers: ").append(toIndentedString(notifiedUsers)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -19,14 +19,12 @@ import javax.annotation.Generated;
  * UserPreferencesTagInfosDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T11:22:11.558807+02:00[Europe/Paris]")
 public class UserPreferencesTagInfosDTO {
 
   private Long id;
 
   private Long tagId;
-
-  private String name;
 
   private UserPreferencesDTO userPreferences;
 
@@ -70,26 +68,6 @@ public class UserPreferencesTagInfosDTO {
     this.tagId = tagId;
   }
 
-  public UserPreferencesTagInfosDTO name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * Get name
-   * @return name
-  */
-  
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public UserPreferencesTagInfosDTO userPreferences(UserPreferencesDTO userPreferences) {
     this.userPreferences = userPreferences;
     return this;
@@ -121,13 +99,12 @@ public class UserPreferencesTagInfosDTO {
     UserPreferencesTagInfosDTO userPreferencesTagInfosDTO = (UserPreferencesTagInfosDTO) o;
     return Objects.equals(this.id, userPreferencesTagInfosDTO.id) &&
         Objects.equals(this.tagId, userPreferencesTagInfosDTO.tagId) &&
-        Objects.equals(this.name, userPreferencesTagInfosDTO.name) &&
         Objects.equals(this.userPreferences, userPreferencesTagInfosDTO.userPreferences);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tagId, name, userPreferences);
+    return Objects.hash(id, tagId, userPreferences);
   }
 
   @Override
@@ -136,7 +113,6 @@ public class UserPreferencesTagInfosDTO {
     sb.append("class UserPreferencesTagInfosDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    tagId: ").append(toIndentedString(tagId)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    userPreferences: ").append(toIndentedString(userPreferences)).append("\n");
     sb.append("}");
     return sb.toString();

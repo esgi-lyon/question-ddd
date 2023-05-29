@@ -5,8 +5,11 @@
  */
 package org.contextmapper.generated.answercontext.client.sendquestioncontext.api;
 
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.AddPreferencesCommandDTO;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.CreatedQuestionEventDTO;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.NotifiedUsersDTO;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.PreferencesAddedEventDTO;
 import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.PrepareQuestionCommandDTO;
-import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionSentDTO;
 import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.SendByPreferencesCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,10 +37,36 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T11:22:11.558807+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "command-handlers", description = "the command-handlers API")
 public interface CommandHandlersApi {
+
+    /**
+     * POST /api/handlers/add-preferences-command
+     *
+     * @param addPreferencesCommandDTO  (required)
+     * @return OK (status code 200)
+     */
+    @Operation(
+        operationId = "handleAddPreference",
+        tags = { "command-handlers" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "*/*", schema = @Schema(implementation = PreferencesAddedEventDTO.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.POST,
+        value = "/api/handlers/add-preferences-command",
+        produces = "*/*",
+        consumes = "application/json"
+    )
+    ResponseEntity<PreferencesAddedEventDTO> handleAddPreference(
+        @Parameter(name = "AddPreferencesCommandDTO", description = "", required = true) @Valid @RequestBody AddPreferencesCommandDTO addPreferencesCommandDTO
+    );
+
 
     /**
      * POST /api/handlers/prepare-question-command
@@ -50,7 +79,7 @@ public interface CommandHandlersApi {
         tags = { "command-handlers" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = PrepareQuestionCommandDTO.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = CreatedQuestionEventDTO.class))
             })
         }
     )
@@ -60,7 +89,7 @@ public interface CommandHandlersApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<PrepareQuestionCommandDTO> handlePrepareQuestionsCommand(
+    ResponseEntity<CreatedQuestionEventDTO> handlePrepareQuestionsCommand(
         @Parameter(name = "PrepareQuestionCommandDTO", description = "", required = true) @Valid @RequestBody PrepareQuestionCommandDTO prepareQuestionCommandDTO
     );
 
@@ -68,7 +97,7 @@ public interface CommandHandlersApi {
     /**
      * POST /api/handlers/send-question-by-preferences-command
      *
-     * @param questionSentDTO  (required)
+     * @param sendByPreferencesCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -76,7 +105,7 @@ public interface CommandHandlersApi {
         tags = { "command-handlers" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = SendByPreferencesCommandDTO.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = NotifiedUsersDTO.class))
             })
         }
     )
@@ -86,8 +115,8 @@ public interface CommandHandlersApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<SendByPreferencesCommandDTO> handleSendQuestionByTagsPreferencesCommand(
-        @Parameter(name = "QuestionSentDTO", description = "", required = true) @Valid @RequestBody QuestionSentDTO questionSentDTO
+    ResponseEntity<NotifiedUsersDTO> handleSendQuestionByTagsPreferencesCommand(
+        @Parameter(name = "SendByPreferencesCommandDTO", description = "", required = true) @Valid @RequestBody SendByPreferencesCommandDTO sendByPreferencesCommandDTO
     );
 
 }

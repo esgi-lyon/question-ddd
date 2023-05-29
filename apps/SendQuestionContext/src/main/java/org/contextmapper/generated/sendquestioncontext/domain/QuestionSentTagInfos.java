@@ -33,6 +33,10 @@ public class QuestionSentTagInfos implements Serializable {
     @JsonIgnoreProperties(value = { "resourceId", "tags" }, allowSetters = true)
     private QuestionSent questionSent;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "tagInfos" }, allowSetters = true)
+    private QuestionSentTagInfosViewedEvent questionSentTagInfosViewedEvent;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -84,6 +88,19 @@ public class QuestionSentTagInfos implements Serializable {
 
     public QuestionSentTagInfos questionSent(QuestionSent questionSent) {
         this.setQuestionSent(questionSent);
+        return this;
+    }
+
+    public QuestionSentTagInfosViewedEvent getQuestionSentTagInfosViewedEvent() {
+        return this.questionSentTagInfosViewedEvent;
+    }
+
+    public void setQuestionSentTagInfosViewedEvent(QuestionSentTagInfosViewedEvent questionSentTagInfosViewedEvent) {
+        this.questionSentTagInfosViewedEvent = questionSentTagInfosViewedEvent;
+    }
+
+    public QuestionSentTagInfos questionSentTagInfosViewedEvent(QuestionSentTagInfosViewedEvent questionSentTagInfosViewedEvent) {
+        this.setQuestionSentTagInfosViewedEvent(questionSentTagInfosViewedEvent);
         return this;
     }
 

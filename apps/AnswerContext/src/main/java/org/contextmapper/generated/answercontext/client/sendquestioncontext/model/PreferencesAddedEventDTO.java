@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * PreferencesAddedEventDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T11:22:11.558807+02:00[Europe/Paris]")
 public class PreferencesAddedEventDTO {
 
   private Long id;

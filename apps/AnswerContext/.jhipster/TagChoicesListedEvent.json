@@ -15,6 +15,12 @@
   "readOnly": true,
   "relationships": [
     {
+      "otherEntityName": "answer",
+      "ownerSide": true,
+      "relationshipName": "answerCreated",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "availableAnswer",
       "otherEntityRelationshipName": "tagChoicesListedEvent",
       "relationshipName": "tags",

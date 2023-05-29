@@ -248,6 +248,7 @@ const tagChoicesListCommand = async (token, questionId) => {
   };
   console.log("View tags available for question " + questionId);
   const response = JSON.parse(await request(options));
+  console.log(response);
 
   return response;
 };

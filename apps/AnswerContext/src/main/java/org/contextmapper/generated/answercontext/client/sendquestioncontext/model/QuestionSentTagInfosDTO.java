@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionSentDTO;
+import org.contextmapper.generated.answercontext.client.sendquestioncontext.model.QuestionSentTagInfosViewedEventDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -19,7 +20,7 @@ import javax.annotation.Generated;
  * QuestionSentTagInfosDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:36.474094+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T11:22:11.558807+02:00[Europe/Paris]")
 public class QuestionSentTagInfosDTO {
 
   private Long id;
@@ -29,6 +30,8 @@ public class QuestionSentTagInfosDTO {
   private String tagName;
 
   private QuestionSentDTO questionSent;
+
+  private QuestionSentTagInfosViewedEventDTO questionSentTagInfosViewedEvent;
 
   public QuestionSentTagInfosDTO id(Long id) {
     this.id = id;
@@ -110,6 +113,26 @@ public class QuestionSentTagInfosDTO {
     this.questionSent = questionSent;
   }
 
+  public QuestionSentTagInfosDTO questionSentTagInfosViewedEvent(QuestionSentTagInfosViewedEventDTO questionSentTagInfosViewedEvent) {
+    this.questionSentTagInfosViewedEvent = questionSentTagInfosViewedEvent;
+    return this;
+  }
+
+  /**
+   * Get questionSentTagInfosViewedEvent
+   * @return questionSentTagInfosViewedEvent
+  */
+  @Valid 
+  @Schema(name = "questionSentTagInfosViewedEvent", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("questionSentTagInfosViewedEvent")
+  public QuestionSentTagInfosViewedEventDTO getQuestionSentTagInfosViewedEvent() {
+    return questionSentTagInfosViewedEvent;
+  }
+
+  public void setQuestionSentTagInfosViewedEvent(QuestionSentTagInfosViewedEventDTO questionSentTagInfosViewedEvent) {
+    this.questionSentTagInfosViewedEvent = questionSentTagInfosViewedEvent;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -122,12 +145,13 @@ public class QuestionSentTagInfosDTO {
     return Objects.equals(this.id, questionSentTagInfosDTO.id) &&
         Objects.equals(this.tagId, questionSentTagInfosDTO.tagId) &&
         Objects.equals(this.tagName, questionSentTagInfosDTO.tagName) &&
-        Objects.equals(this.questionSent, questionSentTagInfosDTO.questionSent);
+        Objects.equals(this.questionSent, questionSentTagInfosDTO.questionSent) &&
+        Objects.equals(this.questionSentTagInfosViewedEvent, questionSentTagInfosDTO.questionSentTagInfosViewedEvent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tagId, tagName, questionSent);
+    return Objects.hash(id, tagId, tagName, questionSent, questionSentTagInfosViewedEvent);
   }
 
   @Override
@@ -138,6 +162,7 @@ public class QuestionSentTagInfosDTO {
     sb.append("    tagId: ").append(toIndentedString(tagId)).append("\n");
     sb.append("    tagName: ").append(toIndentedString(tagName)).append("\n");
     sb.append("    questionSent: ").append(toIndentedString(questionSent)).append("\n");
+    sb.append("    questionSentTagInfosViewedEvent: ").append(toIndentedString(questionSentTagInfosViewedEvent)).append("\n");
     sb.append("}");
     return sb.toString();
   }

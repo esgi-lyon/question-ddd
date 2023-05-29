@@ -13,5 +13,11 @@
                                  constraintName="fk_question_sent_tag_infos__question_sent_id"
                                  referencedColumnNames="id"
                                  referencedTableName="question_sent"/>
+
+        <addForeignKeyConstraint baseColumnNames="question_sent_tag_infos_viewed_event_id"
+                                 baseTableName="question_sent_tag_infos"
+                                 constraintName="fk_question_sent_tag_infos__question_sent_tag_infos_viewe_a2_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_sent_tag_infos_viewed_event"/>
     </changeSet>
 </databaseChangeLog>

@@ -252,6 +252,7 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 			command PrepareQuestion delegates to QuestionNotification emits event CreatedQuestion
 			event CreatedQuestion triggers command SendByPreferences
 			command SendByPreferences delegates to QuestionNotification emits event NotifiedQuestion
+			command ViewTagsForQuestion delegates to QuestionNotification emits event TagChoicesListed
 		}
 	}
 	Aggregate UserPreferences {
@@ -308,10 +309,16 @@ BoundedContext SendQuestionContext implements QuestionDomain {
 		DomainEvent NotifiedQuestion {
 			- NotifiedUsers questionResource
 		}
+		DomainEvent QuestionSentTagInfosViewed {
+			- List<QuestionSentTagInfos> tagInfos
+		}
 		Command PrepareQuestion {
 			Long resourceId
 		}
 		Command SendByPreferences {
+			- QuestionSent questionToSend
+		}
+		Command ViewTagsForQuestion {
 			- QuestionSent questionToSend
 		}
 	}
@@ -352,6 +359,7 @@ BoundedContext AnswerContext implements QuestionDomain {
 			String mail email
 		}
 		DomainEvent TagChoicesListed {
+			- @Answer answerCreated
 			- List<AvailableAnswer> tags
 		}
 		DomainEvent AnswerSubmitted {

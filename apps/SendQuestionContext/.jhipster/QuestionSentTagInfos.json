@@ -28,6 +28,12 @@
       "otherEntityRelationshipName": "tags",
       "relationshipName": "questionSent",
       "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "questionSentTagInfosViewedEvent",
+      "otherEntityRelationshipName": "tagInfos",
+      "relationshipName": "questionSentTagInfosViewedEvent",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceClass"

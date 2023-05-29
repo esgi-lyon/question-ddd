@@ -52,7 +52,7 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         final var answer = Optional.ofNullable(answerResourceApi.getAnswer(answerId).getBody()).orElseThrow();
 
         final var user =  new AnsweringUserDTO();
-        user.setName(String.valueOf(answer.getUserId().getId()));
+        user.setName(answer.getUserEmail().getMail());
 
         final var savedEvaluationUser = answeringUserService.save(user);
         createEvaluation.setUser(savedEvaluationUser);

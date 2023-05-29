@@ -56,7 +56,7 @@ public class TagChoicesListedEventService {
     public TagChoicesListedEventDTO update(TagChoicesListedEventDTO tagChoicesListedEventDTO) {
         log.debug("Request to update TagChoicesListedEvent : {}", tagChoicesListedEventDTO);
         TagChoicesListedEvent tagChoicesListedEvent = tagChoicesListedEventMapper.toEntity(tagChoicesListedEventDTO);
-        // no save call needed as we have no fields that can be updated
+        tagChoicesListedEvent = tagChoicesListedEventRepository.save(tagChoicesListedEvent);
         return tagChoicesListedEventMapper.toDto(tagChoicesListedEvent);
     }
 
@@ -76,7 +76,7 @@ public class TagChoicesListedEventService {
 
                 return existingTagChoicesListedEvent;
             })
-            // .map(tagChoicesListedEventRepository::save)
+            .map(tagChoicesListedEventRepository::save)
             .map(tagChoicesListedEventMapper::toDto);
     }
 

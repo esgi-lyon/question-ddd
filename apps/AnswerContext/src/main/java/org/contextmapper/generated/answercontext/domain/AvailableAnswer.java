@@ -30,7 +30,7 @@ public class AvailableAnswer implements Serializable {
     private String tagName;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "tags" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "answerCreated", "tags" }, allowSetters = true)
     private TagChoicesListedEvent tagChoicesListedEvent;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

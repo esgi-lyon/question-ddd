@@ -3,9 +3,17 @@ package org.contextmapper.generated.sendquestioncontext.service;
 import org.contextmapper.generated.sendquestioncontext.client.skillcontext.api.TagResourceApi;
 import org.contextmapper.generated.sendquestioncontext.client.usermanagementcontext.api.QueryHandlerResourceApi;
 import org.contextmapper.generated.sendquestioncontext.domain.PreferencesAddedEvent;
+import org.contextmapper.generated.sendquestioncontext.domain.UserPreferences;
+import org.contextmapper.generated.sendquestioncontext.domain.UserPreferencesTagInfos;
+import org.contextmapper.generated.sendquestioncontext.domain.UserWithPreferencesId;
+import org.contextmapper.generated.sendquestioncontext.repository.CustomUserPreferencesRepository;
 import org.contextmapper.generated.sendquestioncontext.repository.PreferencesAddedEventRepository;
+import org.contextmapper.generated.sendquestioncontext.repository.UserPreferencesTagInfosRepository;
+import org.contextmapper.generated.sendquestioncontext.repository.UserWithPreferencesIdRepository;
 import org.contextmapper.generated.sendquestioncontext.service.dto.*;
 import org.contextmapper.generated.sendquestioncontext.service.mapper.PreferencesAddedEventMapper;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.UserPreferencesMapper;
+import org.contextmapper.generated.sendquestioncontext.service.mapper.UserPreferencesMapperImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Implementation for managing {@link PreferencesAddedEvent}.
@@ -25,29 +34,29 @@ public class AddPreferenceCommandHandler extends PreferencesAddedEventService {
 
     private final TagResourceApi tagResourceApi;
 
-    private final UserPreferencesTagInfosService userPreferencesTagInfosService;
-
-    private final UserPreferencesService userPreferencesService;
-
-    private final UserWithPreferencesIdService userWithPreferencesIdService;
-
     private final QueryHandlerResourceApi queryHandlerResourceApi;
+    private final UserPreferencesTagInfosRepository userPreferencesTagInfosRepository;
+    private final UserWithPreferencesIdRepository userWithPreferencesIdRepository;
+    private final CustomUserPreferencesRepository customUserPreferencesRepository;
+    private final UserPreferencesMapper userPreferencesMapper;
 
     public AddPreferenceCommandHandler(
         PreferencesAddedEventRepository preferencesAddedEventRepository,
         PreferencesAddedEventMapper preferencesAddedEventMapper,
         TagResourceApi tagResourceApi,
-        UserPreferencesTagInfosService userPreferencesTagInfosService,
-        UserPreferencesService userPreferencesService,
         QueryHandlerResourceApi queryHandlerResourceApi,
-        UserWithPreferencesIdService userWithPreferencesIdService
+        UserPreferencesTagInfosRepository userPreferencesTagInfosRepository,
+        UserWithPreferencesIdRepository userWithPreferencesIdRepository,
+        CustomUserPreferencesRepository customUserPreferencesRepository,
+        UserPreferencesMapper userPreferencesMapper
     ) {
         super(preferencesAddedEventRepository, preferencesAddedEventMapper);
         this.tagResourceApi = tagResourceApi;
-        this.userPreferencesTagInfosService = userPreferencesTagInfosService;
-        this.userPreferencesService = userPreferencesService;
         this.queryHandlerResourceApi = queryHandlerResourceApi;
-        this.userWithPreferencesIdService = userWithPreferencesIdService;
+        this.userPreferencesTagInfosRepository = userPreferencesTagInfosRepository;
+        this.userWithPreferencesIdRepository = userWithPreferencesIdRepository;
+        this.customUserPreferencesRepository = customUserPreferencesRepository;
+        this.userPreferencesMapper = userPreferencesMapper;
     }
 
     public PreferencesAddedEventDTO handle(AddPreferencesCommandDTO addPreferencesCommandDTO) {
@@ -58,30 +67,26 @@ public class AddPreferenceCommandHandler extends PreferencesAddedEventService {
             tagResourceApi.getTag(addPreferencesCommandDTO.getPreferences().getTagId()).getBody()
         ).orElseThrow();
 
-        final var userWithPreferencesDTO = new UserWithPreferencesIdDTO();
         final var userFromApi = Optional.ofNullable(queryHandlerResourceApi.handleViewUserByMail(
             SecurityContextHolder.getContext().getAuthentication().getName()
         ).getBody()).orElseThrow();
 
-        userWithPreferencesDTO.setMail(userFromApi.getMail());
+        final var userPreferencesDTO = new UserPreferences();
+        final var userIdDTO = new UserWithPreferencesId();
+        userIdDTO.mail(userFromApi.getMail());
 
-        final var userPreferencesDTO = new UserPreferencesDTO();
-        final var userIdDTO = new UserWithPreferencesIdDTO();
-        userIdDTO.setMail(userFromApi.getMail());
-        userIdDTO.setId(userFromApi.getId());
+        final var savedUser = userWithPreferencesIdRepository.save(userIdDTO);
 
-        final var savedUserIdDto = userWithPreferencesIdService.save(userIdDTO);
-        userPreferencesDTO.setUser(savedUserIdDto);
-        final var saved = userPreferencesService.save(userPreferencesDTO);
+        final var tagInfosDto = new UserPreferencesTagInfos();
+        tagInfosDto.tagId(tagFromApi.getId());
 
-        final var tagInfosDto = new UserPreferencesTagInfosDTO();
-        tagInfosDto.setTagId(tagFromApi.getId());
-        tagInfosDto.setUserPreferences(saved);
+        final var savedTagInfos = userPreferencesTagInfosRepository.save(tagInfosDto);
+        userPreferencesDTO.preferences(Set.of(savedTagInfos)).user(savedUser);
 
-        userPreferencesTagInfosService.save(tagInfosDto);
+        final var saved = customUserPreferencesRepository.save(userPreferencesDTO);
 
         final var preferencesAddedEventDTO = new PreferencesAddedEventDTO();
-        preferencesAddedEventDTO.setPreferences(saved);
+        preferencesAddedEventDTO.setPreferences(userPreferencesMapper.toDto(saved));
 
         return save(preferencesAddedEventDTO);
     }

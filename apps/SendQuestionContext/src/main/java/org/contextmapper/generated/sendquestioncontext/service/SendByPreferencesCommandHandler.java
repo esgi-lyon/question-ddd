@@ -83,6 +83,7 @@ public class SendByPreferencesCommandHandler extends SendByPreferencesCommandSer
         final var notified = new NotifiedUsersDTO();
         notified.setQuestion(questionSentSaved);
 
+
         customUserPreferencesRepository.findAllByPreferencesIn(
             customUserPreferencesTagInfosRepository.findAllById(
                 questionSent.getTags().stream().map(QuestionSentTagInfos::getTagId).collect(Collectors.toUnmodifiableSet())
