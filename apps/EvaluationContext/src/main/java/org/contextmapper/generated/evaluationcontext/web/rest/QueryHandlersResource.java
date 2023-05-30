@@ -34,7 +34,7 @@ public class QueryHandlersResource {
     }
 
     @GetMapping("/view-tag-evaluation-query")
-    public ResponseEntity<List<EvaluationDTO>> handleViewLeaderBoardQuery(Long tagId) {
+    public ResponseEntity<List<EvaluationDTO>> handleViewEvaluationByTagQuery(Long tagId) {
         List<EvaluationDTO> result = viewEvaluationByTagQueryHandler.handle(tagId);
         return ResponseEntity.ok().body(result);
     }

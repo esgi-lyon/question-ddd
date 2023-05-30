@@ -1,5 +1,6 @@
 package org.contextmapper.generated.statcontext.service;
 
+import org.contextmapper.generated.statcontext.client.evaluationcontext.api.QueryHandlersResourceApiClient;
 import org.contextmapper.generated.statcontext.repository.ViewStatsCommandRepository;
 import org.contextmapper.generated.statcontext.service.dto.UserStatsViewedEventDTO;
 import org.contextmapper.generated.statcontext.service.dto.ViewStatsCommandDTO;
@@ -26,6 +27,7 @@ public class ViewStatsQueryHandler extends ViewStatsCommandService {
     private final StatisticSubjectUserMapper statisticSubjectUserMapper;
     private final StatisticSubjectQuestionMapper statisticSubjectQuestionMapper;
     private final StatisticSubjectTagMapper statisticSubjectTagMapper;
+    private final QueryHandlersResourceApiClient queryHandlersResourceApi;
 
     public ViewStatsQueryHandler(
         ViewStatsCommandRepository viewStatsCommandRepository,
@@ -35,8 +37,8 @@ public class ViewStatsQueryHandler extends ViewStatsCommandService {
         StatisticSubjectUserMapper statisticSubjectUserMapper,
         StatisticSubjectQuestionMapper statisticSubjectQuestionMapper,
         StatisticSubjectTagMapper statisticSubjectTagMapper,
-        ViewStatsCommandMapper viewStatsCommandMapper
-    ) {
+        ViewStatsCommandMapper viewStatsCommandMapper,
+        QueryHandlersResourceApiClient queryHandlersResourceApi) {
         super(viewStatsCommandRepository, viewStatsCommandMapper);
         this.userStatsViewedEventService = userStatsViewedEventService;
         this.questionStatsViewedEventService = questionStatsViewedEventService;
@@ -44,6 +46,7 @@ public class ViewStatsQueryHandler extends ViewStatsCommandService {
         this.statisticSubjectUserMapper = statisticSubjectUserMapper;
         this.statisticSubjectQuestionMapper = statisticSubjectQuestionMapper;
         this.statisticSubjectTagMapper = statisticSubjectTagMapper;
+        this.queryHandlersResourceApi = queryHandlersResourceApi;
     }
 
     public ViewStatsCommandDTO handleViewLeaderBoardQuery(ViewStatsCommandDTO viewStatsCommand) {
@@ -51,6 +54,8 @@ public class ViewStatsQueryHandler extends ViewStatsCommandService {
         // final var questionDTO = viewStatsCommand.getQuestion();
         // final var tagDTO = viewStatsCommand.getTag();
         log.info("Handle command to view stats");
+        
+        queryHandlersResourceApi.
         /* Not implemented
         if (questionDTO != null) {
             final var questionStatsViewedEventDTO = new QuestionStatsViewedEventDTO();
