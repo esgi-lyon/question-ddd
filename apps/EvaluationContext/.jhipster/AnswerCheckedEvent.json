@@ -1,0 +1,25 @@
+{
+  "applications": ["EvaluationContext"],
+  "changelogDate": "20230422153402",
+  "clientRootFolder": "EvaluationContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "answer_checked_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "EvaluationContext",
+  "name": "AnswerCheckedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "evaluatedAnswer",
+      "ownerSide": true,
+      "relationshipName": "answer",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

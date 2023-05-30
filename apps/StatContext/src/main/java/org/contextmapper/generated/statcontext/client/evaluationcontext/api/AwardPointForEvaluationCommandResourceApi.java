@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T23:49:51.091058+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T11:17:53.389461+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "award-point-for-evaluation-command-resource", description = "the award-point-for-evaluation-command-resource API")
 public interface AwardPointForEvaluationCommandResourceApi {

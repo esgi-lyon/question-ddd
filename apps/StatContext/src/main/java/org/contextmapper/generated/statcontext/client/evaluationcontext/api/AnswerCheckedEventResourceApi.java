@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.statcontext.client.evaluationcontext.api;
 
-import org.contextmapper.generated.statcontext.client.evaluationcontext.model.EvaluationDTO;
+import org.contextmapper.generated.statcontext.client.evaluationcontext.model.AnswerCheckedEventDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,33 +32,57 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-29T23:49:51.091058+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T11:17:53.389461+02:00[Europe/Paris]")
 @Validated
-@Tag(name = "view-user-evaluation-query-resource", description = "the view-user-evaluation-query-resource API")
-public interface ViewUserEvaluationQueryResourceApi {
+@Tag(name = "answer-checked-event-resource", description = "the answer-checked-event-resource API")
+public interface AnswerCheckedEventResourceApi {
 
     /**
-     * GET /api/handlers/view-user-evaluation-query
+     * GET /api/answer-checked-events
      *
-     * @param userMail  (optional)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "handleViewUserEvaluationQuery",
-        tags = { "view-user-evaluation-query-resource" },
+        operationId = "getAllAnswerCheckedEvents",
+        tags = { "answer-checked-event-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = EvaluationDTO.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = AnswerCheckedEventDTO.class)))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/handlers/view-user-evaluation-query",
+        value = "/api/answer-checked-events",
         produces = "*/*"
     )
-    ResponseEntity<List<EvaluationDTO>> handleViewUserEvaluationQuery(
-        @Parameter(name = "userMail", description = "", in = ParameterIn.QUERY) @Valid @RequestParam(value = "userMail", required = false) String userMail
+    ResponseEntity<List<AnswerCheckedEventDTO>> getAllAnswerCheckedEvents(
+        
+    );
+
+
+    /**
+     * GET /api/answer-checked-events/{id}
+     *
+     * @param id  (required)
+     * @return OK (status code 200)
+     */
+    @Operation(
+        operationId = "getAnswerCheckedEvent",
+        tags = { "answer-checked-event-resource" },
+        responses = {
+            @ApiResponse(responseCode = "200", description = "OK", content = {
+                @Content(mediaType = "*/*", schema = @Schema(implementation = AnswerCheckedEventDTO.class))
+            })
+        }
+    )
+    @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/api/answer-checked-events/{id}",
+        produces = "*/*"
+    )
+    ResponseEntity<AnswerCheckedEventDTO> getAnswerCheckedEvent(
+        @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
 }

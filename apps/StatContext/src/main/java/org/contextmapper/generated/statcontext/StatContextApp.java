@@ -15,10 +15,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
 import tech.jhipster.config.DefaultProfileUtil;
 import tech.jhipster.config.JHipsterConstants;
 
+@ComponentScan(
+    excludeFilters = {
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.contextmapper.generated.statcontext.client.*.ClientConfiguration"),
+    }
+)
 @SpringBootApplication
 @EnableConfigurationProperties({ LiquibaseProperties.class, ApplicationProperties.class })
 public class StatContextApp {

@@ -15,13 +15,13 @@ import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api/handlers")
-public class ViewStatsQueryHandlerResource {
+public class QueryHandlerResource {
 
     private final ViewLeaderBoardQueryHandler viewLeaderBoardQueryHandler;
 
     private final ViewStatsQueryHandler viewStatsQueryHandler;
 
-    public ViewStatsQueryHandlerResource(
+    public QueryHandlerResource(
         ViewLeaderBoardQueryHandler viewLeaderBoardQueryHandler,
         ViewStatsQueryHandler viewStatsQueryHandler
     ) {

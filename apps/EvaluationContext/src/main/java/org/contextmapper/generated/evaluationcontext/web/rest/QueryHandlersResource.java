@@ -1,6 +1,6 @@
 package org.contextmapper.generated.evaluationcontext.web.rest;
 
-import org.contextmapper.generated.evaluationcontext.service.ViewLeaderBoardQueryHandler;
+import org.contextmapper.generated.evaluationcontext.service.ViewEvaluationByTagQueryHandler;
 import org.contextmapper.generated.evaluationcontext.service.ViewUserEvaluationQueryHandler;
 import org.contextmapper.generated.evaluationcontext.service.dto.EvaluationDTO;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +17,14 @@ public class QueryHandlersResource {
 
     private final ViewUserEvaluationQueryHandler viewUserEvaluationQueryHandler;
 
-    private final ViewLeaderBoardQueryHandler viewLeaderBoardQueryHandler;
+    private final ViewEvaluationByTagQueryHandler viewEvaluationByTagQueryHandler;
 
     public QueryHandlersResource(
         ViewUserEvaluationQueryHandler viewUserEvaluationQueryHandler,
-        ViewLeaderBoardQueryHandler viewLeaderBoardQueryHandler
+        ViewEvaluationByTagQueryHandler viewEvaluationByTagQueryHandler
     ) {
         this.viewUserEvaluationQueryHandler = viewUserEvaluationQueryHandler;
-        this.viewLeaderBoardQueryHandler = viewLeaderBoardQueryHandler;
+        this.viewEvaluationByTagQueryHandler = viewEvaluationByTagQueryHandler;
     }
 
     @GetMapping("/view-user-evaluation-query")
@@ -35,7 +35,7 @@ public class QueryHandlersResource {
 
     @GetMapping("/view-tag-evaluation-query")
     public ResponseEntity<List<EvaluationDTO>> handleViewLeaderBoardQuery(Long tagId) {
-        List<EvaluationDTO> result = viewLeaderBoardQueryHandler.handle(tagId);
+        List<EvaluationDTO> result = viewEvaluationByTagQueryHandler.handle(tagId);
         return ResponseEntity.ok().body(result);
     }
 }

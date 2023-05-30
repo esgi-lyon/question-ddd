@@ -52,7 +52,7 @@
     "openApiClients": {
       "evaluationcontext": {
         "generatorName": "spring",
-        "spec": "http://localhost:8087/v3/api-docs.yaml"
+        "spec": "http://localhost:8096/v3/api-docs.yaml"
       }
     },
     "otherModules": [],
