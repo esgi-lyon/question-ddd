@@ -5,9 +5,9 @@ info:
   title: 'AnswerContext'
   version: 0.0.1
 servers:
-  - url: http://localhost:8085/api
+  - url: http://localhost:8095/api
     description: Development server
-  - url: https://localhost:8085/api
+  - url: https://localhost:8095/api
     description: Development server with TLS Profile
 paths: {}
 components:

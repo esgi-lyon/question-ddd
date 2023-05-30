@@ -1,6 +1,7 @@
 package org.contextmapper.generated.evaluationcontext.service;
 
 import org.contextmapper.generated.evaluationcontext.client.answercontext.api.AnswerResourceApi;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.api.UserEmailResourceApi;
 import org.contextmapper.generated.evaluationcontext.domain.enumeration.Status;
 import org.contextmapper.generated.evaluationcontext.repository.CreateEvaluationCommandRepository;
 import org.contextmapper.generated.evaluationcontext.service.dto.*;
@@ -27,6 +28,9 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
     private final AnsweringUserService answeringUserService;
 
     private final AnswerResourceApi answerResourceApi;
+
+    private final UserEmailResourceApi userEmailResourceApi;
+
     private final EvaluationQuestionService evaluationQuestionService;
 
     public CreateEvaluationCommandHandler(
@@ -36,13 +40,16 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         CreateEvaluationCommandMapper createEvaluationCommandMapper,
         AnsweringUserService answeringUserService,
         AnswerResourceApi answerResourceApi,
-        EvaluationQuestionService evaluationQuestionService) {
+        EvaluationQuestionService evaluationQuestionService,
+        UserEmailResourceApi userEmailResourceApi
+    ) {
         super(createEvaluationCommandRepository, createEvaluationCommandMapper);
         this.evaluationService = evaluationService;
         this.evaluationCreatedEventService = evaluationCreatedEventService;
         this.answeringUserService = answeringUserService;
         this.answerResourceApi = answerResourceApi;
         this.evaluationQuestionService = evaluationQuestionService;
+        this.userEmailResourceApi = userEmailResourceApi;
     }
 
     public EvaluationCreatedEventDTO handleCreateEvaluationCommand(CreateEvaluationCommandDTO evaluationCommandDTO) {
@@ -54,7 +61,11 @@ public class CreateEvaluationCommandHandler extends CreateEvaluationCommandServi
         final var answer = Optional.ofNullable(answerResourceApi.getAnswer(answerId).getBody()).orElseThrow();
 
         final var user =  new AnsweringUserDTO();
-        user.setMail(answer.getUserEmail().getMail());
+        final var userEmail = Optional.ofNullable(
+            userEmailResourceApi.getUserEmail(answer.getUserEmail().getId()).getBody()
+        ).orElseThrow();
+
+        user.setMail(userEmail.getMail());
 
         final var savedEvaluationUser = answeringUserService.save(user);
         createEvaluation.setUser(savedEvaluationUser);

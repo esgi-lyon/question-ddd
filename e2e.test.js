@@ -278,7 +278,7 @@ const answerSubmit = async (token, answerId, tag) => {
 async function createEvaluationCmd(token, answerId) {
   const options = {
     method: "POST",
-    url: `http://127.0.0.1:8097/api/handlers/create-evaluation-command`,
+    url: `http://127.0.0.1:8096/api/handlers/create-evaluation-command`,
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -300,7 +300,7 @@ async function createEvaluationCmd(token, answerId) {
 const awardPointForEvaluation = async (token, evaluationId) => {
   var options = {
     method: "POST",
-    url: "http://localhost:8097/api/handlers/award-point-for-evaluation",
+    url: "http://localhost:8096/api/handlers/award-point-for-evaluation",
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -336,7 +336,8 @@ const viewStatsCmd = async (token, mail, questionId) => {
     })
   };
 
-  console.log("view stats for tag " + tagId)
+  console.log("view stats for question " + questionId)
+  console.log("view stats for user " + mail)
   const response = await request(options)
   console.log(response)
 
@@ -409,7 +410,7 @@ const viewStatsCmd = async (token, mail, questionId) => {
 
   await awardPointForEvaluation(evaluatorToken, evaluationId)
 
-  await viewStatsCmd(studentToken, "student@example.com", questionToSendId)
+  await viewStatsCmd(evaluatorToken, "student@example.com", questionToSendId)
 
   console.log("Done");
 })();
