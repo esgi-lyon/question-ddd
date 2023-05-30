@@ -1,10 +1,10 @@
-package org.contextmapper.generated.answercontext.client.usermanagement.model;
+package org.contextmapper.generated.evaluationcontext.client.answercontext.model;
 
 import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.contextmapper.generated.answercontext.client.usermanagement.model.UserInfos;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -16,17 +16,17 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * RejectUserCommand
+ * UserEvaluationViewedEventDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:12:13.027502+02:00[Europe/Paris]")
-public class RejectUserCommand {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:13:50.158415+02:00[Europe/Paris]")
+public class UserEvaluationViewedEventDTO {
 
   private Long id;
 
-  private UserInfos userInfos;
+  private AnswerDTO answer;
 
-  public RejectUserCommand id(Long id) {
+  public UserEvaluationViewedEventDTO id(Long id) {
     this.id = id;
     return this;
   }
@@ -46,24 +46,24 @@ public class RejectUserCommand {
     this.id = id;
   }
 
-  public RejectUserCommand userInfos(UserInfos userInfos) {
-    this.userInfos = userInfos;
+  public UserEvaluationViewedEventDTO answer(AnswerDTO answer) {
+    this.answer = answer;
     return this;
   }
 
   /**
-   * Get userInfos
-   * @return userInfos
+   * Get answer
+   * @return answer
   */
   @Valid 
-  @Schema(name = "userInfos", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("userInfos")
-  public UserInfos getUserInfos() {
-    return userInfos;
+  @Schema(name = "answer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("answer")
+  public AnswerDTO getAnswer() {
+    return answer;
   }
 
-  public void setUserInfos(UserInfos userInfos) {
-    this.userInfos = userInfos;
+  public void setAnswer(AnswerDTO answer) {
+    this.answer = answer;
   }
 
   @Override
@@ -74,22 +74,22 @@ public class RejectUserCommand {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    RejectUserCommand rejectUserCommand = (RejectUserCommand) o;
-    return Objects.equals(this.id, rejectUserCommand.id) &&
-        Objects.equals(this.userInfos, rejectUserCommand.userInfos);
+    UserEvaluationViewedEventDTO userEvaluationViewedEventDTO = (UserEvaluationViewedEventDTO) o;
+    return Objects.equals(this.id, userEvaluationViewedEventDTO.id) &&
+        Objects.equals(this.answer, userEvaluationViewedEventDTO.answer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userInfos);
+    return Objects.hash(id, answer);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class RejectUserCommand {\n");
+    sb.append("class UserEvaluationViewedEventDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    userInfos: ").append(toIndentedString(userInfos)).append("\n");
+    sb.append("    answer: ").append(toIndentedString(answer)).append("\n");
     sb.append("}");
     return sb.toString();
   }

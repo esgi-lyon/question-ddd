@@ -5,7 +5,7 @@
  */
 package org.contextmapper.generated.questioncontext.client.usermanagementcontext.api;
 
-import org.contextmapper.generated.questioncontext.client.usermanagementcontext.model.UserViewedEventDTO;
+import org.contextmapper.generated.questioncontext.client.usermanagementcontext.model.UserInfosDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:12.144212+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:08:54.981704+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "query-handler-resource", description = "the query-handler-resource API")
 public interface QueryHandlerResourceApi {
@@ -44,11 +44,11 @@ public interface QueryHandlerResourceApi {
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "handleRegisterCommand2",
+        operationId = "handleViewUserByMail",
         tags = { "query-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = UserViewedEventDTO.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = UserInfosDTO.class))
             })
         }
     )
@@ -57,7 +57,7 @@ public interface QueryHandlerResourceApi {
         value = "/api/handlers/view-user-query",
         produces = "*/*"
     )
-    ResponseEntity<UserViewedEventDTO> handleRegisterCommand2(
+    ResponseEntity<UserInfosDTO> handleViewUserByMail(
         @NotNull @Parameter(name = "mail", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "mail", required = true) String mail
     );
 

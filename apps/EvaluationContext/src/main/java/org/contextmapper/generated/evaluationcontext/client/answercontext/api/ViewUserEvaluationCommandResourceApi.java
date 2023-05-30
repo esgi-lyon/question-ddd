@@ -3,9 +3,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package org.contextmapper.generated.answercontext.client.usermanagement.api;
+package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
-import org.contextmapper.generated.answercontext.client.usermanagement.model.ValidateUserCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.ViewUserEvaluationCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,161 +32,161 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:12:13.027502+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:13:50.158415+02:00[Europe/Paris]")
 @Validated
-@Tag(name = "validate-user-command-resource", description = "the validate-user-command-resource API")
-public interface ValidateUserCommandResourceApi {
+@Tag(name = "view-user-evaluation-command-resource", description = "the view-user-evaluation-command-resource API")
+public interface ViewUserEvaluationCommandResourceApi {
 
     /**
-     * POST /api/validate-user-commands
+     * POST /api/view-user-evaluation-commands
      *
-     * @param validateUserCommand  (required)
+     * @param viewUserEvaluationCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "createValidateUserCommand",
-        tags = { "validate-user-command-resource" },
+        operationId = "createViewUserEvaluationCommand",
+        tags = { "view-user-evaluation-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ViewUserEvaluationCommandDTO.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/api/validate-user-commands",
+        value = "/api/view-user-evaluation-commands",
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> createValidateUserCommand(
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+    ResponseEntity<ViewUserEvaluationCommandDTO> createViewUserEvaluationCommand(
+        @Parameter(name = "ViewUserEvaluationCommandDTO", description = "", required = true) @Valid @RequestBody ViewUserEvaluationCommandDTO viewUserEvaluationCommandDTO
     );
 
 
     /**
-     * DELETE /api/validate-user-commands/{id}
+     * DELETE /api/view-user-evaluation-commands/{id}
      *
      * @param id  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "deleteValidateUserCommand",
-        tags = { "validate-user-command-resource" },
+        operationId = "deleteViewUserEvaluationCommand",
+        tags = { "view-user-evaluation-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK")
         }
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/api/validate-user-commands/{id}"
+        value = "/api/view-user-evaluation-commands/{id}"
     )
-    ResponseEntity<Void> deleteValidateUserCommand(
+    ResponseEntity<Void> deleteViewUserEvaluationCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
 
     /**
-     * GET /api/validate-user-commands
+     * GET /api/view-user-evaluation-commands
      *
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "getAllValidateUserCommands",
-        tags = { "validate-user-command-resource" },
+        operationId = "getAllViewUserEvaluationCommands",
+        tags = { "view-user-evaluation-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = ValidateUserCommand.class)))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = ViewUserEvaluationCommandDTO.class)))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/validate-user-commands",
+        value = "/api/view-user-evaluation-commands",
         produces = "*/*"
     )
-    ResponseEntity<List<ValidateUserCommand>> getAllValidateUserCommands(
+    ResponseEntity<List<ViewUserEvaluationCommandDTO>> getAllViewUserEvaluationCommands(
         
     );
 
 
     /**
-     * GET /api/validate-user-commands/{id}
+     * GET /api/view-user-evaluation-commands/{id}
      *
      * @param id  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "getValidateUserCommand",
-        tags = { "validate-user-command-resource" },
+        operationId = "getViewUserEvaluationCommand",
+        tags = { "view-user-evaluation-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ViewUserEvaluationCommandDTO.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/validate-user-commands/{id}",
+        value = "/api/view-user-evaluation-commands/{id}",
         produces = "*/*"
     )
-    ResponseEntity<ValidateUserCommand> getValidateUserCommand(
+    ResponseEntity<ViewUserEvaluationCommandDTO> getViewUserEvaluationCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
 
     /**
-     * PATCH /api/validate-user-commands/{id}
+     * PATCH /api/view-user-evaluation-commands/{id}
      *
      * @param id  (required)
-     * @param validateUserCommand  (required)
+     * @param viewUserEvaluationCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "partialUpdateValidateUserCommand",
-        tags = { "validate-user-command-resource" },
+        operationId = "partialUpdateViewUserEvaluationCommand",
+        tags = { "view-user-evaluation-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ViewUserEvaluationCommandDTO.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.PATCH,
-        value = "/api/validate-user-commands/{id}",
+        value = "/api/view-user-evaluation-commands/{id}",
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> partialUpdateValidateUserCommand(
+    ResponseEntity<ViewUserEvaluationCommandDTO> partialUpdateViewUserEvaluationCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+        @Parameter(name = "ViewUserEvaluationCommandDTO", description = "", required = true) @Valid @RequestBody ViewUserEvaluationCommandDTO viewUserEvaluationCommandDTO
     );
 
 
     /**
-     * PUT /api/validate-user-commands/{id}
+     * PUT /api/view-user-evaluation-commands/{id}
      *
      * @param id  (required)
-     * @param validateUserCommand  (required)
+     * @param viewUserEvaluationCommandDTO  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "updateValidateUserCommand",
-        tags = { "validate-user-command-resource" },
+        operationId = "updateViewUserEvaluationCommand",
+        tags = { "view-user-evaluation-command-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = ViewUserEvaluationCommandDTO.class))
             })
         }
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/api/validate-user-commands/{id}",
+        value = "/api/view-user-evaluation-commands/{id}",
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommand> updateValidateUserCommand(
+    ResponseEntity<ViewUserEvaluationCommandDTO> updateViewUserEvaluationCommand(
         @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id,
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+        @Parameter(name = "ViewUserEvaluationCommandDTO", description = "", required = true) @Valid @RequestBody ViewUserEvaluationCommandDTO viewUserEvaluationCommandDTO
     );
 
 }

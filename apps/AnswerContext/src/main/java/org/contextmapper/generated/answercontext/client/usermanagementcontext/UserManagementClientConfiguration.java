@@ -1,10 +1,10 @@
-package org.contextmapper.generated.questioncontext.client.skillcontext;
+package org.contextmapper.generated.answercontext.client.usermanagementcontext;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties
-public class ClientConfiguration {
+public class UserManagementClientConfiguration {
 
 }

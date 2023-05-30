@@ -809,7 +809,7 @@
                                 <goal>generate</goal>
                             </goals>
                             <configuration>
-                                <inputSpec>http://localhost:8083/v3/api-docs.yaml</inputSpec>
+                                <inputSpec>http://localhost:8093/v3/api-docs.yaml</inputSpec>
                                 <skipValidateSpec>true</skipValidateSpec>
                                 <generatorName>java</generatorName>
                                 <apiPackage>org.contextmapper.generated.skillcontext.web.api</apiPackage>

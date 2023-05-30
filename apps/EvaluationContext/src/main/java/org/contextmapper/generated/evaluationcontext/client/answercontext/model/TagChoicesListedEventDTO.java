@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -18,10 +19,12 @@ import javax.annotation.Generated;
  * TagChoicesListedEventDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:58.391007+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:13:50.158415+02:00[Europe/Paris]")
 public class TagChoicesListedEventDTO {
 
   private Long id;
+
+  private AnswerDTO answerCreated;
 
   public TagChoicesListedEventDTO id(Long id) {
     this.id = id;
@@ -43,6 +46,26 @@ public class TagChoicesListedEventDTO {
     this.id = id;
   }
 
+  public TagChoicesListedEventDTO answerCreated(AnswerDTO answerCreated) {
+    this.answerCreated = answerCreated;
+    return this;
+  }
+
+  /**
+   * Get answerCreated
+   * @return answerCreated
+  */
+  @Valid 
+  @Schema(name = "answerCreated", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("answerCreated")
+  public AnswerDTO getAnswerCreated() {
+    return answerCreated;
+  }
+
+  public void setAnswerCreated(AnswerDTO answerCreated) {
+    this.answerCreated = answerCreated;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -52,12 +75,13 @@ public class TagChoicesListedEventDTO {
       return false;
     }
     TagChoicesListedEventDTO tagChoicesListedEventDTO = (TagChoicesListedEventDTO) o;
-    return Objects.equals(this.id, tagChoicesListedEventDTO.id);
+    return Objects.equals(this.id, tagChoicesListedEventDTO.id) &&
+        Objects.equals(this.answerCreated, tagChoicesListedEventDTO.answerCreated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, answerCreated);
   }
 
   @Override
@@ -65,6 +89,7 @@ public class TagChoicesListedEventDTO {
     StringBuilder sb = new StringBuilder();
     sb.append("class TagChoicesListedEventDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    answerCreated: ").append(toIndentedString(answerCreated)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -3,10 +3,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package org.contextmapper.generated.answercontext.client.usermanagement.api;
+package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
-import org.contextmapper.generated.answercontext.client.usermanagement.model.RegisterCommand;
-import org.contextmapper.generated.answercontext.client.usermanagement.model.ValidateUserCommand;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.UserEvaluationViewedEventDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,60 +32,57 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:12:13.027502+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:13:50.158415+02:00[Europe/Paris]")
 @Validated
-@Tag(name = "command-handler-resource", description = "the command-handler-resource API")
-public interface CommandHandlerResourceApi {
+@Tag(name = "user-evaluation-viewed-event-resource", description = "the user-evaluation-viewed-event-resource API")
+public interface UserEvaluationViewedEventResourceApi {
 
     /**
-     * POST /api/handlers/validate-user-command
+     * GET /api/user-evaluation-viewed-events
      *
-     * @param validateUserCommand  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "handleRegisterCommand",
-        tags = { "command-handler-resource" },
+        operationId = "getAllUserEvaluationViewedEvents",
+        tags = { "user-evaluation-viewed-event-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommand.class))
+                @Content(mediaType = "*/*", array = @ArraySchema(schema = @Schema(implementation = UserEvaluationViewedEventDTO.class)))
             })
         }
     )
     @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/api/handlers/validate-user-command",
-        produces = "*/*",
-        consumes = "application/json"
+        method = RequestMethod.GET,
+        value = "/api/user-evaluation-viewed-events",
+        produces = "*/*"
     )
-    ResponseEntity<ValidateUserCommand> handleRegisterCommand(
-        @Parameter(name = "ValidateUserCommand", description = "", required = true) @Valid @RequestBody ValidateUserCommand validateUserCommand
+    ResponseEntity<List<UserEvaluationViewedEventDTO>> getAllUserEvaluationViewedEvents(
+        
     );
 
 
     /**
-     * POST /api/handlers/register-command
+     * GET /api/user-evaluation-viewed-events/{id}
      *
-     * @param registerCommand  (required)
+     * @param id  (required)
      * @return OK (status code 200)
      */
     @Operation(
-        operationId = "handleRegisterCommand1",
-        tags = { "command-handler-resource" },
+        operationId = "getUserEvaluationViewedEvent",
+        tags = { "user-evaluation-viewed-event-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = RegisterCommand.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = UserEvaluationViewedEventDTO.class))
             })
         }
     )
     @RequestMapping(
-        method = RequestMethod.POST,
-        value = "/api/handlers/register-command",
-        produces = "*/*",
-        consumes = "application/json"
+        method = RequestMethod.GET,
+        value = "/api/user-evaluation-viewed-events/{id}",
+        produces = "*/*"
     )
-    ResponseEntity<RegisterCommand> handleRegisterCommand1(
-        @Parameter(name = "RegisterCommand", description = "", required = true) @Valid @RequestBody RegisterCommand registerCommand
+    ResponseEntity<UserEvaluationViewedEventDTO> getUserEvaluationViewedEvent(
+        @Parameter(name = "id", description = "", required = true, in = ParameterIn.PATH) @PathVariable("id") Long id
     );
 
 }

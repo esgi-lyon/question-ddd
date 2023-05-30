@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("currentUser_200_response")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:50.780770+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:11:57.159370+02:00[Europe/Paris]")
 public class CurrentUser200Response {
 
   private String name;

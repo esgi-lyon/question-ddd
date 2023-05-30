@@ -3,6 +3,6 @@ package org.contextmapper.generated.questioncontext.client.usermanagementcontext
 import org.springframework.cloud.openfeign.FeignClient;
 import org.contextmapper.generated.questioncontext.client.usermanagementcontext.UserManagementClientConfiguration;
 
-@FeignClient(name="${userViewedEventResource.name:userViewedEventResource}", url="${userViewedEventResource.url:http://localhost:8081}", configuration = UserManagementClientConfiguration.class)
+@FeignClient(name="${userViewedEventResource.name:userViewedEventResource}", url="${userViewedEventResource.url:http://localhost:8091}", configuration = UserManagementClientConfiguration.class)
 public interface UserViewedEventResourceApiClient extends UserViewedEventResourceApi {
 }

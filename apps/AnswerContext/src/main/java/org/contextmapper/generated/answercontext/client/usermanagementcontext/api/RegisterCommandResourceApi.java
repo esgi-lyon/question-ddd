@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:50.780770+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:11:57.159370+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "register-command-resource", description = "the register-command-resource API")
 public interface RegisterCommandResourceApi {

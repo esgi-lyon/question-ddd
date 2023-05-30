@@ -52,7 +52,7 @@
     "openApiClients": {
       "sendquestioncontext": {
         "generatorName": "spring",
-        "spec": "http://localhost:8084/v3/api-docs.yaml"
+        "spec": "http://localhost:8094/v3/api-docs.yaml"
       },
       "usermanagement": {
         "generatorName": "spring",
@@ -60,7 +60,7 @@
       },
       "usermanagementcontext": {
         "generatorName": "spring",
-        "spec": "http://localhost:8081/v3/api-docs.yaml"
+        "spec": "http://localhost:8091/v3/api-docs.yaml"
       }
     },
     "otherModules": [],

@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:07.940493+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:12:46.072606+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "category-resource", description = "the category-resource API")
 public interface CategoryResourceApi {

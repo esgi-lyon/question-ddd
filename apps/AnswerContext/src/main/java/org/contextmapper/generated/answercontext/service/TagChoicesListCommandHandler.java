@@ -59,7 +59,7 @@ public class TagChoicesListCommandHandler extends TagChoicesListedEventService {
         // TODO not urgent save
 
         final var questionId = cmd.getQuestionSent().getQuestionId();
-        final var tagInfosDTOList = Optional.ofNullable(queryHandler.handleListTagInfos(questionId).getBody())
+        final var tagInfosDTOList = Optional.ofNullable(queryHandler.handlePrepareQuestionsCommand1(questionId).getBody())
             .orElseThrow(() -> new RuntimeException("No question to view" + questionId));
 
         final var answer = new AnswerDTO();

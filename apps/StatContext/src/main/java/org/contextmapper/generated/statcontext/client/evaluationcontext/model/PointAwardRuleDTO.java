@@ -19,7 +19,7 @@ import javax.annotation.Generated;
  * PointAwardRuleDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T11:22:06.881122+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:14:28.995550+02:00[Europe/Paris]")
 public class PointAwardRuleDTO {
 
   private Long id;

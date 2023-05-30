@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:17:37.306479+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:12:21.347184+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "resource-command-handler-resource", description = "the resource-command-handler-resource API")
 public interface ResourceCommandHandlerResourceApi {

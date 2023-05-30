@@ -6,6 +6,7 @@
 package org.contextmapper.generated.answercontext.client.usermanagementcontext.api;
 
 import org.contextmapper.generated.answercontext.client.usermanagementcontext.model.RegisterCommandDTO;
+import org.contextmapper.generated.answercontext.client.usermanagementcontext.model.UserInfosDTO;
 import org.contextmapper.generated.answercontext.client.usermanagementcontext.model.ValidateUserCommandDTO;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T14:01:50.780770+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:11:57.159370+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "command-handler-resource", description = "the command-handler-resource API")
 public interface CommandHandlerResourceApi {
@@ -49,7 +50,7 @@ public interface CommandHandlerResourceApi {
         tags = { "command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = ValidateUserCommandDTO.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = UserInfosDTO.class))
             })
         }
     )
@@ -59,7 +60,7 @@ public interface CommandHandlerResourceApi {
         produces = "*/*",
         consumes = "application/json"
     )
-    ResponseEntity<ValidateUserCommandDTO> handleRegisterCommand(
+    ResponseEntity<UserInfosDTO> handleRegisterCommand(
         @Parameter(name = "ValidateUserCommandDTO", description = "", required = true) @Valid @RequestBody ValidateUserCommandDTO validateUserCommandDTO
     );
 

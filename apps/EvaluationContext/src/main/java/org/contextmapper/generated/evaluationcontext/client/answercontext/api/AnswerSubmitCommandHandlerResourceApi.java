@@ -7,8 +7,7 @@ package org.contextmapper.generated.evaluationcontext.client.answercontext.api;
 
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmitCommandDTO;
 import org.contextmapper.generated.evaluationcontext.client.answercontext.model.AnswerSubmittedEventDTO;
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListCommandDTO;
-import org.contextmapper.generated.evaluationcontext.client.answercontext.model.TagChoicesListedEventDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.NewAnswerDto;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -35,7 +34,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-27T13:18:58.391007+02:00[Europe/Paris]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:13:50.158415+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "answer-submit-command-handler-resource", description = "the answer-submit-command-handler-resource API")
 public interface AnswerSubmitCommandHandlerResourceApi {
@@ -69,7 +68,7 @@ public interface AnswerSubmitCommandHandlerResourceApi {
     /**
      * GET /api/handlers/tags-choices-list-query
      *
-     * @param question  (required)
+     * @param questionId  (required)
      * @return OK (status code 200)
      */
     @Operation(
@@ -77,7 +76,7 @@ public interface AnswerSubmitCommandHandlerResourceApi {
         tags = { "answer-submit-command-handler-resource" },
         responses = {
             @ApiResponse(responseCode = "200", description = "OK", content = {
-                @Content(mediaType = "*/*", schema = @Schema(implementation = TagChoicesListedEventDTO.class))
+                @Content(mediaType = "*/*", schema = @Schema(implementation = NewAnswerDto.class))
             })
         }
     )
@@ -86,8 +85,8 @@ public interface AnswerSubmitCommandHandlerResourceApi {
         value = "/api/handlers/tags-choices-list-query",
         produces = "*/*"
     )
-    ResponseEntity<TagChoicesListedEventDTO> handleTagChoicesListCommand(
-        @NotNull @Parameter(name = "question", description = "", required = true, in = ParameterIn.QUERY) @Valid TagChoicesListCommandDTO question
+    ResponseEntity<NewAnswerDto> handleTagChoicesListCommand(
+        @NotNull @Parameter(name = "questionId", description = "", required = true, in = ParameterIn.QUERY) @Valid @RequestParam(value = "questionId", required = true) Long questionId
     );
 
 }

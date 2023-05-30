@@ -32,8 +32,12 @@ src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/TagChoicesListedResourceApiClient.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/UserEmailResourceApi.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/UserEmailResourceApiClient.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/UserEvaluationViewedEventResourceApi.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/UserEvaluationViewedEventResourceApiClient.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/UserIdResourceApi.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/UserIdResourceApiClient.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/ViewUserEvaluationCommandResourceApi.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/api/ViewUserEvaluationCommandResourceApiClient.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/AnswerCreatedEventDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/AnswerDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/AnswerSubmitCommandDTO.java
@@ -42,6 +46,7 @@ src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/AnswerSubmittedEventDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/AnsweredTagDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/AvailableAnswerDTO.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/NewAnswerDto.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/QuestionIdDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/QuestionSentIdDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/TagChoicesListCommandDTO.java
@@ -49,4 +54,6 @@ src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/TagChoicesListedDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/TagChoicesListedEventDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/UserEmailDTO.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/UserEvaluationViewedEventDTO.java
 src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/UserIdDTO.java
+src/main/java/org/contextmapper/generated/evaluationcontext/client/answercontext/model/ViewUserEvaluationCommandDTO.java

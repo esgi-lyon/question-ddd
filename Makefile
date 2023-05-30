@@ -61,8 +61,9 @@ APP:=
 
 $(client_targets):
 	$(eval target=$(subst .client,,$@))
+	$(eval name=$(shell echo $(target) | tr '[:upper:]' '[:lower:]'))
 	$(eval swagger_port:=$(shell grep -A3 "baseName $(target)" src-gen/output.jdl | grep serverPort | awk '{print $$2}'))
-	@echo "Custom specification endpoint to use : http://localhost:$(swagger_port)/v3/api-docs.yaml"
+	@echo "Custom specification endpoint to use for $(name) : http://localhost:$(swagger_port)/v3/api-docs.yaml"
 	cd apps/$(or $(APP),$(target)) && jhipster openapi-client
 
 # Use make -j8

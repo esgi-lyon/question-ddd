@@ -41,11 +41,11 @@
     "openApiClients": {
       "skillcontext": {
         "generatorName": "spring",
-        "spec": "http://localhost:8083/v3/api-docs.yaml"
+        "spec": "http://localhost:8093/v3/api-docs.yaml"
       },
       "usermanagementcontext": {
         "generatorName": "spring",
-        "spec": "http://localhost:8081/v3/api-docs.yaml"
+        "spec": "http://localhost:8091/v3/api-docs.yaml"
       }
     },
     "otherModules": [],

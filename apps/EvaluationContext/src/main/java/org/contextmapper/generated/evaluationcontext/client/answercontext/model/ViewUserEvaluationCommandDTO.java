@@ -1,10 +1,10 @@
-package org.contextmapper.generated.answercontext.client.usermanagement.model;
+package org.contextmapper.generated.evaluationcontext.client.answercontext.model;
 
 import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.contextmapper.generated.answercontext.client.usermanagement.model.UserInfosDTO;
+import org.contextmapper.generated.evaluationcontext.client.answercontext.model.UserEmailDTO;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -16,17 +16,17 @@ import java.util.*;
 import javax.annotation.Generated;
 
 /**
- * UserRejectedEventDTO
+ * ViewUserEvaluationCommandDTO
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-25T13:12:13.027502+02:00[Europe/Paris]")
-public class UserRejectedEventDTO {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2023-05-30T12:13:50.158415+02:00[Europe/Paris]")
+public class ViewUserEvaluationCommandDTO {
 
   private Long id;
 
-  private UserInfosDTO userInfos;
+  private UserEmailDTO user;
 
-  public UserRejectedEventDTO id(Long id) {
+  public ViewUserEvaluationCommandDTO id(Long id) {
     this.id = id;
     return this;
   }
@@ -46,24 +46,24 @@ public class UserRejectedEventDTO {
     this.id = id;
   }
 
-  public UserRejectedEventDTO userInfos(UserInfosDTO userInfos) {
-    this.userInfos = userInfos;
+  public ViewUserEvaluationCommandDTO user(UserEmailDTO user) {
+    this.user = user;
     return this;
   }
 
   /**
-   * Get userInfos
-   * @return userInfos
+   * Get user
+   * @return user
   */
   @Valid 
-  @Schema(name = "userInfos", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("userInfos")
-  public UserInfosDTO getUserInfos() {
-    return userInfos;
+  @Schema(name = "user", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("user")
+  public UserEmailDTO getUser() {
+    return user;
   }
 
-  public void setUserInfos(UserInfosDTO userInfos) {
-    this.userInfos = userInfos;
+  public void setUser(UserEmailDTO user) {
+    this.user = user;
   }
 
   @Override
@@ -74,22 +74,22 @@ public class UserRejectedEventDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserRejectedEventDTO userRejectedEventDTO = (UserRejectedEventDTO) o;
-    return Objects.equals(this.id, userRejectedEventDTO.id) &&
-        Objects.equals(this.userInfos, userRejectedEventDTO.userInfos);
+    ViewUserEvaluationCommandDTO viewUserEvaluationCommandDTO = (ViewUserEvaluationCommandDTO) o;
+    return Objects.equals(this.id, viewUserEvaluationCommandDTO.id) &&
+        Objects.equals(this.user, viewUserEvaluationCommandDTO.user);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, userInfos);
+    return Objects.hash(id, user);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserRejectedEventDTO {\n");
+    sb.append("class ViewUserEvaluationCommandDTO {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    userInfos: ").append(toIndentedString(userInfos)).append("\n");
+    sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("}");
     return sb.toString();
   }
