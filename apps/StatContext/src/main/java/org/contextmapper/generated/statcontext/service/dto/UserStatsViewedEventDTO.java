@@ -11,7 +11,7 @@ public class UserStatsViewedEventDTO implements Serializable {
 
     private Long id;
 
-    private StatisticSubjectUserDTO user;
+    private EvaluationStatsDTO stat;
 
     public Long getId() {
         return id;
@@ -21,12 +21,12 @@ public class UserStatsViewedEventDTO implements Serializable {
         this.id = id;
     }
 
-    public StatisticSubjectUserDTO getUser() {
-        return user;
+    public EvaluationStatsDTO getStat() {
+        return stat;
     }
 
-    public void setUser(StatisticSubjectUserDTO user) {
-        this.user = user;
+    public void setStat(EvaluationStatsDTO stat) {
+        this.stat = stat;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserStatsViewedEventDTO implements Serializable {
     public String toString() {
         return "UserStatsViewedEventDTO{" +
             "id=" + getId() +
-            ", user=" + getUser() +
+            ", stat=" + getStat() +
             "}";
     }
 }

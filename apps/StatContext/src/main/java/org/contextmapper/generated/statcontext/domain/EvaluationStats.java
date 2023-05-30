@@ -25,10 +25,13 @@ public class EvaluationStats implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "total")
+    private Integer total;
+
     @OneToMany(mappedBy = "evaluationStats")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "evaluationStats" }, allowSetters = true)
-    private Set<EvaluationId> evaluations = new HashSet<>();
+    @JsonIgnoreProperties(value = { "user", "question", "evaluationStats" }, allowSetters = true)
+    private Set<EvaluationStatEntry> evaluations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -45,34 +48,47 @@ public class EvaluationStats implements Serializable {
         this.id = id;
     }
 
-    public Set<EvaluationId> getEvaluations() {
+    public Integer getTotal() {
+        return this.total;
+    }
+
+    public EvaluationStats total(Integer total) {
+        this.setTotal(total);
+        return this;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Set<EvaluationStatEntry> getEvaluations() {
         return this.evaluations;
     }
 
-    public void setEvaluations(Set<EvaluationId> evaluationIds) {
+    public void setEvaluations(Set<EvaluationStatEntry> evaluationStatEntries) {
         if (this.evaluations != null) {
             this.evaluations.forEach(i -> i.setEvaluationStats(null));
         }
-        if (evaluationIds != null) {
-            evaluationIds.forEach(i -> i.setEvaluationStats(this));
+        if (evaluationStatEntries != null) {
+            evaluationStatEntries.forEach(i -> i.setEvaluationStats(this));
         }
-        this.evaluations = evaluationIds;
+        this.evaluations = evaluationStatEntries;
     }
 
-    public EvaluationStats evaluations(Set<EvaluationId> evaluationIds) {
-        this.setEvaluations(evaluationIds);
+    public EvaluationStats evaluations(Set<EvaluationStatEntry> evaluationStatEntries) {
+        this.setEvaluations(evaluationStatEntries);
         return this;
     }
 
-    public EvaluationStats addEvaluation(EvaluationId evaluationId) {
-        this.evaluations.add(evaluationId);
-        evaluationId.setEvaluationStats(this);
+    public EvaluationStats addEvaluation(EvaluationStatEntry evaluationStatEntry) {
+        this.evaluations.add(evaluationStatEntry);
+        evaluationStatEntry.setEvaluationStats(this);
         return this;
     }
 
-    public EvaluationStats removeEvaluation(EvaluationId evaluationId) {
-        this.evaluations.remove(evaluationId);
-        evaluationId.setEvaluationStats(null);
+    public EvaluationStats removeEvaluation(EvaluationStatEntry evaluationStatEntry) {
+        this.evaluations.remove(evaluationStatEntry);
+        evaluationStatEntry.setEvaluationStats(null);
         return this;
     }
 
@@ -100,6 +116,7 @@ public class EvaluationStats implements Serializable {
     public String toString() {
         return "EvaluationStats{" +
             "id=" + getId() +
+            ", total=" + getTotal() +
             "}";
     }
 }

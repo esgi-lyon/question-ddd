@@ -11,12 +11,22 @@ public class EvaluationStatsDTO implements Serializable {
 
     private Long id;
 
+    private Integer total;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     @Override
@@ -45,6 +55,7 @@ public class EvaluationStatsDTO implements Serializable {
     public String toString() {
         return "EvaluationStatsDTO{" +
             "id=" + getId() +
+            ", total=" + getTotal() +
             "}";
     }
 }

@@ -317,6 +317,32 @@ const awardPointForEvaluation = async (token, evaluationId) => {
   return response;
 };
 
+const viewStatsCmd = async (token, mail, questionId) => {
+  var options = {
+    'method': 'POST',
+    'url': 'http://localhost:8097/api/handlers/view-stats-query',
+    'headers': {
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      "user": {
+        "mail": mail
+      },
+      "question": {
+        "questionId": questionId
+      }
+    })
+  };
+
+  console.log("view stats for tag " + tagId)
+  const response = await request(options)
+  console.log(response)
+
+  return response
+}
+
 (async () => {
   const existingEvaluatorToken = await login("admin@admin.fr", "admin");
   let evaluatorId = await register("EVALUATOR", "evaluator@example.com");
@@ -382,6 +408,8 @@ const awardPointForEvaluation = async (token, evaluationId) => {
   );
 
   await awardPointForEvaluation(evaluatorToken, evaluationId)
+
+  await viewStatsCmd(studentToken, "student@example.com", questionToSendId)
 
   console.log("Done");
 })();

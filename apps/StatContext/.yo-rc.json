@@ -35,7 +35,9 @@
       "LeaderBoardEntry",
       "EvaluationStats",
       "LeaderBoardViewedEvent",
-      "ViewLeaderBoardCommand"
+      "ViewLeaderBoardCommand",
+      "EvaluationStatEntry",
+      "LoggedUserStatsViewedEvent"
     ],
     "entitySuffix": "",
     "gatewayServerPort": "8080",
@@ -44,7 +46,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "MDEyNWFhNDQ4MjM4MGYxYmNmMDZlOWNiY2U2MzQ5MTYzYzljZjI0NDk3YmIwNWQxMGExNjUxNTUxNmJlZjJmZTg1MjhmYTE5ZWRmOWYyNDJmOTdmNjU0YWRiNTRmOWU4YjM4ZWU0ZGY4ODRmNWJhZjVlMDU0MjgxNWQyMTg2OWE=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1685397754000,
+    "lastLiquibaseTimestamp": 1685439464000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

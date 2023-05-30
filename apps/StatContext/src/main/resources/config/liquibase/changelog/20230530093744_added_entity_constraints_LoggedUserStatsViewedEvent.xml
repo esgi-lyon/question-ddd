@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity LoggedUserStatsViewedEvent.
+    -->
+    <changeSet id="20230530093744-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="stat_id"
+                                 baseTableName="logged_user_stats_viewed_event"
+                                 constraintName="fk_logged_user_stats_viewed_event__stat_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="evaluation_stats"/>
+    </changeSet>
+</databaseChangeLog>

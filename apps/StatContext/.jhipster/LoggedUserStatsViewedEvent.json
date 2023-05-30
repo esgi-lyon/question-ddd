@@ -1,0 +1,25 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230530093744",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "logged_user_stats_viewed_event",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "LoggedUserStatsViewedEvent",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "evaluationStats",
+      "ownerSide": true,
+      "relationshipName": "stat",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

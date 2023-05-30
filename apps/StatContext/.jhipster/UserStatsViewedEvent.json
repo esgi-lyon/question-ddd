@@ -15,9 +15,9 @@
   "readOnly": true,
   "relationships": [
     {
-      "otherEntityName": "statisticSubjectUser",
+      "otherEntityName": "evaluationStats",
       "ownerSide": true,
-      "relationshipName": "user",
+      "relationshipName": "stat",
       "relationshipType": "one-to-one"
     }
   ],

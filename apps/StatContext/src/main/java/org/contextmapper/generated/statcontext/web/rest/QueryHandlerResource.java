@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/handlers")
@@ -30,18 +31,18 @@ public class QueryHandlerResource {
     }
 
     @PostMapping("/view-stats-query")
-    public ResponseEntity<ViewStatsCommandDTO> handleViewStatsCommand(@RequestBody ViewStatsCommandDTO viewStatsCommand)
+    public ResponseEntity<ViewStatsQueryHandler.AllEventsWrapper> handleViewStatsCommand(@RequestBody ViewStatsCommandDTO viewStatsCommand)
         throws URISyntaxException {
-        final var result = viewStatsQueryHandler.handleViewLeaderBoardQuery(viewStatsCommand);
+        final var result = viewStatsQueryHandler.handle(viewStatsCommand);
         return ResponseEntity
-            .created(new URI("/api/handlers/view-stats-query/" + result.getId()))
+            .created(new URI("/api/handlers/view-stats-query/" + new UUID(1, 1)))
             .body(result);
     }
 
     @PostMapping("/view-leaderboard-query")
     public ResponseEntity<ViewLeaderBoardCommandDTO> handleViewLeaderBoardCommand(@RequestBody ViewLeaderBoardCommandDTO viewStatsCommand)
         throws URISyntaxException {
-        final var result = viewLeaderBoardQueryHandler.handleViewLeaderBoardQuery(viewStatsCommand);
+        final var result = viewLeaderBoardQueryHandler.handle(viewStatsCommand);
         return ResponseEntity
             .created(new URI("/api/handlers/view-leaderboard-query/" + result.getId()))
             .body(result);

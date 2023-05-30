@@ -38,7 +38,13 @@
       "AwardPointForEvaluation",
       "NewAnswerNotifiedEvent",
       "NotifyNewAnswerCommand",
-      "UserAndLevel"
+      "UserAndLevel",
+      "UserEvaluationViewedEvent",
+      "TagEvaluationViewedEvent",
+      "QuestionEvaluationViewedEvent",
+      "ViewTagEvaluationCommand",
+      "ViewUserEvaluationCommand",
+      "ViewQuestionEvaluationCommand"
     ],
     "entitySuffix": "",
     "gatewayServerPort": "8080",
@@ -47,7 +53,7 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "OWQ5OTljZDdhZDM2ZDVjN2FlMzM0YWRkNGY1ZTJiZGQzZmRjYmQ0MTk3MjczNzA3YWZiMTMxNTRhYjc3NWI2YjdiYTkwMDZhMTUzMmNkMWIzMTFkNGIzOGU1MzAxMjcwMGRkYWI2MTBmZjRjZTFmMTY5OTZiYTYxOTA5N2M1Y2I=",
     "languages": ["en"],
-    "lastLiquibaseTimestamp": 1685376048000,
+    "lastLiquibaseTimestamp": 1685439459000,
     "messageBroker": false,
     "microfrontend": false,
     "monorepository": true,

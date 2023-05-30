@@ -15,9 +15,9 @@
   "readOnly": true,
   "relationships": [
     {
-      "otherEntityName": "statisticSubjectQuestion",
+      "otherEntityName": "evaluationStats",
       "ownerSide": true,
-      "relationshipName": "question",
+      "relationshipName": "stat",
       "relationshipType": "one-to-one"
     }
   ],

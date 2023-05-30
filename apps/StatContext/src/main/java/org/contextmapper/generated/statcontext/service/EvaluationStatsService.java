@@ -53,7 +53,7 @@ public class EvaluationStatsService {
     public EvaluationStatsDTO update(EvaluationStatsDTO evaluationStatsDTO) {
         log.debug("Request to update EvaluationStats : {}", evaluationStatsDTO);
         EvaluationStats evaluationStats = evaluationStatsMapper.toEntity(evaluationStatsDTO);
-        // no save call needed as we have no fields that can be updated
+        evaluationStats = evaluationStatsRepository.save(evaluationStats);
         return evaluationStatsMapper.toDto(evaluationStats);
     }
 
@@ -73,7 +73,7 @@ public class EvaluationStatsService {
 
                 return existingEvaluationStats;
             })
-            // .map(evaluationStatsRepository::save)
+            .map(evaluationStatsRepository::save)
             .map(evaluationStatsMapper::toDto);
     }
 

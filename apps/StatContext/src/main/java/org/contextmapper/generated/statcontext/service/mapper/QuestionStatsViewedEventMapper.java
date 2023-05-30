@@ -1,9 +1,9 @@
 package org.contextmapper.generated.statcontext.service.mapper;
 
+import org.contextmapper.generated.statcontext.domain.EvaluationStats;
 import org.contextmapper.generated.statcontext.domain.QuestionStatsViewedEvent;
-import org.contextmapper.generated.statcontext.domain.StatisticSubjectQuestion;
+import org.contextmapper.generated.statcontext.service.dto.EvaluationStatsDTO;
 import org.contextmapper.generated.statcontext.service.dto.QuestionStatsViewedEventDTO;
-import org.contextmapper.generated.statcontext.service.dto.StatisticSubjectQuestionDTO;
 import org.mapstruct.*;
 
 /**
@@ -11,11 +11,11 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface QuestionStatsViewedEventMapper extends EntityMapper<QuestionStatsViewedEventDTO, QuestionStatsViewedEvent> {
-    @Mapping(target = "question", source = "question", qualifiedByName = "statisticSubjectQuestionId")
+    @Mapping(target = "stat", source = "stat", qualifiedByName = "evaluationStatsId")
     QuestionStatsViewedEventDTO toDto(QuestionStatsViewedEvent s);
 
-    @Named("statisticSubjectQuestionId")
+    @Named("evaluationStatsId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
-    StatisticSubjectQuestionDTO toDtoStatisticSubjectQuestionId(StatisticSubjectQuestion statisticSubjectQuestion);
+    EvaluationStatsDTO toDtoEvaluationStatsId(EvaluationStats evaluationStats);
 }

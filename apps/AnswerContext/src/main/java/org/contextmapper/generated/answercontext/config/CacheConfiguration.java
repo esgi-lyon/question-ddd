@@ -46,25 +46,6 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AnswerSubmitCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.TagChoicesListedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.TagChoicesListedEvent.class.getName() + ".tags");
-            createCache(cm, org.contextmapper.generated.answercontext.domain.TagChoicesListCommand.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AnswerSubmittedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.Answer.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.QuestionId.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AnsweredTag.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.TagChoicesListed.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AnswerSubmitted.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.TagChoicesList.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AnswerSubmit.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.UserId.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AvailableAnswer.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.QuestionSentId.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.AnswerCreatedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.UserEmail.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.UserEvaluationViewedEvent.class.getName());
-            createCache(cm, org.contextmapper.generated.answercontext.domain.ViewUserEvaluationCommand.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

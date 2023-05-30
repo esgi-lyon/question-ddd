@@ -66,6 +66,8 @@ public class CacheConfiguration {
             createCache(cm, org.contextmapper.generated.statcontext.domain.EvaluationStats.class.getName() + ".evaluations");
             createCache(cm, org.contextmapper.generated.statcontext.domain.LeaderBoardViewedEvent.class.getName());
             createCache(cm, org.contextmapper.generated.statcontext.domain.ViewLeaderBoardCommand.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.EvaluationStatEntry.class.getName());
+            createCache(cm, org.contextmapper.generated.statcontext.domain.LoggedUserStatsViewedEvent.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

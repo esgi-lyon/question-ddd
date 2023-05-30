@@ -1,0 +1,46 @@
+{
+  "applications": ["StatContext"],
+  "changelogDate": "20230530093743",
+  "clientRootFolder": "StatContext",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "evaluation_stat_entry",
+  "fields": [
+    {
+      "fieldName": "evaluationId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "microserviceName": "StatContext",
+  "name": "EvaluationStatEntry",
+  "pagination": "no",
+  "readOnly": true,
+  "relationships": [
+    {
+      "otherEntityName": "statisticSubjectUser",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "statisticSubjectQuestion",
+      "ownerSide": true,
+      "relationshipName": "question",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "evaluationStats",
+      "otherEntityRelationshipName": "evaluation",
+      "relationshipName": "evaluationStats",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

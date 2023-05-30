@@ -1,5 +1,6 @@
 package org.contextmapper.generated.statcontext.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -22,9 +23,10 @@ public class UserStatsViewedEvent implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @JsonIgnoreProperties(value = { "evaluations" }, allowSetters = true)
     @OneToOne
     @JoinColumn(unique = true)
-    private StatisticSubjectUser user;
+    private EvaluationStats stat;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -41,16 +43,16 @@ public class UserStatsViewedEvent implements Serializable {
         this.id = id;
     }
 
-    public StatisticSubjectUser getUser() {
-        return this.user;
+    public EvaluationStats getStat() {
+        return this.stat;
     }
 
-    public void setUser(StatisticSubjectUser statisticSubjectUser) {
-        this.user = statisticSubjectUser;
+    public void setStat(EvaluationStats evaluationStats) {
+        this.stat = evaluationStats;
     }
 
-    public UserStatsViewedEvent user(StatisticSubjectUser statisticSubjectUser) {
-        this.setUser(statisticSubjectUser);
+    public UserStatsViewedEvent stat(EvaluationStats evaluationStats) {
+        this.setStat(evaluationStats);
         return this;
     }
 

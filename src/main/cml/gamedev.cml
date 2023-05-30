@@ -445,7 +445,7 @@ BoundedContext EvaluationContext implements EvaluationDomain {
 			- @DifficultyLevel difficultyLevel
 		}
 		Command ViewUserEvaluation {
-			- UserEmail user
+			- AnsweringUser user
 		}
 		Command ViewQuestionEvaluation {
 			- EvaluationQuestion question
@@ -507,12 +507,16 @@ BoundedContext StatContext implements StatDomain {
 		}
 	}
 	Aggregate Statistic {
-		Entity EvaluationStats {
+		ValueObject EvaluationStats {
 			aggregateRoot
-			- List<EvaluationId> evaluation
+			- List<EvaluationStatEntry> evaluation
+			Integer total
 		}
-		ValueObject EvaluationId {
+		ValueObject EvaluationStatEntry {
 			Long evaluationId
+			Integer score
+			- StatisticSubjectUser user
+			- StatisticSubjectQuestion question
 		}
 		ValueObject StatisticSubjectUser {
 			String mail
@@ -521,13 +525,13 @@ BoundedContext StatContext implements StatDomain {
 			Long questionId
 		}
 		DomainEvent UserStatsViewed {
-			- StatisticSubjectUser user
+			- EvaluationStats stat
 		}
 		DomainEvent LoggedUserStatsViewed {
-			- StatisticSubjectUser user
+			- EvaluationStats stat
 		}
 		DomainEvent QuestionStatsViewed {
-			- StatisticSubjectQuestion question
+			- EvaluationStats stat
 		}
 		Command ViewStats {
 			- @StatisticSubjectUser user nullable

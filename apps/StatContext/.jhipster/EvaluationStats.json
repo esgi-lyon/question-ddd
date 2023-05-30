@@ -6,16 +6,21 @@
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "evaluation_stats",
-  "fields": [],
+  "fields": [
+    {
+      "fieldName": "total",
+      "fieldType": "Integer"
+    }
+  ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "microserviceName": "StatContext",
   "name": "EvaluationStats",
   "pagination": "no",
-  "readOnly": false,
+  "readOnly": true,
   "relationships": [
     {
-      "otherEntityName": "evaluationId",
+      "otherEntityName": "evaluationStatEntry",
       "otherEntityRelationshipName": "evaluationStats",
       "relationshipName": "evaluation",
       "relationshipType": "one-to-many"
