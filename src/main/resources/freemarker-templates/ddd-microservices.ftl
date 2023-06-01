@@ -12,6 +12,7 @@
 <#assign gateway = false />
 <#assign deployment = true />
 <#assign threeTier = false />
+<#assign genCommandAndEvents = true />
 
 <#-- 
  counter to give microservices different ports: (8081, 8082, 8083, ...) 
@@ -94,6 +95,8 @@ entity ${entity.name} {
 
 </#list>
 
+<#if genCommandAndEvents>
+
 <#list events as event>
 @readOnly
 @dto(mapstruct)
@@ -125,6 +128,8 @@ entity ${command.name}Command {
 }
 
 </#list>
+
+</#if>
 
 microservice ${entityNames?join(", ")} with ${bc.name}<#lt>
 </#if>
